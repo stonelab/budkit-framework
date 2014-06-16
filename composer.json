@@ -1,0 +1,11 @@
+{
+    "name": "budkit/framework",
+    "description": "The budkit framework",
+    "license": "GPLv3",
+    "authors": [
+        {
+            "name": "Livingstone Fultang",
+            "email": "livingstonefultang@gmail.com"
+        }
+    ]
+}
