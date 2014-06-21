@@ -1,5 +1,5 @@
 {
-    "name": "budkit/authentication",
+    "name": "budkit/validation",
     "description": "The budkit input validation classes ",
     "license": "GPLv3",
     "authors": [

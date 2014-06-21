@@ -1,5 +1,5 @@
 {
-    "name": "budkit/authentication",
+    "name": "budkit/database",
     "description": "The budkit database storage provider classes ",
     "license": "GPLv3",
     "authors": [

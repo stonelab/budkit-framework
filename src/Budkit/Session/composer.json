@@ -1,5 +1,5 @@
 {
-    "name": "budkit/authentication",
+    "name": "budkit/session",
     "description": "The budkit session provider classes ",
     "license": "GPLv3",
     "authors": [

@@ -1,5 +1,5 @@
 {
-    "name": "budkit/authentication",
+    "name": "budkit/authorization",
     "description": "The budkit authorization provider classes ",
     "license": "GPLv3",
     "authors": [
