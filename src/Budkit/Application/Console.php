@@ -16,4 +16,8 @@ namespace Budkit\Application;
  */
 class Console implements Support\Container {
 
+    public static function run(){
+        echo 'run the application';
+    }
+
 } 

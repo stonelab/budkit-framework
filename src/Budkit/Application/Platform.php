@@ -15,5 +15,7 @@ namespace Budkit\Application;
  * @package Budkit\Application
  */
 class Platform implements Support\Container {
-
+    public static function run(){
+        echo 'run the application';
+    }
 } 
