@@ -1,6 +1,6 @@
 {
-    "name": "budkit/framework",
-    "description": "The budkit framework",
+    "name": "budkit/authentication",
+    "description": "The budkit authentication provider classes ",
     "license": "GPLv3",
     "authors": [
         {
@@ -12,8 +12,6 @@
         "php": ">=5.4.0"
     },
     "autoload": {
-        "psr-4": {
-            "Budkit": "src/"
-        }
-    }
+        "psr-4": {"Budkit\\Authentication": ""}
+    },
 }
