@@ -8,16 +8,18 @@
 
 namespace Budkit\Application;
 
+use Budkit\Protocol\Request;
+
 /**
  * The Base CommandLine Console Application Class
  *
  * Class Console
  * @package Budkit\Application
  */
-class Console implements Support\Container {
+class Console extends Support\Application {
 
-    public static function run(){
-        echo 'run the application';
+    public function execute(Request $request = null){
+        echo 'run the console application';
     }
 
 } 

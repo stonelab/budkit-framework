@@ -8,14 +8,59 @@
 
 namespace Budkit\Application;
 
+
+use Budkit\Protocol\Request;
+
 /**
  * The Base Application Class
  *
  * Class Platform
  * @package Budkit\Application
  */
-class Platform implements Support\Container {
-    public static function run(){
-        echo 'run the application';
+class Platform extends Support\Application
+{
+    /**
+     * Construct the platform
+     *
+     * @param Request $request
+     */
+    public function __construct(Request $request = null)
+    {
+        parent::__construct();
+
+        //Add additional aliases for Required Classes;
+		//@TODO detect protocol before adding the classes here;
+        $this->createAlias(
+            $aliases = array(
+                'request' => 'Budkit\Protocol\Http\Request',
+                'response' => 'Budkit\Protocol\Http\Response'
+            )
+        );
+
+        $this->initialize(); //boots all registered plugins;
     }
+
+    //Execute the request and return an response via protocol interface
+    //e.g this->exchange request to get a response;
+
+    public function execute(Request $request = null)
+    {
+
+        $request = $request ?: $this->createRequest(); //shorthand teneray operator
+
+        //if(!$request->hasSession()) create a request session before exchanging;
+
+        echo '1. Check the request; <br/>2. $response =  $this->sync(); //to get a synchronous response; <br/>3. $response->send();<br />';
+        $response =  $this->route->dispatch( $request ); //returns an Protocol specific Response
+
+        //$response->send();
+
+    }
+
+    public function createRequest()
+    {
+        //Create a request using global vars if available;
+        return $this->shareInstance( $this->request->createFromGlobal(), "request"); //no need to share;
+    }
+
 } 

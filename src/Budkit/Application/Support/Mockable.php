@@ -2,13 +2,13 @@
 /**
  * Created by PhpStorm.
  * User: livingstonefultang
- * Date: 21/06/2014
- * Time: 17:20
+ * Date: 03/07/2014
+ * Time: 12:33
  */
 
 namespace Budkit\Application\Support;
 
 
-interface Container {
+interface Mockable {
 
 } 
