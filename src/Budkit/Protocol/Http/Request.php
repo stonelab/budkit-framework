@@ -119,6 +119,25 @@ class Request implements Protocol\Request
         $this->format = null;
         $this->session = null;
     }
+	
+	public function setAttributes($attributes = array()){
+		if($attributes instanceof Parameters)
+			return $this->attributes = $attributes;
+
+		if(is_array($attributes))
+			return $this->attributes = new Parameters("attributes", $attributes);
+		
+	}
+	
+	public function getAttributes(){
+		return $this->attributes;
+	}
+	
+	public function getAttribute($key){
+		
+		return $this->attributes->getParameter($key);
+		
+	}
 
     public function getSession()
     {

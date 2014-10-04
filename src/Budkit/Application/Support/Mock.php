@@ -41,7 +41,7 @@ trait Mock {
 
         $instance = static::$classContainer[static::$originalClass];
 
-        return call_user_method_array($method, $instance, $arguments);
+        return call_user_func_array(array(&$instance, $method), $arguments);
     }
 
 } 

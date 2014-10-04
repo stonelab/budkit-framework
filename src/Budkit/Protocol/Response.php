@@ -10,12 +10,14 @@ namespace Budkit\Protocol;
 
 interface Response {
 
-    public function setHeader(); //sets the header;
-    public function setContent(); //sets the content;
-    public function setStatusCode();
+    public function addHeader($key, $value = ""); //sets the header;
+    public function addContent($content = null); //sets the content;
+    public function setStatusCode($code);
+    public function setProtocolVersion($version );
+    public function getProtocolVersion();
     public function getStatusCode();
-    public function getHeader();
+    public function getHeader($key, $default = '');
     public function getContent(); //gets the content;
-    public function send(); //send the response
+    public function send($content = null); //send the response
 
 } 

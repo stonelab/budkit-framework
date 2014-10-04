@@ -125,7 +125,7 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
         }
 		
 		$route->addMethod($verbs)
-			  ->setAction($action)
+			  ->addValues( array('action' => $action ) );
 		;
 		
         // modify newly-added route

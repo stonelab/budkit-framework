@@ -157,6 +157,8 @@ class Container implements ArrayAccess
                             }
                         }
                     }
+					
+					//var_dump($class, $parameters, "<br />");
 
                     return $class->newInstanceArgs($parameters);
                 }

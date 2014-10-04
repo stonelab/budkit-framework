@@ -10,6 +10,7 @@ namespace Budkit\Application;
 
 
 use Budkit\Protocol\Request;
+use Budkit\Routing\Dispatcher;
 
 /**
  * The Base Application Class
@@ -45,19 +46,16 @@ class Platform extends Support\Application
 
     public function execute(Request $request = null)
     {
-
         $request = $request ?: $this->createRequest(); //shorthand teneray operator
 
-        //if(!$request->hasSession()) create a request session before exchanging;
-
-        echo '1. Check the request; <br/>2. $response =  $this->sync(); //to get a synchronous response; <br/>3. $response->send();<br />';
-        $response =  $this->route->dispatch( $request ); //returns an Protocol specific Response
-
-        //$response->send();
+		//The global dispatcher
+		$dispathcer = $this->shareInstance( $this->createInstance('Budkit\Routing\Dispatcher'), 'dispatcher');
+		
+		$this->dispatcher->dispatch($request, $this->response);
 
     }
 
-    public function createRequest()
+    protected function createRequest()
     {
         //Create a request using global vars if available;
         return $this->shareInstance( $this->request->createFromGlobal(), "request"); //no need to share;

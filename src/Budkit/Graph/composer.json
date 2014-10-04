@@ -1,6 +1,6 @@
 {
-    "name": "budkit/layout",
-    "description": "The budkit layout and templating engine ",
+    "name": "budkit/graph",
+    "description": "Graph Analysis backage for budkit",
     "license": "GPLv3",
     "authors": [
         {
@@ -12,6 +12,6 @@
         "php": ">=5.4.0"
     },
     "autoload": {
-        "psr-4": {"Budkit\\Layout\\": ""}
+        "psr-4": {"Budkit\\Graph\\": ""}
     },
 }

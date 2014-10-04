@@ -424,6 +424,16 @@ class Route extends Definition{
         $this->setParamsWithWildcard();
 
     }
+    
+    public function setParam($key, $value, $replace = true){
+    	
+    	if(isset($this->params[$key])&&!$replace){
+    		return $this;
+    	}
+    	$this->params[$key] = $value;
+    	
+    	return $this;
+    }
 
     /**
      *

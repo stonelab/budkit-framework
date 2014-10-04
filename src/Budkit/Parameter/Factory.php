@@ -38,6 +38,8 @@ class Factory implements ArrayAccess, IteratorAggregate, Countable
             //we will sanitize everything! or at least try!
             //resanitize with specific methods for specific data types
             $this->parameters = static::$sanitizer->getData();
+			
+			
 
         } else {
             $this->parameters = $parameters;

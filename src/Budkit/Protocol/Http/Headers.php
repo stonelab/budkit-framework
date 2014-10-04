@@ -24,20 +24,67 @@ class Headers extends Parameters{
 
     public function set($key, $values, $replace = true)
     {
-        $key = implode("-", array_map("ucfirst", explode("-", strtr(strtolower($key), '_', '-'))));
+        $key = $this->formatKey($key);
 
         $values = array_values((array) $values);
 
-        if (true === $replace || !isset($this->headers[$key])) {
+        if (true === $replace || !isset($this->parameters[$key])) {
             $this->parameters[$key] = $values;
         } else {
-            $this->parameters[$key] = array_merge($this->headers[$key], $values);
+            $this->parameters[$key] = array_merge($this->parameters[$key], $values);
         }
 
         if ('Cache-Control' === $key) {
             $this->cacheControl = $this->parseCacheControl($values[0]);
         }
     }
+    
+    public function has($key){
+    	
+    	$key = $this->formatKey($key);
+    	
+    	return $this->hasParameter( $key );
+    }
+    
+    
+    private function formatKey($key){
+    	return implode("-", array_map("ucfirst", explode("-", strtr(strtolower($key), '_', '-'))));
+    }
+	
+    
+    public function getAll(){
+    	return $this->getAllParameters();
+    }
+    
+	public function get($key, $default = null){
+		
+		if(isset($this->parameters[$key])){
+			 return $this->parameters[$key];
+		 }
+		 
+		 //Sets this as default;
+		 $this->set($key, $default);
+		 
+		 return $this->get($key);
+	}
+	
+	public function __toString(){
+		
+		if(empty($this->parameters)) return '';
+		
+		$max 		= max(array_map('strlen', array_keys($this->parameters))) + 1 ;
+		$content 	= '';
+		
+		ksort($this->parameters);
+		foreach ($this->parameters as $key=>$values){
+			$name = implode('-', array_map('ucfirst', explode('-', $key)));
+			foreach($values as $value){
+				$content .= sprintf("%-{$max}s %s\r\n", $name.':', $value);
+			}
+		}
+		
+		return $content;
+	}
 
     protected function getCacheControlHeader()
     {

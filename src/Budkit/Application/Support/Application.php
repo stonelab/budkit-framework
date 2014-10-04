@@ -24,7 +24,7 @@ abstract class Application extends Dependency\Container
         'config' => 'Budkit\Config\Repository',
         'cookie' => 'Budkit\Request\Cookie',
         'database' => 'Budkit\Datastore\Database',
-        'events' => 'Budkit\Events\Dispatcher',
+		'observer' => 'Budkit\Event\Observer',
         'files' => 'Budkit\Filestore\Manager',
         'form' => 'Budkit\Layout\Html\Form',
         'html' => 'Buidkit\Layout\Html',
@@ -32,7 +32,7 @@ abstract class Application extends Dependency\Container
         'mailer' => 'Budkit\Mail\Mailer',
         'paginator' => 'Budkit\Datastore\Paginator',
         'redirect' => 'Budkit\Routing\Redirector',
-        'route' => 'Budkit\Routing\Router',
+        'router' => 'Budkit\Routing\Router',
         'session' => 'Budkit\Session\Manager',
         'sanitize' => 'Budkit\Validation\Sanitize',
         'uri' => 'Budkit\Routing\Uri',
@@ -62,6 +62,7 @@ abstract class Application extends Dependency\Container
     public function registerService()
     {
     }
+	
 
     public function initialize()
     {
@@ -71,7 +72,9 @@ abstract class Application extends Dependency\Container
         $this->createAliasMock(
             array_merge(
                 $this->aliases, array(
-                    "Route" => "Budkit\\Routing\\Router" //this such that we can call Route::add to add router;
+                    "Route" => 'Budkit\Routing\Router' , //this such that we can call Route::add to add router;
+					'Controller' => 'Budkit\Routing\Controller',
+					'View'		 => 'Budkit\View\Display'
                 )
             )
         );

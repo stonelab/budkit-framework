@@ -10,10 +10,11 @@ namespace Budkit\Routing;
 
 use Budkit\Protocol\Request;
 use Budkit\Protocol\Response;
-use Budkit\Events\Dispatcher;
 use Budkit\Dependency\Container;
 use Budkit\Application\Support\Mockable;
 use Budkit\Application\Support\Mock;
+
+
 
 class Router implements Mockable
 {
@@ -31,27 +32,7 @@ class Router implements Mockable
     {
         $this->collection = $collection ?: new Collection;
         $this->container  = $container;
-
        //$this->container->shareInstance( $collection , "routes" );
-    }
-
-    public function dispatch(Request $request)
-    {
-        $route = $this->matchToRoute($request); //An instance of Route;
-
-		
-		var_dump($this->matchedRoute);
-		
-        // call beforeRoute callbacks
-		$debug = $this->gettestedRoutes();
-		//var_dump($debug);
-        //
-        //$response = $this->makeResponse($request, $route->run()) // should return a response object;
-
-        //call afterRoute callbacks
-
-        //return $response;
-
     }
 	
     /**
@@ -83,28 +64,24 @@ class Router implements Mockable
 	
 	
 
-    protected function matchToRoute(Request $request)
+    public function matchToRoute(Request $request)
     {	
         foreach(($routes = $this->collection->getRoutes()) as $route){
 			
 			$this->testedRoutes[] = $route;
 			
-			
-
             if($route->matches( $request )){
 
                 $this->matchedRoute = $route;
 
                 //@TODO trigger route.matched if a route has been found
-                //break;
-				
+                //break;	
 				return $this->matchedRoute;
             }		
       	  	//Record the last failed match;
             if (! $this->failedRoute || $route->score > $this->failedRoute->score) {
                 $this->failedRoute = $route;
-            }
-			
+            }	
 			
         }
         //@TODO trigger route.not.matched if a route not found;

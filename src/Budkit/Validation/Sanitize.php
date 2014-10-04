@@ -72,7 +72,7 @@ class Sanitize
      * @return array|mixed
      */
     public function getData($default = array())
-    {
+    {					
         //to avoid ting unsanitized data from this method,
         return (!$this->sanitized) ? $default : $this->data;
     }
@@ -417,6 +417,11 @@ class Sanitize
                             break;
                         case "object": //@TODO maybe serialize?,
                         case "resource":
+							//there is not much to be done with objects;
+							//maybe should come up with a way to check how safe they are;
+							$this->sanitized = true;
+							$sanitized[$key] = $variable; 
+							break;
                         case "NULL":
                         case "unknown type":
                         default:
