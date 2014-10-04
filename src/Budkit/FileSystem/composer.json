@@ -1,0 +1,17 @@
+{
+    "name": "budkit/view",
+    "description": "The budkit view component. Manages layouts",
+    "license": "GPLv3",
+    "authors": [
+        {
+            "name": "Livingstone Fultang",
+            "email": "livingstonefultang@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "autoload": {
+        "psr-4": {"Budkit\\Layout\\": ""}
+    },
+}

@@ -133,9 +133,9 @@ class Request implements Protocol\Request
 		return $this->attributes;
 	}
 	
-	public function getAttribute($key){
+	public function getAttribute($key, $default=null){
 		
-		return $this->attributes->getParameter($key);
+		return $this->attributes->getParameter($key, $default);
 		
 	}
 

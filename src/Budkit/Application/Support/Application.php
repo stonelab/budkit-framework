@@ -37,7 +37,7 @@ abstract class Application extends Dependency\Container
         'sanitize' => 'Budkit\Validation\Sanitize',
         'uri' => 'Budkit\Routing\Uri',
         'validate' => 'Budkit\Validation\Validate',
-        'view' => 'Budkit\View\Manager',
+        'view' => 'Budkit\View\Display',
     );
 
     /**
@@ -47,7 +47,6 @@ abstract class Application extends Dependency\Container
      */
     public function __construct()
     {
-
         $this->addBaseReferenceAliases();
 
     }

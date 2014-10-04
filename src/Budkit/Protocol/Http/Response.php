@@ -37,7 +37,9 @@ class Response implements Protocol\Response {
 	
 	
 	protected $cookies;
+	
 
+	protected $contentType = null;
     /**
      * @var string
      */
@@ -305,25 +307,28 @@ class Response implements Protocol\Response {
 		
 		$_charset	= $this->getCharset();
 		$_charset 	= !empty($_charset)? "; charset=".$_charset : null;
+		$_type		= $this->contentType = (is_null($type))? $this->getRequestFormat() : $type;
 		
-		if(($type = $this->getContentType($type))!== false){
+		//echo $this->contentType;
+		
+		if(($type = $this->getType($_type))!== false){
 			$this->addHeader("Content-Type", $type.$_charset );
 		}
 		
 		return $this;
 	}
 	
-	public function getContentType($type = null){
+	
+	protected function getRequestFormat(){
+		return $this->request->getAttribute("format", "html"); //@TODO change to a setting var for default contentType;
+	}
+	
+	
+	public function getContentType(){
 		
-		//If the type is null, try to determine from the request;
-		$format = (is_null($type))? $this->request->getAttribute("format") : $type;
+		if( empty($this->contentType) ) $this->setContentType();
 		
-		if(empty($format)){
-			return false; //Should we return an empty content type?
-		}
-		
-		return $this->getType($format);
-		
+		return $this->contentType;
 	}
 
     protected function sendHeaders(array $headers = array()){

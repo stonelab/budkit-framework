@@ -34,7 +34,7 @@ class Controller implements Mockable, Listener{
 		$this->response 	= $application->response;
 		$this->request 		= $application->request;
 		$this->application 	= $application;
-		$this->view 		= new View();
+		$this->view 		= new View(array(), $this->response );
 		
 		//Attach controllers to the observer;
 		$this->observer->attach($this);
@@ -145,7 +145,7 @@ class Controller implements Mockable, Listener{
 	
 	
 	public function getView(){
-		return $this->view = ($this->view instanceof View) ? $this->view : new View(array()); 
+		return $this->view = ($this->view instanceof View) ? $this->view : new View(array(), $this->response); 
 	}
 	
 	/**
@@ -161,7 +161,7 @@ class Controller implements Mockable, Listener{
 			return $this->application[$view];
 		
 		//Otherwise return an instance of Controller;
-		return $this->application->shareInstance( $this->application->createInstance($view, $values), $view);
+		return $this->application->shareInstance( $this->application->createInstance($view, array($values, $this->response) ), $view);
 	}
 	
 		
