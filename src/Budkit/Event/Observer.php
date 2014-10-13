@@ -18,7 +18,7 @@ class Observer {
 	protected $listeners = array();
 	
 	
-	public function attach($callback, $eventName = null, $params = array()){
+	public function attach($callback, $eventName = null, &$params = array()){
 		
 		//get the event definitions
 		if($callback instanceOf Listener){
@@ -39,8 +39,9 @@ class Observer {
 				//if callable is an array, loop;
 				if(is_array($callable)){
 					foreach($callable as $callback){
-						return $this->attach( $callback, $event, $params);
+						$this->attach( $callback, $event, $params);
 					}
+					return true;
 				}
 			}
 		}
@@ -49,15 +50,21 @@ class Observer {
 		if(is_callable($callback) && !empty($eventName)){
 			
 			//Priority must be numeric
-			if(isset($params['priority'])&&!is_numeric($params['priority'])) unset($params['priority']);
-			
 			//if callback is already set for this eventype, skip it;
+			$priority = 1;
 			
 			//default priority is 1; the higher the more important
-			$params = array_merge( array('priority' => 1 ), $params); 			
-			$this->listeners[$eventName][$params['priority']][] = array(
+			if(is_array($params)){
+				
+				if(isset($params['priority'])&&!is_numeric($params['priority'])) unset($params['priority']);
+					
+				$params 	= array_merge( array('priority' => $priority ), $params); 
+				$priority 	= $params['priority'];			
+			}
+			
+			$this->listeners[$eventName][$priority][] = array(
 				'callable' => $callback,
-				'params' => $params
+				'params' => &$params
 			);
 			
 		}

@@ -393,8 +393,10 @@ class Response implements Protocol\Response {
 		if(!$this->buffered){
 			return $this->sendBuffer();
 		}
+		
         $this->sendContent( $content );	
        
+        return $this;
     }
 
 

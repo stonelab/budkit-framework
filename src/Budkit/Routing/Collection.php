@@ -16,11 +16,10 @@ use Budkit\Routing\Definition;
 use Budkit\Routing\Factory;
 use Budkit\Dependency\Container;
 
-class Collection extends Definition implements ArrayAccess, Countable, IteratorAggregate
-{
-	
-    protected $routes = array();
-	
+class Collection extends Definition implements ArrayAccess, Countable, IteratorAggregate {
+
+    protected $routes = [];
+
     /**
      *
      * A factory to create route objects.
@@ -69,21 +68,52 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
      *
      */
     protected $routeCallable = null;
-	
 
-    public function __construct(Factory $routeFactory, array $routes = array()){
-		
+
+    public function __construct(Factory $routeFactory, array $routes = []) {
+
         $this->routes = $routes;
         $this->routeFactory = $routeFactory;
-		
-        $this->setResourceCallable(array($this, 'resourceCallable'));
-        $this->setRouteCallable(array($this, 'routeCallable'));
+
+        $this->setResourceCallable([$this, 'resourceCallable']);
+        $this->setRouteCallable([$this, 'routeCallable']);
     }
 
-    public function getRoutes(){
+    /**
+     *
+     * Sets the callable for attaching resource routes.
+     *
+     * @param callable $resource The resource callable.
+     *
+     * @return $this
+     *
+     */
+    public function setResourceCallable($resource) {
+        $this->resourceCallable = $resource;
+
+        return $this;
+    }
+
+    /**
+     *
+     * Sets the callable for modifying a newly-added route before it is
+     * returned.
+     *
+     * @param callable $callable The callable to modify the route.
+     *
+     * @return $this
+     *
+     */
+    public function setRouteCallable($callable) {
+        $this->routeCallable = $callable;
+
+        return $this;
+    }
+
+    public function getRoutes() {
         return $this->routes;
     }
-	
+
     /**
      *
      * IteratorAggregate: returns the iterator object.
@@ -91,10 +121,9 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
      * @return ArrayIterator
      *
      */
-    public function getIterator()
-    {
+    public function getIterator() {
         return new ArrayIterator($this->routes);
-    }
+    } //
 
     /**
      *
@@ -103,78 +132,57 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
      * @return int
      *
      */
-    public function count()
-    {
+    public function count() {
         return count($this->routes);
     }
 
-    protected function addRoute($verbs, $path, $name = null, $action = null)
-    {
+    public function addHEAD($uri, $name = null, $action = null) {
+        return $this->addRoute('HEAD', $uri, $name, $action);
+    }
+
+    protected function addRoute($verbs, $path, $name = null, $action = null) {
         // create the route with the full path, name, and spec
-        $route = $this->routeFactory->newInstance(
-            $path,
-            $name,
-            $this->getSpec()
-        );
+        $route = $this->routeFactory->newInstance($path, $name, $this->getSpec());
 
         // add the route
-        if (! $route->name) {
+        if (!$route->name) {
             $this->routes[] = $route;
-        } else {
-            $this->routes[$route->name] = $route;
         }
-		
-		$route->addMethod($verbs)
-			  ->addValues( array('action' => $action ) );
-		;
-		
+        else {
+            $this->routes[ $route->name ] = $route;
+        }
+
+        $route->addMethod($verbs)->addValues(['action' => $action]);;
+
         // modify newly-added route
         call_user_func($this->routeCallable, $route);
 
         // done; return for further modification
         return $route;
 
-    } //
-
-    public function addGet($uri, $name = null, $action = null)
-    {
-        return $this->addRoute(array('GET', 'HEAD'), $uri, $name, $action);
     }
 
-    public function addDelete($uri , $name = null, $action = null)
-    {
-        return $this->addRoute('DELETE', $uri, $name, $action);
+    /**
+     *
+     * Gets the existing default route specification.
+     *
+     * @return array
+     *
+     */
+    protected function getSpec() {
+        $vars = ['tokens', 'server', 'method', 'accept', 'values', 'secure', 'wildcard', 'routable', 'isMatch', 'generate', 'namePrefix', 'pathPrefix', 'resourceCallable', 'routeCallable',];
+
+        $spec = [];
+        foreach ($vars as $var) {
+            $spec[ $var ] = $this->$var;
+        }
+
+        return $spec;
     }
 
-    public function addOptions($uri , $name = null, $action = null)
-    {
-        return $this->addRoute('OPTIONS', $uri, $name, $action);
-    }
-	
-    public function addHEAD($uri , $name = null, $action = null)
-    {
-        return $this->addRoute('HEAD', $uri, $name, $action);
-    }
+    public function add($uri, $name = null, $action = null) {
+        $verbs = ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE'];
 
-    public function addPatch($uri , $name = null, $action = null)
-    {
-        return $this->addRoute('PATCH', $uri, $name, $action);
-    }
-
-    public function addPost($uri , $name = null, $action = null)
-    {
-        return $this->addRoute('POST', $uri, $name, $action);
-    }
-
-    public function addPut($uri , $name = null, $action = null)
-    {
-        return $this->addRoute('PUT', $uri, $name, $action);
-    }
-
-    public function add($uri , $name = null, $action = null)
-    {
-        $verbs = array('GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE');
-		
         return $this->addRoute($verbs, $uri, $name, $action);
     }
 
@@ -188,54 +196,38 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
         //add the route to the collection container;
         if (is_null($name)) {
             $this->routes[] = $route;
-        } else {
-            $this->routes[$name] = $route;
+        }
+        else {
+            $this->routes[ $name ] = $route;
         }
     }
 
     public function offsetExists($name) {
-        return isset($this->routes[$name]);
+        return isset($this->routes[ $name ]);
     }
 
     public function offsetUnset($name) {
-        unset($this->routes[$name]);
+        unset($this->routes[ $name ]);
     }
 
     public function offsetGet($name) {
-        return isset($this->routes[$name]) ? $this->routes[$name] : null;
-    }
-	
-    /**
-     *
-     * Sets the callable for modifying a newly-added route before it is
-     * returned.
-     *
-     * @param callable $callable The callable to modify the route.
-     *
-     * @return $this
-     *
-     */
-    public function setRouteCallable($callable)
-    {
-        $this->routeCallable = $callable;
-        return $this;
+        return isset($this->routes[ $name ]) ? $this->routes[ $name ] : null;
     }
 
     /**
      *
-     * Modifies the newly-added route to set an 'action' value from the route
-     * name.
+     * Use the `$resourceCallable` to attach a resource.
      *
-     * @param Route $route The newly-added route.
+     * @param string $name The resource name; used as a route name prefix.
+     *
+     * @param string $path The path to the resource; used as a route path
+     *                     prefix.
      *
      * @return null
      *
      */
-    protected function routeCallable(Route $route)
-    {
-        if ($route->name && ! isset($route->values['action'])) {
-            $route->addValues(array('action' => $route->name));
-        }
+    public function attachResource($path, $name) {
+        $this->attach($path, $name, $this->resourceCallable);
     }
 
     /**
@@ -243,25 +235,24 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
      * Attaches routes to a specific path prefix, and prefixes the attached
      * route names.
      *
-     * @param string $name The prefix for all route names being
-     * attached.
+     * @param string   $name     The prefix for all route names being
+     *                           attached.
      *
-     * @param string $path The prefix for all route paths being
-     * attached.
+     * @param string   $path     The prefix for all route paths being
+     *                           attached.
      *
      * @param callable $callable A callable that uses the Router to add new
-     * routes. Its signature is `function (\Aura\Router\Router $router)`; this
-     * Router instance will be passed to the callable.
+     *                           routes. Its signature is `function (\Aura\Router\Router $router)`; this
+     *                           Router instance will be passed to the callable.
      *
      * @return null
      *
      */
-    public function attach($path, $name, $callable)
-    {
+    public function attach($path, $name, $callable) {
         // save current spec
         $spec = $this->getSpec();
-		
-		//var_dump($spec);
+
+        //var_dump($spec);
 
         // append to the name prefix, with delimiter if needed
         if ($this->namePrefix) {
@@ -281,40 +272,6 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
 
     /**
      *
-     * Gets the existing default route specification.
-     *
-     * @return array
-     *
-     */
-    protected function getSpec()
-    {
-        $vars = array(
-            'tokens',
-            'server',
-            'method',
-            'accept',
-            'values',
-            'secure',
-            'wildcard',
-            'routable',
-            'isMatch',
-            'generate',
-            'namePrefix',
-            'pathPrefix',
-            'resourceCallable',
-            'routeCallable',
-        );
-
-        $spec = array();
-        foreach ($vars as $var) {
-            $spec[$var] = $this->$var;
-        }
-
-        return $spec;
-    }
-
-    /**
-     *
      * Sets the existing default route specification.
      *
      * @param array $spec The new default route specification.
@@ -322,42 +279,26 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
      * @return null
      *
      */
-    protected function setSpec($spec)
-    {
+    protected function setSpec($spec) {
         foreach ($spec as $key => $val) {
             $this->$key = $val;
         }
     }
+
     /**
      *
-     * Use the `$resourceCallable` to attach a resource.
+     * Modifies the newly-added route to set an 'action' value from the route
+     * name.
      *
-     * @param string $name The resource name; used as a route name prefix.
-     *
-     * @param string $path The path to the resource; used as a route path
-     * prefix.
+     * @param Route $route The newly-added route.
      *
      * @return null
      *
      */
-    public function attachResource($path, $name)
-    {
-        $this->attach($path, $name,  $this->resourceCallable);
-    }
-
-    /**
-     *
-     * Sets the callable for attaching resource routes.
-     *
-     * @param callable $resource The resource callable.
-     *
-     * @return $this
-     *
-     */
-    public function setResourceCallable($resource)
-    {
-        $this->resourceCallable = $resource;
-        return $this;
+    protected function routeCallable(Route $route) {
+        if ($route->name && !isset($route->values['action'])) {
+            $route->addValues(['action' => $route->name]);
+        }
     }
 
     /**
@@ -369,15 +310,14 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
      * @return null
      *
      */
-    protected function resourceCallable(Collection $router)
-    {
+    protected function resourceCallable(Collection $router) {
         // add 'id' and 'format' if not already defined
-        $tokens = array();
-		
-        if (! isset($router->tokens['id'])) {
+        $tokens = [];
+
+        if (!isset($router->tokens['id'])) {
             $tokens['id'] = '\d+';
         }
-        if (! isset($router->tokens['format'])) {
+        if (!isset($router->tokens['format'])) {
             $tokens['format'] = '(\.[^/]+)?';
         }
         if ($tokens) {
@@ -385,16 +325,40 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
         }
 
         // add the routes
-        $router->addGet('{format}','browse');
-        $router->addGet('/{id}{format}','read');
-        $router->addGet('{/id}/edit{format}','edit'); //if no id is set, return form for new
-        $router->addGet('/add','add');
-        $router->addDelete('/{id}','delete');
-        $router->addPost('','create');
-        $router->addPatch('/{id}','update');
-        $router->addPut('/{id}','replace');
-        $router->addOptions('','options');
-		
-		//var_dump($router->routes);
+        $router->addGet('{format}', 'index');
+        $router->addGet('/{id}{format}', 'read');
+        $router->addGet('{/id}/edit{format}', 'edit'); //if no id is set, return form for new
+        $router->addGet('/add', 'add');
+        $router->addDelete('/{id}', 'delete');
+        $router->addPost('', 'create');
+        $router->addPatch('/{id}', 'update');
+        $router->addPut('/{id}', 'replace');
+        $router->addOptions('', 'options');
+
+        //var_dump($router->routes);
+    }
+
+    public function addGet($uri, $name = null, $action = null) {
+        return $this->addRoute(['GET', 'HEAD'], $uri, $name, $action);
+    }
+
+    public function addDelete($uri, $name = null, $action = null) {
+        return $this->addRoute('DELETE', $uri, $name, $action);
+    }
+
+    public function addPost($uri, $name = null, $action = null) {
+        return $this->addRoute('POST', $uri, $name, $action);
+    }
+
+    public function addPatch($uri, $name = null, $action = null) {
+        return $this->addRoute('PATCH', $uri, $name, $action);
+    }
+
+    public function addPut($uri, $name = null, $action = null) {
+        return $this->addRoute('PUT', $uri, $name, $action);
+    }
+
+    public function addOptions($uri, $name = null, $action = null) {
+        return $this->addRoute('OPTIONS', $uri, $name, $action);
     }
 } 

@@ -13,4 +13,5 @@ interface Handler {
 
     public function getId();
     public function getName();
+	
 } 

@@ -1,6 +1,6 @@
 {
-    "name": "budkit/database",
-    "description": "The budkit database storage provider classes ",
+    "name": "budkit/config",
+    "description": "The budkit config manager",
     "license": "GPLv3",
     "authors": [
         {
@@ -12,6 +12,6 @@
         "php": ">=5.4.0"
     },
     "autoload": {
-        "psr-4": {"Budkit\\Database\\": ""}
+        "psr-4": {"Budkit\\Config\\": ""}
     },
 }

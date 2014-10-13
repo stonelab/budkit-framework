@@ -38,6 +38,7 @@ abstract class Application extends Dependency\Container
         'uri' => 'Budkit\Routing\Uri',
         'validate' => 'Budkit\Validation\Validate',
         'view' => 'Budkit\View\Display',
+    	'viewengine'=>'Budkit\View\Engine'
     );
 
     /**
