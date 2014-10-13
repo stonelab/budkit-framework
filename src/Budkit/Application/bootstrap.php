@@ -72,7 +72,7 @@ $routes = $paths['app'].'/routes.php';
 if (file_exists($routes)) require $routes;
 
 //Load vendor package routes;
-var_dump($app->loader->getPrefixes());
+//var_dump($app->loader->getPrefixes());
 
 
 /*
