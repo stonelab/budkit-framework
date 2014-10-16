@@ -9,6 +9,7 @@
 namespace Budkit\Application;
 
 
+use Budkit\Event\Observer;
 use Budkit\Protocol\Request;
 use Budkit\Routing\Dispatcher;
 
@@ -25,7 +26,7 @@ class Platform extends Support\Application
      *
      * @param Request $request
      */
-    public function __construct(Request $request = null)
+    public function __construct()
     {
         parent::__construct();
 
@@ -49,7 +50,7 @@ class Platform extends Support\Application
         $request = $request ?: $this->createRequest(); //shorthand teneray operator
 
 		//The global dispatcher
-		$dispathcer = $this->shareInstance( $this->createInstance('Budkit\Routing\Dispatcher'), 'dispatcher');
+		$this->shareInstance( $this->createInstance('Budkit\Routing\Dispatcher'), 'dispatcher');
 		
 		$this->dispatcher->dispatch($request, $this->response);
 

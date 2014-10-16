@@ -9,6 +9,8 @@
     namespace Budkit\Routing;
 
     use Budkit\Event;
+    use Budkit\Event\Listener;
+    use Budkit\Event\Observer;
     use Closure;
     use Exception;
     use Budkit\Protocol\Request;
@@ -18,7 +20,7 @@
     use Budkit\Dependency\Container;
 
 
-    class Dispatcher implements Event\Listener {
+    class Dispatcher implements Listener {
 
 
         protected $observer;
@@ -33,7 +35,7 @@
          *
          * @author Livingstone Fultang
          */
-        public function __construct(Event\Observer $observer, Container $application) {
+        public function __construct(Observer $observer, Container $application) {
 
             $this->observer = $observer;
             $this->router = $application->router;

@@ -21,31 +21,32 @@ class Observer {
 	public function attach($callback, $eventName = null, &$params = array()){
 		
 		//get the event definitions
-		if($callback instanceOf Listener){
-			
-			$definition = (array) $callback->definition(); //typecast to array;
-			//check the definition links to a callable, 
-			foreach($definition as $event=>$callable){
-				//if callable is string, check Listerner has method 'callable' and attach to method;
-				if(is_string($callable) && method_exists($callback, $callable)){
-					return $this->attach( array($callback, $callable), $event, $params);
-				}
-				
-				//if callable is a string, and points to a callable class,
-				if(is_string($callable) && is_callable($callable)){
-					return $this->attach( $callable, $event, $params);
-				}
-							
-				//if callable is an array, loop;
-				if(is_array($callable)){
-					foreach($callable as $callback){
-						$this->attach( $callback, $event, $params);
-					}
-					return true;
-				}
-			}
-		}
-		
+		if($callback instanceOf Listener) {
+
+            $definition = (array)$callback->definition(); //typecast to array;
+            //check the definition links to a callable,
+            foreach ($definition as $event => $callable) {
+
+                //if callable is string, check Listerner has method 'callable' and attach to method;
+                if (is_string($callable) && method_exists($callback, $callable)) {
+                    return $this->attach(array($callback, $callable), $event, $params);
+                }
+
+                //if callable is a string, and points to a callable class,
+                if (is_string($callable) && is_callable($callable)) {
+                    return $this->attach($callable, $event, $params);
+                }
+
+                //if callable is an array, loop;
+                if (is_array($callable)) {
+                    foreach ($callable as $callback) {
+                        $this->attach($callback, $event, $params);
+                    }
+                    return true;
+                }
+            }
+        }
+
 		//Now check that callback is callable and that we have an eventName;
 		if(is_callable($callback) && !empty($eventName)){
 			
@@ -59,14 +60,14 @@ class Observer {
 				if(isset($params['priority'])&&!is_numeric($params['priority'])) unset($params['priority']);
 					
 				$params 	= array_merge( array('priority' => $priority ), $params); 
-				$priority 	= $params['priority'];			
+				$priority 	= $params['priority'];
+
 			}
 			
 			$this->listeners[$eventName][$priority][] = array(
 				'callable' => $callback,
 				'params' => &$params
 			);
-			
 		}
 	}
 	
@@ -154,7 +155,7 @@ class Observer {
 	 * @return void
 	 * @author Livingstone Fultang
 	 */
-	protected function getListeners($eventName = null){
+	public function getListeners($eventName = null){
 		
 		if(empty($eventName)) return $this->listeners;
 		if(!empty($eventName)&&!isset($this->listeners[$eventName])) return array();

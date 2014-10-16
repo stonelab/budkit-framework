@@ -74,6 +74,15 @@ if (file_exists($routes)) require $routes;
 //Load vendor package routes;
 //var_dump($app->loader->getPrefixes());
 
+/*
+|--------------------------------------------------------------------------
+| Register App Services
+|--------------------------------------------------------------------------
+|
+| All services in the storage/services.json will be registered.
+|
+*/
+$app->registerServices();
 
 /*
 |--------------------------------------------------------------------------
