@@ -8,10 +8,7 @@
 
 namespace Budkit\Routing;
 
-use Budkit\Routing\Route;
-
-class Regex
-{
+class Regex {
     /**
      *
      * The Route this regex is associated with.
@@ -43,34 +40,22 @@ class Regex
      *
      * Does the Route match the requested URL path?
      *
-     * @param Route $route The route being checked.
+     * @param Route  $route The route being checked.
      *
-     * @param string $path The requested URL path.
+     * @param string $path  The requested URL path.
      *
      * @return bool
      *
      */
-    public function match(Route $route, $path)
-    {
+    public function match(Route $route, $path) {
         $this->route = $route;
         $this->regex = $this->route->path;
         $this->setRegexOptionalParams();
         $this->setRegexParams();
         $this->setRegexWildcard();
         $this->regex = '#^' . $this->regex . '$#';
-        return preg_match($this->regex, $path, $this->matches);
-    }
 
-    /**
-     *
-     * Returns the matches.
-     *
-     * @return array
-     *
-     */
-    public function getMatches()
-    {
-        return $this->matches;
+        return preg_match($this->regex, $path, $this->matches);
     }
 
     /**
@@ -81,11 +66,10 @@ class Regex
      * @return null
      *
      */
-    protected function setRegexOptionalParams()
-    {
+    protected function setRegexOptionalParams() {
         preg_match('#{/([a-z][a-zA-Z0-9_,]*)}#', $this->regex, $matches);
         if ($matches) {
-            $repl = $this->getRegexOptionalParamsReplacement($matches[1]);
+            $repl        = $this->getRegexOptionalParamsReplacement($matches[1]);
             $this->regex = str_replace($matches[0], $repl, $this->regex);
         }
     }
@@ -99,8 +83,7 @@ class Regex
      * @return string
      *
      */
-    protected function getRegexOptionalParamsReplacement($list)
-    {
+    protected function getRegexOptionalParamsReplacement($list) {
         $list = explode(',', $list);
         $head = $this->getRegexOptionalParamsReplacementHead($list);
         $tail = '';
@@ -121,8 +104,7 @@ class Regex
      * @return string
      *
      */
-    protected function getRegexOptionalParamsReplacementHead(&$list)
-    {
+    protected function getRegexOptionalParamsReplacementHead(&$list) {
         // if the optional set is the first part of the path, make sure there
         // is a leading slash in the replacement before the optional param.
         $head = '';
@@ -130,6 +112,7 @@ class Regex
             $name = array_shift($list);
             $head = "/({{$name}})?";
         }
+
         return $head;
     }
 
@@ -140,16 +123,15 @@ class Regex
      * @return null
      *
      */
-    protected function setRegexParams()
-    {
+    protected function setRegexParams() {
         $find = '#{([a-z][a-zA-Z0-9_]*)}#';
         preg_match_all($find, $this->regex, $matches, PREG_SET_ORDER);
         foreach ($matches as $match) {
-            $name = $match[1];
-            $subpattern = $this->getSubpattern($name);
+            $name        = $match[1];
+            $subpattern  = $this->getSubpattern($name);
             $this->regex = str_replace("{{$name}}", $subpattern, $this->regex);
-            if (! isset($this->route->values[$name])) {
-                $this->route->addValues(array($name => null));
+            if (!isset($this->route->values[ $name ])) {
+                $this->route->addValues([$name => null]);
             }
         }
     }
@@ -163,21 +145,15 @@ class Regex
      * @return string The named subpattern.
      *
      */
-    protected function getSubpattern($name)
-    {
+    protected function getSubpattern($name) {
         // is there a custom subpattern for the name?
-        if (isset($this->route->tokens[$name])) {
+        if (isset($this->route->tokens[ $name ])) {
             return "(?P<{$name}>{$this->route->tokens[$name]})";
         }
 
         // use a default subpattern
         return "(?P<{$name}>[^/]+)";
     }
-	
-	
-	public function getRegexPath(){
-		return $this->regex;
-	}
 
     /**
      *
@@ -186,13 +162,27 @@ class Regex
      * @return null
      *
      */
-    protected function setRegexWildcard()
-    {
-        if (! $this->route->wildcard) {
+    protected function setRegexWildcard() {
+        if (!$this->route->wildcard) {
             return;
         }
 
         $this->regex = rtrim($this->regex, '/')
-                     . "(/(?P<{$this->route->wildcard}>.*))?";
+                       . "(/(?P<{$this->route->wildcard}>.*))?";
+    }
+
+    /**
+     *
+     * Returns the matches.
+     *
+     * @return array
+     *
+     */
+    public function getMatches() {
+        return $this->matches;
+    }
+
+    public function getRegexPath() {
+        return $this->regex;
     }
 }

@@ -8,13 +8,12 @@
 
 namespace Budkit\Application\Support;
 
-use Exception;
 use Budkit\Dependency;
-use Budkit\Protocol\Request;
 use Budkit\Event\Event;
+use Budkit\Protocol\Request;
+use Exception;
 
-abstract class Application extends Dependency\Container
-{
+abstract class Application extends Dependency\Container {
 
     use Mockery;
 
@@ -24,70 +23,69 @@ abstract class Application extends Dependency\Container
      *
      * @param Request $request
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->addBaseReferenceAliases();
 
     }
 
     //Adds base aliases to container
-    public function addBaseReferenceAliases()
-    {
+    public function addBaseReferenceAliases() {
         $this->createAlias([
-            'app' => 'Budkit\Application\Platform',
-            'app_console' => 'Budkit\Application\Console',
-            'auth' => 'Budkit\Authentication\Authenticator',
-            'cache' => 'Budkit\Cache\Manager',
-            'config' => 'Budkit\Config\Repository',
-            'cookie' => 'Budkit\Request\Cookie',
-            'database' => 'Budkit\Datastore\Database',
-            'observer' => 'Budkit\Event\Observer',
-            'file' => 'Budkit\Filesystem\File',
-            'log' => 'Budkit\Log\Ticker',
-            'mailer' => 'Budkit\Mail\Mailer',
-            'paginator' => 'Budkit\Datastore\Paginator',
-            'redirect' => 'Budkit\Routing\Redirector',
-            'router' => 'Budkit\Routing\Router',
-            'session' => 'Budkit\Session\Manager',
-            'sanitize' => 'Budkit\Validation\Sanitize',
-            'uri' => 'Budkit\Routing\Uri',
-            'validate' => 'Budkit\Validation\Validate',
-            'view' => 'Budkit\View\Display',
-            'viewengine'=>'Budkit\View\Engine'
-        ]);
+                               'app'         => 'Budkit\Application\Platform',
+                               'app_console' => 'Budkit\Application\Console',
+                               'auth'        => 'Budkit\Authentication\Authenticator',
+                               'cache'       => 'Budkit\Cache\Manager',
+                               'config'      => 'Budkit\Config\Repository',
+                               'cookie'      => 'Budkit\Request\Cookie',
+                               'database'    => 'Budkit\Datastore\Database',
+                               'observer'    => 'Budkit\Event\Observer',
+                               'file'        => 'Budkit\Filesystem\File',
+                               'log'         => 'Budkit\Log\Ticker',
+                               'mailer'      => 'Budkit\Mail\Mailer',
+                               'paginator'   => 'Budkit\Datastore\Paginator',
+                               'redirect'    => 'Budkit\Routing\Redirector',
+                               'router'      => 'Budkit\Routing\Router',
+                               'session'     => 'Budkit\Session\Manager',
+                               'sanitize'    => 'Budkit\Validation\Sanitize',
+                               'uri'         => 'Budkit\Routing\Uri',
+                               'validate'    => 'Budkit\Validation\Validate',
+                               'view'        => 'Budkit\View\Display',
+                               'viewengine'  => 'Budkit\View\Engine'
+                           ]);
 
         //Sounds and looks weired, but we need to run the same event observer
         //throughout the app, especially for registering services as below.
-        $this->shareInstance( $this->createInstance('observer'), 'observer');
+        $this->shareInstance($this->createInstance('observer'), 'observer');
     }
 
 
-    public function registerServices($services = array())
-    {
+    public function registerServices($services = []) {
 
-        if(empty($services)) {
-            $services = $this->paths['storage'] . "/services.json";
+        if (empty($services)) {
+            $services = $this->paths['vendor'] . "/services.json";
             //If we can't load this file, throw and error;
             if (!$this->file->exists($services)) {
                 return false; //could not
             }
             //decode;
-            $services = json_decode($this->file->read( $services), true);
+            $services = json_decode($this->file->read($services), true);
         }
 
         //@TODO This should be moved to the provider handling class
-        foreach($services as $callable){
+        foreach ($services as $callable) {
 
-            if(!class_exists($callable)){
+            if (!class_exists($callable)) {
                 throw new Exception("Could not locate the service provider {$callable}");
+
                 return false;
             }
             //Create an instance of the callback
-            $provider = $this->createInstance( $callable , array($this) );
+            $provider = $this->createInstance($callable, [$this]);
 
             //Check implements Service Interface;
-            if(!($provider instanceof Service)) {
+            if (!($provider instanceof Service)) {
                 throw new Exception("{$callable} Must implement the Service Interface");
+
                 return false;
             }
 
@@ -102,20 +100,18 @@ abstract class Application extends Dependency\Container
 
     }
 
-	
 
-    public function initialize()
-    {
+    public function initialize() {
 
         //state the application is initialized;
         //register aliases as class mocks such that static calls on mock map to instance calls;
         $this->createAliasMock(
             array_merge(
-                $this->aliases, array(
-                    "Route" => 'Budkit\Routing\Router' , //this such that we can call Route::add to add router;
-					'Controller' => 'Budkit\Routing\Controller',
-					'View'		 => 'Budkit\View\Display'
-                )
+                $this->aliases, [
+                    "Route"      => 'Budkit\Routing\Router', //this such that we can call Route::add to add router;
+                    'Controller' => 'Budkit\Routing\Controller',
+                    'View'       => 'Budkit\View\Display'
+                ]
             )
         );
         //var_dump($this->observer);

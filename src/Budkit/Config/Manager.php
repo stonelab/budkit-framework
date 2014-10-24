@@ -3,17 +3,16 @@
 namespace Budkit\Config;
 
 use ArrayAccess;
-use Budkit\Config\Loader;
 
 class Manager implements ArrayAccess {
 
     protected $loader;
     protected $environment;
-    protected $items = [];
+    protected $items    = [];
     protected $packages = [];
 
     public function __construct(Loader $loader, $environment = null) {
-        $this->loader = $loader;
+        $this->loader      = $loader;
         $this->environment = $environment;
     }
 
@@ -21,12 +20,6 @@ class Manager implements ArrayAccess {
         $default = microtime(true);
 
         return $this->get($key, $default) !== $default;
-    }
-
-    public function hasGroup($key) {
-        list($namespace, $group, $item) = $this->parseKey($key);
-
-        return $this->loader->exists($group, $namespace);
     }
 
     public function get($key, $default = null) {
@@ -42,22 +35,10 @@ class Manager implements ArrayAccess {
         return array_get($this->items[ $collection ], $item, $default);
     }
 
-    public function set($key, $value) {
-        list($namespace, $group, $item) = $this->parseKey($key);
+    protected function getCollection($group, $namespace = null) {
+        $namespace = $namespace ?: '*';
 
-        $collection = $this->getCollection($group, $namespace);
-
-        // We'll need to go ahead and lazy load each configuration groups even when
-        // we're just setting a configuration item so that the set item does not
-        // get overwritten if a different item in the group is requested later.
-        $this->load($group, $namespace, $collection);
-
-        if (is_null($item)) {
-            $this->items[ $collection ] = $value;
-        }
-        else {
-            array_set($this->items[ $collection ], $item, $value);
-        }
+        return $namespace . '::' . $group;
     }
 
     protected function load($group, $namespace, $collection) {
@@ -75,10 +56,27 @@ class Manager implements ArrayAccess {
         $this->items[ $collection ] = $items;
     }
 
-    protected function getCollection($group, $namespace = null) {
-        $namespace = $namespace ?: '*';
+    public function hasGroup($key) {
+        list($namespace, $group, $item) = $this->parseKey($key);
 
-        return $namespace . '::' . $group;
+        return $this->loader->exists($group, $namespace);
+    }
+
+    public function set($key, $value) {
+        list($namespace, $group, $item) = $this->parseKey($key);
+
+        $collection = $this->getCollection($group, $namespace);
+
+        // We'll need to go ahead and lazy load each configuration groups even when
+        // we're just setting a configuration item so that the set item does not
+        // get overwritten if a different item in the group is requested later.
+        $this->load($group, $namespace, $collection);
+
+        if (is_null($item)) {
+            $this->items[ $collection ] = $value;
+        } else {
+            array_set($this->items[ $collection ], $item, $value);
+        }
     }
 
     public function addNamespace($namespace, $hint) {

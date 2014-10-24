@@ -8,32 +8,30 @@
 
 namespace Budkit\Protocol\Http;
 
-use Budkit\Protocol;
 use Budkit\Parameter\Factory as Parameters;
+use Budkit\Protocol;
 
 class Server extends Parameters implements Protocol\Server {
 
-    public function __construct(array $server = array() ){
+    public function __construct(array $server = []) {
         parent::__construct("server", $server);
     } //define a server param;
 
-    public function getHeaders()
-    {
-        $headers = array();
-        $contentHeaders = array('CONTENT_LENGTH' => true, 'CONTENT_MD5' => true, 'CONTENT_TYPE' => true);
+    public function getHeaders() {
+        $headers        = [];
+        $contentHeaders = ['CONTENT_LENGTH' => true, 'CONTENT_MD5' => true, 'CONTENT_TYPE' => true];
         foreach ($this->parameters as $key => $value) {
             if (0 === strpos($key, 'HTTP_')) {
-                $headers[substr($key, 5)] = $value;
-            }
-            // CONTENT_* are not prefixed with HTTP_
-            elseif (isset($contentHeaders[$key])) {
-                $headers[$key] = $value;
+                $headers[ substr($key, 5) ] = $value;
+            } // CONTENT_* are not prefixed with HTTP_
+            elseif (isset($contentHeaders[ $key ])) {
+                $headers[ $key ] = $value;
             }
         }
 
         if (isset($this->parameters['PHP_AUTH_USER'])) {
             $headers['PHP_AUTH_USER'] = $this->parameters['PHP_AUTH_USER'];
-            $headers['PHP_AUTH_PW'] = isset($this->parameters['PHP_AUTH_PW']) ? $this->parameters['PHP_AUTH_PW'] : '';
+            $headers['PHP_AUTH_PW']   = isset($this->parameters['PHP_AUTH_PW']) ? $this->parameters['PHP_AUTH_PW'] : '';
         } else {
             /*
              * php-cgi under Apache does not pass HTTP Basic user/pass to PHP by default
@@ -63,9 +61,11 @@ class Server extends Parameters implements Protocol\Server {
                     if (count($exploded) == 2) {
                         list($headers['PHP_AUTH_USER'], $headers['PHP_AUTH_PW']) = $exploded;
                     }
-                } elseif (empty($this->parameters['PHP_AUTH_DIGEST']) && (0 === stripos($authorizationHeader, 'digest'))) {
+                } elseif (empty($this->parameters['PHP_AUTH_DIGEST'])
+                          && (0 === stripos($authorizationHeader, 'digest'))
+                ) {
                     // In some circumstances PHP_AUTH_DIGEST needs to be set
-                    $headers['PHP_AUTH_DIGEST'] = $authorizationHeader;
+                    $headers['PHP_AUTH_DIGEST']          = $authorizationHeader;
                     $this->parameters['PHP_AUTH_DIGEST'] = $authorizationHeader;
                 }
             }
@@ -73,7 +73,8 @@ class Server extends Parameters implements Protocol\Server {
 
         // PHP_AUTH_USER/PHP_AUTH_PW
         if (isset($headers['PHP_AUTH_USER'])) {
-            $headers['AUTHORIZATION'] = 'Basic '.base64_encode($headers['PHP_AUTH_USER'].':'.$headers['PHP_AUTH_PW']);
+            $headers['AUTHORIZATION'] =
+                'Basic ' . base64_encode($headers['PHP_AUTH_USER'] . ':' . $headers['PHP_AUTH_PW']);
         } elseif (isset($headers['PHP_AUTH_DIGEST'])) {
             $headers['AUTHORIZATION'] = $headers['PHP_AUTH_DIGEST'];
         }

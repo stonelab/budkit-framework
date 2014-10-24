@@ -13,7 +13,7 @@ use Budkit\Protocol\Request;
 
 
 abstract class Definition {
-	
+
     /**
      *
      * The route failed to match at isRoutableMatch().
@@ -76,10 +76,10 @@ abstract class Definition {
      *
      */
     const FAILED_CUSTOM = 'FAILED_CUSTOM';
-	
 
-    protected $tokens      = array();
-    protected $server      = array();
+
+    protected $tokens = [];
+    protected $server = [];
     /**
      *
      * HTTP method(s).
@@ -87,7 +87,7 @@ abstract class Definition {
      * @var array
      *
      */
-    protected $method      = array();
+    protected $method = [];
 
     /**
      *
@@ -96,14 +96,14 @@ abstract class Definition {
      * @var array
      *
      */
-    protected $accept      = array();
-    protected $values      = array();
-    protected $secure      = false;
-    protected $wildcard    = null;
-    protected $routable    = true;
-    protected $action      = null;
-    protected $generate    = null;
-	
+    protected $accept   = [];
+    protected $values   = [];
+    protected $secure   = false;
+    protected $wildcard = null;
+    protected $routable = true;
+    protected $action   = null;
+    protected $generate = null;
+
     /**
      *
      * Custom callable for isMatch() logic.
@@ -111,9 +111,9 @@ abstract class Definition {
      * @var callable
      *
      */
-    protected $isMatch    = null;
-	
-	
+    protected $isMatch = null;
+
+
     /**
      *
      * Debugging information about why the route did not match.
@@ -132,8 +132,7 @@ abstract class Definition {
      * @return mixed
      *
      */
-    public function __get($key)
-    {
+    public function __get($key) {
         return $this->$key;
     }
 
@@ -146,8 +145,7 @@ abstract class Definition {
      * @return bool
      *
      */
-    public function __isset($key)
-    {
+    public function __isset($key) {
         return isset($this->$key);
     }
 
@@ -156,11 +154,12 @@ abstract class Definition {
      * Sets tokens to the Route definition, replacing all existing
      *
      * @param array $tokens
+     *
      * @return $this
      */
-    public function setTokens(array $tokens)
-    {
+    public function setTokens(array $tokens) {
         $this->tokens = $tokens;
+
         return $this;
     }
 
@@ -173,10 +172,10 @@ abstract class Definition {
      * @return $this
      *
      */
-    public function addTokens(array $tokens)
-    {
+    public function addTokens(array $tokens) {
         $this->tokens = array_merge($this->tokens, $tokens);
-        $this->regex = null;
+        $this->regex  = null;
+
         return $this;
     }
 
@@ -189,9 +188,9 @@ abstract class Definition {
      * @return $this
      *
      */
-    public function setServer(array $server)
-    {
+    public function setServer(array $server) {
         $this->server = $server;
+
         return $this;
     }
 
@@ -204,10 +203,10 @@ abstract class Definition {
      * @return $this
      *
      */
-    public function addServer(array $server)
-    {
+    public function addServer(array $server) {
         $this->server = array_merge($this->server, $server);
-        $this->regex = null;
+        $this->regex  = null;
+
         return $this;
     }
 
@@ -220,9 +219,9 @@ abstract class Definition {
      * @return $this
      *
      */
-    public function setValues(array $values)
-    {
+    public function setValues(array $values) {
         $this->values = $values;
+
         return $this;
     }
 
@@ -235,9 +234,9 @@ abstract class Definition {
      * @return $this
      *
      */
-    public function addValues(array $values)
-    {
+    public function addValues(array $values) {
         $this->values = array_merge($this->values, $values);
+
         return $this;
     }
 
@@ -246,14 +245,14 @@ abstract class Definition {
      * Sets whether or not the route must be secure.
      *
      * @param bool $secure If true, the server must indicate an HTTPS request;
-     * if false, it must *not* be HTTPS; if null, it doesn't matter.
+     *                     if false, it must *not* be HTTPS; if null, it doesn't matter.
      *
      * @return $this
      *
      */
-    public function setSecure($secure = true)
-    {
-        $this->secure = ($secure === null) ? null : (bool) $secure;
+    public function setSecure($secure = true) {
+        $this->secure = ($secure === null) ? null : (bool)$secure;
+
         return $this;
     }
 
@@ -266,9 +265,9 @@ abstract class Definition {
      * @return $this
      *
      */
-    public function setWildcard($wildcard)
-    {
+    public function setWildcard($wildcard) {
         $this->wildcard = $wildcard;
+
         return $this;
     }
 
@@ -277,21 +276,21 @@ abstract class Definition {
      * Sets whether or not this route should be used for matching.
      *
      * @param bool $routable If true, this route can be matched; if not, it
-     * can be used only to generate a path.
+     *                       can be used only to generate a path.
      *
      * @return $this
      *
      */
-    public function setRoutable($routable = true)
-    {
-        $this->routable = (bool) $routable;
+    public function setRoutable($routable = true) {
+        $this->routable = (bool)$routable;
+
         return $this;
     }
 
 
-    public function setAction($actionController)
-    {
+    public function setAction($actionController) {
         $this->action = $actionController;
+
         return $this;
     }
 
@@ -304,9 +303,9 @@ abstract class Definition {
      * @return $this
      *
      */
-    public function setIsMatchCallable($isMatch)
-    {
+    public function setIsMatchCallable($isMatch) {
         $this->isMatch = $isMatch;
+
         return $this;
     }
 
@@ -316,17 +315,17 @@ abstract class Definition {
      * Sets a custom callable to modify data for `generate()`.
      *
      * @param callable $generate A custom callable to modify data for
-     * `generate()`.
+     *                           `generate()`.
      *
      * @return $this
      *
      */
-    public function setGenerateCallable($generate)
-    {
+    public function setGenerateCallable($generate) {
         $this->generate = $generate;
+
         return $this;
     }
-	
+
     /**
      *
      * Sets the allowable method(s), overwriting previous the previous value.
@@ -336,9 +335,9 @@ abstract class Definition {
      * @return $this
      *
      */
-    public function setMethod($method)
-    {
-        $this->method = (array) $method;
+    public function setMethod($method) {
+        $this->method = (array)$method;
+
         return $this;
     }
 
@@ -351,13 +350,13 @@ abstract class Definition {
      * @return $this
      *
      */
-    public function addMethod($method)
-    {
-        $this->method = array_merge($this->method, (array) $method);
+    public function addMethod($method) {
+        $this->method = array_merge($this->method, (array)$method);
+
         return $this;
     }
-	
-	
+
+
     /**
      *
      * Sets the list of matchable content-types, overwriting previous values.
@@ -367,9 +366,9 @@ abstract class Definition {
      * @return $this
      *
      */
-    public function setAccept($accept)
-    {
-        $this->accept = (array) $accept;
+    public function setAccept($accept) {
+        $this->accept = (array)$accept;
+
         return $this;
     }
 
@@ -382,26 +381,27 @@ abstract class Definition {
      * @return $this
      *
      */
-    public function addAccept($accept)
-    {
-        $this->accept = array_merge($this->accept, (array) $accept);
+    public function addAccept($accept) {
+        $this->accept = array_merge($this->accept, (array)$accept);
+
         return $this;
     }
-	
-	
-    public function matches(Request $request, $strict = true ){
-		
-        $this->debug = array();
-        $this->params = array();
-        $this->score = 0;
+
+
+    public function matches(Request $request, $strict = true) {
+
+        $this->debug  = [];
+        $this->params = [];
+        $this->score  = 0;
         $this->failed = null;
-		
-		
+
+
         if ($this->isMatch($request->getPathInfo(), $request->getServer())) {
             $this->setParams();
+
             return true;
         }
-		
+
         //If no match store reason for failure in debug var
         return false;
     }

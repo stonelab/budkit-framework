@@ -1,10 +1,10 @@
-<?php 
+<?php
 
 
 namespace Budkit\Config\Repository;
 
 use Budkit\Config;
 
-class File implements Config\Loader{
-	
+class File implements Config\Loader {
+
 }

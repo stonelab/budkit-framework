@@ -11,7 +11,7 @@
 |
 | Alternatively you may use Budkit/Utitlity/Loader.
 */
-$loader  = require $paths['vendor'].'/autoload.php';
+$loader = require $paths['vendor'] . '/autoload.php';
 
 
 /*
@@ -67,7 +67,7 @@ $app['paths'] = $paths;
 |
 */
 
-$routes = $paths['app'].'/routes.php';
+$routes = $paths['app'] . '/routes.php';
 
 if (file_exists($routes)) require $routes;
 
@@ -95,7 +95,6 @@ $app->registerServices();
 |
 */
 $app->shareInstance('platform', $app);
-
 
 
 return $app;

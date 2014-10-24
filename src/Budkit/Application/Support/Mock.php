@@ -20,12 +20,12 @@ trait Mock {
      * All mockable class must register a container the name of the original class;
      *
      * @param Container $container
-     * @param $original
+     * @param           $original
      */
-    public static function resolveOriginalClass(Container $container, $original ){
+    public static function resolveOriginalClass(Container $container, $original) {
 
         static::$classContainer = $container;
-        static::$originalClass = $original;
+        static::$originalClass  = $original;
 
     }
 
@@ -33,15 +33,16 @@ trait Mock {
     /**
      * Handle dynamic, static calls to the object.
      *
-     * @param  string  $method
-     * @param  array   $args
+     * @param  string $method
+     * @param  array  $args
+     *
      * @return mixed
      */
-    public static function __callStatic($method, $arguments){
+    public static function __callStatic($method, $arguments) {
 
-        $instance = static::$classContainer[static::$originalClass];
+        $instance = static::$classContainer[ static::$originalClass ];
 
-        return call_user_func_array(array(&$instance, $method), $arguments);
+        return call_user_func_array([&$instance, $method], $arguments);
     }
 
 } 

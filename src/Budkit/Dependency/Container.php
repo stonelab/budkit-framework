@@ -13,30 +13,28 @@ use Closure;
 use ReflectionClass;
 use ReflectionException;
 
-class Container implements ArrayAccess
-{
+class Container implements ArrayAccess {
 
     /**
      * Holds the container references i.e objects and their parameters
      *
      * @var array
      */
-    protected $container = array();
+    protected $container = [];
 
     /**
      * Holds class reference alias map
      *
      * @var array
      */
-    protected $aliases = array();
+    protected $aliases = [];
 
     /**
      * Construct the container class
      *
      * @param array $container
      */
-    public function __construct(Array $container = array())
-    {
+    public function __construct(Array $container = []) {
 
         $this->container = $container;
     }
@@ -46,11 +44,12 @@ class Container implements ArrayAccess
      *
      * @param $reference
      * @param $instance
+     *
      * @return bool
      */
-    public function shareInstance($instance, $reference = null){
+    public function shareInstance($instance, $reference = null) {
 
-        if(!is_object($instance)){
+        if (!is_object($instance)) {
             //@TODO maybe throw an error?
             return false;
         }
@@ -58,37 +57,57 @@ class Container implements ArrayAccess
         $concrete = get_class($instance);
 
         //if reference is difference from $concrete add Alias
-        if( !empty($reference)&&($reference !== $concrete)){
+        if (!empty($reference) && ($reference !== $concrete)) {
             $alias = $reference;
             $this->createAlias($concrete, $alias);
         }
 
         //just save the instance in container, no need for lambdas;
-        return $this->container[$concrete] = $instance;
+        return $this->container[ $concrete ] = $instance;
     }
 
+    /**
+     * Creates a map of class alias stored in the container. A class can have multiple conatiners;
+     *
+     * @param      $alias
+     * @param null $reference
+     */
+    public function createAlias($reference, $alias = null) {
+        //if reference is array look for array(alias=>reference);
+        if (is_array($reference)) {
+            foreach ($reference as $key => $class) {
+                $this->createAlias($class, $key);
+            }
+
+            return true;
+        }
+
+        //store in this->alias as an associative array of class to an array of aliases;
+        foreach ((!is_array($alias) ? [$alias] : $alias) as $key) {
+            $this->aliases[ $key ] = $reference;
+        }
+    }
 
     /**
      * Adds an object instance
      *
-     * @param $alias
-     * @param $instance
+     * @param      $alias
+     * @param      $instance
      * @param bool $shared
      */
-    public function createInstance($reference, array $parameters = array(), $shared = true)
-    {
+    public function createInstance($reference, array $parameters = [], $shared = true) {
         $reference = $this->mapReference($reference);
 
         //if we have already created this reference;
-        if(isset($this[$reference])){
-            return $this[$reference];
+        if (isset($this[ $reference ])) {
+            return $this[ $reference ];
         }
 
         //check if $reference is already bound and return if is instance;
         $class = new ReflectionClass($reference);
 
         //Check that we can instantiate this class;
-        if(!$class->isInstantiable()){
+        if (!$class->isInstantiable()) {
             throw new InvalidArgumentException(sprintf('Identifier "%s" is not defined.', $reference));
         }
 
@@ -97,75 +116,10 @@ class Container implements ArrayAccess
 
         //if instance is defined and is instance wrap in closure and return;
         return ($shared)
-            ?$this->createSharedReference($reference, $callable )
-            :$this->createReference($reference, $callable) ;
+            ? $this->createSharedReference($reference, $callable)
+            : $this->createReference($reference, $callable);
 
     }
-
-    public function getAliases(){
-        return $this->aliases;
-    }
-
-    /**
-     * Wraps the Class in a callable which can look up dependencies automatically
-     * AKA. Serview locator
-     *
-     * @param $class
-     * @param array $paramters
-     * @return callable
-     */
-    protected function wrapInCallable($class, array $parameters = array()){
-
-        return  function($container) use($class, $parameters){
-
-                //if reflection class has a constructor
-                if(($constructor = $class->getConstructor()) !== null) { //will return null if no constructor;
-                    //The container will always be passed as the last argument to the constructor;
-                    if(($required = $constructor->getNUmberOfParameters()) > 0){ //int
-
-                        $dependencies = $constructor->getParameters();
-                        $passed       = count( $parameters );
-                        $needfrom     = ($required-$passed) > 0 ? (($passed-1) < 0 ? 0 : $passed-1)  : $required;
-
-                        for($i = $needfrom; $i < $required; $i++){
-                            $parameter = $dependencies[$i]; //instance of ReflectionParamter;
-                            //If this parameter has not been passed, and the default value is not defined
-                            if(!$parameter->isOptional() && !$parameter->isDefaultValueAvailable()){
-
-
-                                //$hintedType = $reflectionException = null;
-                                    try{
-                                        $hintedType = $parameter->getClass();
-                                        $hintedTypeName = $hintedType->getName();
-                                        //if the required class exists in the container
-
-
-                                        //If its not in the container, we will try to load it;
-                                        if($hintedType->isInstantiable()){
-                                            $hintedInstance = ($hintedType->getName() == "Budkit\\Dependency\\Container") ? $container : $container->createInstance( $hintedType->getName() );
-                                            array_push($parameters, $hintedInstance );
-                                        }
-                                    }catch(ReflectionException $reflectionException){
-                                        throw new ReflectionException(
-                                            sprintf('The %1s Class requires parameter number %1s which could not be located. %2s', $class->getName(), ($i+1), $reflectionException->getMessage() )
-                                        );
-                                    }
-                            }
-                            //if this parameter has not been passed but we have default values
-                            if($parameter->isDefaultValueAvailable()){
-                                array_push($parameters, $parameter->getDefaultValue());
-                            }
-                        }
-                    }
-					
-					//var_dump($class, $parameters, "<br />");
-
-                    return $class->newInstanceArgs($parameters);
-                }
-                return $class->newInstanceWithoutConstructor();
-            };
-    }
-
 
     /**
      * Maps an alias to a reference;
@@ -174,80 +128,110 @@ class Container implements ArrayAccess
      * If passed alias is the class type not in alias, returns untouched;
      *
      * @param $alias
+     *
      * @return string
      */
-    public function mapReference($alias)
-    {
+    public function mapReference($alias) {
         //$alias = strval($alias);
         $reference = array_key_exists($alias, $this->aliases);
 
-        if(array_key_exists( $alias, $this->aliases)){
-            return $this->aliases[$alias];
+        if (array_key_exists($alias, $this->aliases)) {
+            return $this->aliases[ $alias ];
         }
 
         return $alias;
     }
 
     /**
-     * Creates a map of class alias stored in the container. A class can have multiple conatiners;
+     * Wraps the Class in a callable which can look up dependencies automatically
+     * AKA. Serview locator
      *
-     * @param $alias
-     * @param null $reference
+     * @param       $class
+     * @param array $paramters
+     *
+     * @return callable
      */
-    public function createAlias($reference, $alias = null)
-    {
-        //if reference is array look for array(alias=>reference);
-        if (is_array($reference)){
-            foreach($reference as $key=>$class){
-                $this->createAlias($class, $key);
-            }
-            return true;
-        }
+    protected function wrapInCallable($class, array $parameters = []) {
 
-        //store in this->alias as an associative array of class to an array of aliases;
-        foreach((!is_array($alias) ? array( $alias ):$alias) as $key){
-            $this->aliases[$key] = $reference;
-        }
+        return function ($container) use ($class, $parameters) {
+
+            //if reflection class has a constructor
+            if (($constructor = $class->getConstructor()) !== null) { //will return null if no constructor;
+                //The container will always be passed as the last argument to the constructor;
+                if (($required = $constructor->getNUmberOfParameters()) > 0) { //int
+
+                    $dependencies = $constructor->getParameters();
+                    $passed       = count($parameters);
+                    $needfrom     = ($required - $passed) > 0 ? (($passed - 1) < 0 ? 0 : $passed - 1) : $required;
+
+                    for ($i = $needfrom; $i < $required; $i++) {
+                        $parameter = $dependencies[ $i ]; //instance of ReflectionParamter;
+                        //If this parameter has not been passed, and the default value is not defined
+                        if (!$parameter->isOptional() && !$parameter->isDefaultValueAvailable()) {
+
+
+                            //$hintedType = $reflectionException = null;
+                            try {
+                                $hintedType     = $parameter->getClass();
+                                $hintedTypeName = $hintedType->getName();
+                                //if the required class exists in the container
+
+
+                                //If its not in the container, we will try to load it;
+                                if ($hintedType->isInstantiable()) {
+                                    $hintedInstance =
+                                        ($hintedType->getName() == "Budkit\\Dependency\\Container") ? $container
+                                            : $container->createInstance($hintedType->getName());
+                                    array_push($parameters, $hintedInstance);
+                                }
+                            }
+                            catch (ReflectionException $reflectionException) {
+                                throw new ReflectionException(
+                                    sprintf('The %1s Class requires parameter number %1s which could not be located. %2s',
+                                            $class->getName(), ($i + 1), $reflectionException->getMessage())
+                                );
+                            }
+                        }
+                        //if this parameter has not been passed but we have default values
+                        if ($parameter->isDefaultValueAvailable()) {
+                            array_push($parameters, $parameter->getDefaultValue());
+                        }
+                    }
+                }
+
+                //var_dump($class, $parameters, "<br />");
+
+                return $class->newInstanceArgs($parameters);
+            }
+
+            return $class->newInstanceWithoutConstructor();
+        };
     }
 
     /**
-     * Gets the raw container reference
+     * Adds a shared object instance. ,
      *
-     * @param $reference
-     * @return mixed
-     * @throws InvalidArgumentException
-     *
+     * @param      $reference
+     * @param null $alias
+     * @param bool $instaniate
      */
-    public function getRawReference($reference)
-    {
+    public function createSharedReference($reference, Closure $callable, array $parameters = []) {
+        return $this->createReference($reference, $callable, $parameters, true);
+    }
 
+    /**
+     * Adds an unistantitated reference to a class
+     *
+     * @param      $reference
+     * @param null $alias
+     */
+    public function createReference($reference, Closure $callable, array $parameters = [], $shared = false) {
         $reference = $this->mapReference($reference);
 
-        if (!array_key_exists($reference, $this->container)) {
-            throw new InvalidArgumentException(sprintf('Identifier "%s" is not defined.', $reference));
-        }
+        $this[ $reference ] =
+            ($shared) ? static::share($callable, $parameters) : static::protect($callable, $parameters);
 
-        return $this->container[$reference];
-    }
-
-    /**
-     * Protects a callable from being interpreted as a service.
-     *
-     * This is useful when you want to store a callable as a parameter.
-     *
-     * @param callable $callable A callable to protect from being evaluated
-     *
-     * @return Closure The protected closure
-     */
-    protected static function protect($callable)
-    {
-        if (!is_object($callable) || !method_exists($callable, '__invoke')) {
-            throw new InvalidArgumentException('Callable is not a Closure or invokable object.');
-        }
-
-        return function ($container) use ($callable) {
-            return $callable($container);
-        };
+        return $this[ $reference ];
     }
 
     /**
@@ -258,8 +242,7 @@ class Container implements ArrayAccess
      *
      * @return Closure The wrapped closure
      */
-    protected static function share($callable)
-    {
+    protected static function share($callable) {
         if (!is_object($callable) || !method_exists($callable, '__invoke')) {
             throw new InvalidArgumentException('Service definition is not a Closure or invokable object.');
         }
@@ -276,31 +259,46 @@ class Container implements ArrayAccess
     }
 
     /**
-     * Adds an unistantitated reference to a class
+     * Protects a callable from being interpreted as a service.
      *
-     * @param $reference
-     * @param null $alias
+     * This is useful when you want to store a callable as a parameter.
+     *
+     * @param callable $callable A callable to protect from being evaluated
+     *
+     * @return Closure The protected closure
      */
-    public function createReference($reference, Closure $callable, array $parameters = array(), $shared = false)
-    {
-        $reference = $this->mapReference($reference);
+    protected static function protect($callable) {
+        if (!is_object($callable) || !method_exists($callable, '__invoke')) {
+            throw new InvalidArgumentException('Callable is not a Closure or invokable object.');
+        }
 
-        $this[$reference] = ($shared)? static::share($callable, $parameters) : static::protect($callable, $parameters);
-
-        return $this[$reference];
+        return function ($container) use ($callable) {
+            return $callable($container);
+        };
     }
 
+    public function getAliases() {
+        return $this->aliases;
+    }
 
     /**
-     * Adds a shared object instance. ,
+     * Gets the raw container reference
      *
      * @param $reference
-     * @param null $alias
-     * @param bool $instaniate
+     *
+     * @return mixed
+     * @throws InvalidArgumentException
+     *
      */
-    public function createSharedReference($reference, Closure $callable, array $parameters = array())
-    {
-       return $this->createReference($reference, $callable, $parameters, true );
+    public function getRawReference($reference) {
+
+        $reference = $this->mapReference($reference);
+
+        if (!array_key_exists($reference, $this->container)) {
+            throw new InvalidArgumentException(sprintf('Identifier "%s" is not defined.', $reference));
+        }
+
+        return $this->container[ $reference ];
     }
 
     /**
@@ -313,25 +311,14 @@ class Container implements ArrayAccess
      * the same a name as an existing parameter would break your container).
      *
      * @param string $reference The unique identifier for the parameter or object
-     * @param mixed $value The value of the parameter or a closure to defined an object
+     * @param mixed  $value     The value of the parameter or a closure to defined an object
      */
-    public function offsetSet($reference, $value)
-    {
+    public function offsetSet($reference, $value) {
         //$reference = $this->mapReference($reference);
         //if value is callable
         //if value is not of type reference, then reference is alias and type is reference;
 
-        $this->container[$reference] = $value;
-    }
-
-    /**
-     * Aliasing the offsetGet Method so we could use $this->{$alias} directly;
-     *
-     * @param $reference
-     * @return mixed
-     */
-    public function __get($reference){
-        return $this->offsetGet($reference);
+        $this->container[ $reference ] = $value;
     }
 
     /**
@@ -343,17 +330,18 @@ class Container implements ArrayAccess
      *
      * @throws InvalidArgumentException if the identifier is not defined
      */
-    public function offsetGet($reference)
-    {
+    public function offsetGet($reference) {
         $reference = $this->mapReference($reference);
 
         if (!array_key_exists($reference, $this->container)) {
-            $this->createInstance($reference, array(), false); //if the alias exists and not in container will create callable instance on fly;
+            $this->createInstance($reference, [],
+                                  false); //if the alias exists and not in container will create callable instance on fly;
         }
 
-        $isFactory = is_object($this->container[$reference]) && method_exists($this->container[$reference], '__invoke');
+        $isFactory =
+            is_object($this->container[ $reference ]) && method_exists($this->container[ $reference ], '__invoke');
 
-        return $isFactory ? $this->container[$reference]($this) : $this->container[$reference];
+        return $isFactory ? $this->container[$reference]($this) : $this->container[ $reference ];
     }
 
     /**
@@ -363,8 +351,7 @@ class Container implements ArrayAccess
      *
      * @return Boolean
      */
-    public function offsetExists($reference)
-    {
+    public function offsetExists($reference) {
         $reference = $this->mapReference($reference);
 
         return array_key_exists($reference, $this->container);
@@ -375,18 +362,28 @@ class Container implements ArrayAccess
      *
      * @param string $reference The unique identifier for the parameter or object
      */
-    public function offsetUnset($reference)
-    {
+    public function offsetUnset($reference) {
         $reference = $this->mapReference($alias);
 
         //Remove the reference from the container;
-        unset($this->container[$reference]);
+        unset($this->container[ $reference ]);
 
         //Remove its aliases;
-        while(($alias = array_search($reference, $this->aliases)) !== null){
-            unset($this->aliases[$alias]);
+        while (($alias = array_search($reference, $this->aliases)) !== null) {
+            unset($this->aliases[ $alias ]);
         }
 
+    }
+
+    /**
+     * Aliasing the offsetGet Method so we could use $this->{$alias} directly;
+     *
+     * @param $reference
+     *
+     * @return mixed
+     */
+    public function __get($reference) {
+        return $this->offsetGet($reference);
     }
 
     /**
@@ -395,30 +392,30 @@ class Container implements ArrayAccess
      * Useful when you want to extend an existing object definition,
      * without necessarily loading that object.
      *
-     * @param string $reference The unique identifier for the object
-     * @param callable $callable A service definition to extend the original
+     * @param string   $reference The unique identifier for the object
+     * @param callable $callable  A service definition to extend the original
      *
      * @return Closure The wrapped closure
      *
      * @throws InvalidArgumentException if the identifier is not defined or not a service definition
      */
-    public function extendReference($reference, $callable)
-    {
+    public function extendReference($reference, $callable) {
         if (!array_key_exists($reference, $this->container)) {
             throw new InvalidArgumentException(sprintf('Identifier "%s" is not defined.', $reference));
         }
 
-        if (!is_object($this->container[$reference]) || !method_exists($this->container[$reference], '__invoke')) {
-            throw new InvalidArgumentException(sprintf('Identifier "%s" does not contain an object definition.', $reference));
+        if (!is_object($this->container[ $reference ]) || !method_exists($this->container[ $reference ], '__invoke')) {
+            throw new InvalidArgumentException(sprintf('Identifier "%s" does not contain an object definition.',
+                                                       $reference));
         }
 
         if (!is_object($callable) || !method_exists($callable, '__invoke')) {
             throw new InvalidArgumentException('Extension service definition is not a Closure or invokable object.');
         }
 
-        $factory = $this->container[$reference];
+        $factory = $this->container[ $reference ];
 
-        return $this->container[$reference] = function ($c) use ($callable, $factory) {
+        return $this->container[ $reference ] = function ($c) use ($callable, $factory) {
             return $callable($factory($c), $c);
         };
     }
@@ -428,8 +425,7 @@ class Container implements ArrayAccess
      *
      * @return array An array of value names
      */
-    public function keys()
-    {
+    public function keys() {
         return array_keys($this->container);
     }
 } 

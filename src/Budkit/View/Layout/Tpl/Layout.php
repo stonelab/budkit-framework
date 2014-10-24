@@ -1,13 +1,13 @@
 <?php
 namespace Budkit\View\Layout\Tpl;
 
-use DOMNode;
-use DOMXPath;
-use DOMDocument;
-use Budkit\View\Layout\Loader;
+use Budkit\Event\Event;
 use Budkit\Event\Listener;
 use Budkit\Event\Observer;
-use Budkit\Event\Event;
+use Budkit\View\Layout\Loader;
+use DOMDocument;
+use DOMNode;
+use DOMXPath;
 
 class Layout implements Listener {
 
@@ -21,12 +21,18 @@ class Layout implements Listener {
 
 
     public function __construct(Loader $loader, Observer $observer) {
-        $this->loader = $loader;
+        $this->loader   = $loader;
         $this->observer = $observer;
     }
 
     public function definition() {
-        return ['Layout.onCompile.layout.extension' => [[$this, 'prepend'], [$this, 'append'], [$this, 'replace'], [$this, 'remove']]];
+        return ['Layout.onCompile.layout.extension' => [
+						[$this, 'prepend'], 
+						[$this, 'append'], 
+						[$this, 'replace'],
+	                    [$this, 'remove']
+					]
+				];
     }
 
     public function element($Element, DOMXPath $xPath) {
@@ -42,9 +48,11 @@ class Layout implements Listener {
         }
 
         //If the node is not of type tpl:layout; return
-        if ($Node->namespaceURI !== $this->nsURI || strtolower($Node->localName) !== $this->localName)
+        if ($Node->namespaceURI !== $this->nsURI || strtolower($Node->localName) !== $this->localName) {
             return;
+        }
 
+		//echo "1<br />";
         //Extending?
         $this->extension($Node, $xPath);
         $document = $Node->parentNode;
@@ -58,16 +66,19 @@ class Layout implements Listener {
 
         $Node->parentNode->removeChild($Node);
         $Element->setResult($document);
+		
+		//$Element->stop();
     }
 
     private function extension(&$Node, $xPath) {
         //check node has extension attribute;
-        if (!($Node instanceof DOMNode) || !$Node->hasAttribute("extends"))
+        if (!($Node instanceof DOMNode) || !$Node->hasAttribute("extends")) {
             return;
+        }
 
-        $layout = $Node->getAttribute("extends");
+        $layout          = $Node->getAttribute("extends");
         $this->extending = new DOMDocument();
-        $this->xPath = $xPath;
+        $this->xPath     = $xPath;
 
         //Get the imported document;
         $this->observer->attach($this, 'Layout.onCompile.layout.extension', $this->extending);
@@ -102,8 +113,11 @@ class Layout implements Listener {
             $Extension->stop(); //Stop propagating this event;
             return;
         }
-        if ($Node->namespaceURI !== $this->nsURI || strtolower($Node->localName) !== "append" || !$Node->hasAttribute("path"))
+        if ($Node->namespaceURI !== $this->nsURI || strtolower($Node->localName) !== "append"
+            || !$Node->hasAttribute("path")
+        ) {
             return;
+        }
 
         //Find Nodes to append;
         $Xpath = new DOMXPath($Extending);
@@ -130,8 +144,11 @@ class Layout implements Listener {
             $Extension->stop(); //Stop propagating this event;
             return;
         }
-        if ($Node->namespaceURI !== $this->nsURI || strtolower($Node->localName) !== "remove" || !$Node->hasAttribute("path"))
+        if ($Node->namespaceURI !== $this->nsURI || strtolower($Node->localName) !== "remove"
+            || !$Node->hasAttribute("path")
+        ) {
             return;
+        }
 
         //Find Nodes to append;
         $Xpath = new DOMXPath($Extending);
@@ -163,8 +180,12 @@ class Layout implements Listener {
             $Extension->stop(); //Stop propagating this event;
             return;
         }
-        if ($Node->namespaceURI !== $this->nsURI || strtolower($Node->localName) !== (($replace) ? "replace" : "prepend") || !$Node->hasAttribute("path"))
+        if ($Node->namespaceURI !== $this->nsURI
+            || strtolower($Node->localName) !== (($replace) ? "replace" : "prepend")
+            || !$Node->hasAttribute("path")
+        ) {
             return;
+        }
 
         //Find Nodes to append;
         $Xpath = new DOMXPath($Extending);
@@ -179,8 +200,9 @@ class Layout implements Listener {
                     $import = $Extending->importNode($import, true);
                     $replace->parentNode->insertBefore($import, $replace);
                 }
-                if ($replace)
+                if ($replace) {
                     $replace->parentNode->removeChild($replace);
+                }
             }
         }
     }

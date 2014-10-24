@@ -2,11 +2,8 @@
 
 namespace Budkit\Routing;
 
-use BUdkit\Routing\Regex;
 
-
-class Factory
-{
+class Factory {
     /**
      *
      * The route class to create.
@@ -32,20 +29,20 @@ class Factory
      * @var array
      *
      */
-    protected $spec = array(
-        'tokens' => array(),
-        'server' => array(),
-        'method' => array(),
-        'accept' => array(),
-        'values' => array(),
-        'secure' => null,
-        'wildcard' => null,
-        'routable' => true,
-        'isMatch' => null,
-        'generate' => null,
+    protected $spec = [
+        'tokens'     => [],
+        'server'     => [],
+        'method'     => [],
+        'accept'     => [],
+        'values'     => [],
+        'secure'     => null,
+        'wildcard'   => null,
+        'routable'   => true,
+        'isMatch'    => null,
+        'generate'   => null,
         'namePrefix' => null,
         'pathPrefix' => null,
-    );
+    ];
 
     /**
      *
@@ -54,8 +51,7 @@ class Factory
      * @param string $class The route class to create.
      *
      */
-    public function __construct($class = 'Budkit\Routing\Route')
-    {
+    public function __construct($class = 'Budkit\Routing\Route') {
         $this->class = $class;
         $this->regex = new Regex;
     }
@@ -68,25 +64,24 @@ class Factory
      *
      * @param string $name The name for the route.
      *
-     * @param array $spec The spec for the new instance.
+     * @param array  $spec The spec for the new instance.
      *
      * @return Route
      *
      */
-    public function newInstance($path, $name = null, array $spec = array())
-    {
+    public function newInstance($path, $name = null, array $spec = []) {
         $spec = array_merge($this->spec, $spec);
-		
-		//var_dump($path, $name, $spec);
+
+        //var_dump($path, $name, $spec);
 
         $path = $spec['pathPrefix'] . $path;
 
         $name = ($spec['namePrefix'] && $name)
-              ? $spec['namePrefix'] . '.' . $name
-              : $name;
+            ? $spec['namePrefix'] . '.' . $name
+            : $name;
 
         $class = $this->class;
-        $route = new $class($path, $name, array(), new Regex);
+        $route = new $class($path, $name, [], new Regex);
         $route->addTokens($spec['tokens']);
         $route->addServer($spec['server']);
         $route->addMethod($spec['method']);
@@ -97,9 +92,9 @@ class Factory
         $route->setRoutable($spec['routable']);
         $route->setIsMatchCallable($spec['isMatch']);
         $route->setGenerateCallable($spec['generate']);
-		
-		//var_dump($route);
-		
+
+        //var_dump($route);
+
         return $route;
     }
 }

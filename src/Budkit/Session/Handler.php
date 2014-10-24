@@ -12,6 +12,7 @@ namespace Budkit\Session;
 interface Handler {
 
     public function getId();
+
     public function getName();
-	
+
 } 

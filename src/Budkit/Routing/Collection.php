@@ -11,10 +11,6 @@ namespace Budkit\Routing;
 use ArrayAccess;
 use Countable;
 use IteratorAggregate;
-use Budkit\Routing\Route;
-use Budkit\Routing\Definition;
-use Budkit\Routing\Factory;
-use Budkit\Dependency\Container;
 
 class Collection extends Definition implements ArrayAccess, Countable, IteratorAggregate {
 
@@ -72,7 +68,7 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
 
     public function __construct(Factory $routeFactory, array $routes = []) {
 
-        $this->routes = $routes;
+        $this->routes       = $routes;
         $this->routeFactory = $routeFactory;
 
         $this->setResourceCallable([$this, 'resourceCallable']);
@@ -147,8 +143,7 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
         // add the route
         if (!$route->name) {
             $this->routes[] = $route;
-        }
-        else {
+        } else {
             $this->routes[ $route->name ] = $route;
         }
 
@@ -170,7 +165,9 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
      *
      */
     protected function getSpec() {
-        $vars = ['tokens', 'server', 'method', 'accept', 'values', 'secure', 'wildcard', 'routable', 'isMatch', 'generate', 'namePrefix', 'pathPrefix', 'resourceCallable', 'routeCallable',];
+        $vars =
+            ['tokens', 'server', 'method', 'accept', 'values', 'secure', 'wildcard', 'routable', 'isMatch', 'generate',
+             'namePrefix', 'pathPrefix', 'resourceCallable', 'routeCallable',];
 
         $spec = [];
         foreach ($vars as $var) {
@@ -196,8 +193,7 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
         //add the route to the collection container;
         if (is_null($name)) {
             $this->routes[] = $route;
-        }
-        else {
+        } else {
             $this->routes[ $name ] = $route;
         }
     }

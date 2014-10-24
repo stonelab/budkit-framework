@@ -2,15 +2,17 @@
 
 namespace Budkit\Routing;
 
-use ReflectionMethod;
-use Exception;
+use Budkit\Application\Support\Mock;
+use Budkit\Application\Support\Mockable;
+use Budkit\Dependency\Container as Application;
 use Budkit\Event\Event;
 use Budkit\Event\Listener;
 use Budkit\View\Display as View;
-use Budkit\Dependency\Container as Application; //not using platform here bc cli also uses controllers
-use Budkit\Application\Support\Mockable;
-use Budkit\Application\Support\Mock;
 use Budkit\View\Engine;
+use Exception;
+use ReflectionMethod;
+
+//not using platform here bc cli also uses controllers
 
 /**
  * Class Controller
@@ -21,19 +23,19 @@ class Controller implements Mockable, Listener {
 
     use Mock;
 
-    public $autoRender = false;
+    public    $autoRender = false;
     protected $observer;
     protected $request;
     protected $response;
     protected $application;
     protected $view;
-    private $rendered = false;
+    private   $rendered   = false;
 
     public function __construct(Application $application) {
 
-        $this->observer = $application->observer;
-        $this->response = $application->response;
-        $this->request = $application->request;
+        $this->observer    = $application->observer;
+        $this->response    = $application->response;
+        $this->request     = $application->request;
         $this->application = $application;
 
         $this->view = $this->getView();
@@ -46,7 +48,8 @@ class Controller implements Mockable, Listener {
 
         $handler = $this->application->createInstance("viewengine", [$this->response]);
 
-        return $this->view = ($this->view instanceof View) ? $this->view : new View([], $this->response, $this->getHandler());
+        return $this->view =
+            ($this->view instanceof View) ? $this->view : new View([], $this->response, $this->getHandler());
     }
 
     /**
@@ -72,14 +75,14 @@ class Controller implements Mockable, Listener {
                 //Load the newView;
                 $this->view = $this->loadView($view, $values);
 
-                if (!empty($layout))
+                if (!empty($layout)) {
                     $this->view->setLayout($layout);
+                }
             }
 
             return $this;
 
-        }
-        else if (is_string($view)) {
+        } else if (is_string($view)) {
 
             $this->response->addContent($view); //so that $this->view("Hi There");  will output Hi There;
 
@@ -92,8 +95,9 @@ class Controller implements Mockable, Listener {
 
     private function getHandler() {
 
-        if (isset($this->application['viewengine']))
+        if (isset($this->application['viewengine'])) {
             return $this->application->viewengine;
+        }
 
         $handler = $this->application->createInstance("viewengine", [$this->response]);
 
@@ -125,8 +129,9 @@ class Controller implements Mockable, Listener {
 
     public function autoRender(Event $onShutDown) {
 
-        if ($this->rendered)
+        if ($this->rendered) {
             return true;
+        }
 
         return $this->render($onShutDown->get("object")->getView());
 
@@ -140,8 +145,9 @@ class Controller implements Mockable, Listener {
      */
     public function render(View $view = null) {
 
-        if ($this->rendered)
+        if ($this->rendered) {
             return true;
+        }
 
 
         $onRender = new Event('Controller.beforeRender', $this);
@@ -214,8 +220,9 @@ class Controller implements Mockable, Listener {
     protected function loadView($view, $values = []) {
 
 
-        if (isset($this->application[ $view ]))
+        if (isset($this->application[ $view ])) {
             return $this->application[ $view ];
+        }
 
         $instance = $this->application->createInstance($view, [$values, $this->response, $this->getHandler()]);
 

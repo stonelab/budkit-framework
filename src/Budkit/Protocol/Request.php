@@ -12,7 +12,9 @@ namespace Budkit\Protocol;
 interface Request {
 
     public function send(Request $request = null); //ability to send a request;
+
     public function getResponse(); //ability to get a response following a send;
-	public function getProtocol(); //quick means to determine which protocol we are dealing with;
-	
+
+    public function getProtocol(); //quick means to determine which protocol we are dealing with;
+
 } 
