@@ -19,7 +19,7 @@ class Compiler implements Parser, Listener {
     protected $masterName;
     protected $xPath;
     protected $loader;
-	public    $removeQueue = array();
+	public    $removeQueue = [];
 
     /**
      * @param \Budkit\View\Layout\Loader $loader

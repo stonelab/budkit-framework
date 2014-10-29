@@ -10,7 +10,7 @@ use Budkit\View\Layout\Loader;
 use DOMNode;
 use DOMXPath;
 
-class link implements Listener {
+class Link implements Listener {
 
     protected $nsURI = "http://budkit.org/tpl";
     protected $localName = "link";
