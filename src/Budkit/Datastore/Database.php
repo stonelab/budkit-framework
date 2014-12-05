@@ -1,6 +1,6 @@
 <?php
 
-namespace Budkti\Datastore;
+namespace Budkit\Datastore;
 
 
 /**
@@ -20,7 +20,7 @@ namespace Budkti\Datastore;
  * @link       http://stonyhillshq/documents/index/carbon4/libraries/database
  * @since      Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM
  *
- * @uses        Library\Database\Activerecord For magical Query building
+ * @uses        Library\Database\ActiveRecord For magical Query building
  * @uses        Library\Database\Table For handling tablesets in the DB
  * @uses        Library\Database\Results For handling query resultsets
  * @uses        Library\Database\Drivers\MySQL\Driver For a MySQL abstraction;
