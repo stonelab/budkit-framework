@@ -17,7 +17,6 @@ abstract class Application extends Dependency\Container {
 
     use Mockery;
 
-
     /**
      * Construct/Initialises the application and required resources;
      *
