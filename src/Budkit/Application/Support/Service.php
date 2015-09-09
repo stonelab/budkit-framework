@@ -7,4 +7,6 @@ use Budkit\Event\Listener;
 interface Service extends Listener {
 
 
+    public static function  getPackageDir();
+
 }
