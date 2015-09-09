@@ -16,12 +16,25 @@ class Loader {
 
     public function __construct($defaultExt = '.tpl', Application $application) {
 
-        $this->paths      = $application['paths'];
+        $this->paths      = array(
+            $application['paths']['public'] . '/layouts/',
+            $application['paths']['app'] . '/layouts/'
+        );
         $this->defaultExt = $defaultExt;
 
     }
 
+
+    public function addSearchPaths(array $paths = []){
+
+        $this->paths = array_merge($this->paths, $paths);
+
+    }
+
+
     public function find($layout) {
+
+
         //use the app config?
         $file = new File();
 
@@ -29,12 +42,29 @@ class Loader {
             $layout = $layout . $this->defaultExt;
         }
 
-        if (!$file->exists($layout)) {
-            $layout = $this->paths['app'] . '/layouts/' . $layout;
+        $found = null;
+
+        foreach($this->paths as $path){
+
+            if ($file->exists($path.$layout)) {
+                $found = $path.$layout;
+            }
+        }
+
+        if ($found == null) {
+
+            //@TODO find layout first by checking multiple directories
+            //Check the package directory
+            //Check the application/layouts directory
+            //check the public/themes/layouts directory for any overwrites.
+
+
             if (!$file->exists($layout)) {
                 throw new Exception("Could not locate the layout file {$layout}");
             }
         }
+
+        $layout = $found;
 
         $this->startBuffer();
         $file->requireOnce($layout);

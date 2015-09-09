@@ -29,7 +29,7 @@ class Engine {
 
         if (class_exists($engineClass)) {
             $engine = $this->container->createInstance($engineClass);
-            if ($engine instanceof Format) {
+            if ($engine instanceof Format) { //good. this ensures the handler implements a compile method
                 $this->handler = $engine;
             }
         } else {

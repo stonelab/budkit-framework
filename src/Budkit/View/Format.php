@@ -13,5 +13,6 @@ interface Format {
      * @return string
      */
     public function compile($viewpath, array $data = []);
+    public function addLayoutSearchPaths(array $searchPaths = []);
 
 }

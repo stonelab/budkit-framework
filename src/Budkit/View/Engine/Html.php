@@ -24,4 +24,9 @@ class Html implements Format {
 
     }
 
+    public function  addLayoutSearchPaths(array $searchPaths = []){
+
+        $this->loader->addSearchPaths( $searchPaths );
+    }
+
 }

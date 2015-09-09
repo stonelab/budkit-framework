@@ -16,4 +16,9 @@ class Json implements Format {
 
     }
 
+
+    public function  addLayoutSearchPaths(array $searchPaths = []){
+
+    }
+
 }

@@ -15,12 +15,10 @@ class Display extends Parameters implements Mockable {
     use Mock;
 
     protected $rendered = false;
-
     protected $response;
-
     protected $engine;
-
     protected $layout = null;
+    protected $searchPaths = array();
 
 
     public function __construct(array $data = [], Response $response, Engine $engine = null) {
@@ -33,10 +31,18 @@ class Display extends Parameters implements Mockable {
     }
 
 
+    public function appendLayoutSearchPath( $path ){
+
+        array_push($this->searchPaths, $path);
+
+    }
+
+
     public function render($layout = null, $partial = false) {
 
         $layout  = (empty($layout) && !$partial) ? $this->getLayout() : $layout;
         $handler = $this->engine->getHandler();
+        $handler->addLayoutSearchPaths( $this->searchPaths );
 
         //We can only render layouts
         if ($this->rendered || empty($layout)) return null;
