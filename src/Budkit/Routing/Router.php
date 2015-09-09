@@ -57,7 +57,12 @@ class Router implements Mockable {
 
 
     public function matchToRoute(Request $request) {
-        foreach (($routes = $this->collection->getRoutes()) as $route) {
+
+        $routes = $this->collection->getRoutes();
+
+        //print_r($routes);
+
+        foreach ($routes as $route) {
             $this->testedRoutes[] = $route;
             if ($route->matches($request)) {
                 $this->matchedRoute = $route;
