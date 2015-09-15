@@ -31,11 +31,15 @@ class Platform extends Support\Application {
         //@TODO detect protocol before adding the classes here;
         $this->createAlias(
             $aliases = [
-                'request'  => 'Budkit\Protocol\Http\Request',
-                'response' => 'Budkit\Protocol\Http\Response'
+                'request'  => \Budkit\Protocol\Http\Request::class,
+                'response' => \Budkit\Protocol\Http\Response::class
             ]
         );
 
+
+        //Datastore and Session
+        //@TODO load datbase drivers from configuration
+        $this->createInstance("database", ["mysqli", []], true);
         $this->initialize(); //boots all registered plugins;
     }
 
@@ -46,7 +50,7 @@ class Platform extends Support\Application {
         $request = $request ?: $this->createRequest(); //shorthand teneray operator
 
         //The global dispatcher
-        $this->shareInstance($this->createInstance('Budkit\Routing\Dispatcher'), 'dispatcher');
+        $this->shareInstance($this->createInstance( \Budkit\Routing\Dispatcher::class ), 'dispatcher');
 
         $this->dispatcher->dispatch($request, $this->response);
 

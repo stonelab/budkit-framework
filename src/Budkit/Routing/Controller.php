@@ -19,32 +19,36 @@ use ReflectionMethod;
  *
  * @package Budkit\Routing
  */
-class Controller implements Mockable, Listener {
+class Controller implements Mockable, Listener
+{
 
     use Mock;
 
-    public    $autoRender = false;
+    public $autoRender = false;
     protected $observer;
     protected $request;
     protected $response;
     protected $application;
     protected $view;
-    private   $rendered   = false;
+    protected $config;
+    private $rendered = false;
 
-    public function __construct(Application $application) {
+    public function __construct(Application $application)
+    {
 
-        $this->observer    = $application->observer;
-        $this->response    = $application->response;
-        $this->request     = $application->request;
+        $this->observer = $application->observer;
+        $this->response = $application->response;
+        $this->request = $application->request;
         $this->application = $application;
-
         $this->view = $this->getView();
+        $this->config = $application->config;
 
         //Attach controllers to the observer;
         $this->observer->attach($this);
     }
 
-    public function getView() {
+    public function getView()
+    {
 
         $handler = $this->application->createInstance("viewengine", [$this->response]);
 
@@ -60,7 +64,8 @@ class Controller implements Mockable, Listener {
      * @return void
      * @author Livingstone Fultang
      */
-    public function setView($view) {
+    public function setView($view)
+    {
 
         if (class_exists($view)) {
             //if we already have a default view
@@ -93,7 +98,8 @@ class Controller implements Mockable, Listener {
         return false; //no view set;
     }
 
-    private function getHandler() {
+    private function getHandler()
+    {
 
         if (isset($this->application['viewengine'])) {
             return $this->application->viewengine;
@@ -105,15 +111,18 @@ class Controller implements Mockable, Listener {
 
     }
 
-    public function definition() {
+    public function definition()
+    {
         return ['Controller.shutdown' => 'autoRender'];
     }
 
-    public function getRequest() {
+    public function getRequest()
+    {
         return $this->request;
     }
 
-    public function getResponse() {
+    public function getResponse()
+    {
         return $this->response;
     }
 
@@ -123,11 +132,13 @@ class Controller implements Mockable, Listener {
      * @return void
      * @author Livingstone Fultang
      */
-    public function initialize() {
+    public function initialize()
+    {
         $this->observer->trigger(new Event('Controller.initialize', $this));
     }
 
-    public function autoRender(Event $onShutDown) {
+    public function autoRender(Event $onShutDown)
+    {
 
         if ($this->rendered) {
             return true;
@@ -143,7 +154,8 @@ class Controller implements Mockable, Listener {
      * @return void
      * @author Livingstone Fultang
      */
-    public function render(View $view = null) {
+    public function render(View $view = null)
+    {
 
         if ($this->rendered) {
             return true;
@@ -173,7 +185,8 @@ class Controller implements Mockable, Listener {
         return true;
     }
 
-    public function display($view) {
+    public function display($view)
+    {
         if (!$this->setView($view)) {
             throw Exception("Could not display {$view}");
         }
@@ -185,12 +198,13 @@ class Controller implements Mockable, Listener {
      * Checks that the method is callable;
      *
      * @param string $action
-     * @param Route  $route
+     * @param Route $route
      *
      * @return void
      * @author Livingstone Fultang
      */
-    public function invokeAction($action, $params = []) {
+    public function invokeAction($action, $params = [])
+    {
 
         //var_dump($this->request->getAttributes());
 
@@ -205,7 +219,8 @@ class Controller implements Mockable, Listener {
 
     }
 
-    public function shutdown() {
+    public function shutdown()
+    {
         $this->observer->trigger(new Event('Controller.shutdown', $this));
     }
 
@@ -217,11 +232,12 @@ class Controller implements Mockable, Listener {
      * @return void
      * @author Livingstone Fultang
      */
-    protected function loadView($view, $values = []) {
+    protected function loadView($view, $values = [])
+    {
 
 
-        if (isset($this->application[ $view ])) {
-            return $this->application[ $view ];
+        if (isset($this->application[$view])) {
+            return $this->application[$view];
         }
 
         $instance = $this->application->createInstance($view, [$values, $this->response, $this->getHandler()]);

@@ -14,7 +14,7 @@ use Budkit\Validation\Validate;
 use Countable;
 use IteratorAggregate;
 
-class Factory implements ArrayAccess, IteratorAggregate, Countable {
+class Factory implements ArrayAccess, Countable, IteratorAggregate  {
 
     use Utility;
 

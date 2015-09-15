@@ -40,7 +40,9 @@ trait Mock {
      */
     public static function __callStatic($method, $arguments) {
 
-        $instance = static::$classContainer[ static::$originalClass ];
+        //print_r(static::$classContainer->createInstance(static::$originalClass));
+
+        $instance = static::$classContainer->createInstance(static::$originalClass);
 
         return call_user_func_array([&$instance, $method], $arguments);
     }

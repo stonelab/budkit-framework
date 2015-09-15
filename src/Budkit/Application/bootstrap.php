@@ -40,6 +40,31 @@ $app = new Budkit\Application\Platform;
 
 /*
 |--------------------------------------------------------------------------
+| Load The Application Configuration
+|--------------------------------------------------------------------------
+|
+| The Application routes are kept separate from the application starting
+| just to keep the file a little cleaner. We'll go ahead and load in
+| all of the routes now and return the application to the callers.
+|
+*/
+
+$config     = require $paths['app'] . '/config.inc';
+$configDir  = $paths['app'] . DIRECTORY_SEPARATOR . "config" . DIRECTORY_SEPARATOR;
+$configExt  = ".ini";
+
+$app->shareInstance($app->createInstance('config',
+    [$app->createInstance( Budkit\Parameter\Repository\File::class,
+        [$configDir, $configExt]
+    )]
+), 'config');
+
+$app->config->addParameters( $config );
+
+
+
+/*
+|--------------------------------------------------------------------------
 | Share the composer loader
 |--------------------------------------------------------------------------
 |

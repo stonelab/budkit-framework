@@ -13,7 +13,8 @@ use Budkit\Event\Event;
 use Budkit\Protocol\Request;
 use Exception;
 
-abstract class Application extends Dependency\Container {
+abstract class Application extends Dependency\Container
+{
 
     use Mockery;
 
@@ -22,43 +23,47 @@ abstract class Application extends Dependency\Container {
      *
      * @param Request $request
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->addBaseReferenceAliases();
 
     }
 
     //Adds base aliases to container
-    public function addBaseReferenceAliases() {
+    public function addBaseReferenceAliases()
+    {
         $this->createAlias([
-                               'app'         => 'Budkit\Application\Platform',
-                               'app_console' => 'Budkit\Application\Console',
-                               'auth'        => 'Budkit\Authentication\Authenticator',
-                               'cache'       => 'Budkit\Cache\Manager',
-                               'config'      => 'Budkit\Config\Repository',
-                               'cookie'      => 'Budkit\Request\Cookie',
-                               'database'    => 'Budkit\Datastore\Database',
-                               'observer'    => 'Budkit\Event\Observer',
-                               'file'        => 'Budkit\Filesystem\File',
-                               'log'         => 'Budkit\Log\Ticker',
-                               'mailer'      => 'Budkit\Mail\Mailer',
-                               'paginator'   => 'Budkit\Datastore\Paginator',
-                               'redirect'    => 'Budkit\Routing\Redirector',
-                               'router'      => 'Budkit\Routing\Router',
-                               'session'     => 'Budkit\Session\Manager',
-                               'sanitize'    => 'Budkit\Validation\Sanitize',
-                               'uri'         => 'Budkit\Routing\Uri',
-                               'validate'    => 'Budkit\Validation\Validate',
-                               'view'        => 'Budkit\View\Display',
-                               'viewengine'  => 'Budkit\View\Engine'
-                           ]);
+            'app' => 'Budkit\Application\Platform',
+            'console' => 'Budkit\Application\Console',
+            'auth' => 'Budkit\Authentication\Authenticator',
+            'cache' => 'Budkit\Cache\Manager',
+            'cookie' => 'Budkit\Request\Cookie',
+            'database' => 'Budkit\Datastore\Database',
+            'observer' => 'Budkit\Event\Observer',
+            'file' => 'Budkit\Filesystem\File',
+            'config' => 'Budkit\Parameter\Manager',
+            'log' => 'Budkit\Log\Ticker',
+            'mailer' => 'Budkit\Mail\Mailer',
+            'paginator' => 'Budkit\Datastore\Paginator',
+            'redirect' => 'Budkit\Routing\Redirector',
+            'router' => 'Budkit\Routing\Router',
+            'session' => 'Budkit\Session\Manager',
+            'sanitize' => 'Budkit\Validation\Sanitize',
+            'uri' => 'Budkit\Routing\Uri',
+            'validate' => 'Budkit\Validation\Validate',
+            'view' => 'Budkit\View\Display',
+            'viewengine' => 'Budkit\View\Engine'
+        ]);
 
         //Sounds and looks weired, but we need to run the same event observer
         //throughout the app, especially for registering services as below.
         $this->shareInstance($this->createInstance('observer'), 'observer');
+
     }
 
 
-    public function registerServices($services = []) {
+    public function registerServices($services = [])
+    {
 
         if (empty($services)) {
             $services = $this->paths['vendor'] . "/services.json";
@@ -100,16 +105,17 @@ abstract class Application extends Dependency\Container {
     }
 
 
-    public function initialize() {
+    public function initialize()
+    {
 
         //state the application is initialized;
         //register aliases as class mocks such that static calls on mock map to instance calls;
         $this->createAliasMock(
             array_merge(
                 $this->aliases, [
-                    "Route"      => 'Budkit\Routing\Router', //this such that we can call Route::add to add router;
-                    'Controller' => 'Budkit\Routing\Controller',
-                    'View'       => 'Budkit\View\Display'
+                    "route" => 'Budkit\Routing\Router', //this such that we can call Route::add to add router;
+                    'controller' => 'Budkit\Routing\Controller',
+                    'view' => 'Budkit\View\Display'
                 ]
             )
         );
