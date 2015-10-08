@@ -2,7 +2,8 @@
 
 namespace Budkit\Filesystem;
 
-class File {
+class File
+{
 
 
     /**
@@ -27,7 +28,8 @@ class File {
      *
      * @return type
      */
-    public function getName($file = "", $default = null) {
+    public function getName($file = "", $default = null)
+    {
 
         $file = (empty($file) && isset($this->file)) ? $this->file : $file;
 
@@ -47,7 +49,8 @@ class File {
      *
      * @return string
      */
-    public function getExtension($file = "", $default = null) {
+    public function getExtension($file = "", $default = null)
+    {
 
         $file = (empty($file) && isset($this->file)) ? $this->file : $file;
 
@@ -65,7 +68,8 @@ class File {
      * @param type $file
      * @param type $default
      */
-    final public function getPath($file = "", $default = null) {
+    final public function getPath($file = "", $default = null)
+    {
 
         $file = (empty($file) && isset($this->file)) ? $this->file : $file;
 
@@ -84,7 +88,8 @@ class File {
      *
      * @return type
      */
-    public function read($file) {
+    public function read($file)
+    {
         //@TODO Rewrite; 
         return file_get_contents($file);
     }
@@ -95,7 +100,8 @@ class File {
      * @param type $file
      * @param type $content
      */
-    public function write($file, $content = "", $mode = "w+") {
+    public function write($file, $content = "", $mode = "w+")
+    {
 
         $stream = $this->getFileStream($file, $mode);
 
@@ -114,10 +120,12 @@ class File {
      *
      * @return boolean
      */
-    public function getFileStream($file, $mode = "w+") {
+    public function getFileStream($file, $mode = "w+")
+    {
 
         //Throw some errors
-        if (($handle = fopen($file, $mode)) === false) { //this fopen with w will attempt to create the file
+        if (($handle = fopen($file, $mode)) == false) { //this fopen with w will attempt to create the file
+
             //@Throw error
             return false;
         }
@@ -131,11 +139,12 @@ class File {
      *
      * @param string $path
      */
-    public function getModifiedDate($path) {
+    public function getModifiedDate($path)
+    {
 
         //Check for the last modified 
         $lmodified = 0;
-        $files     = glob($path . '/*');
+        $files = glob($path . '/*');
 
         foreach ($files as $file) {
             if (is_dir($file)) {
@@ -156,7 +165,9 @@ class File {
      *
      * @param string $path
      */
-    public function getSize($path) { }
+    public function getSize($path)
+    {
+    }
 
 
     /**
@@ -168,7 +179,8 @@ class File {
      *
      * @throws FileNotFoundException
      */
-    public function getRequire($path) {
+    public function getRequire($path)
+    {
         if ($this->isFile($path)) return require $path;
 
         throw new FileNotFoundException("File does not exist at path {$path}");
@@ -177,15 +189,31 @@ class File {
     /**
      * Determines if a path links to a folder or file
      *
-     * @param string  $path
+     * @param string $path
      * @param boolean $folder , value to return if is folder
      *
      */
-    final public function isFile($filepath) {
+    final public function isFile($filepath)
+    {
         $return = false;
         if (file_exists($filepath)):
             $return = is_file($filepath);
         endif;
+
+        return (bool)$return;
+    }
+
+    /**
+     * Determines if a path links to a folder or file
+     *
+     * @param string $path
+     * @param boolean $folder , value to return if is folder
+     *
+     */
+    final public static function is($path, $folder = TRUE)
+    {
+
+        $return = is_dir($path) ? $folder : !$folder;
 
         return (bool)$return;
     }
@@ -197,7 +225,8 @@ class File {
      *
      * @return mixed
      */
-    public function requireOnce($file) {
+    public function requireOnce($file)
+    {
         require_once $file;
     }
 
@@ -209,7 +238,8 @@ class File {
      *
      * @return int
      */
-    public function prepend($path, $data) {
+    public function prepend($path, $data)
+    {
         if ($this->exists($path)) {
             return $this->put($path, $data . $this->get($path));
         } else {
@@ -222,7 +252,8 @@ class File {
      *
      * @param type $path
      */
-    final public function exists($path) {
+    final public function exists($path)
+    {
         return file_exists($path);
     }
 
@@ -234,7 +265,8 @@ class File {
      *
      * @return int
      */
-    public function put($path, $contents) {
+    public function put($path, $contents)
+    {
         return file_put_contents($path, $contents);
     }
 
@@ -246,7 +278,8 @@ class File {
      *
      * @return int
      */
-    public function append($path, $data) {
+    public function append($path, $data)
+    {
         return file_put_contents($path, $data, FILE_APPEND);
     }
 
@@ -259,7 +292,8 @@ class File {
      *
      * @todo Will always replace for now.
      */
-    public function move($path, $toPath, $deleteOriginal = true) {
+    public function move($path, $toPath, $deleteOriginal = true)
+    {
         if (copy($path, $toPath)) {
             if ($deleteOriginal) {
                 if (!$this->remove($path)) {
@@ -279,7 +313,8 @@ class File {
      * @param type $path
      * @param type $backup
      */
-    public function remove($path) {
+    public function remove($path)
+    {
         return $this->delete($path);
     }
 
@@ -288,7 +323,8 @@ class File {
      *
      * @param type $path
      */
-    final public function delete($path) {
+    final public function delete($path)
+    {
 
         //If we have permission to remove this file
         if ($this->isWritable($path)) {
@@ -311,7 +347,8 @@ class File {
      *
      * @param type $path
      */
-    final public function isWritable($path, $writable = true) {
+    final public function isWritable($path, $writable = true)
+    {
         return (bool)is_writable($path) ? $writable : !$writable;
     }
 
@@ -324,21 +361,28 @@ class File {
      *
      * @todo Will always replace for now.
      */
-    public function copy($path, $toPath) {
+    public function copy($path, $toPath)
+    {
         if (empty($path) || empty($toPath)) return false;
 
         return copy($path, $toPath);
     }
 
-    public function hasBackup($path) { }
+    public function hasBackup($path)
+    {
+    }
 
-    public function restoreBackup($path) { }
+    public function restoreBackup($path)
+    {
+    }
 
-    public function chmod($path, $permission) {
+    public function chmod($path, $permission)
+    {
         chmod($path, $permission);
     }
 
-    public function getPermission($filepath) {
+    public function getPermission($filepath)
+    {
         return substr(sprintf('%o', fileperms($filepath)), -4);
     }
 
@@ -349,15 +393,16 @@ class File {
      *
      * @return object An instance of the file class
      */
-    public function setFile($file) {
+    public function setFile($file)
+    {
 
         //Return false if file does not exists;
         if (!$this->isFile($file)) {
             return false;
         }
         //Get the file info
-        $this->file              = $file;
-        $this->pathinfo[ $file ] = pathinfo($file);
+        $this->file = $file;
+        $this->pathinfo[$file] = pathinfo($file);
 
         //Return an instance of the file object;
         return $this;
@@ -369,7 +414,8 @@ class File {
      * @param type $path
      * @param type $type
      */
-    public function unpack($path, $type = 'tar.gz') {
+    public function unpack($path, $type = 'tar.gz')
+    {
 
     }
 
@@ -379,9 +425,10 @@ class File {
      * @param type $path
      * @param type $default
      */
-    public function getMimeType($path, $default = "application/octet-stream") {
+    public function getMimeType($path, $default = "application/octet-stream")
+    {
 
-        $finfo  = finfo_open(FILEINFO_MIME_TYPE); // return mime type ala mimetype extension
+        $finfo = finfo_open(FILEINFO_MIME_TYPE); // return mime type ala mimetype extension
         $fmtype = finfo_file($finfo, $path);
 
         finfo_close($finfo);
@@ -394,10 +441,23 @@ class File {
      *
      * @param type $path
      */
-    public function create($filepath) {
-        //@1 Check that we have permission to write to the directory
+    public function create($filepath, $mode = "w")
+    {
+        //@1 Fopen cannot create directories,
+        //so if trying to create a file in subfolders that don't exist will throw a warning
+        //wewill first create these directories;
+        $dirname = dirname($filepath);
+
+        if (!is_dir($dirname)) {
+            if (mkdir($dirname, 0755, true)) {
+                return $dirname;
+            } else {
+                return false;
+            }
+        }
+
         //@2 Attempt to create the file
-        if (!($file = $this->getFileStream($filepath))) {
+        if (!($file = $this->getFileStream($filepath, $mode))) {
             return false;
         }
 
