@@ -4,7 +4,7 @@ namespace Budkit\Parameter\Repository\Parser;
 
 use Budkit\Filesystem\File;
 use Budkit\Parameter\Repository\Handler;
-use Whoops\Example\Exception;
+use Budkit\Validation\Validate;
 
 
 /**
@@ -29,6 +29,16 @@ final class Ini extends File implements Handler{
      */
     public $namespace = array();
 
+
+    protected $searchPath = DIRECTORY_SEPARATOR;
+
+
+    public function __construct( $searchPath="" ){
+
+        $this->searchPath = $searchPath;
+
+    }
+
     /**
      * Parses an INI configuration file
      * 
@@ -48,10 +58,54 @@ final class Ini extends File implements Handler{
                     return $this->namespace[$filename];
                 }
             } else {
-                throw new Exception( sprintf("The configuration file (%s) does not exists",$filename ) );
-                return false;
+               // throw new Exception( sprintf("The configuration file (%s) does not exists",$filename ) );
+                return [];
             }
         }
+    }
+
+    /**
+     * Save configuration param section or sections to an ini file
+     *
+     * @param type $file
+     * @param type $sections
+     */
+    public function saveParams( array $parameters , $environment = "") {
+
+
+        foreach ($parameters as $namespace => $section ) {
+
+            $_file = PATH_CONFIG . DS . strtolower($namespace) . ".ini";
+            $_globals = "";
+
+            foreach ($section as $key => $params) {
+
+                if (!empty($params) && is_array($params)) {
+                    // 2 loops to write `globals' on top, alternative: buffer
+                    $_globals .= static::toIniString($params, $key);
+                }
+            }
+
+            //Only save if the config file is not empty
+
+            if (!empty($_globals)){
+                    //check if we have a file;
+                    if (!$this->isFile($_file)) {
+                        if (!$this->create($_file)) {
+                            throw new \Exception("Could not create the configuration file {$_file}. Please check you have sufficient permission to do this");
+                            return false;
+                        }
+                    }
+
+                //write to file
+                if (!$this->write($_file, $_globals)) {
+                    throw new \Exception(t("Could not write out to the configuration file"));
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -88,62 +142,12 @@ final class Ini extends File implements Handler{
             if (!is_array($value)) {
                 $value = static::normalizeValue($value);
                 //BUG: Non alphanumeric value need to be stored in double quotes
-                $_globals .= $_tab . $param . ' = ' .( \Library\Validate::alphaNumeric($value) ? $value : '"'.$value.'"') . $_br;
+                $_globals .= $_tab . $param . ' = ' .( Validate::isAlphaNumeric($value) ? $value : '"'.$value.'"') . $_br;
             }
         }
         return $_globals;
     }
 
-    /**
-     * Save configuration param section or sections to an ini file
-     * 
-     * @param type $file
-     * @param type $sections 
-     */
-    public function saveParams(array $namespaces, $filepath="") {
-
-        $config = \Library\Config::getInstance();
-        $configfile = \Library\Folder::getFile();
-        $configdir = (empty($folder))? FSPATH . 'config' . DS: $folder;
-
-        $permission = $configfile::getPermission($configdir);
-
-        $_globals = '; system generated configuration file';
-        $_br = "\n";
-        $_tab = NULL; //Use "\t" to indent;
-        //We can only deal with arrays
-        if (!is_array($sections) || empty($filename)) {
-            //@TODO throw an error;
-            return false;
-        }
-        foreach ($sections as $section):
-
-            $sectionsarray = $config::getParamSection($section);
-
-            if (!empty($sectionsarray) && is_array($sectionsarray)) {
-                // 2 loops to write `globals' on top, alternative: buffer
-                $_globals .= static::toIniString($sectionsarray, $section);
-            }
-        endforeach;
-
-        //Temporarily chmode the file;
-        //$configfile::chmod($configdir, 755);
-
-        if (!($setupini = $configfile::create($configdir . $filename) )) {
-            $config->setError( sprintf( _t("Could not create the setup configuration file. Please check %s folder permissions"),$configdir));
-            return false;
-        }
-        //Now write to file
-        if (!$configfile::write($configdir . $filename, $_globals)) {
-            $config->setError( _t("Could not write out to the configuration file"));
-            return false;
-        }
-
-        //Reset  chmode the file;
-        //$configfile::chmod($configdir, $permission);
-
-        return true;
-    }
 
     /**
      * normalize a Value by determining the Type

@@ -20,8 +20,16 @@ use Budkit\Parameter\Repository\Handler;
  */
 final class Xml extends File implements Handler{
 
+    protected $searchPath = DIRECTORY_SEPARATOR;
+
+    public function __construct( $searchPath="" ){
+
+        $this->searchPath = $searchPath;
+
+    }
+
     public function getParams($filepath = ""){}
-    public function saveParams(array $namespaces, $filepath=""){}
+    public function saveParams(array $parameters , $environment = ""){}
     public function readParams($filepath){}
 
 }

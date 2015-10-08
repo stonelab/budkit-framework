@@ -20,7 +20,7 @@ use Budkit\Parameter\Repository\Handler;
 final class Database implements Handler {
 
     public function getParams($filepath = ""){}
-    public function saveParams(array $namespaces, $filepath=""){}
+    public function saveParams(array $parameters , $environment = ""){}
     public function readParams($filepath){}
 
 }

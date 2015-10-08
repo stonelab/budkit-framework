@@ -12,7 +12,7 @@ namespace Budkit\Parameter\Repository;
 interface Handler{
 
     public function getParams($filepath = "");
-    public function saveParams(array $namespaces, $filepath="");
+    public function saveParams(array $parameters , $environment = "");
     public function readParams($filepath);
 
 }

@@ -5,7 +5,6 @@ namespace Budkit\Parameter;
 use ArrayAccess;
 use Budkit\Application\Support\Mock;
 use Budkit\Application\Support\Mockable;
-use Budkit\Dependency\Container;
 
 class Manager implements ArrayAccess, Mockable
 {
@@ -34,23 +33,30 @@ class Manager implements ArrayAccess, Mockable
      * @param string $default
      * @return mixed
      */
-    public function get($path, $default = null)
+    public function get($path, $default = null, $forceReload=false)
     {
         //We need keys to have at least a namespace a section and a key i.e
         //namespace.section.key
-        if (substr_count($path, ".") < 2) return $default;
+        $dotparts =  explode(".", $path);
+        $dotcount =  count( $dotparts );
 
-        list($namespace, $section, $key) = explode(".", $path);
+        if ($dotcount  < 2) return $default;
+
+        //@TODO in PHP7 this will have to be the reverse
+        list($namespace, $section, $key) = array_pad($dotparts, 3, "");
 
         //check that namespace has been loaded
-        if (!in_array($namespace, $this->loaded)) {
+        if ($forceReload || !array_key_exists($namespace, $this->loaded)) {
+
+            $settings = $this->repository->load($this->environment, $namespace, true);
+
             $this->addParameters(
                 $this->arrayMergeRecursiveDistinct(
                     $this->parameters,
-                    [$namespace => $this->repository->load($this->environment, $namespace, true)]
+                    [$namespace => $settings]
                 ),
                 true);
-            $this->loaded[] = $namespace;
+            $this->loaded[$namespace] = $settings;
         }
 
         $array = $this->parameters;
@@ -147,56 +153,6 @@ class Manager implements ArrayAccess, Mockable
         return preg_split(self::SEPARATOR, $path);
     }
 
-    /**
-     * array_merge_recursive does indeed merge arrays, but it converts values with duplicate
-     * keys to arrays rather than overwriting the value in the first array with the duplicate
-     * value in the second array, as array_merge does. I.e., with array_merge_recursive,
-     * this happens (documented behavior):
-     *
-     * array_merge_recursive(array('key' => 'org value'), array('key' => 'new value'));
-     *     => array('key' => array('org value', 'new value'));
-     *
-     * arrayMergeRecursiveDistinct does not change the datatypes of the values in the arrays.
-     * Matching keys' values in the second array overwrite those in the first array, as is the
-     * case with array_merge, i.e.:
-     *
-     * arrayMergeRecursiveDistinct(array('key' => 'org value'), array('key' => 'new value'));
-     *     => array('key' => array('new value'));
-     *
-     * Parameters are passed by reference, though only for performance reasons. They're not
-     * altered by this function.
-     *
-     * If key is integer, it will be merged like array_merge do:
-     * arrayMergeRecursiveDistinct(array(0 => 'org value'), array(0 => 'new value'));
-     *     => array(0 => 'org value', 1 => 'new value');
-     *
-     * @param array $array1
-     * @param array $array2
-     * @return array
-     * @author Daniel <daniel (at) danielsmedegaardbuus (dot) dk>
-     * @author Gabriel Sobrinho <gabriel (dot) sobrinho (at) gmail (dot) com>
-     * @author Anton Medvedev <anton (at) elfet (dot) ru>
-     */
-    protected function arrayMergeRecursiveDistinct(array $array1, array $array2)
-    {
-        $merged = $array1;
-        foreach ($array2 as $key => &$value) {
-            if (is_array($value) && isset ($merged[$key]) && is_array($merged[$key])) {
-                if (is_int($key)) {
-                    $merged[] = $this->arrayMergeRecursiveDistinct($merged[$key], $value);
-                } else {
-                    $merged[$key] = $this->arrayMergeRecursiveDistinct($merged[$key], $value);
-                }
-            } else {
-                if (is_int($key)) {
-                    $merged[] = $value;
-                } else {
-                    $merged[$key] = $value;
-                }
-            }
-        }
-        return $merged;
-    }
 
 
     protected function load($section, $namespace)
@@ -218,10 +174,6 @@ class Manager implements ArrayAccess, Mockable
         $this->parameters[$collection] = $items;
     }
 
-    public function saveParameters()
-    {
-
-    }
 
     public function getRepository()
     {
@@ -238,5 +190,10 @@ class Manager implements ArrayAccess, Mockable
         return $this->environment;
     }
 
+    public function saveParams( $environment = ""){
+
+        return $this->repository->saveParams( $this->parameters, $environment );
+
+    }
 
 }

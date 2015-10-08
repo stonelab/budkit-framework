@@ -20,8 +20,8 @@ class File extends _File implements Loader {
 
         //define handlers
         $this->handlers = [
-            ".ini" => new Parser\Ini,
-            ".xml" => new Parser\Xml
+            ".ini" => new Parser\Ini( $searchPath ),
+            ".xml" => new Parser\Xml( $searchPath )
         ];
     }
 
@@ -37,9 +37,10 @@ class File extends _File implements Loader {
         $params = [];
         //evironments = /config/<environment>/namespace.ini[section].key
         $file  = $this->directory;
-        $file .= !empty($environment) ? $environment.DIRECTORY_SEPARATOR : null ;
+        $file .= !empty($environment) ? $environment.DS : DS  ;
         $file .= $namespace;
         $file .= $this->extension;
+
 
         //Check that we have a file named namespace
         if (!array_key_exists($this->extension, $this->handlers)){
@@ -58,6 +59,14 @@ class File extends _File implements Loader {
      */
     public function hasSection($section, $namespace= ""){
 
+    }
+
+
+    public function saveParams( $params , $environment=""){
+
+        $handler = $this->handlers[$this->extension];
+
+        return $handler->saveParams( $params, $environment );
     }
 
     /**
