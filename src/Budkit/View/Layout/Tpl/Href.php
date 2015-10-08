@@ -17,7 +17,7 @@ class Href {
         $this->loader = $loader;
     }
 
-    public function attr($Element) {
+    public function attribute($Element) {
 
         //Get the Node being Parsed;
         $Attr = $Element->getResult();

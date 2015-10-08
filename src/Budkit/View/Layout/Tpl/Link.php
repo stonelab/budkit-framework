@@ -80,7 +80,8 @@ class Link implements Listener {
 		//1. change the localname to <a>
 		$wrapper    = $link->hasAttribute("wrap")? $link->getAttribute("wrap") : "a";
 		$anchor 	= $link->ownerDocument->createElement( $wrapper );
-		$exclude 	= ['rel','src', 'status', 'width', 'height' , 'wrap' ]; 
+		$exclude 	= ['rel','src', 'status', 'width', 'height' , 'wrap' ];
+
 		foreach($link->attributes as $attribute){
 			$attr = strtolower($attribute->nodeName);
 			if(!in_array($attr, $exclude)){

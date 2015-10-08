@@ -4,9 +4,14 @@ namespace Budkit\View\Engine;
 
 use Budkit\View\Format;
 
-class Json implements Format {
+class Json implements Format{
 
-    public function __construct() { }
+    protected $data;
+
+    public function __construct() {
+
+
+    }
 
     public function compile($viewpath, array $data = []) {
 
@@ -21,4 +26,9 @@ class Json implements Format {
 
     }
 
+
+    public function addLayoutData( array $layoutData ){
+
+
+    }
 }

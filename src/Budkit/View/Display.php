@@ -5,12 +5,12 @@ namespace Budkit\View;
 
 use Budkit\Application\Support\Mock;
 use Budkit\Application\Support\Mockable;
-use Budkit\Parameter\Factory as Parameters;
 use Budkit\Protocol\Response;
 use Budkit\View\Engine;
 
 
-class Display extends Parameters implements Mockable {
+class Display implements Mockable
+{
 
     use Mock;
 
@@ -20,29 +20,34 @@ class Display extends Parameters implements Mockable {
     protected $layout = null;
     protected $searchPaths = array();
 
+    protected $mergedData = [];
 
-    public function __construct(array $data = [], Response $response, Engine $engine = null) {
+
+    public function __construct(Response $response, Engine $engine = null)
+    {
 
         $this->response = $response;
-        $this->engine   = $engine;
-
-        parent::__construct("display", $data);
+        $this->engine = $engine;
 
     }
 
 
-    public function appendLayoutSearchPath( $path ){
+    public function appendLayoutSearchPath($path)
+    {
 
         array_push($this->searchPaths, $path);
 
     }
 
 
-    public function render($layout = null, $partial = false) {
+    public function render($layout = null, $partial = false)
+    {
 
-        $layout  = (empty($layout) && !$partial) ? $this->getLayout() : $layout;
+        $layout = (empty($layout) && !$partial) ? $this->getLayout() : $layout;
         $handler = $this->engine->getHandler();
-        $handler->addLayoutSearchPaths( $this->searchPaths );
+
+        $handler->addLayoutSearchPaths($this->searchPaths);
+        $handler->addLayoutData($this->getDataArray());
 
         //We can only render layouts
         if ($this->rendered || empty($layout)) return null;
@@ -61,7 +66,8 @@ class Display extends Parameters implements Mockable {
      *
      * @return string
      */
-    public function getLayout() {
+    public function getLayout()
+    {
         return $this->layout;
     }
 
@@ -72,28 +78,71 @@ class Display extends Parameters implements Mockable {
      *
      * @return void
      */
-    public function setLayout($path) {
+    public function setLayout($path)
+    {
         $this->layout = $path;
     }
 
-    public function getDataArray() {
-        return $this->getAllParameters();
+    public function getDataArray()
+    {
+        return $this->response->getAllParameters();
     }
 
-    public function setDataArray(array $values) {
-        foreach ($data as $key => $value) {
-            $this->setData($key, $value);
+    public function setDataArray(array $data)
+    {
+        return $this->response->addParameters($data);
+    }
+
+    public function setData($key, $value)
+    {
+        return $this->response->setParameter($key, $value);
+    }
+
+    public function addData($key, $value)
+    {
+
+        $existing = $this->getDataArray();
+
+        if (!isset($existing[$key])) {
+
+            $this->mergedData[] = $key;
+
+            return $this->setData($key, [ $value ]);
+        } //If we have previously merged
+        else if (in_array($key, $this->mergedData)) {
+            $existing[$key][] = $value;
+            return $this->setData($key, $existing[$key]);
         }
 
-        return $this;
+        $existing[$key][] = [$existing[$key], $value];
+        return $this->setData($key, $existing[$key]);
     }
 
-    public function setData($key, $value = '') {
-        return $this->setParameter($key, $value);
+    /**
+     *
+     *
+     * @param $position
+     * @param $content use import://layout/name to import a layout at position
+     */
+    public function addToBlock($position, $content){
+
+        $blocks = $this->getData("block");
+
+        if(empty($blocks)) $blocks = [];
+
+        if(!isset($blocks[$position])){
+            $blocks[$position] = [];
+        }
+
+        $blocks[$position][] = $content;
+
+        return $this->setData("block", $blocks);
+
     }
 
-    public function getData($key) {
-        return $this->getParameter($key);
+    public function getData($key)
+    {
+        return $this->response->getParameter($key);
     }
 
 }

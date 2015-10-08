@@ -52,19 +52,21 @@ class Layout implements Listener {
             return;
         }
 
+        //die;
 		//echo "1<br />";
         //Extending?
         $this->extension($Node, $xPath);
+
         $document = $Node->parentNode;
 
         if ($Node->hasChildNodes()) {
             foreach ($Node->childNodes as $_node) {
                 //$_node = $document->importNode($_node, true);
-                $document->appendChild($_node->cloneNode(true));
+                $document->appendChild( $_node->cloneNode(true) );
             }
         }
 
-        $Node->parentNode->removeChild($Node);
+        $document->removeChild($Node);
         $Element->setResult($document);
 		
 		//$Element->stop();
@@ -99,7 +101,7 @@ class Layout implements Listener {
 
         //import this extending; to the current document; and replace this Node;
         $import = $this->xPath->document->importNode($this->extending->documentElement, true);
-        $xPath->document->replaceChild($import, $Node);
+        $Node->parentNode->replaceChild($import, $Node);
 
         $Node = $import;
     }

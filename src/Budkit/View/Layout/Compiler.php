@@ -49,15 +49,24 @@ class Compiler implements Parser, Listener {
             [new Tpl\Import($this->loader), 'element'],
             [new Tpl\Layout($this->loader, $this->observer), 'element'],//also implements extension;
 
+            [new Tpl\Menu($this->loader, $this->observer), 'execute'],
+            [new Tpl\Condition($this->loader, $this->observer), 'evaluate'],
+            [new Tpl\Loop($this->loader, $this->observer), 'execute'],
+
+
             //translate ,
             //sprintf
             //content only on Text Nodes;
-            [new Tpl\Content($this->loader, $this->observer), 'text'],
+            [new Tpl\Block($this->loader, $this->observer), 'position'],
+            [new Tpl\Data($this->loader, $this->observer), 'content'],
             [new Tpl\Link($this->loader, $this->observer, $this->removeQueue), 'rel'],
             //processing instruction? xslt?
 
             //attributes Maybe run this last?
+            [new Tpl\Select($this->loader, $this->observer), 'execute'],
             [new Tpl\Attributes($this->loader, $this->observer), 'nodelist']
+
+
             ]
         ];
     }
@@ -71,18 +80,19 @@ class Compiler implements Parser, Listener {
     public function execute($content, $data = []) {
 
         //return $content;
+        $this->loader->addData( $data );
 
         $tpl = new DOMDocument();
 
         $tpl->resolveExternals = true;
         $tpl->preserveWhiteSpace = false;
 
-        $tpl->loadXML($content, LIBXML_COMPACT & LIBXML_NOBLANKS);
+        $tpl->loadXML($content, LIBXML_COMPACT & LIBXML_NOBLANKS & LIBXML_DTDATTR);
         //$this->masterName = $tpl->documentElement->attributes->getNamedItem("name")->nodeValue;
         $this->xPath = new DOMXPath($tpl);
 
         $this->walk($tpl, $data);
-		
+
 		//It is not ideal to removeNodes from the Remove Queue whilst we walk over it, therefore,
 		//Some nodes might need to be removed after iteration;
         return $tpl->saveHTML();
@@ -95,19 +105,25 @@ class Compiler implements Parser, Listener {
     private function walk(DOMNode &$tpl, $data = []) {
 
         if ($tpl->hasChildNodes()) {
-			
+
 			$parseNode = new Event('Layout.onCompile', $this, $data);
 
-            foreach ($tpl->childNodes as $Node) {
+            for ($i=0; $i < $tpl->childNodes->length; $i++) {
+
+                $Node = $tpl->childNodes->item($i);
 
                 $parseNode->setResult($Node);
-                $this->observer->trigger($parseNode); //Parse the Node;
 
-				
+                $this->observer->trigger( $parseNode ); //Parse the Node;
+
                 if ($parseNode->getResult() instanceof DOMNode) {
+
                     $_Node = $parseNode->getResult();
+
 	                if ($_Node->hasChildNodes()) {
+
 	                    $this->walk($_Node, $data);
+
 	                }
                 }
             }

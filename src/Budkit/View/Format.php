@@ -14,5 +14,6 @@ interface Format {
      */
     public function compile($viewpath, array $data = []);
     public function addLayoutSearchPaths(array $searchPaths = []);
+    public function addLayoutData( array $layoutData );
 
 }

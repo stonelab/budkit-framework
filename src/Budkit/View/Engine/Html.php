@@ -15,6 +15,7 @@ class Html implements Format {
         //Need a layout resolver here which can also find layouts in templates;
         $this->loader   = $loader;
         $this->compiler = $compiler;
+
     }
 
     public function compile($viewpath, array $data = []) {
@@ -27,6 +28,13 @@ class Html implements Format {
     public function  addLayoutSearchPaths(array $searchPaths = []){
 
         $this->loader->addSearchPaths( $searchPaths );
+
+    }
+
+    public function addLayoutData( array $layoutData ){
+
+        $this->loader->addData( $layoutData );
+
     }
 
 }

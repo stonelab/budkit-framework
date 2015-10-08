@@ -21,6 +21,7 @@ class Import {
 
     public function element($Element, DOMXPath $xPath) {
 
+
         //Get the Node being Parsed;
         $Node = $Element->getResult();
 
@@ -46,14 +47,15 @@ class Import {
         $imported->loadXML($this->loader->find($viewpath), LIBXML_COMPACT);
         $import = $xPath->document->importNode($imported->documentElement, true);
 
-        //fallbacks as in xinclude?
+        //@TODO fallbacks as in xinclude?
         //<tpl:import name="layoutname[.tpl|.php|.html|.xml]" [frompath="/path/to/layout"] >
         //   <tpl:fallback></tpl:fallback>
         //</tpl:import>
 
+
         //Append the layout in place of import tags;
         $Node->parentNode->appendChild($import);
-        $Node->parentNode->removeChild($Node);
+        $Node->parentNode->replaceChild($import, $Node);
 
         $Element->setResult($import);
 

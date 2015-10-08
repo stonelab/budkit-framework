@@ -3,24 +3,27 @@
 
 namespace Budkit\View\Layout;
 
-use Budkit\Dependency\Container as Application;
+use Budkit\Application\Platform as Application;
 use Budkit\FileSystem\File;
 use Exception;
 
 class Loader {
 
-    protected $paths;
+    protected $paths = [];
+
+
+    protected $data = [];
 
     protected $defaultExt;
 
-
     public function __construct($defaultExt = '.tpl', Application $application) {
 
-        $this->paths      = array(
-            $application['paths']['public'] . '/layouts/',
-            $application['paths']['app'] . '/layouts/'
-        );
         $this->defaultExt = $defaultExt;
+
+        $this->paths      = array(
+            PATH_PUBLIC . '/layouts/',
+            PATH_APP . '/layouts/'
+        );
 
     }
 
@@ -29,6 +32,16 @@ class Loader {
 
         $this->paths = array_merge($this->paths, $paths);
 
+    }
+
+
+    public function addData(array $data){
+        $this->data = $data;
+    }
+
+
+    public function getData(){
+        return $this->data;
     }
 
 
@@ -89,6 +102,7 @@ class Loader {
     public function getLayoutDirectory($layout = null) {
         //get the directory in which a layout is contained;
     }
+
 
     private function stopBuffer($endflush = true) {
 
