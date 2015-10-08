@@ -12,8 +12,13 @@ use ArrayAccess;
 use Closure;
 use ReflectionClass;
 use ReflectionException;
+use InvalidArgumentException;
 
 class Container implements ArrayAccess {
+
+    protected $paths;
+
+
 
     /**
      * Holds the container references i.e objects and their parameters
@@ -108,7 +113,7 @@ class Container implements ArrayAccess {
 
         //Check that we can instantiate this class;
         if (!$class->isInstantiable()) {
-            throw new InvalidArgumentException(sprintf('Identifier "%s" is not defined.', $reference));
+            throw new \InvalidArgumentException(sprintf('Identifier "%s" is not instantiable.', $reference));
         }
 
         //Wrap the call function in a lamda;
@@ -120,6 +125,16 @@ class Container implements ArrayAccess {
             : $this->createReference($reference, $callable);
 
     }
+
+    public function setPaths( $paths ){
+        $this->paths = $paths;
+    }
+
+
+    public function getPaths(){
+        return $this->paths;
+    }
+
 
     /**
      * Maps an alias to a reference;
@@ -169,11 +184,12 @@ class Container implements ArrayAccess {
                         //If this parameter has not been passed, and the default value is not defined
                         if (!$parameter->isOptional() && !$parameter->isDefaultValueAvailable()) {
 
+                            $hintedType     = $parameter->getClass();
+                            $hintedTypeName = $hintedType->getName();
+                            //$hintedInstance = null;
 
                             //$hintedType = $reflectionException = null;
                             try {
-                                $hintedType     = $parameter->getClass();
-                                $hintedTypeName = $hintedType->getName();
                                 //if the required class exists in the container
 
 
@@ -183,12 +199,16 @@ class Container implements ArrayAccess {
                                         ($hintedType->getName() == "Budkit\\Dependency\\Container") ? $container
                                             : $container->createInstance($hintedType->getName());
                                     array_push($parameters, $hintedInstance);
+
                                 }
                             }
                             catch (ReflectionException $reflectionException) {
+
+                                //print_R($hintedInstance); die;
+
                                 throw new ReflectionException(
-                                    sprintf('The %1s Class requires parameter number %1s which could not be located. %2s',
-                                            $class->getName(), ($i + 1), $reflectionException->getMessage())
+                                    sprintf('The %1s Class requires parameter number %2s which could not be located. %3s',
+                                            $class->getName(), ($i + 1)." of type {".$hintedTypeName."}", $reflectionException->getMessage())
                                 );
                             }
                         }
@@ -200,7 +220,6 @@ class Container implements ArrayAccess {
                 }
 
                 //var_dump($class, $parameters, "<br />");
-
                 return $class->newInstanceArgs($parameters);
             }
 
