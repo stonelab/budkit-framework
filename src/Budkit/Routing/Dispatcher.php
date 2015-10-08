@@ -8,12 +8,13 @@
 
 namespace Budkit\Routing;
 
-use Budkit\Dependency\Container;
+use Budkit\Dependency\Container;;
 use Budkit\Event;
 use Budkit\Event\Listener;
 use Budkit\Event\Observer;
 use Budkit\Protocol\Request;
 use Budkit\Protocol\Response;
+use Budkit\Protocol\Uri;
 use Closure;
 use Exception;
 
@@ -33,20 +34,24 @@ class Dispatcher implements Listener {
      *
      * @author Livingstone Fultang
      */
-    public function __construct(Observer $observer, Container $application) {
+    public function __construct(Observer $observer, Router $router, Container $application) {
 
         $this->observer    = $observer;
-        $this->router      = $application->router;
+        $this->router      = $router;
         $this->application = $application;
 		
         $this->observer->attach($this);
+
+        //var_dump($this->observer->getListeners('Dispatcher.beforeDispatch')  );
 
         //@TODO load additional listeners from config
     }
 
 
     public function definition() {
+
         return ['Dispatcher.beforeDispatch' => 'parseRoute'];
+
     }
 
     public function getObserver() {
@@ -82,7 +87,7 @@ class Dispatcher implements Listener {
         }
         $route->setParam("format", $format);
 
-        $request->setAttributes($route->params);
+        $request->setAttributes( $route->params );
 
         //Store the route in the event data
         $beforeDispatch->data['route'] = $route;
@@ -96,8 +101,6 @@ class Dispatcher implements Listener {
         $beforeDispatch = new Event\Event('Dispatcher.beforeDispatch', $this, compact('request', 'response', 'params'));
         $this->observer->trigger($beforeDispatch);
 
-        //Can we get the route?
-        //$route  = $beforeDispatch->getData('route');
 
         //For microframework routes that use lambdas, just return a response object;
         if ($beforeDispatch->getResult() instanceof Response) {
@@ -105,6 +108,10 @@ class Dispatcher implements Listener {
 
             return;
         }
+
+        //create an event;
+        $afterRouteMatch = new Event\Event('Dispatcher.afterRouteMatch', $this, compact('request', 'response'));
+        $this->observer->trigger($afterRouteMatch);
 
 
         $controller = $this->resolveController($request);
@@ -114,10 +121,18 @@ class Dispatcher implements Listener {
             throw new Exception("Controller is not callable");
         }
 
+
+        //print_r($request);
+
         $params = $request->getAttributes();
         $params = $params->getAllParameters(); //from parameter factory;
 
         unset($params['action']); //remove the action;
+
+        //Can we get the route?
+        //$route  = $beforeDispatch->getData('route');
+
+        //Are there any left over alerts?
 
         //If we are using lambdas;
         if ($controller instanceof Closure) {
@@ -125,6 +140,8 @@ class Dispatcher implements Listener {
         } else {
             list($class, $method) = $controller;
             $response = $this->invoke($class, $method, $params);
+
+            //print_R($response->getDataArray() );  die;
         }
 
         // if (isset($request->params['return'])) {
@@ -147,9 +164,14 @@ class Dispatcher implements Listener {
         $controller = false;
         $attributes = $request->getAttributes();
 
+
+
+        //print_r($attributes);
+
         if (!empty($attributes['action'])) {
             //Note that this will be true if action is a valid controller or lambda;
             $controller = $attributes['action'];
+
 
             if (is_callable($controller)) {
                 //If the controller is not a function;
@@ -158,20 +180,28 @@ class Dispatcher implements Listener {
                 }
             }
 
+
             //If its not callable and is string;
             if (is_string($attributes['action'])) {
 
+
                 if (isset($attributes['controller'])) {
+
+
                     //for when /{controller}/{action}{/param1,param2,param3} is used
                     $class  = $this->sanitize($attributes['controller']);
                     $method = $this->sanitize($attributes['action']);
+
+
                 } else {
                     //for when no action is give, uses route name
                     //if route is in group then most likely it has a name like Prefix.name
                     $action = explode(".", $attributes['action']);
 
+
                     $class  = $this->sanitize(ucfirst($action[0]));//controller;
                     $method = $this->sanitize(isset($action[1]) ? $action[1] : "index");  //method;
+
                 }
                 //Does the action exists in the actionController?
                 if (!method_exists($class, $method)) {
@@ -180,7 +210,11 @@ class Dispatcher implements Listener {
                     return false;
                 }
 
+
                 $controller = [$this->getController($class), $method];
+
+
+
 
                 if (is_callable($controller)) {
                     return $controller;
@@ -192,6 +226,7 @@ class Dispatcher implements Listener {
     }
 
     protected function getController($class) {
+
 
         if (isset($this->application[ $class ])) {
             return $this->application[ $class ];
@@ -206,9 +241,18 @@ class Dispatcher implements Listener {
         return str_replace($notallowed, "", $string);
     }
 
+
     protected function invoke(Controller $controller, $method = "index", $params = []) {
 
         $controller->initialize();
+
+        //Reset old alerts
+        $oldAlerts = $this->application->session->get("alerts");
+        if (!empty($oldAlerts)) {
+            $controller->resetStoredResponseVars(["alerts"=>$oldAlerts]);
+            $this->application->session->remove("alerts");
+        }
+
 
         $response = $controller->getResponse();
         $render   = true;
@@ -229,6 +273,47 @@ class Dispatcher implements Listener {
         $controller->shutdown();
 
         return $response;
+    }
+
+    /**
+     * Aborts the execution of the script
+     *
+     * @return void
+     */
+    final public function abort() {
+        exit();
+    }
+
+
+    /**
+     * Executes post dispatch redirect
+     *
+     * @param type $url
+     * @param type $code
+     * @param type $message
+     */
+    public function redirect($url, $code= HTTP_FOUND, $message = "Moved Permanently", $alerts = []) {
+
+        $response   = $this->application->response;
+        $uri        = $this->application->createInstance( Uri::class , [$this->application->request] );
+
+        //Before we redirect, if there are any alerts in the response,
+        //Exceptional: Store alerts for future display
+        if (!empty($alerts)){
+            $session = $this->application->session;
+
+            //$session->unlock("default"); //unlock the default namespace
+            $session->set("alerts", $alerts, "default");
+            //$session->update( $session->getId() );
+        }
+
+        $response->setStatusCode( $code );
+        $response->setStatusMessage( $message );
+        $response->addHeader("Location", $uri->internalize($url));
+
+        $response->sendRedirect();
+
+        $this->abort();
     }
 
 }

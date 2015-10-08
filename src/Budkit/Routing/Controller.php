@@ -7,6 +7,7 @@ use Budkit\Application\Support\Mockable;
 use Budkit\Dependency\Container as Application;
 use Budkit\Event\Event;
 use Budkit\Event\Listener;
+use Budkit\Protocol\Response;
 use Budkit\View\Display as View;
 use Budkit\View\Engine;
 use Exception;
@@ -41,19 +42,28 @@ class Controller implements Mockable, Listener
         $this->request = $application->request;
         $this->application = $application;
         $this->view = $this->getView();
-        $this->config = $application->config;
+        //$this->config = $application->config;
 
         //Attach controllers to the observer;
         $this->observer->attach($this);
     }
 
+
+    public function resetStoredResponseVars(array $vars){
+
+        $this->response->addParameters( $vars );
+
+    }
+
     public function getView()
     {
+
+        //print_R($this->response->getAllParameters());
 
         $handler = $this->application->createInstance("viewengine", [$this->response]);
 
         return $this->view =
-            ($this->view instanceof View) ? $this->view : new View([], $this->response, $this->getHandler());
+            ($this->view instanceof View) ? $this->view : new View($this->response, $this->getHandler());
     }
 
     /**
@@ -134,8 +144,14 @@ class Controller implements Mockable, Listener
      */
     public function initialize()
     {
+        //Can we get the route?
+        //$route  = $beforeDispatch->getData('route');
+        //$this->observer->attach([$this, "reloadResponseVars"], 'Controller.beforeRender');
+
         $this->observer->trigger(new Event('Controller.initialize', $this));
     }
+
+
 
     public function autoRender(Event $onShutDown)
     {
@@ -161,6 +177,7 @@ class Controller implements Mockable, Listener
             return true;
         }
 
+        //$this->reloadResponseVars( $this->response );
 
         $onRender = new Event('Controller.beforeRender', $this);
 

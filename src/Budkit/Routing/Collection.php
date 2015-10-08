@@ -223,7 +223,7 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
      *
      */
     public function attachResource($path, $name) {
-        $this->attach($path, $name, $this->resourceCallable);
+        $this->attach($path, $name, [$this, 'resourceCallable']);
     }
 
     /**
@@ -251,10 +251,16 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
         //var_dump($spec);
 
         // append to the name prefix, with delimiter if needed
-        if ($this->namePrefix) {
-            $this->namePrefix .= '.';
+        if(!class_exists($name)) {
+
+            if ($this->namePrefix) {
+                $this->namePrefix .= '.';
+            }
+            $this->namePrefix .= $name;
+
+        }else{
+            $this->namePrefix = $name;
         }
-        $this->namePrefix .= $name;
 
         // append to the path prefix
         $this->pathPrefix .= $path;
@@ -311,7 +317,7 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
         $tokens = [];
 
         if (!isset($router->tokens['id'])) {
-            $tokens['id'] = '\d+';
+            $tokens['id'] = '(\d+)[a-zA-Z0-9-_]+?'; //so that we can have clean urls like 1230-title
         }
         if (!isset($router->tokens['format'])) {
             $tokens['format'] = '(\.[^/]+)?';
@@ -324,14 +330,17 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
         $router->addGet('{format}', 'index');
         $router->addGet('/{id}{format}', 'read');
         $router->addGet('{/id}/edit{format}', 'edit'); //if no id is set, return form for new
-        $router->addGet('/add', 'add');
-        $router->addDelete('/{id}', 'delete');
-        $router->addPost('', 'create');
-        $router->addPatch('/{id}', 'update');
-        $router->addPut('/{id}', 'replace');
+        //$router->addPost('/add{format}', 'add');
+        $router->addDelete('/{id}/delete{format}', 'delete');
+        //$router->addPost('/{id}/delete{format}', 'delete');
+        $router->add('/create{format}', 'create');
+        //$router->addPost('/{id}/update{format}', 'update');
+        $router->addPatch('/{id}/update{format}', 'update');
+        //$router->addPost('/{id}/replace{format}', 'replace');
+        $router->addPut('/{id}/replace{format}', 'replace');
         $router->addOptions('', 'options');
 
-        //var_dump($router->routes);
+
     }
 
     public function addGet($uri, $name = null, $action = null) {

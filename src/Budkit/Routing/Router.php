@@ -24,8 +24,9 @@ class Router implements Mockable {
 
     use Mock;
 
-    public function __construct(Container $container, Collection $collection) {
-        $this->collection = $collection ?: new Collection;
+    public function __construct(Collection $collection, Container $container) {
+
+        $this->collection = $collection;
         $this->container  = $container;
         //$this->container->shareInstance( $collection , "routes" );
     }
@@ -39,6 +40,12 @@ class Router implements Mockable {
      */
     public function getFailedRoute() {
         return $this->failedRoute;
+    }
+
+    public function getRouteCollection(){
+
+        return $this->collection->getRoutes();
+
     }
 
     /**
@@ -82,12 +89,22 @@ class Router implements Mockable {
         return false;
     }
 
+    public function getRoute( $name ){
+
+        if(!isset($this->collection[$name])) return null;
+
+        return $this->collection[ $name ];
+    }
+
     public function getTestedRoutes() {
         return $this->testedRoutes;
     }
 
     public function __call($method, $parameters) {
-        return call_user_func_array([$this->collection, $method], $parameters);
+
+        return call_user_func_array([&$this->collection, $method], $parameters);
+
+        //print_r($this->collection);
     }
 
     //Makes the Router object a proxy for the Collection.

@@ -388,6 +388,7 @@ abstract class Definition {
     }
 
 
+
     public function matches(Request $request, $strict = true) {
 
         $this->debug  = [];

@@ -9,6 +9,7 @@
 namespace Budkit\Routing;
 
 use ArrayObject;
+use Budkit\Protocol\Request;
 use Budkit\Protocol\Server;
 
 
@@ -201,6 +202,48 @@ class Route extends Definition {
 
         return false;
     }
+
+
+    /**
+     *
+     * Determines if this is route matches the request path
+     * without setting any params.
+     *
+     * @param Request $request
+     * @return bool
+     */
+    public function isRequestMatch(Request $request){
+
+        if($this->isMatch($request->getPathInfo(), $request->getServer())){
+            return true;
+        }
+
+        return false;
+    }
+
+
+    /**
+     * Returns the path in the route definition
+     *
+     * @return string
+     */
+    public function getPath(){
+
+        return $this->path;
+    }
+
+
+    /**
+     * Returns the name in the route definition
+     *
+     * @return string
+     */
+    public function getName(){
+
+        return $this->name;
+
+    }
+
 
     /**
      *
