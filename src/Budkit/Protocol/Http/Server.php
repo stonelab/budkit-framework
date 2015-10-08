@@ -9,17 +9,22 @@
 namespace Budkit\Protocol\Http;
 
 use Budkit\Parameter\Factory as Parameters;
+use Budkit\Parameter\Utility;
 use Budkit\Protocol;
 
 class Server extends Parameters implements Protocol\Server {
 
+
     public function __construct(array $server = []) {
+
         parent::__construct("server", $server);
+
     } //define a server param;
 
     public function getHeaders() {
         $headers        = [];
         $contentHeaders = ['CONTENT_LENGTH' => true, 'CONTENT_MD5' => true, 'CONTENT_TYPE' => true];
+
         foreach ($this->parameters as $key => $value) {
             if (0 === strpos($key, 'HTTP_')) {
                 $headers[ substr($key, 5) ] = $value;

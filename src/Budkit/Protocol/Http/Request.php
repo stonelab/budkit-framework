@@ -12,19 +12,19 @@ use Budkit\Parameter\Factory as Parameters;
 use Budkit\Protocol;
 use Budkit\Session;
 
-class Request implements Protocol\Request {
+class Request implements Protocol\Request
+{
 
     /**
      * @var array
      */
     protected static $formats;
-    protected        $query      = [];
-    protected        $data       = [];
-    protected        $attributes = [];
-    protected        $cookies    = [];
-    protected        $files      = [];
-    protected        $server     = [];
-    protected        $headers    = [];
+    protected $get = [];
+    protected $post = [];
+    protected $cookies = [];
+    protected $files = [];
+    protected $server = [];
+    protected $headers = [];
     /**
      * @var string
      */
@@ -91,76 +91,91 @@ class Request implements Protocol\Request {
      * @param array $cookies
      * @param array $files
      * @param array $server
-     * @param null  $content
+     * @param null $content
      */
     public function __construct(array $query = [], array $data = [], array $attributes = [], array $cookies = [],
-                                array $files = [], array $server = [], $content = null) {
-        $this->query      = new Parameters("query", $query); //stores all the get parameters;
-        $this->data       = new Parameters("data", $data); //stores all the post data params = get+post+cookie params;
-        $this->attributes = new Parameters("attributes", $attributes);
-        $this->cookies    = new Parameters("cookies", $cookies); //stores all the cookies;
-        $this->files      = new Parameters("files", $files);
-        $this->server     = new Server($server);
-        $this->headers    = new Headers($this->server->getHeaders());
+                                array $files = [], array $server = [], $content = null)
+    {
 
-        $this->content                = $content;
-        $this->languages              = null;
-        $this->charsets               = null;
-        $this->encodings              = null;
+        $this->get = new Parameters("get", $query ); //stores all the get parameters;
+        $this->post = new Parameters("post", $data); //stores all the post data params = get+post+cookie params;
+
+        $this->attributes = new Parameters("attributes", $attributes);
+        $this->cookies = new Parameters("cookies", $cookies); //stores all the cookies;
+        $this->files = new Parameters("files", $files);
+        $this->server = new Server($server);
+        $this->headers = new Headers($this->server->getHeaders());
+
+        $this->content = $content;
+        $this->languages = null;
+        $this->charsets = null;
+        $this->encodings = null;
         $this->acceptableContentTypes = null;
-        $this->pathInfo               = null;
-        $this->requestUri             = null;
-        $this->baseUrl                = null;
-        $this->basePath               = null;
-        $this->method                 = null;
-        $this->format                 = null;
-        $this->session                = null;
+        $this->pathInfo = null;
+        $this->requestUri = null;
+        $this->baseUrl = null;
+        $this->basePath = null;
+        $this->method = null;
+        $this->format = null;
+        $this->session = null;
     }
 
-    public function getAttributes() {
+    public function getAttributes()
+    {
         return $this->attributes;
     }
 
-    public function setAttributes($attributes = []) {
+    public function setAttributes($attributes = [])
+    {
         if ($attributes instanceof Parameters) {
             return $this->attributes = $attributes;
         }
 
         if (is_array($attributes)) {
-            return $this->attributes = new Parameters("attributes", $attributes);
+
+            $this->get->addParameters( $attributes );
+
+           return $this->attributes->addParameters( $attributes );
         }
 
     }
 
-    public function getAttribute($key, $default = null) {
+    public function getAttribute($key, $default = null)
+    {
 
         return $this->attributes->getParameter($key, $default);
 
     }
 
-    public function getSession() {
+    public function getSession()
+    {
         return $this->session;
     }
 
-    public function setSession(Session\Handler $session) {
+    public function setSession(Session\Handler $session)
+    {
         $this->session = $session;
     }
 
-    public function hasPreviousSession() {
+    public function hasPreviousSession()
+    {
         // the check for $this->session avoids malicious users trying to fake a session cookie with proper name
         return $this->hasSession() && $this->cookies->hasParameter($this->session->getName());
     }
 
-    public function hasSession() {
+    public function hasSession()
+    {
         return null !== $this->session;
     }
 
-    public function getScriptName() {
+    public function getScriptName()
+    {
         return ($this->server->hasParameter('SCRIPT_NAME')) ? $this->server->getParameter('SCRIPT_NAME')
             : $this->server->getParameter('ORIG_SCRIPT_NAME');
     }
 
-    public function getBasePath() {
+    public function getBasePath()
+    {
         if (null === $this->basePath) {
             $this->basePath = $this->prepareBasePath();
         }
@@ -168,9 +183,10 @@ class Request implements Protocol\Request {
         return $this->basePath;
     }
 
-    protected function prepareBasePath() {
+    protected function prepareBasePath()
+    {
         $filename = basename($this->server->getParameter('SCRIPT_FILENAME'));
-        $baseUrl  = $this->getBaseUrl();
+        $baseUrl = $this->getBaseUrl();
         if (empty($baseUrl)) {
             return '';
         }
@@ -188,7 +204,8 @@ class Request implements Protocol\Request {
         return rtrim($basePath, '/');
     }
 
-    public function getBaseUrl() {
+    public function getBaseUrl()
+    {
         if (null === $this->baseUrl) {
             $this->baseUrl = $this->prepareBaseUrl();
         }
@@ -196,7 +213,8 @@ class Request implements Protocol\Request {
         return $this->baseUrl;
     }
 
-    protected function prepareBaseUrl() {
+    protected function prepareBaseUrl()
+    {
         $filename = basename($this->server->getParameter('SCRIPT_FILENAME'));
 
         if (basename($this->server->getParameter('SCRIPT_NAME')) === $filename) {
@@ -208,15 +226,15 @@ class Request implements Protocol\Request {
         } else {
             // Backtrack up the script_filename to find the portion matching
             // php_self
-            $path    = $this->server->getParameter('PHP_SELF', '');
-            $file    = $this->server->getParameter('SCRIPT_FILENAME', '');
-            $segs    = explode('/', trim($file, '/'));
-            $segs    = array_reverse($segs);
-            $index   = 0;
-            $last    = count($segs);
+            $path = $this->server->getParameter('PHP_SELF', '');
+            $file = $this->server->getParameter('SCRIPT_FILENAME', '');
+            $segs = explode('/', trim($file, '/'));
+            $segs = array_reverse($segs);
+            $index = 0;
+            $last = count($segs);
             $baseUrl = '';
             do {
-                $seg     = $segs[ $index ];
+                $seg = $segs[$index];
                 $baseUrl = '/' . $seg . $baseUrl;
                 ++$index;
             } while ($last > $index && (false !== $pos = strpos($path, $baseUrl)) && 0 != $pos);
@@ -256,7 +274,8 @@ class Request implements Protocol\Request {
         return rtrim($baseUrl, '/');
     }
 
-    public function getRequestUri() {
+    public function getRequestUri()
+    {
         if (null === $this->requestUri) {
             $this->requestUri = $this->prepareRequestUri();
         }
@@ -264,7 +283,9 @@ class Request implements Protocol\Request {
         return $this->requestUri;
     }
 
-    protected function prepareRequestUri() {
+    protected function prepareRequestUri()
+    {
+
         $requestUri = '';
 
         if ($this->headers->hasParameter('X_ORIGINAL_URL')) {
@@ -279,7 +300,7 @@ class Request implements Protocol\Request {
             $requestUri = $this->headers->getParameter('X_REWRITE_URL');
             $this->headers->removeParameter('X_REWRITE_URL');
         } elseif ($this->server->getParameter('IIS_WasUrlRewritten') == '1'
-                  && $this->server->getParameter('UNENCODED_URL') != ''
+            && $this->server->getParameter('UNENCODED_URL') != ''
         ) {
             // IIS7 with URL Rewrite: make sure we get the unencoded URL (double slash problem)
             $requestUri = $this->server->getParameter('UNENCODED_URL');
@@ -307,11 +328,13 @@ class Request implements Protocol\Request {
         return $requestUri;
     }
 
-    public function getSchemeAndHttpHost() {
+    public function getSchemeAndHttpHost()
+    {
         return $this->getScheme() . '://' . $this->getHttpHost();
     }
 
-    public function getScheme() {
+    public function getScheme()
+    {
 
         $schemeOn =
             'on' == strtolower($this->server->getParameter('HTTPS')) || 1 == $this->server->getParameter('HTTPS');
@@ -319,9 +342,10 @@ class Request implements Protocol\Request {
         return $schemeOn ? "https" : "http";
     }
 
-    public function getHttpHost() {
+    public function getHttpHost()
+    {
         $scheme = $this->getScheme();
-        $port   = $this->getPort();
+        $port = $this->getPort();
 
         if (('http' == $scheme && $port == 80) || ('https' == $scheme && $port == 443)) {
             return $this->getHost();
@@ -330,7 +354,8 @@ class Request implements Protocol\Request {
         return $this->getHost() . ':' . $port;
     }
 
-    public function getPort() {
+    public function getPort()
+    {
 
         if ($host = $this->headers->getParameter('HOST')) {
             if (false !== $pos = strrpos($host, ':')) {
@@ -343,7 +368,8 @@ class Request implements Protocol\Request {
         return $this->server->getParameter('SERVER_PORT');
     }
 
-    public function getHost() {
+    public function getHost()
+    {
         if (!$host = $this->headers->getParameter('HOST')) {
             if (!$host = $this->server->getParameter('SERVER_NAME')) {
                 $host = $this->server->getParameter('SERVER_ADDR', '');
@@ -365,7 +391,8 @@ class Request implements Protocol\Request {
         return $host;
     }
 
-    private function getUrlencodedPrefix($string, $prefix) {
+    private function getUrlencodedPrefix($string, $prefix)
+    {
         if (0 !== strpos(rawurldecode($string), $prefix)) {
             return false;
         }
@@ -379,15 +406,20 @@ class Request implements Protocol\Request {
         return false;
     }
 
-    public function getProtocol() { }
-
-public function getResponse() {
+    public function getProtocol()
+    {
     }
 
-public function send(Protocol\Request $request = null) {
+    public function getResponse()
+    {
     }
 
-    public function getUri() {
+    public function send(Protocol\Request $request = null)
+    {
+    }
+
+    public function getUri()
+    {
         if (null !== $qs = $this->getQueryString()) {
             $qs = '?' . $qs;
         }
@@ -395,13 +427,28 @@ public function send(Protocol\Request $request = null) {
         return $this->getSchemeAndHttpHost() . $this->getBaseUrl() . $this->getPathInfo() . $qs;
     }
 
-    public function getQueryString() {
+
+    function getMethodData($method = "get"){
+
+        if(isset($this->$method)){
+            if(is_a($this->$method, Parameters::class)){
+                $parameters = $this->$method;
+                return $parameters->getAllParameters();
+            }
+        }
+
+        return false;
+    }
+
+    public function getQueryString()
+    {
         $qs = static::normalizeQueryString($this->server->getParameter('QUERY_STRING'));
 
         return '' === $qs ? null : $qs;
     }
 
-    public static function normalizeQueryString($qs) {
+    public static function normalizeQueryString($qs)
+    {
         if ('' == $qs) {
             return '';
         }
@@ -435,7 +482,8 @@ public function send(Protocol\Request $request = null) {
         return implode('&', $parts);
     }
 
-    public function getPathInfo() {
+    public function getPathInfo()
+    {
         if (null === $this->pathInfo) {
             $this->pathInfo = $this->preparePathInfo();
         }
@@ -443,7 +491,8 @@ public function send(Protocol\Request $request = null) {
         return $this->pathInfo;
     }
 
-    protected function preparePathInfo() {
+    protected function preparePathInfo()
+    {
         $baseUrl = $this->getBaseUrl();
 
         if (null === ($requestUri = $this->getRequestUri())) {
@@ -467,33 +516,37 @@ public function send(Protocol\Request $request = null) {
         return (string)$pathInfo;
     }
 
-    public function getUriForPath($path) {
+    public function getUriForPath($path)
+    {
         return $this->getSchemeAndHttpHost() . $this->getBaseUrl() . $path;
     }
 
-    public function getMimeType($format) {
+    public function getMimeType($format)
+    {
         if (null === static::$formats) {
             static::initializeFormats();
         }
 
-        return isset(static::$formats[ $format ]) ? static::$formats[ $format ][0] : null;
+        return isset(static::$formats[$format]) ? static::$formats[$format][0] : null;
     }
 
-    protected static function initializeFormats() {
+    protected static function initializeFormats()
+    {
         static::$formats = [
             'html' => ['text/html', 'application/xhtml+xml'],
-            'txt'  => ['text/plain'],
-            'js'   => ['application/javascript', 'application/x-javascript', 'text/javascript'],
-            'css'  => ['text/css'],
+            'txt' => ['text/plain'],
+            'js' => ['application/javascript', 'application/x-javascript', 'text/javascript'],
+            'css' => ['text/css'],
             'json' => ['application/json', 'application/x-json'],
-            'xml'  => ['text/xml', 'application/xml', 'application/x-xml'],
-            'rdf'  => ['application/rdf+xml'],
+            'xml' => ['text/xml', 'application/xml', 'application/x-xml'],
+            'rdf' => ['application/rdf+xml'],
             'atom' => ['application/atom+xml'],
-            'rss'  => ['application/rss+xml'],
+            'rss' => ['application/rss+xml'],
         ];
     }
 
-    public function getFormat($mimeType) {
+    public function getFormat($mimeType)
+    {
         if (false !== $pos = strpos($mimeType, ';')) {
             $mimeType = substr($mimeType, 0, $pos);
         }
@@ -509,14 +562,16 @@ public function send(Protocol\Request $request = null) {
         }
     }
 
-    public function setFormat($format, $mimeTypes) {
+    public function setFormat($format, $mimeTypes)
+    {
         if (null === static::$formats) {
             static::initializeFormats();
         }
-        static::$formats[ $format ] = is_array($mimeTypes) ? $mimeTypes : [$mimeTypes];
+        static::$formats[$format] = is_array($mimeTypes) ? $mimeTypes : [$mimeTypes];
     }
 
-    public function getRequestFormat($default = 'html') {
+    public function getRequestFormat($default = 'html')
+    {
         if (null === $this->format) {
             $this->format = $this->get('_format', $default); //lookup in $_REQUEST
         }
@@ -524,11 +579,13 @@ public function send(Protocol\Request $request = null) {
         return $this->format;
     }
 
-    public function setRequestFormat($format) {
+    public function setRequestFormat($format)
+    {
         $this->format = $format;
     }
 
-    public function getMethod() {
+    public function getMethod()
+    {
         if (null === $this->method) {
             $this->method = strtoupper($this->server->getParameter('REQUEST_METHOD', 'GET'));
 
@@ -542,32 +599,39 @@ public function send(Protocol\Request $request = null) {
         return $this->method;
     }
 
-    public function setMethod($method) {
+    public function setMethod($method)
+    {
         $this->method = null;
         $this->server->setParameter('REQUEST_METHOD', $method);
     }
 
-    public function getQuery() {
-        return $this->query;
+    public function getQuery()
+    {
+        return $this->get;
     }
 
-    public function getData() {
-        return $this->data;
+    public function getData()
+    {
+        return $this->post;
     }
 
-    public function getCookies() {
+    public function getCookies()
+    {
         return $this->cookies;
     }
 
-    public function getFiles() {
+    public function getFiles()
+    {
         return $this->files;
     }
 
-    public function getServer() {
+    public function getServer()
+    {
         return $this->server;
     }
 
-    public function getHeaders() {
+    public function getHeaders()
+    {
         return $this->headers;
     }
 
@@ -580,7 +644,8 @@ public function send(Protocol\Request $request = null) {
      *
      * @throws \LogicException
      */
-    public function getContent($asResource = false) {
+    public function getContent($asResource = false)
+    {
         if (false === $this->content || (true === $asResource && null !== $this->content)) {
             throw new \LogicException('getContent() can only be called once when using the resource return type.');
         }
@@ -603,16 +668,18 @@ public function send(Protocol\Request $request = null) {
      *
      * @return array The entity tags
      */
-    public function getETags() {
+    public function getETags()
+    {
         return preg_split('/\s*,\s*/', $this->headers->getParameter('if_none_match'), null, PREG_SPLIT_NO_EMPTY);
     }
 
     /**
      * @return bool
      */
-    public function isNoCache() {
+    public function isNoCache()
+    {
         return $this->headers->hasCacheControlDirective('no-cache')
-               || 'no-cache' == $this->headers->getParameter('Pragma');
+        || 'no-cache' == $this->headers->getParameter('Pragma');
     }
 
     /**
@@ -624,7 +691,8 @@ public function send(Protocol\Request $request = null) {
      *
      * @api
      */
-    public function getPreferredLanguage(array $locales = null) {
+    public function getPreferredLanguage(array $locales = null)
+    {
         $preferredLanguages = $this->getLanguages();
 
         if (empty($locales)) {
@@ -658,7 +726,8 @@ public function send(Protocol\Request $request = null) {
      *
      * @api
      */
-    public function getLanguages() {
+    public function getLanguages()
+    {
         if (null !== $this->languages) {
             return $this->languages;
         }
@@ -682,7 +751,7 @@ public function send(Protocol\Request $request = null) {
                         if ($i == 0) {
                             $lang = strtolower($codes[0]);
                         } else {
-                            $lang .= '_' . strtoupper($codes[ $i ]);
+                            $lang .= '_' . strtoupper($codes[$i]);
                         }
                     }
                 }
@@ -701,7 +770,8 @@ public function send(Protocol\Request $request = null) {
      *
      * @api
      */
-    public function getCharsets() {
+    public function getCharsets()
+    {
         if (null !== $this->charsets) {
             return $this->charsets;
         }
@@ -716,7 +786,8 @@ public function send(Protocol\Request $request = null) {
      *
      * @return array List of encodings in preferable order
      */
-    public function getEncodings() {
+    public function getEncodings()
+    {
         if (null !== $this->encodings) {
             return $this->encodings;
         }
@@ -732,7 +803,8 @@ public function send(Protocol\Request $request = null) {
      *
      * @api
      */
-    public function getAcceptableContentTypes() {
+    public function getAcceptableContentTypes()
+    {
         if (null !== $this->acceptableContentTypes) {
             return $this->acceptableContentTypes;
         }
@@ -742,7 +814,7 @@ public function send(Protocol\Request $request = null) {
         return $this->acceptableContentTypes = $acceptableContentTypes->getParameterKeys();
     }
 
-        /**
+    /**
      * Returns true if the request is a XMLHttpRequest.
      *
      * It works if your JavaScript library set an X-Requested-With HTTP header.
@@ -754,11 +826,9 @@ public function send(Protocol\Request $request = null) {
      *
      * @api
      */
-    public function isXmlHttpRequest() {
+    public function isXmlHttpRequest()
+    {
         return 'XMLHttpRequest' == $this->headers->getParameter('X-Requested-With');
     } //gets the response from a send Request;
 
-        public function createFromGlobal() {
-        return new static($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
-    } //abstract method
 } 

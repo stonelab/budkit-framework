@@ -9,6 +9,7 @@
 namespace Budkit\Protocol\Http;
 
 use Budkit\Parameter\Factory as Parameters;
+use Budkit\Parameter\Utility;
 use Budkit\Protocol;
 
 class Response implements Protocol\Response {
@@ -20,6 +21,7 @@ class Response implements Protocol\Response {
 
     use Protocol\Content;
 
+    use Utility;
 
     protected $request;
 
@@ -326,7 +328,7 @@ class Response implements Protocol\Response {
 
         //echo $this->contentType;
 
-        if (($type = $this->getType($_type)) !== false) {
+        if (($type = $this->getMimeType($_type)) !== false) {
             $this->addHeader("Content-Type", $type . $_charset);
         }
 
@@ -415,6 +417,46 @@ class Response implements Protocol\Response {
         $this->sendContent($content);
 
         return $this;
+    }
+
+    public function sendRedirect($headers = []){
+
+        $this->sendHeaders($headers);
+
+        return ;
+    }
+
+    public function getDataArray() {
+        return $this->getAllParameters();
+    }
+
+    public function setDataArray(array $data) {
+        foreach ($data as $key => $value) {
+            $this->setData($key, $value);
+        }
+
+        return $this;
+    }
+
+    public function setData($key, $value = '') {
+        return $this->setParameter($key, $value);
+    }
+
+    public function getData($key) {
+        return $this->getParameter($key);
+    }
+
+    public function addAlert($message, $messageType="info"){
+        $this->addParameters(["alerts"=>[ ["message"=>strval($message),"type"=>strval($messageType)] ] ] );
+
+    }
+
+    public function getAlerts(){
+
+        $alerts = $this->getData("alerts");
+
+        return empty($alerts) ? [] : $alerts;
+
     }
 
 
