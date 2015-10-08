@@ -14,16 +14,23 @@ class Observer {
     protected $listeners = [];
 
 
+
+    public function __construct(){
+
+    }
+
+
     public function attach($callback, $eventName = null, &$params = []) {
 
         //get the event definitions
         if ($callback instanceOf Listener) {
 
             $definition = (array)$callback->definition(); //typecast to array;
+
             //check the definition links to a callable,
             foreach ($definition as $event => $callable) {
 
-                //if callable is string, check Listerner has method 'callable' and attach to method;
+                //if callable is string, check Listener has method 'callable' and attach to method;
                 if (is_string($callable) && method_exists($callback, $callable)) {
                     return $this->attach([$callback, $callable], $event, $params);
                 }
