@@ -4,7 +4,7 @@ namespace Budkit\Protocol;
 
 trait Content {
 
-    public static $types = [
+    public static $mimetypes = [
         '3dm'       => 'x-world/x-3dmf',
         '3dmf'      => 'x-world/x-3dmf',
         'a'         => 'application/octet-stream',
@@ -464,10 +464,10 @@ trait Content {
         'zsh'       => 'text/x-script.zsh',
     ];
 
-    public function getType($format, $raw = false) {
+    public function getMimeType($format, $raw = false) {
 
-        if (isset(static::$types[ $format ])) {
-            $format = static::$types[ $format ];
+        if (isset(static::$mimetypes[ $format ])) {
+            $format = static::$mimetypes[ $format ];
 
             return ($raw) ? $format : (is_array($format) ? implode(",", $format) : $format);
         }
