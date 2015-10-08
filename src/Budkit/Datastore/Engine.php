@@ -8,7 +8,7 @@
 
 namespace Budkit\Datastore;
 
-trait Engine{
+abstract class Engine{
 
     /**
      * The database connection resource id
@@ -16,11 +16,13 @@ trait Engine{
      */
     public $resourceId;
 
+
     /**
      * The current driver being used
      * @var string
      */
     public $driver;
+
 
     /**
      * The last query to be executed in this connection
@@ -193,6 +195,7 @@ trait Engine{
         if ($startPos < $n) {
             $literal .= substr($sql, $startPos, $n - $startPos);
         }
+
         return $literal;
     }
 }

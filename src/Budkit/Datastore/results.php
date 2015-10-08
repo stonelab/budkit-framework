@@ -38,7 +38,7 @@ namespace Budkit\Datastore;
  * @link       http://stonyhillshq/documents/index/carbon4/libraries/database/results
  * @since      Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM
  */
-trait Results{
+abstract class Results implements Statement{
 
     /**
      * A copy of the current database object *RECURSIVE*

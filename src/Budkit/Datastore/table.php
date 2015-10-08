@@ -24,7 +24,10 @@
  */
 
 namespace Budkit\Datastore;
-use Budkit\Dependency\Container;
+
+use Budkit\Validation\Validate;
+
+use Exception;
 
 /**
  * What is the purpose of this class, in one sentence?
@@ -59,16 +62,17 @@ abstract class Table{
      *
      * @param type $options
      */
-    public function __construct(Container $container) {
+    public function __construct($table = "", Driver $driver) {
 
-        $this->dbo          = $container->database;
-        $this->validator    = $container->validate;
+        $this->dbo          = $driver;
+        $this->validator    = $driver->container->createInstance( Validate::class , "validator");
 
         //check if table exist and describe schema if blank
 
-        //$instance[$options['table']]->setTableName($options['dbo']->replacePrefix($options['table']));
-        //Get Table definiion, with describe!
-        //$instance[$options['table']]->describe();
+        if(!is_null($table)) {
+            $this->setTableName( $driver->replacePrefix($table) );
+            $this->describe();
+        }
 
     }
 
@@ -121,6 +125,30 @@ abstract class Table{
     }
 
 
+    /**
+     * Magic call method for table.
+     *
+     * This method can help with calling active record type methods in tables directly
+     * for instance, $this->select('*')->prepare(); or $this->delete();
+     *
+     * @param type $method
+     * @param type $argument
+     */
+    final public function __call($method, $arguments) {
+
+        $engine = $this->database;
+
+
+        if (!\is_callable([$engine, $method])) {
+            throw new \Exception("The requested Database::{$method} is not not callable");
+            return false;
+        }
+
+        //Call the method on the table;
+        return @\call_user_func_array([$engine->from($this->getTableName()), $method], $arguments);
+    }
+
+
 
     /**
      * Binds user data to the table;
@@ -136,7 +164,7 @@ abstract class Table{
         $validate = $this->validator;
 
         if (!is_object($data) && !is_array($data)) {
-            $this->setError(_t("Data must be either an object or array"));
+            throw new Exception(t("Data must be either an object or array"));
             return false;
         }
 
@@ -169,7 +197,7 @@ abstract class Table{
                         unset($this->schema[$k]->Value);
 
                         //set the error
-                        $this->setError(sprintf(_t("%s is not a valid %2s"), $k, $datatype));
+                        throw new Exception(sprintf(t("%s is not a valid %2s"), $k, $datatype));
 
                         //throw an exception if in strict mode
                         if ($strict) {

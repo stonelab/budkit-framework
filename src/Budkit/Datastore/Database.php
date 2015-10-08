@@ -33,11 +33,25 @@ use Budkit\Dependency\Container;
 class Database{
 
 
-    protected $driver;
+    //@TODO we need to find a better way to hide non static variables
+    //This is set in in constructor but the intention is to hide it hidden;
+    //protected $driver;
 
-    protected $options;
+    //@TODO we need to find a better way to hide non static variables
+    //This is set in in constructor but the intention is to hide it hidden;
+    //private  $container;
 
-    private  $container;
+
+    //@TODO we need to find a better way to hide non static variables
+    //This is set in in constructor but the intention is to hide it hidden;
+    //private $database;
+
+    private $supported = [
+            "mysqli" => Drivers\MySQLi\Driver::class,
+            "postgresql" => Drivers\MySQLi\Driver::class,
+            "sqlite" => Drivers\MySQLi\Driver::class,
+            "mongodb" => Drivers\MySQLi\Driver::class,
+        ];
 
     /**
      * Constructs the table object
@@ -46,18 +60,15 @@ class Database{
      */
     public function __construct($driver, $options = []){
 
-
         $this->container = new Container();
-        //@TODO maybe load these aliases from the config file
-        $this->container->createAlias([
-            "mysqli" => Drivers\MySQLi\Driver::class,
-            "postgresql" => Drivers\MySQLi\Driver::class,
-            "sqlite" => Drivers\MySQLi\Driver::class,
-            "mongodb" => Drivers\MySQLi\Driver::class,
-        ]);
+
+        if (is_callable($this->supported[$driver]) ){
+
+            throw new \Exception("The requested database driver is not supported");
+        }
+        $this->database = $this->container->createInstance($this->supported[$driver], [ $options ]);
 
         $this->driver = $driver;
-        $this->options = $options;
 
     }
 
@@ -70,14 +81,16 @@ class Database{
      */
     final public function __call($method, $args) {
 
-        $engine = $this->container->createInstance($this->driver, [$this->options]);
 
-        if (!\method_exists($engine, $method)) {
-            $this->setError(_t('Method does not exists'));
+        $engine = $this->database;
+
+
+        if (!\is_callable([$engine, $method])) {
+            throw new \Exception("The requested Database::{$method} is not not callable");
             return false;
         }
-        
-        return @\call_user_func_array(array($engie, $method), $args);
+
+        return @\call_user_func_array([$engine, $method], $args);
     }
 
 

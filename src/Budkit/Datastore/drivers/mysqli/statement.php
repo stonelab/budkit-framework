@@ -17,10 +17,8 @@ use Budkit\Datastore\Results;
  * @link       http://stonyhillshq/documents/index/carbon4/libraries/database/drivers/mysql/statement
  * @since      Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM
  */
-final class Statement implements \Budkit\Datastore\Statement {
+final class Statement extends Results {
 
-
-    use Results;
 
     /**
      * Constructs the statement object
@@ -28,7 +26,9 @@ final class Statement implements \Budkit\Datastore\Statement {
      * @param array $options
      */
     public function __construct(Driver $driver) {
+
         $this->setDBO( $driver );
+
     }
 
     /**
@@ -42,7 +42,7 @@ final class Statement implements \Budkit\Datastore\Statement {
         //Run the Query;
         $resultId = $DB->exec();
         //\Platform\Debugger::log($resultId);
-        
+
         $this->setResultId( $resultId )->setConnectionId($DB->getResourceId())->setAffectedRows($this->getAffectedRows());
         
         $DB->resetRun();

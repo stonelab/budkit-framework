@@ -2,30 +2,19 @@
 
 namespace Budkit\Datastore\Drivers\MySQLi;
 
+use Budkit\Debug\Log;
 use Budkit\Datastore\Engine;
+use Budkit\Datastore\Exception\ConnectionError;
+use Budkit\Datastore\Exception\InternalError;
+use Budkit\Datastore\Exception\QueryException;
+use Budkit\Datastore\Driver as DatastoreDriver;
 
-/**
- * What is the purpose of this class, in one sentence?
- *
- * How does this class achieve the desired purpose?
- *
- * @category   Library
- * @author     Livingstone Fultang <livingstone.fultang@stonyhillshq.com>
- * @copyright  1997-2012 Stonyhills HQ
- * @license    http://www.gnu.org/licenses/gpl.txt.  GNU GPL License 3.01
- * @version    Release: 1.0.0
- * @link       http://stonyhillshq/documents/index/carbon4/libraries/database/drivers/mysql/driver
- * @since      Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM
- */
-final class Driver implements \Budkit\Datastore\Driver{
 
-    /**
-     *  The Datastore engine, which implements
-     *  additional methods
-     *
-     */
-    use Engine;
+final class Driver extends Engine implements DatastoreDriver{
 
+
+
+    var $prefix = "";
     /**
      * The database driver name
      *
@@ -53,34 +42,28 @@ final class Driver implements \Budkit\Datastore\Driver{
     var $transactions = array();
 
 
-    /**
-     * A container to manage datastore objects
-     * @var
-     */
-    var $container;
+    var $queries = array();
 
-    /**
-     * Connects to the databse using the default DBMS
-     *
-     * @param string $name database name
-     * @param string $server default is localhost
-     * @param string $username if not provided default is used
-     * @param string $password not stored in the class
-     * @return bool TRUE on success and FALSE on failure
-     */
+
+
+
+
     public function __construct($options = []){
 
         $host       = array_key_exists('host', $options) ? $options['host'] : 'localhost';
         $user       = array_key_exists('user', $options) ? $options['user'] : '';
         $password   = array_key_exists('password', $options) ? $options['password'] : '';
         $database   = array_key_exists('name', $options) ? $options['name'] : '';
-        $prefix     = array_key_exists('prefix', $options) ? $options['prefix'] : 'dd_';
+        $prefix     = array_key_exists('prefix', $options) ? $options['prefix'] : 'bk_';
         $select     = array_key_exists('select', $options) ? $options['select'] : true;
+
         
         if(!$this->connect($host, $user, $password, $database, $prefix, $select )){
 
             //@TODO throw connection exceptions
             //throw new Exception("Could not connect to database with driver:mysqli");
+            ;
+            throw new ConnectionError("The requested database driver is not supported");
 
             return false;
             //throw an exception;
@@ -95,9 +78,8 @@ final class Driver implements \Budkit\Datastore\Driver{
         }
         
         $this->prefix = $prefix;
-        $this->ticker = 0;
         $this->errorNum = 0;
-        $this->log = array();
+        $this->log =  new Log("mysqli-db.log");
         $this->quoted = array();
         $this->hasQuoted = false;
         $this->debug    = true;
@@ -108,15 +90,7 @@ final class Driver implements \Budkit\Datastore\Driver{
         }
     }
     
-    /**
-     * Connects to the databse using the default DBMS
-     *
-     * @param string $name database name
-     * @param string $server default is localhost
-     * @param string $username if not provided default is used
-     * @param string $password not stored in the class
-     * @return bool TRUE on success and FALSE on failure
-     */
+
     public function connect($server = 'localhost', $username = '', $password = '', $database = '' , $prefix='dd_' , $select = true) {
         
         if($this->isConnected()){
@@ -125,33 +99,35 @@ final class Driver implements \Budkit\Datastore\Driver{
         
         // mysql driver exists?
         if (!function_exists('mysqli_real_connect')) {
-            $this->errorNum = 1;
-            $this->errorMsg = _t('The MySQLi extension "mysqli" is not available.');
-            $this->setError( "[{$this->name}:{$this->errorNum}] {$this->errorMsg}");
+
+            throw new ConnectionError('The MySQLi extension "mysqli" is not available.', 1 );
+
             return false;
         }
         
         $this->resourceId = mysqli_init();
         
         if (!$this->resourceId) {
-            $this->setError(_t('mysqli_init failed'));
+            throw new InternalError('The MySQLi extension "mysqli" initialization failed.', 2 );
+            return false;
         }
         
         //We want to keep autocomit on all the time exceplt when we are performing a transaction
         if (!$this->resourceId->options(MYSQLI_INIT_COMMAND, 'SET AUTOCOMMIT = 1')) {
-            $this->setError(_t('Setting MYSQLI_INIT_COMMAND failed'));
+            throw new InternalError('Setting MySQLi to AUTOCOMIT failed.', 3 );
+            return false;
         }
 
         if (!$this->resourceId->options(MYSQLI_OPT_CONNECT_TIMEOUT, 5)) {
-            $this->setError(_t('Setting MYSQLI_OPT_CONNECT_TIMEOUT failed'));
+            throw new InternalError('Setting MYSQLI_OPT_CONNECT_TIMEOUT failed.', 4 );
+            return false;
         }
         
         // connect to the server
         if (!$this->resourceId->real_connect($server, $username, $password, $database)) {
-            $this->errorNum =  mysqli_connect_errno();
-            $this->errorMsg =  mysqli_connect_error();
-            
-            $this->setError( "[{$this->name}:{$this->errorNum}] {$this->errorMsg}");
+
+            throw new ConnectionError(mysqli_connect_error(), mysqli_connect_errno());
+
             return false;
         }
         
@@ -162,18 +138,14 @@ final class Driver implements \Budkit\Datastore\Driver{
                 return false;
             }
         }
-        
+
         $this->prefix = $prefix;
         
         return true;
         
     }
 
-   /**
-    * Chooses the database to connect to
-    * @param string $database
-    * @return boolean
-    */
+
    protected function database( $database ) {
         //Make sure its not empty
         if (!$database) {
@@ -182,9 +154,7 @@ final class Driver implements \Budkit\Datastore\Driver{
         
         //Chooses the database to connect to
         if (!mysqli_select_db($this->resourceId, $database)) {
-            $this->errorNum = 3;
-            $this->errorMsg = _t('Could not connect to database');
-            $this->setError( "[{$this->name}:{$this->errorNum}] {$this->errorMsg}");
+            throw new ConnectionError('Could not connect to database');
             return false;
         }
 
@@ -204,11 +174,7 @@ final class Driver implements \Budkit\Datastore\Driver{
         return false;
     }
 
-    /**
-     * Determines the version of the DBMS being used
-     *
-     * @return
-     */
+
     public function getVersion(){
         return mysqli_get_server_info( $this->resourceId );
     }
@@ -221,8 +187,18 @@ final class Driver implements \Budkit\Datastore\Driver{
      * @return boolean
      */
     final public function __destruct() {}
-    
-    
+
+
+    /**
+     * Returns a Datastore\Table representation of Table
+     *
+     * @param $tablename
+     */
+    final public function getTable($tablename){
+
+        return new Table($tablename, $this);
+
+    }
     
     
     final public function close(){
@@ -296,17 +272,12 @@ final class Driver implements \Budkit\Datastore\Driver{
     }
 
 
-    /**
-     * Execute the query
-     *
-     * @access	public
-     * @return mixed A database resource if successful, FALSE if not.
-     */
+
     final public function exec( $query ='') {
 
         //@TODO how to verify the resource Id
         if (!is_a($this->resourceId, "mysqli")) {
-            $this->setError( _t("No valid connection resource found") );
+            throw new QueryException(t("No valid connection resource found") );
             return false;
         }
 
@@ -320,25 +291,21 @@ final class Driver implements \Budkit\Datastore\Driver{
 
         if ($this->debug) {
             $this->ticker++;
-            $this->log[] = $sql;
-            $log = htmlentities($sql); //Does not play nice with the parser!
-            \Platform\Debugger::log( $log, "DB Query {$this->ticker}" , "notice" );
+            $this->queries[] = $sql;
+            $log = htmlentities($sql);
+
+            //Does not play nice with the parser;
+            $this->log->message( $log, "DB Query {$this->ticker}" , "object");
         }
 
-        $this->errorNum = 0;
-        $this->errorMsg = '';
         $this->cursor = mysqli_query( $this->resourceId, $sql);
 
         if (!$this->cursor) {
-            $this->errorNum = mysqli_errno($this->resourceId);
-            $this->errorMsg = mysqli_error($this->resourceId) . " SQL=$sql";
+            throw new QueryException(mysqli_errno($this->resourceId), mysqli_error($this->resourceId) . " SQL=$sql");
 
-            if ($this->debug) {
-                //Debug the error
-            }
-            $this->setError( "[{$this->name}:{$this->errorNum}] {$this->errorMsg}");
             return false;
         }
+
         $this->resetRun();
 
         //echo $this->cursor;
@@ -347,93 +314,88 @@ final class Driver implements \Budkit\Datastore\Driver{
     }
 
 
-    /**
-     * Prepares an SQL query for execution;
-     *
-     * @param string $statement
-     * @return object \Library\Database\Results
-     */
     final public function prepare($statement = NULL, $offset = 0, $limit = 0, $prefix='') {
 
         //Sets the query to be executed;
 
-        $cfg = Config::getParamSection('database');
-
-
         $this->offset = (int) $offset;
         $this->limit = (int) $limit;
-        $this->prefix = (!isset($prefix) && !empty($prefix)) ? $prefix : $cfg['prefix'];
+        $this->prefix = (!isset($prefix) && !empty($prefix)) ? $prefix : $this->prefix;
         $this->query = $this->replacePrefix($statement);
 
         //Get the Result Statement class;
-        $options = array(
-            "dbo" => $this,
-            "driver" => $this->driver
-        );
 
         return new Statement( $this );
     }
-    
+
         /**
      * Begins a database transaction
-     * 
+     *
      * @return void;
      */
     public function startTransaction(){
-        
+
         if (!is_a($this->resourceId, "mysqli")) {
-            $this->setError( _t("No valid connection resource found") );
+            throw new QueryException("No valid db resource Id found. This is required to start a transaction");
             return false;
         }
         $this->resourceId->autocommit( FALSE ); //Turns autocommit off;
-        
+
     }
-    
+
     /**
      * This method is intended for use in transsactions
-     * 
+     *
      * @param type $sql
      * @param type $execute
      * @return boolean
      */
     public function query($sql, $execute = FALSE){
-        
+
         $query = (empty($sql)) ?  $this->query :  $sql ;
         $this->transactions[] = $this->replacePrefix( $query ); //just for reference
-        
+
         //@TODO;
         if($execute){
             $this->exec( $query );
         }
-        
+
         return true;
     }
-    
+
     /**
      * Commits a transaction or rollbacks on error
-     * 
+     *
      * @return boolean
      */
     public function commitTransaction(){
-         
+
         if(empty($this->transactions)||!is_array($this->transactions)){
-            $this->setError(_t("No transaction queries found"));
+            throw new QueryException(t("No transaction queries found"));
             $this->transactions = array();
+
+
             $this->resourceId->autocommit( TRUE ); //Turns autocommit back on
             return false;
         }
         //Query transactions
         foreach($this->transactions as $query){
+
+
             if(!$this->exec($query)){
+
                 $this->resourceId->rollback(); //Rolls back the transaction;
                 $this->transactions = array();
                 $this->resourceId->autocommit( TRUE ); //Turns autocommit back on
+
+
                 return false;
             }
         }
+
         //Commit the transaction
         if(!$this->resourceId->commit()){
-            $this->setError( _t("The transaction could not be committed"));
+            throw new QueryException(t("The transaction could not be committed"));
             $this->transactions = array();
             $this->resourceId->autocommit( TRUE ); //Turns autocommit back on
             return false;
@@ -444,24 +406,6 @@ final class Driver implements \Budkit\Datastore\Driver{
         return true;
     }
 
-//    /**
-//     * Gets an instance of the driver
-//     *
-//     * @staticvar self $instance
-//     * @param array $options
-//     * @return selfss
-//     */
-//    public static function getInstance( $options = array() ){
-//
-//
-//        static $instance;
-//        //If the class was already instantiated, just return it
-//        if (isset($instance) && is_a($instance, "Library\Database\Drivers\MySQLi\Driver") ) return $instance ;
-//
-//        $instance =  new self($options);
-//
-//        return $instance;
-//    }
 
     /**
      * For active record querying ONLY
@@ -472,19 +416,11 @@ final class Driver implements \Budkit\Datastore\Driver{
      */
     final public function __call($method, $args) {
 
-//      Get the AR class;
-//        $options = array(
-//            "dbo" => $this,
-//            "driver" => $this->driver
-//        );
+        $activeRecord = new Accessory( $this );
 
-        $activeRecord = new Accessory($this);
-
-//        $AR = \Library\Database\ActiveRecord::getInstance($options);
-//
 
         if (!\method_exists($activeRecord, $method)) {
-            $this->setError(_t('Method does not exists'));
+            throwException(t("Database Method {$method} does not exists"));
             return false;
         }
 

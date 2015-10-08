@@ -47,15 +47,13 @@ class Table extends \Budkit\Datastore\Table {
      * @var type 
      */
     protected $name = '';
-    
+
     /**
      * Holds the create statement of the table
      * 
      * @var type 
      */
     protected $schema = array();
-
-    
 
 
     /**

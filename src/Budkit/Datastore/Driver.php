@@ -178,4 +178,13 @@ interface Driver{
      * @return void
      */
     public function replacePrefix($sql, $prefix='?');
+
+    /**
+     * Returns a Datastore\Table object of table
+     *
+     * @param $tablename
+     * @return mixed
+     */
+    public function getTable($tablename);
+
 }
