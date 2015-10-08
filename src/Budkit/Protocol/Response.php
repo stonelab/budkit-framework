@@ -16,6 +16,10 @@ interface Response {
 
     public function setStatusCode($code);
 
+    public function setStatusMessage($message = '');
+
+    public function getStatusMessage();
+
     public function setProtocolVersion($version);
 
     public function getProtocolVersion();
@@ -27,5 +31,17 @@ interface Response {
     public function getContent(); //gets the content;
 
     public function send($content = null); //send the response
+
+    public function getDataArray();
+
+    public function setDataArray(array $data);
+
+    public function setData($key, $value = '');
+
+    public function getData($key);
+
+    public function addAlert($message, $messageType);
+
+    public function getAlerts();
 
 } 

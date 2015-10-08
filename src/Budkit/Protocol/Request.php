@@ -17,4 +17,8 @@ interface Request {
 
     public function getProtocol(); //quick means to determine which protocol we are dealing with;
 
+    public function getHost();
+
+    public function getBasePath();
+
 } 
