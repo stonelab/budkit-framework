@@ -18,6 +18,8 @@ abstract class Application extends Dependency\Container
 
     use Mockery;
 
+    protected $paths;
+
     /**
      * Construct/Initialises the application and required resources;
      *
@@ -39,25 +41,35 @@ abstract class Application extends Dependency\Container
             'cache' => 'Budkit\Cache\Manager',
             'cookie' => 'Budkit\Request\Cookie',
             'database' => 'Budkit\Datastore\Database',
+            'encrypt' => 'Budkit\Datastore\Encrypt',
             'observer' => 'Budkit\Event\Observer',
             'file' => 'Budkit\Filesystem\File',
             'config' => 'Budkit\Parameter\Manager',
-            'log' => 'Budkit\Log\Ticker',
+            'log' => 'Budkit\Debug\Log',
             'mailer' => 'Budkit\Mail\Mailer',
+            'input' => 'Budkit\Protocol\Input',
             'paginator' => 'Budkit\Datastore\Paginator',
             'redirect' => 'Budkit\Routing\Redirector',
             'router' => 'Budkit\Routing\Router',
-            'session' => 'Budkit\Session\Manager',
+            'request'  => 'Budkit\Protocol\Http\Request',
+            'response' => 'Budkit\Protocol\Http\Response',
+            'session' => 'Budkit\Session\Store',
             'sanitize' => 'Budkit\Validation\Sanitize',
             'uri' => 'Budkit\Routing\Uri',
             'validate' => 'Budkit\Validation\Validate',
             'view' => 'Budkit\View\Display',
-            'viewengine' => 'Budkit\View\Engine'
+            'viewengine' => 'Budkit\View\Engine',
+            'dispatcher'=> 'Budkit\Routing\Dispatcher'
         ]);
 
         //Sounds and looks weired, but we need to run the same event observer
         //throughout the app, especially for registering services as below.
         $this->shareInstance($this->createInstance('observer'), 'observer');
+        //The global dispatcher
+        //Sounds and looks weired, but we need to run the same event observer
+        //throughout the app, especially for registering services as below.
+        //$this->shareInstance($this->createInstance('router'), 'router');
+        //The global dispatcher
 
     }
 
@@ -92,13 +104,13 @@ abstract class Application extends Dependency\Container
 
                 return false;
             }
-
             //var_dump($provider);
             //Attach the service provider;
             $this->observer->attach($provider);
 
         }
         //var_dump($this->observer);
+
         //Trigger the register event
         $this->observer->trigger(new Event("app.register", $this));
 
@@ -107,6 +119,7 @@ abstract class Application extends Dependency\Container
 
     public function initialize()
     {
+        //The global dispatcher
 
         //state the application is initialized;
         //register aliases as class mocks such that static calls on mock map to instance calls;
@@ -119,7 +132,6 @@ abstract class Application extends Dependency\Container
                 ]
             )
         );
-        //var_dump($this->observer);
 
         //Trigger the app initialise event;
         $this->observer->trigger(new Event("app.init", $this));
