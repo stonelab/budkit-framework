@@ -11,8 +11,9 @@ namespace Budkit\Session;
 
 interface Handler {
 
-    public function getId();
-
-    public function getName();
+    public function read($splash, $session, $sessionId);
+    public function write($userdata, $splash, $session, $sessionId, $expiry);
+    public function delete($where, $session);
+    public function update($update, $session, $sessionId);
 
 } 
