@@ -8,6 +8,7 @@
 
 namespace Budkit\Protocol;
 
-interface Server {
+interface Server
+{
 
 } 

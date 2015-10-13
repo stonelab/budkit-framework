@@ -8,8 +8,8 @@
 
 namespace Budkit\View\Layout\Tpl;
 
-use Budkit\Event\Observer;
 use Budkit\Event\Event;
+use Budkit\Event\Observer;
 use Budkit\View\Layout\Loader;
 use DOMNode;
 
@@ -50,7 +50,6 @@ class Menu
             return;
         }
 
-        
 
         $document = $Node->parentNode;
         //print_R($document->removeChild($Node));
@@ -153,11 +152,11 @@ class Menu
             $class = str_replace(array(" ", "(", ")", "-", "&", "%", ",", "#"), '-', strtolower($item['menu_title']));
 
             //Add the active class to the parent;
-            if ($active && !empty($parents)){
+            if ($active && !empty($parents)) {
                 foreach ($parents as $parent) {
                     if (is_a($parent, DOMNode::class)) {
                         if ($parent->hasAttribute("class")) {
-                            if (preg_match("/\bactive\b/i", $parent->getAttribute("class"))){
+                            if (preg_match("/\bactive\b/i", $parent->getAttribute("class"))) {
                                 continue;
                             }
                             $parent->setAttribute("class", "active " . $parent->getAttribute("class"));
@@ -198,8 +197,6 @@ class Menu
             $anchor->appendChild($title);
 
 
-
-
             //Show an unread count?
             if (isset($item['menu_count'])) {
 
@@ -221,13 +218,13 @@ class Menu
                 //Dropdown li
 
                 $caret = $Node->ownerDocument->createElement("b");
-                $caret->setAttribute("class","caret");
-                $anchor->appendChild( $caret );
+                $caret->setAttribute("class", "caret");
+                $anchor->appendChild($caret);
 
                 //Add the menu anchor
                 $link->appendChild($anchor);
 
-                $link->setAttribute("class",  'dropdown ' . $link->getAttribute("class"));
+                //$link->setAttribute("class",  'dropdown ' . $link->getAttribute("class"));
 
                 $parents[] = $link;
 
@@ -237,12 +234,12 @@ class Menu
                 $parents = [];
 
                 //Dropdown ul
-                $_list->setAttribute("class",  'dropdown-menu ' . $_list->getAttribute("class"));
+                $_list->setAttribute("class", 'nav menu ' . $_list->getAttribute("class"));
 
                 $link->appendChild($_list);
                 $depth++;
 
-            }else{
+            } else {
                 //Just Add the menu anchor
                 $link->appendChild($anchor);
             }

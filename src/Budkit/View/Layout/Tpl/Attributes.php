@@ -33,7 +33,7 @@ class Attributes implements Listener
         return [
             'Layout.onCompile.attribute' => [
 
-                [new Data( $this->loader, $this->observer), 'attribute'],
+                [new Data($this->loader, $this->observer), 'attribute'],
                 //translate ,
                 //sprintf
 
@@ -61,7 +61,7 @@ class Attributes implements Listener
 
 
             $Attributes = $xPath->query("@*[namespace-uri()='{$this->nsURI}']", $Node);
-            $parseAttribute = new Event('Layout.onCompile.attribute', $this, ["data"=>$data,"xPath"=>$xPath]);
+            $parseAttribute = new Event('Layout.onCompile.attribute', $this, ["data" => $data, "xPath" => $xPath]);
 
             foreach ($Attributes as $attribute) {
 

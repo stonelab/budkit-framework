@@ -9,7 +9,8 @@
 namespace Budkit\Datastore;
 
 
-interface Driver{
+interface Driver
+{
 
     /**
      * Object destructor, must be declared in all drivers
@@ -87,7 +88,7 @@ interface Driver{
      *
      * @return void
      */
-    public function exec($query='');
+    public function exec($query = '');
 
     /**
      * Begins a database transaction
@@ -102,7 +103,7 @@ interface Driver{
      *
      * @return boolean
      */
-    public function query($sql, $execute =FALSE);
+    public function query($sql, $execute = FALSE);
 
     /**
      * Commits a transaction or rollbacks on error
@@ -127,7 +128,7 @@ interface Driver{
      * @param string $statement
      * @return object \Library\Database\Results
      */
-    public function prepare($statement = NULL, $offset = 0, $limit = 0, $prefix='');
+    public function prepare($statement = NULL, $offset = 0, $limit = 0, $prefix = '');
 
     /**
      * Returns the current driver object
@@ -177,7 +178,7 @@ interface Driver{
      * @param string The common table prefix
      * @return void
      */
-    public function replacePrefix($sql, $prefix='?');
+    public function replacePrefix($sql, $prefix = '?');
 
     /**
      * Returns a Datastore\Table object of table

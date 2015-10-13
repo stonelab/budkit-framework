@@ -8,7 +8,8 @@
 
 namespace Budkit\Authentication;
 
-interface User{
+interface User
+{
 
     public function getSession();
 

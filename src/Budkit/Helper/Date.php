@@ -15,42 +15,48 @@ namespace Budkit\Helper;
  * @link       http://stonyhillshq/documents/index/carbon4/libraries/date
  * @since      Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM
  */
-class Date {
+class Date
+{
     /*
      * @var string
      */
 
     protected static $timestamp;
-    
-    
-    public static function setDefaultTimeZone(){
+
+
+    public static function setDefaultTimeZone()
+    {
         date_default_timezone_set('UTC');
     }
 
     /**
      * Returns todays date timestamp
-     * 
+     *
      * @return string
      */
-    public static function today(){
-        
+    public static function today()
+    {
+
         return date('d/M/Y');
     }
 
     /**
      * Returns yesterdays date timestamp
-     * 
+     *
      * @return string
      */
-    public static function yesterday() {}
+    public static function yesterday()
+    {
+    }
 
     /**
      * Translated from string to date
-     * 
+     *
      * @param string $timestring
-     * @return string A well formated date 
+     * @return string A well formated date
      */
-    public static function translate($timestring) {
+    public static function translate($timestring)
+    {
         //toggles between a valid timestamp and a string
         //attempts to create a timestamp from a string
         return strtotime($timestring);
@@ -58,10 +64,11 @@ class Date {
 
     /**
      * Returns the timestamp for the current date
-     * 
+     *
      * @return string
      */
-    public static function getTime() {
+    public static function getTime()
+    {
         //returns the timestamp for the current date
     }
 

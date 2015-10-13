@@ -97,8 +97,8 @@ class Request implements Protocol\Request
                                 array $files = [], array $server = [], $content = null)
     {
 
-        $this->get = new Parameters("get", $query ); //stores all the get parameters;
-        $this->post = new Parameters("post", $data); //stores all the post data params = get+post+cookie params;
+        $this->get = new Parameters("get", $query); //stores all the get parameters;
+        $this->post = new Parameters("post", $data, false); //stores all the post data params = get+post+cookie params;
 
         $this->attributes = new Parameters("attributes", $attributes);
         $this->cookies = new Parameters("cookies", $cookies); //stores all the cookies;
@@ -133,9 +133,9 @@ class Request implements Protocol\Request
 
         if (is_array($attributes)) {
 
-            $this->get->addParameters( $attributes );
+            $this->get->addParameters($attributes);
 
-           return $this->attributes->addParameters( $attributes );
+            return $this->attributes->addParameters($attributes);
         }
 
     }
@@ -428,10 +428,11 @@ class Request implements Protocol\Request
     }
 
 
-    function getMethodData($method = "get"){
+    function getMethodData($method = "get")
+    {
 
-        if(isset($this->$method)){
-            if(is_a($this->$method, Parameters::class)){
+        if (isset($this->$method)) {
+            if (is_a($this->$method, Parameters::class)) {
                 $parameters = $this->$method;
                 return $parameters->getAllParameters();
             }

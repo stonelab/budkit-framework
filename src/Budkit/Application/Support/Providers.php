@@ -3,17 +3,28 @@
 namespace Budkit\Application\Support;
 
 
-class Providers {
+class Providers
+{
 
     //Manages the services.json file;
-    public function __construct() { }
+    public function __construct()
+    {
+    }
 
-    public function toArray() { }
+    public function toArray()
+    {
+    }
 
-    public function recompile() { }
+    public function recompile()
+    {
+    }
 
-    public function add() { }
+    public function add()
+    {
+    }
 
-    public function remove() { }
+    public function remove()
+    {
+    }
 
 }

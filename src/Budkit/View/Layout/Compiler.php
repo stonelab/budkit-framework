@@ -14,20 +14,22 @@ use DOMXPath;
  *
  * @package Budkit\View\Layout
  */
-class Compiler implements Parser, Listener {
+class Compiler implements Parser, Listener
+{
 
     protected $masterName;
     protected $xPath;
     protected $loader;
-	public    $removeQueue = [];
+    public $removeQueue = [];
 
     /**
      * @param \Budkit\View\Layout\Loader $loader
-     * @param \Budkit\Event\Observer     $observer
+     * @param \Budkit\Event\Observer $observer
      */
-    public function __construct(Loader $loader, Observer $observer) {
+    public function __construct(Loader $loader, Observer $observer)
+    {
 
-        $this->loader   = $loader;
+        $this->loader = $loader;
         $this->observer = $observer;
 
         $this->observer->attach($this, 'Layout.onCompile', $this->xPath);
@@ -36,7 +38,8 @@ class Compiler implements Parser, Listener {
     /**
      * @return array
      */
-    public function definition() {
+    public function definition()
+    {
 
         return ['Layout.onCompile' => [
 
@@ -54,6 +57,7 @@ class Compiler implements Parser, Listener {
             [new Tpl\Loop($this->loader, $this->observer), 'execute'],
 
 
+            [new Tpl\Datetime($this->loader, $this->observer), 'content'],
             //translate ,
             //sprintf
             //content only on Text Nodes;
@@ -63,11 +67,12 @@ class Compiler implements Parser, Listener {
             //processing instruction? xslt?
 
             //attributes Maybe run this last?
+            [new Tpl\Input($this->loader, $this->observer), 'execute'],
             [new Tpl\Select($this->loader, $this->observer), 'execute'],
             [new Tpl\Attributes($this->loader, $this->observer), 'nodelist']
 
 
-            ]
+        ]
         ];
     }
 
@@ -77,10 +82,11 @@ class Compiler implements Parser, Listener {
      *
      * @return string
      */
-    public function execute($content, $data = []) {
+    public function execute($content, $data = [])
+    {
 
         //return $content;
-        $this->loader->addData( $data );
+        $this->loader->addData($data);
 
         $tpl = new DOMDocument();
 
@@ -93,38 +99,39 @@ class Compiler implements Parser, Listener {
 
         $this->walk($tpl, $data);
 
-		//It is not ideal to removeNodes from the Remove Queue whilst we walk over it, therefore,
-		//Some nodes might need to be removed after iteration;
+        //It is not ideal to removeNodes from the Remove Queue whilst we walk over it, therefore,
+        //Some nodes might need to be removed after iteration;
         return $tpl->saveHTML();
     }
 
     /**
      * @param \DOMNode $tpl
-     * @param array    $data
+     * @param array $data
      */
-    private function walk(DOMNode &$tpl, $data = []) {
+    private function walk(DOMNode &$tpl, $data = [])
+    {
 
         if ($tpl->hasChildNodes()) {
 
-			$parseNode = new Event('Layout.onCompile', $this, $data);
+            $parseNode = new Event('Layout.onCompile', $this, $data);
 
-            for ($i=0; $i < $tpl->childNodes->length; $i++) {
+            for ($i = 0; $i < $tpl->childNodes->length; $i++) {
 
                 $Node = $tpl->childNodes->item($i);
 
                 $parseNode->setResult($Node);
 
-                $this->observer->trigger( $parseNode ); //Parse the Node;
+                $this->observer->trigger($parseNode); //Parse the Node;
 
                 if ($parseNode->getResult() instanceof DOMNode) {
 
                     $_Node = $parseNode->getResult();
 
-	                if ($_Node->hasChildNodes()) {
+                    if ($_Node->hasChildNodes()) {
 
-	                    $this->walk($_Node, $data);
+                        $this->walk($_Node, $data);
 
-	                }
+                    }
                 }
             }
         }

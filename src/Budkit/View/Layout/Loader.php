@@ -3,11 +3,12 @@
 
 namespace Budkit\View\Layout;
 
-use Budkit\Application\Platform as Application;
+use Budkit\Dependency\Container as Application;
 use Budkit\FileSystem\File;
 use Exception;
 
-class Loader {
+class Loader
+{
 
     protected $paths = [];
 
@@ -16,11 +17,12 @@ class Loader {
 
     protected $defaultExt;
 
-    public function __construct($defaultExt = '.tpl', Application $application) {
+    public function __construct($defaultExt = '.tpl', Application $application)
+    {
 
         $this->defaultExt = $defaultExt;
 
-        $this->paths      = array(
+        $this->paths = array(
             PATH_PUBLIC . '/layouts/',
             PATH_APP . '/layouts/'
         );
@@ -28,24 +30,28 @@ class Loader {
     }
 
 
-    public function addSearchPaths(array $paths = []){
+    public function addSearchPaths(array $paths = [])
+    {
 
         $this->paths = array_merge($this->paths, $paths);
 
     }
 
 
-    public function addData(array $data){
+    public function addData(array $data)
+    {
         $this->data = $data;
     }
 
 
-    public function getData(){
+    public function getData()
+    {
         return $this->data;
     }
 
 
-    public function find($layout) {
+    public function find($layout)
+    {
 
 
         //use the app config?
@@ -57,10 +63,10 @@ class Loader {
 
         $found = null;
 
-        foreach($this->paths as $path){
+        foreach ($this->paths as $path) {
 
-            if ($file->exists($path.$layout)) {
-                $found = $path.$layout;
+            if ($file->exists($path . $layout)) {
+                $found = $path . $layout;
             }
         }
 
@@ -85,13 +91,15 @@ class Loader {
         return $this->getBuffer();
     }
 
-    private function startBuffer($handler = "ob_gzhandler") {
+    private function startBuffer($handler = "ob_gzhandler")
+    {
         if (!ob_start($handler)) {
             ob_start();
         }
     }
 
-    private function getBuffer($handler = "ob_gzhandler", $end = true) {
+    private function getBuffer($handler = "ob_gzhandler", $end = true)
+    {
 
         $content = ob_get_contents();
         if ($end) ob_end_clean();
@@ -99,12 +107,14 @@ class Loader {
         return $content;
     }
 
-    public function getLayoutDirectory($layout = null) {
+    public function getLayoutDirectory($layout = null)
+    {
         //get the directory in which a layout is contained;
     }
 
 
-    private function stopBuffer($endflush = true) {
+    private function stopBuffer($endflush = true)
+    {
 
         ob_flush();
         if ($flush) ob_end_flush();

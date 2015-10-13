@@ -1,17 +1,19 @@
 {
-    "name": "budkit/datastore",
-    "description": "The budkit data storage provider classes",
-    "license": "GPLv3",
-    "authors": [
-        {
-            "name": "Livingstone Fultang",
-            "email": "livingstonefultang@gmail.com"
-        }
-    ],
-    "require": {
-        "php": ">=5.4.0"
-    },
-    "autoload": {
-        "psr-4": {"Budkit\\Database\\": ""}
-    },
+  "name": "budkit/datastore",
+  "description": "The budkit data storage provider classes",
+  "license": "GPLv3",
+  "authors": [
+    {
+      "name": "Livingstone Fultang",
+      "email": "livingstonefultang@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Budkit\\Database\\": ""
+    }
+  },
 }

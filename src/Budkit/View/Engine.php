@@ -6,25 +6,28 @@ use Budkit\Dependency\Container;
 use Budkit\Protocol\Response;
 use Budkit\View\Engine as Handler;
 
-class Engine {
+class Engine
+{
 
     protected $handler = null;
     protected $response;
     protected $container;
 
-    public function __construct(Response $response, Container $container) {
+    public function __construct(Response $response, Container $container)
+    {
 
-        $this->response  = $response;
+        $this->response = $response;
         $this->container = $container;
     }
 
-    public function getHandler() {
+    public function getHandler()
+    {
 
-        $format      = $this->response->getContentType();
+        $format = $this->response->getContentType();
         $engineClass = 'Budkit\View\Engine\\' . ucfirst($format); //Todo use Event?
 
-        if (isset($this->container[ $engineClass ])) {
-            return $this->container[ $engineClass ];
+        if (isset($this->container[$engineClass])) {
+            return $this->container[$engineClass];
         }
 
         if (class_exists($engineClass)) {

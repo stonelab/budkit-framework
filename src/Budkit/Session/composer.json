@@ -1,17 +1,19 @@
 {
-    "name": "budkit/session",
-    "description": "The budkit session provider classes ",
-    "license": "GPLv3",
-    "authors": [
-        {
-            "name": "Livingstone Fultang",
-            "email": "livingstonefultang@gmail.com"
-        }
-    ],
-    "require": {
-        "php": ">=5.4.0"
-    },
-    "autoload": {
-        "psr-4": {"Budkit\\Session\\": ""}
-    },
+  "name": "budkit/session",
+  "description": "The budkit session provider classes ",
+  "license": "GPLv3",
+  "authors": [
+    {
+      "name": "Livingstone Fultang",
+      "email": "livingstonefultang@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Budkit\\Session\\": ""
+    }
+  },
 }

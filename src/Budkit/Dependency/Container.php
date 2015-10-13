@@ -10,14 +10,14 @@ namespace Budkit\Dependency;
 
 use ArrayAccess;
 use Closure;
+use InvalidArgumentException;
 use ReflectionClass;
 use ReflectionException;
-use InvalidArgumentException;
 
-class Container implements ArrayAccess {
+class Container implements ArrayAccess
+{
 
     protected $paths;
-
 
 
     /**
@@ -39,7 +39,8 @@ class Container implements ArrayAccess {
      *
      * @param array $container
      */
-    public function __construct(Array $container = []) {
+    public function __construct(Array $container = [])
+    {
 
         $this->container = $container;
     }
@@ -52,7 +53,8 @@ class Container implements ArrayAccess {
      *
      * @return bool
      */
-    public function shareInstance($instance, $reference = null) {
+    public function shareInstance($instance, $reference = null)
+    {
 
         if (!is_object($instance)) {
             //@TODO maybe throw an error?
@@ -68,7 +70,7 @@ class Container implements ArrayAccess {
         }
 
         //just save the instance in container, no need for lambdas;
-        return $this->container[ $concrete ] = $instance;
+        return $this->container[$concrete] = $instance;
     }
 
     /**
@@ -77,7 +79,8 @@ class Container implements ArrayAccess {
      * @param      $alias
      * @param null $reference
      */
-    public function createAlias($reference, $alias = null) {
+    public function createAlias($reference, $alias = null)
+    {
         //if reference is array look for array(alias=>reference);
         if (is_array($reference)) {
             foreach ($reference as $key => $class) {
@@ -89,7 +92,7 @@ class Container implements ArrayAccess {
 
         //store in this->alias as an associative array of class to an array of aliases;
         foreach ((!is_array($alias) ? [$alias] : $alias) as $key) {
-            $this->aliases[ $key ] = $reference;
+            $this->aliases[$key] = $reference;
         }
     }
 
@@ -100,12 +103,13 @@ class Container implements ArrayAccess {
      * @param      $instance
      * @param bool $shared
      */
-    public function createInstance($reference, array $parameters = [], $shared = true) {
+    public function createInstance($reference, array $parameters = [], $shared = true)
+    {
         $reference = $this->mapReference($reference);
 
         //if we have already created this reference;
-        if (isset($this[ $reference ])) {
-            return $this[ $reference ];
+        if (isset($this[$reference])) {
+            return $this[$reference];
         }
 
         //check if $reference is already bound and return if is instance;
@@ -126,12 +130,14 @@ class Container implements ArrayAccess {
 
     }
 
-    public function setPaths( $paths ){
+    public function setPaths($paths)
+    {
         $this->paths = $paths;
     }
 
 
-    public function getPaths(){
+    public function getPaths()
+    {
         return $this->paths;
     }
 
@@ -146,12 +152,13 @@ class Container implements ArrayAccess {
      *
      * @return string
      */
-    public function mapReference($alias) {
+    public function mapReference($alias)
+    {
         //$alias = strval($alias);
         $reference = array_key_exists($alias, $this->aliases);
 
         if (array_key_exists($alias, $this->aliases)) {
-            return $this->aliases[ $alias ];
+            return $this->aliases[$alias];
         }
 
         return $alias;
@@ -166,7 +173,8 @@ class Container implements ArrayAccess {
      *
      * @return callable
      */
-    protected function wrapInCallable($class, array $parameters = []) {
+    protected function wrapInCallable($class, array $parameters = [])
+    {
 
         return function ($container) use ($class, $parameters) {
 
@@ -176,15 +184,15 @@ class Container implements ArrayAccess {
                 if (($required = $constructor->getNUmberOfParameters()) > 0) { //int
 
                     $dependencies = $constructor->getParameters();
-                    $passed       = count($parameters);
-                    $needfrom     = ($required - $passed) > 0 ? (($passed - 1) < 0 ? 0 : $passed - 1) : $required;
+                    $passed = count($parameters);
+                    $needfrom = ($required - $passed) > 0 ? (($passed - 1) < 0 ? 0 : $passed - 1) : $required;
 
                     for ($i = $needfrom; $i < $required; $i++) {
-                        $parameter = $dependencies[ $i ]; //instance of ReflectionParamter;
+                        $parameter = $dependencies[$i]; //instance of ReflectionParamter;
                         //If this parameter has not been passed, and the default value is not defined
                         if (!$parameter->isOptional() && !$parameter->isDefaultValueAvailable()) {
 
-                            $hintedType     = $parameter->getClass();
+                            $hintedType = $parameter->getClass();
                             $hintedTypeName = $hintedType->getName();
                             //$hintedInstance = null;
 
@@ -201,14 +209,13 @@ class Container implements ArrayAccess {
                                     array_push($parameters, $hintedInstance);
 
                                 }
-                            }
-                            catch (ReflectionException $reflectionException) {
+                            } catch (ReflectionException $reflectionException) {
 
                                 //print_R($hintedInstance); die;
 
                                 throw new ReflectionException(
                                     sprintf('The %1s Class requires parameter number %2s which could not be located. %3s',
-                                            $class->getName(), ($i + 1)." of type {".$hintedTypeName."}", $reflectionException->getMessage())
+                                        $class->getName(), ($i + 1) . " of type {" . $hintedTypeName . "}", $reflectionException->getMessage())
                                 );
                             }
                         }
@@ -234,7 +241,8 @@ class Container implements ArrayAccess {
      * @param null $alias
      * @param bool $instaniate
      */
-    public function createSharedReference($reference, Closure $callable, array $parameters = []) {
+    public function createSharedReference($reference, Closure $callable, array $parameters = [])
+    {
         return $this->createReference($reference, $callable, $parameters, true);
     }
 
@@ -244,13 +252,14 @@ class Container implements ArrayAccess {
      * @param      $reference
      * @param null $alias
      */
-    public function createReference($reference, Closure $callable, array $parameters = [], $shared = false) {
+    public function createReference($reference, Closure $callable, array $parameters = [], $shared = false)
+    {
         $reference = $this->mapReference($reference);
 
-        $this[ $reference ] =
+        $this[$reference] =
             ($shared) ? static::share($callable, $parameters) : static::protect($callable, $parameters);
 
-        return $this[ $reference ];
+        return $this[$reference];
     }
 
     /**
@@ -261,7 +270,8 @@ class Container implements ArrayAccess {
      *
      * @return Closure The wrapped closure
      */
-    protected static function share($callable) {
+    protected static function share($callable)
+    {
         if (!is_object($callable) || !method_exists($callable, '__invoke')) {
             throw new InvalidArgumentException('Service definition is not a Closure or invokable object.');
         }
@@ -286,7 +296,8 @@ class Container implements ArrayAccess {
      *
      * @return Closure The protected closure
      */
-    protected static function protect($callable) {
+    protected static function protect($callable)
+    {
         if (!is_object($callable) || !method_exists($callable, '__invoke')) {
             throw new InvalidArgumentException('Callable is not a Closure or invokable object.');
         }
@@ -296,7 +307,8 @@ class Container implements ArrayAccess {
         };
     }
 
-    public function getAliases() {
+    public function getAliases()
+    {
         return $this->aliases;
     }
 
@@ -309,7 +321,8 @@ class Container implements ArrayAccess {
      * @throws InvalidArgumentException
      *
      */
-    public function getRawReference($reference) {
+    public function getRawReference($reference)
+    {
 
         $reference = $this->mapReference($reference);
 
@@ -317,7 +330,7 @@ class Container implements ArrayAccess {
             throw new InvalidArgumentException(sprintf('Identifier "%s" is not defined.', $reference));
         }
 
-        return $this->container[ $reference ];
+        return $this->container[$reference];
     }
 
     /**
@@ -330,14 +343,15 @@ class Container implements ArrayAccess {
      * the same a name as an existing parameter would break your container).
      *
      * @param string $reference The unique identifier for the parameter or object
-     * @param mixed  $value     The value of the parameter or a closure to defined an object
+     * @param mixed $value The value of the parameter or a closure to defined an object
      */
-    public function offsetSet($reference, $value) {
+    public function offsetSet($reference, $value)
+    {
         //$reference = $this->mapReference($reference);
         //if value is callable
         //if value is not of type reference, then reference is alias and type is reference;
 
-        $this->container[ $reference ] = $value;
+        $this->container[$reference] = $value;
     }
 
     /**
@@ -349,18 +363,19 @@ class Container implements ArrayAccess {
      *
      * @throws InvalidArgumentException if the identifier is not defined
      */
-    public function offsetGet($reference) {
+    public function offsetGet($reference)
+    {
         $reference = $this->mapReference($reference);
 
         if (!array_key_exists($reference, $this->container)) {
             $this->createInstance($reference, [],
-                                  false); //if the alias exists and not in container will create callable instance on fly;
+                false); //if the alias exists and not in container will create callable instance on fly;
         }
 
         $isFactory =
-            is_object($this->container[ $reference ]) && method_exists($this->container[ $reference ], '__invoke');
+            is_object($this->container[$reference]) && method_exists($this->container[$reference], '__invoke');
 
-        return $isFactory ? $this->container[$reference]($this) : $this->container[ $reference ];
+        return $isFactory ? $this->container[$reference]($this) : $this->container[$reference];
     }
 
     /**
@@ -370,7 +385,8 @@ class Container implements ArrayAccess {
      *
      * @return Boolean
      */
-    public function offsetExists($reference) {
+    public function offsetExists($reference)
+    {
         $reference = $this->mapReference($reference);
 
         return array_key_exists($reference, $this->container);
@@ -381,15 +397,16 @@ class Container implements ArrayAccess {
      *
      * @param string $reference The unique identifier for the parameter or object
      */
-    public function offsetUnset($reference) {
+    public function offsetUnset($reference)
+    {
         $reference = $this->mapReference($alias);
 
         //Remove the reference from the container;
-        unset($this->container[ $reference ]);
+        unset($this->container[$reference]);
 
         //Remove its aliases;
         while (($alias = array_search($reference, $this->aliases)) !== null) {
-            unset($this->aliases[ $alias ]);
+            unset($this->aliases[$alias]);
         }
 
     }
@@ -401,7 +418,8 @@ class Container implements ArrayAccess {
      *
      * @return mixed
      */
-    public function __get($reference) {
+    public function __get($reference)
+    {
         return $this->offsetGet($reference);
     }
 
@@ -411,30 +429,31 @@ class Container implements ArrayAccess {
      * Useful when you want to extend an existing object definition,
      * without necessarily loading that object.
      *
-     * @param string   $reference The unique identifier for the object
-     * @param callable $callable  A service definition to extend the original
+     * @param string $reference The unique identifier for the object
+     * @param callable $callable A service definition to extend the original
      *
      * @return Closure The wrapped closure
      *
      * @throws InvalidArgumentException if the identifier is not defined or not a service definition
      */
-    public function extendReference($reference, $callable) {
+    public function extendReference($reference, $callable)
+    {
         if (!array_key_exists($reference, $this->container)) {
             throw new InvalidArgumentException(sprintf('Identifier "%s" is not defined.', $reference));
         }
 
-        if (!is_object($this->container[ $reference ]) || !method_exists($this->container[ $reference ], '__invoke')) {
+        if (!is_object($this->container[$reference]) || !method_exists($this->container[$reference], '__invoke')) {
             throw new InvalidArgumentException(sprintf('Identifier "%s" does not contain an object definition.',
-                                                       $reference));
+                $reference));
         }
 
         if (!is_object($callable) || !method_exists($callable, '__invoke')) {
             throw new InvalidArgumentException('Extension service definition is not a Closure or invokable object.');
         }
 
-        $factory = $this->container[ $reference ];
+        $factory = $this->container[$reference];
 
-        return $this->container[ $reference ] = function ($c) use ($callable, $factory) {
+        return $this->container[$reference] = function ($c) use ($callable, $factory) {
             return $callable($factory($c), $c);
         };
     }
@@ -444,7 +463,8 @@ class Container implements ArrayAccess {
      *
      * @return array An array of value names
      */
-    public function keys() {
+    public function keys()
+    {
         return array_keys($this->container);
     }
 } 

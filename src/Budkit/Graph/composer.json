@@ -1,17 +1,19 @@
 {
-    "name": "budkit/graph",
-    "description": "Graph Analysis backage for budkit",
-    "license": "GPLv3",
-    "authors": [
-        {
-            "name": "Livingstone Fultang",
-            "email": "livingstonefultang@gmail.com"
-        }
-    ],
-    "require": {
-        "php": ">=5.4.0"
-    },
-    "autoload": {
-        "psr-4": {"Budkit\\Graph\\": ""}
-    },
+  "name": "budkit/graph",
+  "description": "Graph Analysis backage for budkit",
+  "license": "GPLv3",
+  "authors": [
+    {
+      "name": "Livingstone Fultang",
+      "email": "livingstonefultang@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Budkit\\Graph\\": ""
+    }
+  },
 }

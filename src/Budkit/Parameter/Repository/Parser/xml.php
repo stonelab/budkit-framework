@@ -18,18 +18,28 @@ use Budkit\Parameter\Repository\Handler;
  * @link       http://stonyhillshq/documents/index/carbon4/libraries/config
  * @since      Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM
  */
-final class Xml extends File implements Handler{
+final class Xml extends File implements Handler
+{
 
     protected $searchPath = DIRECTORY_SEPARATOR;
 
-    public function __construct( $searchPath="" ){
+    public function __construct($searchPath = "")
+    {
 
         $this->searchPath = $searchPath;
 
     }
 
-    public function getParams($filepath = ""){}
-    public function saveParams(array $parameters , $environment = ""){}
-    public function readParams($filepath){}
+    public function getParams($filepath = "")
+    {
+    }
+
+    public function saveParams(array $parameters, $environment = "")
+    {
+    }
+
+    public function readParams($filepath)
+    {
+    }
 
 }

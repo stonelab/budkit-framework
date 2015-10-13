@@ -68,7 +68,6 @@ define('HTTP_UNAVAILABLE', 503);
 define('HTTP_GATEWAY_TIMEOUT', 504);
 
 
-
 //AUTHORITY IMPLIED PERMISSIONS;
 //Anonymous < Authenticated < Moderator < Curator < MasterAdmin
 define('AUTHROITY_IMPLIED_ANONYMOUS', 193); //Unknown authority

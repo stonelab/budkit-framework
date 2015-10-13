@@ -2,5 +2,6 @@
 
 namespace Budkit\Filesystem;
 
-class Packer {
+class Packer
+{
 }

@@ -3,7 +3,8 @@
 namespace Budkit\Utility;
 
 
-class Loader {
+class Loader
+{
 
     /**
      * The registered directories.
@@ -26,7 +27,8 @@ class Loader {
      *
      * @return bool
      */
-    public static function load($class) {
+    public static function load($class)
+    {
         $class = static::normalizeClass($class);
 
         foreach (static::$directories as $directory) {
@@ -47,7 +49,8 @@ class Loader {
      *
      * @return string
      */
-    public static function normalizeClass($class) {
+    public static function normalizeClass($class)
+    {
         if ($class[0] == '\\') $class = substr($class, 1);
 
         return str_replace(['\\', '_'], DIRECTORY_SEPARATOR, $class) . '.php';
@@ -58,7 +61,8 @@ class Loader {
      *
      * @return void
      */
-    public static function register() {
+    public static function register()
+    {
         if (!static::$registered) {
             static::$registered = spl_autoload_register(['\Budkit\Utility\Loader', 'load']);
         }
@@ -71,7 +75,8 @@ class Loader {
      *
      * @return void
      */
-    public static function addDirectories($directories) {
+    public static function addDirectories($directories)
+    {
         static::$directories = array_merge(static::$directories, (array)$directories);
         static::$directories = array_unique(static::$directories);
     }
@@ -83,7 +88,8 @@ class Loader {
      *
      * @return void
      */
-    public static function removeDirectories($directories = null) {
+    public static function removeDirectories($directories = null)
+    {
         if (is_null($directories)) {
             static::$directories = [];
         } else {
@@ -100,7 +106,8 @@ class Loader {
      *
      * @return array
      */
-    public static function getDirectories() {
+    public static function getDirectories()
+    {
         return static::$directories;
     }
 

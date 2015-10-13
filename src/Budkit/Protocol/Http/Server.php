@@ -9,34 +9,36 @@
 namespace Budkit\Protocol\Http;
 
 use Budkit\Parameter\Factory as Parameters;
-use Budkit\Parameter\Utility;
 use Budkit\Protocol;
 
-class Server extends Parameters implements Protocol\Server {
+class Server extends Parameters implements Protocol\Server
+{
 
 
-    public function __construct(array $server = []) {
+    public function __construct(array $server = [])
+    {
 
         parent::__construct("server", $server);
 
     } //define a server param;
 
-    public function getHeaders() {
-        $headers        = [];
+    public function getHeaders()
+    {
+        $headers = [];
         $contentHeaders = ['CONTENT_LENGTH' => true, 'CONTENT_MD5' => true, 'CONTENT_TYPE' => true];
 
         foreach ($this->parameters as $key => $value) {
             if (0 === strpos($key, 'HTTP_')) {
-                $headers[ substr($key, 5) ] = $value;
+                $headers[substr($key, 5)] = $value;
             } // CONTENT_* are not prefixed with HTTP_
-            elseif (isset($contentHeaders[ $key ])) {
-                $headers[ $key ] = $value;
+            elseif (isset($contentHeaders[$key])) {
+                $headers[$key] = $value;
             }
         }
 
         if (isset($this->parameters['PHP_AUTH_USER'])) {
             $headers['PHP_AUTH_USER'] = $this->parameters['PHP_AUTH_USER'];
-            $headers['PHP_AUTH_PW']   = isset($this->parameters['PHP_AUTH_PW']) ? $this->parameters['PHP_AUTH_PW'] : '';
+            $headers['PHP_AUTH_PW'] = isset($this->parameters['PHP_AUTH_PW']) ? $this->parameters['PHP_AUTH_PW'] : '';
         } else {
             /*
              * php-cgi under Apache does not pass HTTP Basic user/pass to PHP by default
@@ -67,10 +69,10 @@ class Server extends Parameters implements Protocol\Server {
                         list($headers['PHP_AUTH_USER'], $headers['PHP_AUTH_PW']) = $exploded;
                     }
                 } elseif (empty($this->parameters['PHP_AUTH_DIGEST'])
-                          && (0 === stripos($authorizationHeader, 'digest'))
+                    && (0 === stripos($authorizationHeader, 'digest'))
                 ) {
                     // In some circumstances PHP_AUTH_DIGEST needs to be set
-                    $headers['PHP_AUTH_DIGEST']          = $authorizationHeader;
+                    $headers['PHP_AUTH_DIGEST'] = $authorizationHeader;
                     $this->parameters['PHP_AUTH_DIGEST'] = $authorizationHeader;
                 }
             }

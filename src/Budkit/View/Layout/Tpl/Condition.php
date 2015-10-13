@@ -8,17 +8,19 @@
 
 namespace Budkit\View\Layout\Tpl;
 
+use Budkit\Event\Event;
 use Budkit\Event\Observer;
 use Budkit\View\Layout\Loader;
 use DOMNode;
 
-class Condition{
+class Condition
+{
 
     protected $nsURI = "http://budkit.org/tpl";
 
     protected $localName = "condition";
 
-    protected $data  = [];
+    protected $data = [];
 
     protected $placemarkers = [];
 
@@ -28,25 +30,28 @@ class Condition{
 
     const SEPARATOR = '/[:\.]/';
 
-    public function __construct(Loader $loader, Observer $observer){
+    public function __construct(Loader $loader, Observer $observer)
+    {
 
         $this->loader = $loader;
+        $this->observer = $observer;
 
         $this->methods = [
-            "boolean"=> "isBoolean",
-            "equals"=>"isEqualTo",
-            "empty"=>"isEmpty",
-            "not"=>"isNot"
+            "boolean" => "isBoolean",
+            "equals" => "isEqualTo",
+            "empty" => "isEmpty",
+            "not" => "isNot"
         ];
 
     }
 
-    public function evaluate(&$Element){
+    public function evaluate(&$Element)
+    {
 
 
         //Get the Node being Parsed;
         $Node = $Element->getResult();
-        $Data  = $Element->getData();
+        $Data = $Element->getData();
 
         //var_dump($Node, "<br/></br/>\n\n\n");
         //If we cannot determine what Node this is then stop propagation;
@@ -67,9 +72,9 @@ class Condition{
         $test = $Node->getAttribute("test");
 
         //If there is no test, return
-        if(empty($test) || !array_key_exists($test, $this->methods)){
+        if (empty($test) || !array_key_exists($test, $this->methods)) {
 
-            $Node->parentNode->removeChild( $Node );
+            $Node->parentNode->removeChild($Node);
 
             return;
         }
@@ -77,6 +82,7 @@ class Condition{
         //die;
 
         $is = $Node->getAttribute("is");
+
 
         //Search for (?<=\$\{)([a-zA-Z]+)(?=\}) and replace with data
         if (preg_match_all('/(?:(?<=\$\{)).*?(?=\})/i', $is, $matches)) {
@@ -103,24 +109,28 @@ class Condition{
         }
 
         $method = $this->methods[$test];
-        $subject  = $this->getData( $Node->getAttribute("on"), $Data);
+
+        $subject = $this->getData($Node->getAttribute("on"), $Data);
+
+        //echo $is; die;
 
         //If there is no subject, return;
-        if(empty($subject)){
+//        if(empty($subject)){
+//
+//            if ($Node->nextSibling  instanceof DOMNode ) {
+//
+//                $Element->setResult($Node->nextSibling);
+//
+//            }
+//
+//            $Node->parentNode->removeChild( $Node );
+//
+//
+//            return;
+//        }
 
-            if ($Node->nextSibling  instanceof DOMNode ) {
 
-                $Element->setResult($Node->nextSibling);
-
-            }
-
-            $Node->parentNode->removeChild( $Node );
-
-
-            return;
-        }
-
-        if(!$this->$method($subject, $is)) {
+        if (!$this->$method($subject, $is)) {
 
 
             $document = $Node->parentNode;
@@ -128,40 +138,46 @@ class Condition{
             //print_R($document->removeChild($Node));
 
             //die;
-            if ($Node->nextSibling  instanceof DOMNode ) {
+            if ($Node->nextSibling instanceof DOMNode) {
 
                 $Element->setResult($Node->nextSibling);
 
             }
 
-            $document->removeChild( $Node );
+            $document->removeChild($Node);
 
             $Element->setResult($document);
 
             return;
         }
 
-//        if($Node->hasChildNodes()){
-//
-//            for ($i=0; $i < $Node->childNodes->length; $i++) {
-//
-//                $import = $Node->childNodes->item($i);
-//
-//                $Node->parentNode->insertBefore( $import , $Node  );
-//            }
-//        }
-//        $Node->parentNode->removeChild( $Node );
-
         $document = $Node->parentNode;
 
         if ($Node->hasChildNodes()) {
-            foreach ($Node->childNodes as $_node) {
-                //$_node = $document->importNode($_node, true);
-                $document->appendChild( $_node->cloneNode(true) );
+
+            for ($i = 0; $i < $Node->childNodes->length; $i++) {
+
+                $import = $Node->childNodes->item($i);
+
+                //$_node = $document->importNode($import, true);
+                $document->insertBefore($import->cloneNode(true), $Node);
+
+                if ($test == "not") {
+                    //print_R($import);
+                }
             }
         }
+//        $Node->parentNode->removeChild( $Node );
 
-        if ($Node->nextSibling  instanceof DOMNode ) {
+
+//        if ($Node->hasChildNodes()) {
+//            foreach ($Node->childNodes as $_node) {
+//                //$_node = $document->importNode($_node, true);
+//                $document->appendChild( $_node->cloneNode(true) );
+//            }
+//        }
+
+        if ($Node->nextSibling instanceof DOMNode) {
 
             $Element->setResult($Node->nextSibling);
 
@@ -173,10 +189,11 @@ class Condition{
     }
 
 
-    protected function isEqualTo($subject, $is){
+    protected function isEqualTo($subject, $is)
+    {
 
 
-        if ($subject == $is ){
+        if ($subject == $is) {
             return true;
         }
 
@@ -184,44 +201,48 @@ class Condition{
 
     }
 
-    protected function isBoolean($subject, $is){
+    protected function isBoolean($subject, $is)
+    {
 
         //this function will look wiered, but essentially
         //we are checking a boolean data type against either
         //true or false and returning accordingly
+        $true = [1, "true"];
+        //$false= [0, "", "false", false, null];
 
-        $true = [1, "true", true];
-        $false= [0, "" , "false", false, null];
+        $testIs = (in_array($is, $true)) ? true : false;
 
-        if ($subject && in_array($is, $true)){
+        if ((bool)$subject === (bool)$testIs) {
             return true;
         }
-        else if( !($subject) && in_array($is, $false)){
-            return true;
-        }
+
+
         return false;
     }
 
     //essentially the reverse of equalsTo
-    protected function isNot($subject, $is){
+    protected function isNot($subject, $is)
+    {
 
-        if($this->isEqualTo($subject, $is)){
+        if ($this->isEqualTo($subject, $is)) {
+
             return false;
         }
+
         return true;
     }
 
 
-    protected function isEmpty($subject, $is){
+    protected function isEmpty($subject, $is)
+    {
 
         //same as boolean but checking for is empty
         $true = [1, "true", true];
-        $false= [0, "" , "false", false, null];
+        $false = [0, "", "false", false, null];
 
-        if (empty($subject) && in_array($is, $true)){
+        if (empty($subject) && in_array($is, $true)) {
             return true;
-        }
-        else if( !empty($subject) && in_array($is, $false)){
+        } else if (!empty($subject) && in_array($is, $false)) {
             return true;
         }
         return false;
@@ -229,7 +250,19 @@ class Condition{
     }
 
 
-    protected function getData($path, array $data){
+    protected function getData($path, array $data)
+    {
+
+        if (preg_match('|^(.*)://(.+)$|', $path, $matches)) {
+
+            $parseDataScheme = new Event('Layout.onCompile.scheme.data', $this, ["scheme" => $matches[1], "path" => $matches[2]]);
+
+            $parseDataScheme->setResult(null); //set initial result
+
+            $this->observer->trigger($parseDataScheme); //Parse the Node;
+
+            return $parseDataScheme->getResult();
+        }
 
         $array = $data;
         $keys = $this->explode($path);

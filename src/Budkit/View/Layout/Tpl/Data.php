@@ -8,37 +8,40 @@
 
 namespace Budkit\View\Layout\Tpl;
 
-use Budkit\Event\Observer;
 use Budkit\Event\Event;
+use Budkit\Event\Observer;
 use Budkit\View\Layout\Loader;
 use DOMNode;
 
-class Data{
+class Data
+{
 
     protected $nsURI = "http://budkit.org/tpl";
 
     protected $localName = "data";
 
-    protected $data  = [];
+    protected $data = [];
 
     protected $placemarkers = [];
 
 
     const SEPARATOR = '/[:\.]/';
 
-    public function __construct(Loader $loader,  Observer $observer){
+    public function __construct(Loader $loader, Observer $observer)
+    {
 
         $this->loader = $loader;
         $this->observer = $observer;
 
     }
 
-    public function content($Element){
+    public function content($Element)
+    {
 
 
         //Get the Node being Parsed;
         $Node = $Element->getResult();
-        $Data  = $Element->getData();
+        $Data = $Element->getData();
 
         //var_dump($Node, "<br/></br/>\n\n\n");
         //If we cannot determine what Node this is then stop propagation;
@@ -55,20 +58,48 @@ class Data{
         }
 
         $dataPath = $Node->getAttribute("value");
-        $replace  = $this->getData($dataPath, $Data);
+        $replace = $this->getData($dataPath, $Data);
 
-        if(is_string($replace)){
-            $text = $Node->ownerDocument->createTextNode( trim($replace) );
-            $Node->parentNode->replaceChild( $text, $Node );
+        if (is_string($replace)) {
+
+            //lets import the markup;
+            if ($Node->hasAttribute("markup") && !empty($replace)) {
+
+                $tmpImport = $Node->ownerDocument->createElement("div");
+
+
+                $tmpDoc = new \DOMDocument();
+                $tmpDoc->loadHTML($replace, LIBXML_COMPACT);
+
+                if ($tmpDoc->documentElement->hasChildNodes()) {
+
+                    for ($i = 0; $i < $tmpDoc->documentElement->childNodes->length; $i++) {
+
+                        $import = $tmpDoc->documentElement->childNodes->item($i);
+
+                        $_Node = $Node->ownerDocument->importNode($import, true);
+                        $tmpImport->appendChild($_Node->cloneNode(true));
+
+                    }
+                }
+
+                $Node->parentNode->replaceChild($tmpImport, $Node);
+
+            } else {
+
+                $text = $Node->ownerDocument->createTextNode(trim($replace));
+                $Node->parentNode->replaceChild($text, $Node);
+            }
         }
 
     }
 
-    public function attribute($Element){
+    public function attribute($Element)
+    {
 
         //Get the Node being Parsed;
-        $Attr  = $Element->getResult();
-        $Data  = $Element->getData("data");
+        $Attr = $Element->getResult();
+        $Data = $Element->getData("data");
 
         //If we cannot determine what Node this is then stop propagation;
         if (!($Attr instanceof DOMNode)) {
@@ -90,7 +121,7 @@ class Data{
 
                 $replace = $this->getData($placemarker, $Data);
 
-                if(is_string($replace)){
+                if (is_string($replace)) {
                     $searches[] = '${' . $placemarker . '}';
                     $replaces[] = $replace;
                 }
@@ -108,11 +139,12 @@ class Data{
 
     }
 
-    protected function getData($path, array $data){
+    protected function getData($path, array $data)
+    {
 
         if (preg_match('|^(.*)://(.+)$|', $path, $matches)) {
 
-            $parseDataScheme = new Event('Layout.onCompile.scheme.data', $this, ["scheme" => $matches[1], "path"=>$matches[2] ]);
+            $parseDataScheme = new Event('Layout.onCompile.scheme.data', $this, ["scheme" => $matches[1], "path" => $matches[2]]);
 
             $parseDataScheme->setResult(null); //set initial result
 

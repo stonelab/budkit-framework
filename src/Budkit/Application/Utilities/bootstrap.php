@@ -9,6 +9,12 @@
 */
 require_once 'constants.php';
 
+foreach ($paths as $key => $path) {
+
+    define("PATH_" . strtoupper($key), $path);
+
+}
+
 /*
 |--------------------------------------------------------------------------
 | Composer autoload classes
@@ -48,6 +54,7 @@ $whoops = new Whoops\Run;
 $whoops->pushHandler(new Whoops\Handler\PrettyPageHandler);
 $whoops->register();
 
+
 /*
 |--------------------------------------------------------------------------
 | Create the app
@@ -57,15 +64,16 @@ $whoops->register();
 | Classes and Aliases required for processing a given request.
 |
 */
-$app = new Budkit\Application\Platform;
+$app = new Budkit\Application\Instance;
 
-/*
-|--------------------------------------------------------------------------
-| Share user defined paths
-|--------------------------------------------------------------------------
-|
-*/
+/**
+ * |--------------------------------------------------------------------------
+ * | Share user defined paths and the error handler
+ * |--------------------------------------------------------------------------
+ * |
+ **/
 $app->setPaths($paths);
+$app->shareInstance($whoops, "error");
 
 
 /*
@@ -83,13 +91,12 @@ $config = require $paths['config'] . '/config.inc';
 $configExt = ".ini";
 
 $app->shareInstance($app->createInstance('config',
-    [$app->createInstance(Budkit\Parameter\Repository\File::class,
+    array($app->createInstance('Budkit\Parameter\Repository\File',
         [$paths['config'], $configExt]
-    )]
+    ))
 ), 'config');
 
 $app->config->addParameters($config);
-
 
 /*
 |--------------------------------------------------------------------------

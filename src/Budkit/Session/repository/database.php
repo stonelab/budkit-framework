@@ -20,39 +20,43 @@ use Budkit\Session\Handler;
  * @link       http://stonyhillshq/documents/index/carbon4/libraries/i18n
  * @since      Class available since Release 1.0.0 Jan 15, 2012 3:09:41 AM
  */
-final class Database implements Handler {
+final class Database implements Handler
+{
 
 
     private $database;
 
 
-    public function __construct(Datastore $database){
+    public function __construct(Datastore $database)
+    {
 
         $this->database = $database;
     }
+
     /**
      * Read the session from the database
-     * 
+     *
      * @param type $splash
      * @param type $session
      * @param type $sessionId
      * @return boolean
      */
-    public function read($splash, $session, $sessionId) {
+    public function read($splash, $session, $sessionId)
+    {
 
         $database = $this->database;
         //$token = (string) $input->getCookie($sessId);
         $statement =
-                        $database->where("session_agent", $database->quote($splash['agent']))
-                        ->where("session_ip", $database->quote($splash['ip']))
-                        ->where("session_host", $database->quote($splash['domain']))
-                        ->where("session_key", $database->quote($sessionId))
-                        ->select("*")->from($session->table)->prepare();
+            $database->where("session_agent", $database->quote($splash['agent']))
+                ->where("session_ip", $database->quote($splash['ip']))
+                ->where("session_host", $database->quote($splash['domain']))
+                ->where("session_key", $database->quote($sessionId))
+                ->select("*")->from($session->table)->prepare();
 
         $result = $statement->execute();
 
         //Do we have a session that fits this criteria in the db? if not destroy
-        if ((int) $result->rowCount() < 1) {
+        if ((int)$result->rowCount() < 1) {
             $session->destroy($sessionId);
             return false; //will lead to re-creation
         }
@@ -64,15 +68,16 @@ final class Database implements Handler {
 
     /**
      * Updates session data in the database;
-     * 
+     *
      * @param type $userdata
      * @param type $session
      * @param type $sessionId
      */
-    public function update($update, $session, $sessionId) {
+    public function update($update, $session, $sessionId)
+    {
 
         $database = $this->database;
-        if(isset($update["session_registry"])){
+        if (isset($update["session_registry"])) {
             $update["session_registry"] = $database->quote($update["session_registry"]);
         }
 
@@ -84,36 +89,38 @@ final class Database implements Handler {
 
     /**
      * Deletes session data from the database
-     * 
+     *
      * @param type $where
      * @param type $session
      * @return boolean
      */
-    public function delete($where, $session) {
-        
+    public function delete($where, $session)
+    {
+
         $database = $this->database;
 
-        if(isset($where["session_key"])){
+        if (isset($where["session_key"])) {
             $where["session_key"] = $database->quote($where["session_key"]);
         }
         $database->delete($session->table, $where);
-        
+
         return true;
     }
 
     /**
      * Writes session data to the database store
-     * 
+     *
      * @param type $userdata
      * @param type $splash
      * @param type $session
      * @param type $sessionId
      * @param type $expiry
      */
-    public  function write($userdata, $splash, $session, $sessionId, $expiry) {
-        
+    public function write($userdata, $splash, $session, $sessionId, $expiry)
+    {
+
         $database = $this->database;
-                
+
         $database->insert($session->table, array(
             "session_key" => $database->quote($sessionId),
             "session_ip" => $database->quote($splash['ip']),

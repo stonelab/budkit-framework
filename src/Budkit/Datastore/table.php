@@ -7,7 +7,7 @@
  *
  * Requires PHP version 5.3
  *
- * LICENSE: This source file is subject to version 3.01 of the GNU/GPL License 
+ * LICENSE: This source file is subject to version 3.01 of the GNU/GPL License
  * that is available through the world-wide-web at the following URI:
  * http://www.gnu.org/licenses/gpl.txt  If you did not receive a copy of
  * the GPL License and are unable to obtain it through the web, please
@@ -20,13 +20,12 @@
  * @version    Release: 1.0.0
  * @link       http://stonyhillshq/documents/index/carbon4/libraries/database/table
  * @since      Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM
- * 
+ *
  */
 
 namespace Budkit\Datastore;
 
 use Budkit\Validation\Validate;
-
 use Exception;
 
 /**
@@ -42,8 +41,8 @@ use Exception;
  * @link       http://stonyhillshq/documents/index/carbon4/libraries/database/table
  * @since      Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM
  */
-abstract class Table{
-
+abstract class Table
+{
 
 
     protected $validator;
@@ -62,15 +61,16 @@ abstract class Table{
      *
      * @param type $options
      */
-    public function __construct($table = "", Driver $driver) {
+    public function __construct($table = "", Driver $driver)
+    {
 
-        $this->dbo          = $driver;
-        $this->validator    = $driver->container->createInstance( Validate::class , "validator");
+        $this->dbo = $driver;
+        $this->validator = $driver->container->createInstance(Validate::class, "validator");
 
         //check if table exist and describe schema if blank
 
-        if(!is_null($table)) {
-            $this->setTableName( $driver->replacePrefix($table) );
+        if (!is_null($table)) {
+            $this->setTableName($driver->replacePrefix($table));
             $this->describe();
         }
 
@@ -78,52 +78,46 @@ abstract class Table{
 
     /**
      * Defines the table name;
-     * 
+     *
      * @param type $name
-     * @return type 
+     * @return type
      */
-    final public function setTableName($name) {
+    final public function setTableName($name)
+    {
 
         $this->name = preg_replace('/[^A-Z0-9_\.-]/i', '', $name);
 
         return true;
     }
 
-    /**
-     * Returns the table name
-     *
-     * @return type 
-     */
-    final public function getTableName() {
-
-        return $this->name;
-    }
-
-    /**
-     * Sets a dynamique field value
-     * 
-     * @param type $field
-     * @param type $value
-     * @return Table 
-     */
-    final public function __set($field, $value) {
-        $this->fields[$field] = $value;
-        return $this;
-    }
+    abstract public function describe();
 
     /**
      * Gets a field value
-     * 
+     *
      * @param type $field
-     * @return type 
+     * @return type
      */
-    final public function __get($field) {
+    final public function __get($field)
+    {
         if (isset($this->fields[$field])) {
             return $this->fields[$field];
         }
         return null;
     }
 
+    /**
+     * Sets a dynamique field value
+     *
+     * @param type $field
+     * @param type $value
+     * @return Table
+     */
+    final public function __set($field, $value)
+    {
+        $this->fields[$field] = $value;
+        return $this;
+    }
 
     /**
      * Magic call method for table.
@@ -134,7 +128,8 @@ abstract class Table{
      * @param type $method
      * @param type $argument
      */
-    final public function __call($method, $arguments) {
+    final public function __call($method, $arguments)
+    {
 
         $engine = $this->database;
 
@@ -148,7 +143,16 @@ abstract class Table{
         return @\call_user_func_array([$engine->from($this->getTableName()), $method], $arguments);
     }
 
+    /**
+     * Returns the table name
+     *
+     * @return type
+     */
+    final public function getTableName()
+    {
 
+        return $this->name;
+    }
 
     /**
      * Binds user data to the table;
@@ -157,9 +161,10 @@ abstract class Table{
      * @param type $ignore
      * @param type $strict
      * @param type $filter
-     * @return type 
+     * @return type
      */
-    final public function bindData($data, $ignore = array(), $strict=true, $filter=array()) {
+    final public function bindData($data, $ignore = array(), $strict = true, $filter = array())
+    {
 
         $validate = $this->validator;
 
@@ -191,7 +196,7 @@ abstract class Table{
                 $datavalue = $this->schema[$k]->Value;
 
                 if (method_exists($validate, $datatype)) {
-                    
+
                     if (!\call_user_func(array($validate, $datatype), $datavalue)) {
                         //unpair the value
                         unset($this->schema[$k]->Value);
@@ -214,10 +219,11 @@ abstract class Table{
 
     /**
      * Determines if theh currently bound row will be saved as new
-     * 
-     * @return boolean true if primary key has a value 
+     *
+     * @return boolean true if primary key has a value
      */
-    final public function isNewRow() {
+    final public function isNewRow()
+    {
 
         $primary = $this->keys("primary", 1);
 
@@ -225,25 +231,30 @@ abstract class Table{
         return (empty($primary->Value)) ? true : false;
     }
 
+    abstract public function keys($type);
 
-    final public function getRow() {
-
-    }
-
-    final public function getRowValues() {
+    final public function getRow()
+    {
 
     }
 
-    final public function getRowField() {
+    final public function getRowValues()
+    {
+
+    }
+
+    final public function getRowField()
+    {
 
     }
 
     /**
      * Gets the value of a field in the current ROW
-     * 
-     * @param type $field 
+     *
+     * @param type $field
      */
-    final public function getRowFieldValue($field) {
+    final public function getRowFieldValue($field)
+    {
 
         //If value exists;
         if (array_key_exists($field, $this->schema)) {
@@ -254,10 +265,11 @@ abstract class Table{
 
     /**
      * Sets a field value in the current row
-     * 
-     * @param type $field 
+     *
+     * @param type $field
      */
-    final public function setRowFieldValue($field, $value) {
+    final public function setRowFieldValue($field, $value)
+    {
 
         //If value exists;
         if (array_key_exists($field, $this->schema)) {
@@ -267,24 +279,19 @@ abstract class Table{
         return false;
     }
 
+    abstract public function load($keyid = null);
 
-    abstract public function load($keyid=null);
-
-    abstract public function save($data=null);
+    abstract public function save($data = null);
 
     abstract public function create();
 
     abstract public function dump();
 
-    abstract public function keys($type);
+    abstract public function insert($data = null, $updateIfExists = TRUE);
 
-    abstract public function describe();
-
-    abstract public function insert($data=null, $updateIfExists = TRUE);
-
-    abstract public function update($key, $data=null);
+    abstract public function update($key, $data = null);
 
     abstract public function truncate();
-    
-    
+
+
 }

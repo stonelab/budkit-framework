@@ -11,6 +11,7 @@
 namespace Budkit\Datastore\Exception;
 
 
-class QueryException extends \Exception{
+class QueryException extends \Exception
+{
 
 }

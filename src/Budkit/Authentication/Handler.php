@@ -8,7 +8,8 @@
 
 namespace Budkit\Authentication;
 
-interface Handler{
+interface Handler
+{
 
     public function attest(array $credentials);
 

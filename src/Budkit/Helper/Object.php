@@ -16,8 +16,15 @@ namespace Budkit\Helper;
  * @link       http://stonyhillshq/documents/index/carbon4/libraries/object
  * @since      Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM
  */
-abstract class Object {
+abstract class Object
+{
 
+    /**
+     * A bunch of hooks to run at various stages during parsing
+     *
+     * @var type
+     */
+    public static $hooks = array();
     /**
      * An error of object messages
      *
@@ -26,19 +33,13 @@ abstract class Object {
     protected static $errors = array();
 
     /**
-     * A bunch of hooks to run at various stages during parsing
+     * Sets an error
      *
-     * @var type
+     * @param type $error
      */
-    public static $hooks = array();
-
-    /**
-     * This method prevents object cloning
-     *
-     * @return void;
-     */
-    final private function __clone() {
-        
+    final public static function setError($error)
+    {
+        array_push(self::$errors, $error);
     }
 
     /**
@@ -46,30 +47,12 @@ abstract class Object {
      *
      * @return void
      */
-    public function Object() {
+    public function Object()
+    {
 
         $args = func_get_args();
 
         call_user_func_array(array(&$this, '__construct'), $args);
-    }
-
-
-    /**
-     * Solution to passing data by reference,
-     *
-     * http://ca.php.net/manual/en/mysqli-stmt.bind-param.php#96770
-     * @param type $arr
-     * @return type
-     */
-    final private function referencedArgs(&$arr) {
-        if (strnatcmp(phpversion(), '5.3') >= 0) { //Reference is required for PHP 5.3+ 
-            $refs = array();
-            foreach ($arr as $key => $value)
-                $refs[] = &$arr[$key];
-            return $refs;
-        }
-        
-        return $arr;
     }
 
     /**
@@ -79,7 +62,8 @@ abstract class Object {
      * @param mixed $default
      * @return mixed
      */
-    public function get($property, $default = null) {
+    public function get($property, $default = null)
+    {
 
         //if its an array of properties;
         if (is_array($property)) {
@@ -99,7 +83,6 @@ abstract class Object {
         return $default;
     }
 
-
     /**
      * Returns a referenced error
      *
@@ -107,30 +90,22 @@ abstract class Object {
      * @param type $toString
      * @return type
      */
-    final public function getError($i = null, $toString = true) {
+    final public function getError($i = null, $toString = true)
+    {
 
         // Find the error
         if ($i === null) {
             // Default, return the last message
             $error = end(self::$errors);
         } else
-        if (!array_key_exists($i, self::$errors)) {
-            // If $i has been specified but does not exist, return false
-            return false;
-        } else {
-            $error = self::$errors[$i];
-        }
+            if (!array_key_exists($i, self::$errors)) {
+                // If $i has been specified but does not exist, return false
+                return false;
+            } else {
+                $error = self::$errors[$i];
+            }
 
         return $error;
-    }
-
-    /**
-     * Returns all the errors
-     *
-     * @return type
-     */
-    final public function getErrors() {
-        return self::$errors;
     }
 
     /**
@@ -138,7 +113,8 @@ abstract class Object {
      *
      * @return type
      */
-    final public function getErrorString() {
+    final public function getErrorString()
+    {
 
         $errors = self::getErrors();
         $string = '<ul>';
@@ -151,13 +127,24 @@ abstract class Object {
     }
 
     /**
+     * Returns all the errors
+     *
+     * @return type
+     */
+    final public function getErrors()
+    {
+        return self::$errors;
+    }
+
+    /**
      * Sets an object property
      *
      * @param type $property
      * @param type $value
      * @return type
      */
-    public function set($property, $value = null, $overwrite = false) {
+    public function set($property, $value = null, $overwrite = false)
+    {
 
         $previous = isset($this->$property) ? $this->$property : null;
 
@@ -172,8 +159,9 @@ abstract class Object {
      * @param type $properties
      * @return type
      */
-    final public function setProperties($properties) {
-        $properties = (array) $properties; //cast to an array
+    final public function setProperties($properties)
+    {
+        $properties = (array)$properties; //cast to an array
 
         if (is_array($properties)) {
             foreach ($properties as $k => $v) {
@@ -185,20 +173,41 @@ abstract class Object {
     }
 
     /**
-     * Sets an error
-     *
-     * @param type $error
-     */
-    final public static function setError($error) {
-        array_push(self::$errors, $error);
-    }
-
-    /**
      *
      * @return type
      */
-    final public function toString() {
+    final public function toString()
+    {
         return get_class($this);
+    }
+
+    /**
+     * This method prevents object cloning
+     *
+     * @return void;
+     */
+    final private function __clone()
+    {
+
+    }
+
+    /**
+     * Solution to passing data by reference,
+     *
+     * http://ca.php.net/manual/en/mysqli-stmt.bind-param.php#96770
+     * @param type $arr
+     * @return type
+     */
+    final private function referencedArgs(&$arr)
+    {
+        if (strnatcmp(phpversion(), '5.3') >= 0) { //Reference is required for PHP 5.3+
+            $refs = array();
+            foreach ($arr as $key => $value)
+                $refs[] = &$arr[$key];
+            return $refs;
+        }
+
+        return $arr;
     }
 
 }

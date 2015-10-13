@@ -35,11 +35,8 @@ abstract class Application extends Dependency\Container
     public function addBaseReferenceAliases()
     {
         $this->createAlias([
-            'app' => 'Budkit\Application\Platform',
-            'console' => 'Budkit\Application\Console',
-            'auth' => 'Budkit\Authentication\Authenticator',
-            'cache' => 'Budkit\Cache\Manager',
-            'cookie' => 'Budkit\Request\Cookie',
+            'app' => 'Budkit\Application\Instance',
+            'auth' => 'Budkit\Authentication\Authenticate',
             'database' => 'Budkit\Datastore\Database',
             'encrypt' => 'Budkit\Datastore\Encrypt',
             'observer' => 'Budkit\Event\Observer',
@@ -51,7 +48,7 @@ abstract class Application extends Dependency\Container
             'paginator' => 'Budkit\Datastore\Paginator',
             'redirect' => 'Budkit\Routing\Redirector',
             'router' => 'Budkit\Routing\Router',
-            'request'  => 'Budkit\Protocol\Http\Request',
+            'request' => 'Budkit\Protocol\Http\Request',
             'response' => 'Budkit\Protocol\Http\Response',
             'session' => 'Budkit\Session\Store',
             'sanitize' => 'Budkit\Validation\Sanitize',
@@ -59,7 +56,7 @@ abstract class Application extends Dependency\Container
             'validate' => 'Budkit\Validation\Validate',
             'view' => 'Budkit\View\Display',
             'viewengine' => 'Budkit\View\Engine',
-            'dispatcher'=> 'Budkit\Routing\Dispatcher'
+            'dispatcher' => 'Budkit\Routing\Dispatcher'
         ]);
 
         //Sounds and looks weired, but we need to run the same event observer

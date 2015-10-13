@@ -1,7 +1,8 @@
 <?php
 namespace Budkit\Event;
 
-interface Listener {
+interface Listener
+{
 
     /**
      * Define all events and their respective callbacks

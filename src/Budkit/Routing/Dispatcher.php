@@ -8,7 +8,7 @@
 
 namespace Budkit\Routing;
 
-use Budkit\Dependency\Container;;
+use Budkit\Dependency\Container;
 use Budkit\Event;
 use Budkit\Event\Listener;
 use Budkit\Event\Observer;
@@ -18,8 +18,11 @@ use Budkit\Protocol\Uri;
 use Closure;
 use Exception;
 
+;
 
-class Dispatcher implements Listener {
+
+class Dispatcher implements Listener
+{
 
 
     protected $observer;
@@ -34,12 +37,13 @@ class Dispatcher implements Listener {
      *
      * @author Livingstone Fultang
      */
-    public function __construct(Observer $observer, Router $router, Container $application) {
+    public function __construct(Observer $observer, Router $router, Container $application)
+    {
 
-        $this->observer    = $observer;
-        $this->router      = $router;
+        $this->observer = $observer;
+        $this->router = $router;
         $this->application = $application;
-		
+
         $this->observer->attach($this);
 
         //var_dump($this->observer->getListeners('Dispatcher.beforeDispatch')  );
@@ -48,13 +52,15 @@ class Dispatcher implements Listener {
     }
 
 
-    public function definition() {
+    public function definition()
+    {
 
         return ['Dispatcher.beforeDispatch' => 'parseRoute'];
 
     }
 
-    public function getObserver() {
+    public function getObserver()
+    {
         return $this->observer;
     }
 
@@ -68,14 +74,15 @@ class Dispatcher implements Listener {
      * @return void
      * @author Livingstone Fultang
      */
-    public function parseRoute($beforeDispatch) {
+    public function parseRoute($beforeDispatch)
+    {
 
         //echo '1. Check the request; <br/>2. $response =  $this->sync(); //to get a synchronous response; <br/>3. $response->send();<br />';
 
         //var_dump($this->router);
         //var_dump($beforeDispatch->get('data'));
         $request = $beforeDispatch->getData('request');
-        $route   = $this->router->matchToRoute($request);
+        $route = $this->router->matchToRoute($request);
 
         if (!($route instanceof Route)) {
             throw new Exception("A valid route could not be determined");
@@ -84,10 +91,11 @@ class Dispatcher implements Listener {
         //clean up format
         if (isset($route->params['format'])) {
             $format = str_replace([".", " ", "_", "-"], "", $route->params['format']);
+
         }
         $route->setParam("format", $format);
 
-        $request->setAttributes( $route->params );
+        $request->setAttributes($route->params);
 
         //Store the route in the event data
         $beforeDispatch->data['route'] = $route;
@@ -95,7 +103,8 @@ class Dispatcher implements Listener {
     }
 
 
-    public function dispatch(Request $request, Response $response = null, $params = []) {
+    public function dispatch(Request $request, Response $response = null, $params = [])
+    {
 
         //create an event;
         $beforeDispatch = new Event\Event('Dispatcher.beforeDispatch', $this, compact('request', 'response', 'params'));
@@ -159,11 +168,11 @@ class Dispatcher implements Listener {
 
     }
 
-    protected function resolveController(Request $request) {
+    protected function resolveController(Request $request)
+    {
 
         $controller = false;
         $attributes = $request->getAttributes();
-
 
 
         //print_r($attributes);
@@ -189,7 +198,7 @@ class Dispatcher implements Listener {
 
 
                     //for when /{controller}/{action}{/param1,param2,param3} is used
-                    $class  = $this->sanitize($attributes['controller']);
+                    $class = $this->sanitize($attributes['controller']);
                     $method = $this->sanitize($attributes['action']);
 
 
@@ -199,7 +208,7 @@ class Dispatcher implements Listener {
                     $action = explode(".", $attributes['action']);
 
 
-                    $class  = $this->sanitize(ucfirst($action[0]));//controller;
+                    $class = $this->sanitize(ucfirst($action[0]));//controller;
                     $method = $this->sanitize(isset($action[1]) ? $action[1] : "index");  //method;
 
                 }
@@ -214,8 +223,6 @@ class Dispatcher implements Listener {
                 $controller = [$this->getController($class), $method];
 
 
-
-
                 if (is_callable($controller)) {
                     return $controller;
                 }
@@ -225,11 +232,12 @@ class Dispatcher implements Listener {
         return $controller;
     }
 
-    protected function getController($class) {
+    protected function getController($class)
+    {
 
 
-        if (isset($this->application[ $class ])) {
-            return $this->application[ $class ];
+        if (isset($this->application[$class])) {
+            return $this->application[$class];
         }
 
         //Otherwise return an instance of Controller;
@@ -237,30 +245,32 @@ class Dispatcher implements Listener {
 
     }
 
-    protected function sanitize($string, $notallowed = [".", " ", "_", "-"]) {
+    protected function sanitize($string, $notallowed = [".", " ", "_", "-"])
+    {
         return str_replace($notallowed, "", $string);
     }
 
 
-    protected function invoke(Controller $controller, $method = "index", $params = []) {
+    protected function invoke(Controller $controller, $method = "index", $params = [])
+    {
 
         $controller->initialize();
 
         //Reset old alerts
         $oldAlerts = $this->application->session->get("alerts");
         if (!empty($oldAlerts)) {
-            $controller->resetStoredResponseVars(["alerts"=>$oldAlerts]);
+            $controller->resetStoredResponseVars(["alerts" => $oldAlerts]);
             $this->application->session->remove("alerts");
         }
 
 
         $response = $controller->getResponse();
-        $render   = true;
+        $render = true;
 
         $result = $controller->invokeAction($method, $params);
 
         if ($result instanceof Response) {
-            $render   = false;
+            $render = false;
             $response = $result;
         }
 
@@ -280,7 +290,8 @@ class Dispatcher implements Listener {
      *
      * @return void
      */
-    final public function abort() {
+    final public function abort()
+    {
         exit();
     }
 
@@ -292,14 +303,15 @@ class Dispatcher implements Listener {
      * @param type $code
      * @param type $message
      */
-    public function redirect($url, $code= HTTP_FOUND, $message = "Moved Permanently", $alerts = []) {
+    public function redirect($url, $code = HTTP_FOUND, $message = "Moved Permanently", $alerts = [])
+    {
 
-        $response   = $this->application->response;
-        $uri        = $this->application->createInstance( Uri::class , [$this->application->request] );
+        $response = $this->application->response;
+        $uri = $this->application->createInstance(Uri::class, [$this->application->request]);
 
         //Before we redirect, if there are any alerts in the response,
         //Exceptional: Store alerts for future display
-        if (!empty($alerts)){
+        if (!empty($alerts)) {
             $session = $this->application->session;
 
             //$session->unlock("default"); //unlock the default namespace
@@ -307,8 +319,8 @@ class Dispatcher implements Listener {
             //$session->update( $session->getId() );
         }
 
-        $response->setStatusCode( $code );
-        $response->setStatusMessage( $message );
+        $response->setStatusCode($code);
+        $response->setStatusMessage($message);
         $response->addHeader("Location", $uri->internalize($url));
 
         $response->sendRedirect();

@@ -8,7 +8,8 @@
 
 namespace Budkit\Protocol;
 
-interface Response {
+interface Response
+{
 
     public function addHeader($key, $value = ""); //sets the header;
 

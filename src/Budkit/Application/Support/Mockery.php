@@ -11,21 +11,25 @@ namespace Budkit\Application\Support;
 use ReflectionClass;
 use ReflectionException;
 
-trait Mockery {
+trait Mockery
+{
 
     protected static $mockableInterface = 'Budkit\Application\Support\Mockable';
-    protected static $mockableTrait     = 'Budkit\Application\Support\Mock';
+    protected static $mockableTrait = 'Budkit\Application\Support\Mock';
 
 
-    public function setMockableInterface($interface) {
+    public function setMockableInterface($interface)
+    {
         static::$mockableInterface = $interface;
     }
 
-    public function setMockableTrait($trait) {
+    public function setMockableTrait($trait)
+    {
         static::$mockableTrait = $trait;
     }
 
-    public function createAliasMock($alias, $original = null, $autoload = true) {
+    public function createAliasMock($alias, $original = null, $autoload = true)
+    {
 
         //If we are passing a large array;
         if (is_array($alias)) {
@@ -64,8 +68,7 @@ trait Mockery {
                     }
                 }
             }
-        }
-        catch (ReflectionException $E) {
+        } catch (ReflectionException $E) {
             //Do nothing; //maybe log to class saying not mockable;
         }
     }

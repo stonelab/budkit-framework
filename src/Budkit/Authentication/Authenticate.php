@@ -7,7 +7,7 @@
  *
  * Requires PHP version 5.3
  *
- * LICENSE: This source file is subject to version 3.01 of the GNU/GPL License 
+ * LICENSE: This source file is subject to version 3.01 of the GNU/GPL License
  * that is available through the world-wide-web at the following URI:
  * http://www.gnu.org/licenses/gpl.txt  If you did not receive a copy of
  * the GPL License and are unable to obtain it through the web, please
@@ -20,15 +20,12 @@
  * @version    Release: 1.0.0
  * @link       http://stonyhillshq/documents/index/carbon4/libraries/authenticate
  * @since      Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM
- * 
+ *
  */
 
 namespace Budkit\Authentication;
 
-use Budkit\Authentication\User;
-use Budkit\Datastore\Model\Entity;
 use Budkit\Helper\Object;
-use Budkit\Authentication\Handler;
 use Budkit\Session\Store as Session;
 
 
@@ -45,11 +42,12 @@ use Budkit\Session\Store as Session;
  * @link       http://stonyhillshq/documents/index/carbon4/libraries/authenticate
  * @since      Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM
  */
-class Authenticate extends Object{
+class Authenticate extends Object
+{
 
     /**
-     * 
-     * @var type 
+     *
+     * @var type
      */
     protected $userid = 0;
 
@@ -124,15 +122,17 @@ class Authenticate extends Object{
      * @since 1.0.0
      * @return void
      */
-    public function __construct( $splash = []) {
+    public function __construct($splash = [])
+    {
         foreach ($splash as $property => $value) {
             $this->$property = $value;
         }
     }
 
-    public function execute(array $credentials, User $user, Handler $handler){
+    public function execute(array $credentials, User $user, Handler $handler)
+    {
 
-        if ( ($authUserObject = $handler->attest($credentials) ) !== false ) {
+        if (($authUserObject = $handler->attest($credentials)) !== false) {
 
             //Destroy this session
             //$session->gc($session->getId());
@@ -144,11 +144,11 @@ class Authenticate extends Object{
             $this->user_email = $authUserObject->user_email;
             $this->user_first_name = $authUserObject->user_first_name;
             $this->user_last_name = $authUserObject->user_last_name;
-            $this->user_full_name    = implode(' ', array($authUserObject->user_first_name, $authUserObject->user_middle_name, $authUserObject->user_last_name) );
+            $this->user_full_name = implode(' ', array($authUserObject->user_first_name, $authUserObject->user_middle_name, $authUserObject->user_last_name));
 
             $session = $user->getSession();
 
-            if(!is_a($session, Session::class)){
+            if (!is_a($session, Session::class)) {
                 throw new \Exception("Session returned by {User::class} must be an instance of {Session::class}");
                 return false;
             }
@@ -156,7 +156,7 @@ class Authenticate extends Object{
             //Update
             $session->set("handler", $this, "auth");
             $session->lock("auth");
-            $session->update( $session->getId() );
+            $session->update($session->getId());
 
             return true;
         }

@@ -10,22 +10,23 @@ namespace Budkit\Validation;
 
 //use Budkit\Validation\Validate;
 
-class Sanitize {
+class Sanitize
+{
 
-    const FILTER_INTERGER      = 257;
-    const FILTER_BOOLEAN       = 258;
-    const FILTER_STRING        = FILTER_SANITIZE_STRING;
-    const FILTER_STRIPPED      = 513;
-    const FILTER_ENCODED       = 514;
+    const FILTER_INTERGER = 257;
+    const FILTER_BOOLEAN = 258;
+    const FILTER_STRING = FILTER_SANITIZE_STRING;
+    const FILTER_STRIPPED = 513;
+    const FILTER_ENCODED = 514;
     const FILTER_SPECIAL_CHARS = FILTER_SANITIZE_FULL_SPECIAL_CHARS;
-    const FILTER_RAW           = 516;
-    const FILTER_EMAIL         = 517;
-    const FILTER_URL           = 518;
-    const FILTER_NUMBER        = 519;
-    const FILTER_DECIMAL       = 520;
-    const FILTER_ESCAPED       = 521;
-    const FILTER_CUSTOM        = 1024;
-    const FILTER_FLOAT         = 259;
+    const FILTER_RAW = 516;
+    const FILTER_EMAIL = 517;
+    const FILTER_URL = 518;
+    const FILTER_NUMBER = 519;
+    const FILTER_DECIMAL = 520;
+    const FILTER_ESCAPED = 521;
+    const FILTER_CUSTOM = 1024;
+    const FILTER_FLOAT = 259;
 
 
     /**
@@ -53,10 +54,11 @@ class Sanitize {
      *
      * @return void
      */
-    public function __construct($data = [], $filter = FILTER_DEFAULT, array $options = [], Validate $validate) {
+    public function __construct($data = [], $filter = FILTER_DEFAULT, array $options = [], Validate $validate)
+    {
 
         $this->validate = $validate; //the validator class;
-        $this->data     = $data;
+        $this->data = $data;
 
         //FILTER_DEFAULT = 516;
 
@@ -72,7 +74,8 @@ class Sanitize {
      *
      * @return array|mixed
      */
-    private function scrub($data, $filter = DEFAULT_FILTER, array $options = []) {
+    private function scrub($data, $filter = DEFAULT_FILTER, array $options = [])
+    {
         //To filter a large array;
         if (is_array($data)) {
             $definedOptions = array_intersect_key($data, $options);
@@ -85,26 +88,26 @@ class Sanitize {
 
                     switch ($type) {
                         case "integer":
-                            $sanitized[ $key ] = $this->int($variable);
+                            $sanitized[$key] = $this->int($variable);
                             break;
                         case "float":
                         case "double":
-                            $sanitized[ $key ] = $this->float($variable);
+                            $sanitized[$key] = $this->float($variable);
                             break;
                         case "string":
-                            $sanitized[ $key ] = $this->string($variable);
+                            $sanitized[$key] = $this->string($variable);
                             break;
                         case "object": //@TODO maybe serialize?,
                         case "resource":
                             //there is not much to be done with objects;
                             //maybe should come up with a way to check how safe they are;
-                            $this->sanitized   = true;
-                            $sanitized[ $key ] = $variable;
+                            $this->sanitized = true;
+                            $sanitized[$key] = $variable;
                             break;
                         case "NULL":
                         case "unknown type":
                         default:
-                            $sanitized[ $key ] = $this->filter($variable, static::FILTER_RAW, $options);
+                            $sanitized[$key] = $this->filter($variable, static::FILTER_RAW, $options);
                             break;
                     }
                 }
@@ -124,7 +127,8 @@ class Sanitize {
      *
      * @param type $array
      */
-    private function filterArray(array $data, array $options) {
+    private function filterArray(array $data, array $options)
+    {
         $this->sanitized = true;
 
         return filter_var_array($data, $options, true);
@@ -132,12 +136,13 @@ class Sanitize {
 
     /**
      * @param       $data
-     * @param int   $default
+     * @param int $default
      * @param array $options
      *
      * @return int
      */
-    public function int($data, $default = 0, $options = []) {
+    public function int($data, $default = 0, $options = [])
+    {
 
         //check custom filters and flags in options array;
         list($filter, $flags, $parameters) = $this->readFiltersAndFlags(
@@ -159,7 +164,8 @@ class Sanitize {
      *
      * @return array
      */
-    private function readFiltersAndFlags(array $options, $filter = DEFAULT_FILTER, $flags = []) {
+    private function readFiltersAndFlags(array $options, $filter = DEFAULT_FILTER, $flags = [])
+    {
 
         //Merge the flags
         $_flags = (isset($options['flags']) && is_array($options['flags']))
@@ -181,17 +187,18 @@ class Sanitize {
     /**
      * @param        $data
      * @param string $default
-     * @param array  $options
-     * @param bool   $allowmarkup
-     * @param array  $blacklisted
+     * @param array $options
+     * @param bool $allowmarkup
+     * @param array $blacklisted
      *
      * @return float
      */
-    public function float($data, $default = "", $options = [], $allowmarkup = false, $blacklisted = []) {
+    public function float($data, $default = "", $options = [], $allowmarkup = false, $blacklisted = [])
+    {
 
         $options = array_merge_recursive($options,
-                                         ["flags" => [FILTER_FLAG_ALLOW_SCIENTIFIC, FILTER_FLAG_ALLOW_FRACTION,
-                                                      FILTER_FLAG_ALLOW_THOUSAND]]);
+            ["flags" => [FILTER_FLAG_ALLOW_SCIENTIFIC, FILTER_FLAG_ALLOW_FRACTION,
+                FILTER_FLAG_ALLOW_THOUSAND]]);
 
         //@TODO validate is interger before return
         return (float)$this->number($data, $default, $options, true);
@@ -201,12 +208,13 @@ class Sanitize {
     /**
      * @param        $data
      * @param string $default
-     * @param array  $options
-     * @param bool   $float
+     * @param array $options
+     * @param bool $float
      *
      * @return array|mixed|string
      */
-    public function number($data, $default = '0', array $options = [], $float = false) {
+    public function number($data, $default = '0', array $options = [], $float = false)
+    {
 
         list($filter, $flags, $parameters) = $this->readFiltersAndFlags(
             $options,
@@ -224,12 +232,13 @@ class Sanitize {
     /**
      * Strip tags, and encodes special characters.
      *
-     * @param string  $name
-     * @param string  $verb
+     * @param string $name
+     * @param string $verb
      * @param boolean $allowhtml
-     * @param array   $tags
+     * @param array $tags
      */
-    public function string($data, $default = "", $options = [], $allowmarkup = false, $blacklisted = []) {
+    public function string($data, $default = "", $options = [], $allowmarkup = false, $blacklisted = [])
+    {
         //FILTER_SANITIZE_STRING
         //FILTER_SANITIZE_STRIPPED
         //\IS\HTML;
@@ -254,7 +263,8 @@ class Sanitize {
      *
      * @return mixed
      */
-    private function filter($variable, $filter, $options = null) {
+    private function filter($variable, $filter, $options = null)
+    {
 
         //gets a specific external variable and filter it
         //determine what variable name is being used here;
@@ -266,12 +276,13 @@ class Sanitize {
 
     /**
      * @param array $data
-     * @param int   $filter
+     * @param int $filter
      * @param array $options
      *
      * @return mixed
      */
-    public function data($data = [], $filter = FILTER_DEFAULT, $options = []) {
+    public function data($data = [], $filter = FILTER_DEFAULT, $options = [])
+    {
         $sanitized = new static($data, $filter, $options, new Validate);
 
         return $sanitized->getData();
@@ -282,7 +293,8 @@ class Sanitize {
      *
      * @return array|mixed
      */
-    public function getData($default = []) {
+    public function getData($default = [])
+    {
         //to avoid ting unsanitized data from this method,
         return (!$this->sanitized) ? $default : $this->data;
     }
@@ -290,11 +302,12 @@ class Sanitize {
     /**
      * @param        $data
      * @param string $default
-     * @param array  $options
+     * @param array $options
      *
      * @return mixed
      */
-    public function escaped($data, $default = "", $options = []) {
+    public function escaped($data, $default = "", $options = [])
+    {
         //FILTER_SANITIZE_MAGIC_QUOTES
         //FILTER_SANITIZE_SPECIAL_CHARS
         $filter = static::FILTER_ESCAPED;
@@ -312,7 +325,8 @@ class Sanitize {
      *
      * @return mixed|null|string
      */
-    public function markup($data, $blacklisted = []) {
+    public function markup($data, $blacklisted = [])
+    {
         //FILTER_SANITIZE_STRING
         //FILTER_SANITIZE_STRIPPED
         //\IS\HTML;
@@ -320,10 +334,10 @@ class Sanitize {
         if (strtolower($verb) == 'request') {
             $verb = $this->getVerb();
         }
-        $verb  = strtolower($verb);
+        $verb = strtolower($verb);
         $input = $this->$verb;
         //Undefined
-        if (empty($name) || !isset($input) || !isset($input[ $name ])) {
+        if (empty($name) || !isset($input) || !isset($input[$name])) {
             if (isset($default) && !empty($default)) {
                 return $default;
             } else {
@@ -331,7 +345,7 @@ class Sanitize {
             }
         }
         //uhhhnrrr...
-        $string = $input[ $name ];
+        $string = $input[$name];
 
         //DOMDocument will screw up the encoding so we utf8 encode everything?
         $string = mb_convert_encoding($string, 'utf-8', mb_detect_encoding($string));
@@ -358,9 +372,9 @@ class Sanitize {
             }
         }
 
-        $filter  = static::FILTER_SPECIAL_CHARS;
+        $filter = static::FILTER_SPECIAL_CHARS;
         $options = [
-            "flags"   => FILTER_FLAG_ENCODE_LOW, //or strip?
+            "flags" => FILTER_FLAG_ENCODE_LOW, //or strip?
             "options" => []
         ];
 
@@ -375,12 +389,13 @@ class Sanitize {
 
     /**
      * @param       $data
-     * @param bool  $default
+     * @param bool $default
      * @param array $options
      *
      * @return bool
      */
-    public function boolean($data, $default = false, $options = []) {
+    public function boolean($data, $default = false, $options = [])
+    {
 
         //check custom filters and flags in options array;
         list($filter, $flags, $parameters) = $this->readFiltersAndFlags(
@@ -400,9 +415,10 @@ class Sanitize {
      *
      * @param string $name
      * @param string $verb
-     * @param array  $flags
+     * @param array $flags
      */
-    public function word($data, $default = '', $options = []) {
+    public function word($data, $default = '', $options = [])
+    {
 
         //First word in a sanitized string
         $sentence = $this->string($data, $default, $options, false);
@@ -418,7 +434,8 @@ class Sanitize {
      * @param string $name
      * @param string $verb
      */
-    public function email($data, $default = 'missing@example.com', $options = []) {
+    public function email($data, $default = 'missing@example.com', $options = [])
+    {
         //FILTER_SANITIZE_EMAIL
 
         //check custom filters and flags in options array;

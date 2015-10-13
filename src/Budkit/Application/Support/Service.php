@@ -4,7 +4,8 @@ namespace Budkit\Application\Support;
 
 use Budkit\Event\Listener;
 
-interface Service extends Listener {
+interface Service extends Listener
+{
 
 
     public static function  getPackageDir();

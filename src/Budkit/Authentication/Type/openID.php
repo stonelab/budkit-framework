@@ -18,13 +18,16 @@ use Budkit\Authentication\Handler;
  * @link       http://stonyhillshq/documents/index/carbon4/libraries/authenticate/openid
  * @since      Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM
  */
-class Openid implements Handler{
-    
+class Openid implements Handler
+{
+
     /**
      * Validates the user login credentials
-     * 
-     * @param type $credentials 
+     *
+     * @param type $credentials
      */
-    public function attest(array $credentials){}
+    public function attest(array $credentials)
+    {
+    }
 
 }

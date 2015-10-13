@@ -11,6 +11,7 @@
 namespace Budkit\Datastore\Exception;
 
 
-class InternalError extends \Exception{
+class InternalError extends \Exception
+{
 
 }

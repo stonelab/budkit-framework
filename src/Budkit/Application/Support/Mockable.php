@@ -9,6 +9,7 @@
 namespace Budkit\Application\Support;
 
 
-interface Mockable {
+interface Mockable
+{
 
 } 

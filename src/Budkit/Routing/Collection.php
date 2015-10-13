@@ -12,7 +12,8 @@ use ArrayAccess;
 use Countable;
 use IteratorAggregate;
 
-class Collection extends Definition implements ArrayAccess, Countable, IteratorAggregate {
+class Collection extends Definition implements ArrayAccess, Countable, IteratorAggregate
+{
 
     protected $routes = [];
 
@@ -66,9 +67,10 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
     protected $routeCallable = null;
 
 
-    public function __construct(Factory $routeFactory, array $routes = []) {
+    public function __construct(Factory $routeFactory, array $routes = [])
+    {
 
-        $this->routes       = $routes;
+        $this->routes = $routes;
         $this->routeFactory = $routeFactory;
 
         $this->setResourceCallable([$this, 'resourceCallable']);
@@ -84,7 +86,8 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
      * @return $this
      *
      */
-    public function setResourceCallable($resource) {
+    public function setResourceCallable($resource)
+    {
         $this->resourceCallable = $resource;
 
         return $this;
@@ -100,13 +103,15 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
      * @return $this
      *
      */
-    public function setRouteCallable($callable) {
+    public function setRouteCallable($callable)
+    {
         $this->routeCallable = $callable;
 
         return $this;
     }
 
-    public function getRoutes() {
+    public function getRoutes()
+    {
         return $this->routes;
     }
 
@@ -117,7 +122,8 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
      * @return ArrayIterator
      *
      */
-    public function getIterator() {
+    public function getIterator()
+    {
         return new ArrayIterator($this->routes);
     } //
 
@@ -128,15 +134,18 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
      * @return int
      *
      */
-    public function count() {
+    public function count()
+    {
         return count($this->routes);
     }
 
-    public function addHEAD($uri, $name = null, $action = null) {
+    public function addHEAD($uri, $name = null, $action = null)
+    {
         return $this->addRoute('HEAD', $uri, $name, $action);
     }
 
-    protected function addRoute($verbs, $path, $name = null, $action = null) {
+    protected function addRoute($verbs, $path, $name = null, $action = null)
+    {
         // create the route with the full path, name, and spec
         $route = $this->routeFactory->newInstance($path, $name, $this->getSpec());
 
@@ -144,7 +153,7 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
         if (!$route->name) {
             $this->routes[] = $route;
         } else {
-            $this->routes[ $route->name ] = $route;
+            $this->routes[$route->name] = $route;
         }
 
         $route->addMethod($verbs)->addValues(['action' => $action]);;
@@ -164,26 +173,29 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
      * @return array
      *
      */
-    protected function getSpec() {
+    protected function getSpec()
+    {
         $vars =
             ['tokens', 'server', 'method', 'accept', 'values', 'secure', 'wildcard', 'routable', 'isMatch', 'generate',
-             'namePrefix', 'pathPrefix', 'resourceCallable', 'routeCallable',];
+                'namePrefix', 'pathPrefix', 'resourceCallable', 'routeCallable',];
 
         $spec = [];
         foreach ($vars as $var) {
-            $spec[ $var ] = $this->$var;
+            $spec[$var] = $this->$var;
         }
 
         return $spec;
     }
 
-    public function add($uri, $name = null, $action = null) {
+    public function add($uri, $name = null, $action = null)
+    {
         $verbs = ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE'];
 
         return $this->addRoute($verbs, $uri, $name, $action);
     }
 
-    public function offsetSet($name, $route) {
+    public function offsetSet($name, $route)
+    {
 
         //$route must be of type Route;
         if (!$route instanceof Route) {
@@ -194,20 +206,23 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
         if (is_null($name)) {
             $this->routes[] = $route;
         } else {
-            $this->routes[ $name ] = $route;
+            $this->routes[$name] = $route;
         }
     }
 
-    public function offsetExists($name) {
-        return isset($this->routes[ $name ]);
+    public function offsetExists($name)
+    {
+        return isset($this->routes[$name]);
     }
 
-    public function offsetUnset($name) {
-        unset($this->routes[ $name ]);
+    public function offsetUnset($name)
+    {
+        unset($this->routes[$name]);
     }
 
-    public function offsetGet($name) {
-        return isset($this->routes[ $name ]) ? $this->routes[ $name ] : null;
+    public function offsetGet($name)
+    {
+        return isset($this->routes[$name]) ? $this->routes[$name] : null;
     }
 
     /**
@@ -222,7 +237,8 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
      * @return null
      *
      */
-    public function attachResource($path, $name) {
+    public function attachResource($path, $name)
+    {
         $this->attach($path, $name, [$this, 'resourceCallable']);
     }
 
@@ -231,10 +247,10 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
      * Attaches routes to a specific path prefix, and prefixes the attached
      * route names.
      *
-     * @param string   $name     The prefix for all route names being
+     * @param string $name The prefix for all route names being
      *                           attached.
      *
-     * @param string   $path     The prefix for all route paths being
+     * @param string $path The prefix for all route paths being
      *                           attached.
      *
      * @param callable $callable A callable that uses the Router to add new
@@ -244,21 +260,22 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
      * @return null
      *
      */
-    public function attach($path, $name, $callable) {
+    public function attach($path, $name, $callable)
+    {
         // save current spec
         $spec = $this->getSpec();
 
         //var_dump($spec);
 
         // append to the name prefix, with delimiter if needed
-        if(!class_exists($name)) {
+        if (!class_exists($name)) {
 
             if ($this->namePrefix) {
                 $this->namePrefix .= '.';
             }
             $this->namePrefix .= $name;
 
-        }else{
+        } else {
             $this->namePrefix = $name;
         }
 
@@ -281,7 +298,8 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
      * @return null
      *
      */
-    protected function setSpec($spec) {
+    protected function setSpec($spec)
+    {
         foreach ($spec as $key => $val) {
             $this->$key = $val;
         }
@@ -297,7 +315,8 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
      * @return null
      *
      */
-    protected function routeCallable(Route $route) {
+    protected function routeCallable(Route $route)
+    {
         if ($route->name && !isset($route->values['action'])) {
             $route->addValues(['action' => $route->name]);
         }
@@ -312,7 +331,8 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
      * @return null
      *
      */
-    protected function resourceCallable(Collection $router) {
+    protected function resourceCallable(Collection $router)
+    {
         // add 'id' and 'format' if not already defined
         $tokens = [];
 
@@ -343,27 +363,33 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
 
     }
 
-    public function addGet($uri, $name = null, $action = null) {
+    public function addGet($uri, $name = null, $action = null)
+    {
         return $this->addRoute(['GET', 'HEAD'], $uri, $name, $action);
     }
 
-    public function addDelete($uri, $name = null, $action = null) {
+    public function addDelete($uri, $name = null, $action = null)
+    {
         return $this->addRoute('DELETE', $uri, $name, $action);
     }
 
-    public function addPost($uri, $name = null, $action = null) {
+    public function addPost($uri, $name = null, $action = null)
+    {
         return $this->addRoute('POST', $uri, $name, $action);
     }
 
-    public function addPatch($uri, $name = null, $action = null) {
+    public function addPatch($uri, $name = null, $action = null)
+    {
         return $this->addRoute('PATCH', $uri, $name, $action);
     }
 
-    public function addPut($uri, $name = null, $action = null) {
+    public function addPut($uri, $name = null, $action = null)
+    {
         return $this->addRoute('PUT', $uri, $name, $action);
     }
 
-    public function addOptions($uri, $name = null, $action = null) {
+    public function addOptions($uri, $name = null, $action = null)
+    {
         return $this->addRoute('OPTIONS', $uri, $name, $action);
     }
 } 

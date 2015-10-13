@@ -6,7 +6,6 @@ use Budkit\Event\Event;
 use Budkit\Event\Observer;
 use Budkit\View\Layout\Loader;
 use DOMNode;
-use DOMXPath;
 
 class Block
 {
@@ -33,12 +32,13 @@ class Block
 
     }
 
-    public function position($Element){
+    public function position($Element)
+    {
 
 
         //Get the Node being Parsed;
         $Node = $Element->getResult();
-        $Data  = $Element->getData();
+        $Data = $Element->getData();
 
         //set string content of block at position main;
         //$this->setContent("string content", "main");
@@ -61,7 +61,7 @@ class Block
         }
 
         $position = $Node->getAttribute("position");
-        $blocks  = $this->getData("block.".$position, $Data);
+        $blocks = $this->getData("block." . $position, $Data);
 
 
         $document = $Node->parentNode;
@@ -72,13 +72,13 @@ class Block
 
                 if (preg_match('|^(import?://)(.+)$|', $insert, $matches)) {
 
-                    if(!isset($matches[2])) continue; //we need the layout;
+                    if (!isset($matches[2])) continue; //we need the layout;
 
                     $import = $document->ownerDocument->createElementNS($this->nsURI, "tpl:import");
-                    $import->setAttribute("name",$matches[2]); //tell it the layout we want to import
+                    $import->setAttribute("name", $matches[2]); //tell it the layout we want to import
 
                     //We need to first append child here;
-                    $document->insertBefore( $import, $Node );
+                    $document->insertBefore($import, $Node);
 
                 } else {
 
@@ -90,7 +90,7 @@ class Block
             }
         }
 
-        if ($Node->nextSibling  instanceof DOMNode ) {
+        if ($Node->nextSibling instanceof DOMNode) {
             $Element->setResult($Node->nextSibling);
         }
 

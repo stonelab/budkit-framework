@@ -15,56 +15,58 @@ namespace Budkit\Session;
  * @link       http://stonyhillshq/documents/index/carbon4/libraries/session/registry
  * @since      Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM
  */
-class Registry {
+class Registry
+{
 
     /**
+     * A 'namespace'
+     *
+     * @var string
+     */
+    protected $name;
+    /**
+     * Registry contents
+     *
+     * @var mixed
+     */
+    protected $data;
+    /**
      * Looks the registry prevents editing
-     * 
+     *
      * @var boolean
      */
     private $lock = FALSE;
 
     /**
-     * A 'namespace'
-     * 
-     * @var string
-     */
-    protected $name;
-
-    /**
-     * Registry contents
-     * 
-     * @var mixed 
-     */
-    protected $data;
-
-    /**
      * Constructs the registry
-     * 
-     * @param type $name 
+     *
+     * @param type $name
      */
-    final public function __construct($name) {
+    final public function __construct($name)
+    {
         $this->name = $name;
     }
 
     /**
      * Returns the name of the current registry
-     * 
+     *
      * @return string
      */
-    final public function getName() {
+    final public function getName()
+    {
         //Returns the name of the current Registry object
         return $this->name;
     }
 
     /**
      * Adds a value to the registry
-     * 
+     *
      * @param type $varname
      * @param type $value
-     * @return Registry 
+     * @return Registry
      */
-    final public function set($varname, $value) {
+    final public function set($varname, $value)
+    {
 
         //If its lock we can't edit
         if ($this->lock)
@@ -78,23 +80,25 @@ class Registry {
 
         return $this;
     }
-    
+
     /**
      * Returns all the data that is stored in the registry;
-     * 
+     *
      * @return type
      */
-    final public function getAllData(){
+    final public function getAllData()
+    {
         return $this->data;
     }
 
     /**
      * Gets the value of an item in the registry
-     * 
+     *
      * @param type $varname
-     * @return type 
+     * @return type
      */
-    final public function get($varname) {
+    final public function get($varname)
+    {
         $previous = isset($this->data[$varname]) ? $this->data[$varname] : null;
 
         return $previous;
@@ -102,19 +106,21 @@ class Registry {
 
     /**
      * Checks if data in this namespace is locked
-     * 
-     * @return type 
+     *
+     * @return type
      */
-    final public function isLocked() {
+    final public function isLocked()
+    {
         return $this->lock;
     }
 
     /**
      * Locks the registry
-     * 
+     *
      * @return void
      */
-    final public function lock() {
+    final public function lock()
+    {
         if (!isset($this->name) || empty($this->name) || ($this->name === 'default')) {
             //@TODO throw exception, namespace cannot be locked;
             return false;
@@ -125,10 +131,11 @@ class Registry {
 
     /**
      * Unlocks the registry
-     * 
+     *
      * @return void
      */
-    final public function unlock() {
+    final public function unlock()
+    {
 
         //We cannot unlock the auth namespace!
         if (strtolower($this->name) <> "auth") {
@@ -136,7 +143,8 @@ class Registry {
         }
     }
 
-    final public function delete($varname) {
+    final public function delete($varname)
+    {
 
         //If its lock we can't edit
         if ($this->lock) return false;

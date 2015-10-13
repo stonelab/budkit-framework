@@ -16,6 +16,11 @@ class Directory extends File
         }
     }
 
+    public function isFolder($path)
+    {
+        return (bool)is_dir($path);
+    }
+
     /**
      * Recursively sets permissions for all files in a folder
      *
@@ -53,7 +58,6 @@ class Directory extends File
             return false;
         }
     }
-
 
     /**
      *
@@ -97,7 +101,7 @@ class Directory extends File
     final public function ls($path, $exclude = array(".DS_Store", ".git", ".svn", ".CVS"), $recursive = FALSE, $recursivelimit = 0, $showfiles = FALSE, $sort = TRUE, $long = FALSE)
     {
 
-        //1. Search $name as a folder or as a file 
+        //1. Search $name as a folder or as a file
         if (!$this->is($path)) { //if in path is a directory
             return array();
         }
@@ -149,7 +153,7 @@ class Directory extends File
      * @param boolean $long
      */
     final public function lsFind($name, $inPath, $limit = 1, $recursive = false, $recursiveLimit = 0, $showfiles = false,
-                                   $sort = true, $long = false)
+                                 $sort = true, $long = false)
     {
 
         //1. Search $name as a folder or as a file
@@ -191,7 +195,6 @@ class Directory extends File
 
         return $found;
     }
-
 
     /**
      * Method to delete the contents of a folder
@@ -251,12 +254,6 @@ class Directory extends File
         //@TODO if long, get additional info for each path;
 
         return true;
-    }
-
-
-    public function isFolder($path)
-    {
-        return (bool)is_dir($path);
     }
 
 }

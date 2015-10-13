@@ -17,14 +17,17 @@ use Budkit\Authentication\Handler;
  * @link       http://stonyhillshq/documents/index/carbon4/libraries/authenticate/ldap
  * @since      Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM
  */
-class Ldap implements Handler {
-    
+class Ldap implements Handler
+{
+
     /**
      * Validates a user LDAP login credentials
      *
-     * @param type $credentials 
+     * @param type $credentials
      */
-    public function attest(array $credentials ){}
+    public function attest(array $credentials)
+    {
+    }
 
 
 }

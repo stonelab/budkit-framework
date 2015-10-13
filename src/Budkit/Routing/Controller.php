@@ -7,7 +7,6 @@ use Budkit\Application\Support\Mockable;
 use Budkit\Dependency\Container as Application;
 use Budkit\Event\Event;
 use Budkit\Event\Listener;
-use Budkit\Protocol\Response;
 use Budkit\View\Display as View;
 use Budkit\View\Engine;
 use Exception;
@@ -49,9 +48,10 @@ class Controller implements Mockable, Listener
     }
 
 
-    public function resetStoredResponseVars(array $vars){
+    public function resetStoredResponseVars(array $vars)
+    {
 
-        $this->response->addParameters( $vars );
+        $this->response->addParameters($vars);
 
     }
 
@@ -150,7 +150,6 @@ class Controller implements Mockable, Listener
 
         $this->observer->trigger(new Event('Controller.initialize', $this));
     }
-
 
 
     public function autoRender(Event $onShutDown)

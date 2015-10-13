@@ -3,7 +3,8 @@
 namespace Budkit\Routing;
 
 
-class Factory {
+class Factory
+{
     /**
      *
      * The route class to create.
@@ -30,16 +31,16 @@ class Factory {
      *
      */
     protected $spec = [
-        'tokens'     => [],
-        'server'     => [],
-        'method'     => [],
-        'accept'     => [],
-        'values'     => [],
-        'secure'     => null,
-        'wildcard'   => null,
-        'routable'   => true,
-        'isMatch'    => null,
-        'generate'   => null,
+        'tokens' => [],
+        'server' => [],
+        'method' => [],
+        'accept' => [],
+        'values' => [],
+        'secure' => null,
+        'wildcard' => null,
+        'routable' => true,
+        'isMatch' => null,
+        'generate' => null,
         'namePrefix' => null,
         'pathPrefix' => null,
     ];
@@ -51,7 +52,8 @@ class Factory {
      * @param string $class The route class to create.
      *
      */
-    public function __construct($class = 'Budkit\Routing\Route') {
+    public function __construct($class = 'Budkit\Routing\Route')
+    {
         $this->class = $class;
         $this->regex = new Regex;
     }
@@ -64,12 +66,13 @@ class Factory {
      *
      * @param string $name The name for the route.
      *
-     * @param array  $spec The spec for the new instance.
+     * @param array $spec The spec for the new instance.
      *
      * @return Route
      *
      */
-    public function newInstance($path, $name = null, array $spec = []) {
+    public function newInstance($path, $name = null, array $spec = [])
+    {
         $spec = array_merge($this->spec, $spec);
 
         //var_dump($path, $name, $spec);

@@ -19,11 +19,14 @@ class Manager implements ArrayAccess, Mockable
     protected $loaded = [];
 
 
-    public function __construct(Loader $loader, $environment = null)
+    public function __construct(Loader $loader, $environment = null, $parameters = [])
     {
 
         $this->repository = $loader;
         $this->environment = $environment;
+
+
+        $this->addParameters($parameters);
 
     }
 
@@ -33,35 +36,24 @@ class Manager implements ArrayAccess, Mockable
      * @param string $default
      * @return mixed
      */
-    public function get($path, $default = null, $forceReload=false)
+    public function get($path, $default = null, $forceReload = false)
     {
         //We need keys to have at least a namespace a section and a key i.e
         //namespace.section.key
-        $dotparts =  explode(".", $path);
-        $dotcount =  count( $dotparts );
+        $dotparts = explode(".", $path);
+        $dotcount = count($dotparts);
 
-        if ($dotcount  < 2) return $default;
+        if ($dotcount < 2) return $default;
 
         //@TODO in PHP7 this will have to be the reverse
         list($namespace, $section, $key) = array_pad($dotparts, 3, "");
 
         //check that namespace has been loaded
         if ($forceReload || !array_key_exists($namespace, $this->loaded)) {
-
-            $settings = $this->repository->load($this->environment, $namespace, true);
-
-            $this->addParameters(
-                $this->arrayMergeRecursiveDistinct(
-                    $this->parameters,
-                    [$namespace => $settings]
-                ),
-                true);
-            $this->loaded[$namespace] = $settings;
+            $this->load($namespace);
         }
 
         $array = $this->parameters;
-
-
         $keys = $this->explode($path);
 
 
@@ -102,6 +94,13 @@ class Manager implements ArrayAccess, Mockable
         } else {
             $this->parameters = $value;
         }
+    }
+
+    public function mergeParams($namespace, $params = [])
+    {
+
+        return $this->load($namespace, $params);
+
     }
 
     /**
@@ -154,24 +153,25 @@ class Manager implements ArrayAccess, Mockable
     }
 
 
-
-    protected function load($section, $namespace)
+    protected function load($namespace, $merge = [])
     {
 
-        $env = $this->environment;
-        $collection = $this->getCollection($section, $namespace);
+        $settings = $this->repository->load($this->environment, $namespace, true);
 
-        // If we've already loaded this collection, we will just bail out since we do
-        // not want to load it again. Once items are loaded a first time they will
-        // stay kept in memory within this class and not loaded from disk again.
-        if (isset($this->parameters[$collection])) {
-            return;
+        if (!empty($merge)) {
+            $settings = $this->arrayMergeRecursiveDistinct($settings, $merge);
         }
 
-        $items = $this->repository->load($env, $section, $namespace);
+        $this->addParameters(
+            $this->arrayMergeRecursiveDistinct(
+                $this->parameters,
+                [$namespace => $settings]
+            ),
+            true);
 
-        //this has to be $this->setRawParameters()
-        $this->parameters[$collection] = $items;
+        $this->loaded[$namespace] = $settings;
+
+        return $settings;
     }
 
 
@@ -190,9 +190,10 @@ class Manager implements ArrayAccess, Mockable
         return $this->environment;
     }
 
-    public function saveParams( $environment = ""){
+    public function saveParams($environment = "")
+    {
 
-        return $this->repository->saveParams( $this->parameters, $environment );
+        return $this->repository->saveParams($this->parameters, $environment);
 
     }
 

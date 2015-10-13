@@ -8,7 +8,8 @@
 
 namespace Budkit\Datastore;
 
-abstract class Engine{
+abstract class Engine
+{
 
     /**
      * The database connection resource id
@@ -74,7 +75,8 @@ abstract class Engine{
      *
      * @return bool FALSE if not connected / ID if found
      */
-    final public function getResourceId() {
+    final public function getResourceId()
+    {
         return $this->resourceId;
     }
 
@@ -84,7 +86,8 @@ abstract class Engine{
      *
      * @return Object
      */
-    final public function getDriver() {
+    final public function getDriver()
+    {
         return $this->driver;
     }
 
@@ -93,7 +96,8 @@ abstract class Engine{
      *
      * @return interger
      */
-    final public function getTotalQueryCount() {
+    final public function getTotalQueryCount()
+    {
         return $this->ticker;
     }
 
@@ -102,7 +106,8 @@ abstract class Engine{
      *
      * @return array
      */
-    final public function getQueryLog() {
+    final public function getQueryLog()
+    {
         return $this->log;
     }
 
@@ -113,7 +118,8 @@ abstract class Engine{
      * @param boolean $escaped
      * @return string quoted string
      */
-    public function quote($text, $escaped = true) {
+    public function quote($text, $escaped = true)
+    {
         return '\'' . ($escaped ? $this->getEscaped($text) : $text) . '\'';
     }
 
@@ -126,7 +132,8 @@ abstract class Engine{
      * @param string The common table prefix
      * @return void
      */
-    final public function replacePrefix($sql, $prefix='?') {
+    final public function replacePrefix($sql, $prefix = '?')
+    {
 
         $sql = trim($sql);
 

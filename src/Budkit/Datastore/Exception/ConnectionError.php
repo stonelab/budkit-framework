@@ -11,6 +11,7 @@
 namespace Budkit\Datastore\Exception;
 
 
-class ConnectionError extends \Exception{
+class ConnectionError extends \Exception
+{
 
 }

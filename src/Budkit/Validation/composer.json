@@ -1,17 +1,19 @@
 {
-    "name": "budkit/validation",
-    "description": "The budkit input validation classes ",
-    "license": "GPLv3",
-    "authors": [
-        {
-            "name": "Livingstone Fultang",
-            "email": "livingstonefultang@gmail.com"
-        }
-    ],
-    "require": {
-        "php": ">=5.4.0"
-    },
-    "autoload": {
-        "psr-4": {"Budkit\\Validation\\": ""}
-    },
+  "name": "budkit/validation",
+  "description": "The budkit input validation classes ",
+  "license": "GPLv3",
+  "authors": [
+    {
+      "name": "Livingstone Fultang",
+      "email": "livingstonefultang@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Budkit\\Validation\\": ""
+    }
+  },
 }

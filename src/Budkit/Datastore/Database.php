@@ -1,6 +1,7 @@
 <?php
 
 namespace Budkit\Datastore;
+
 use Budkit\Dependency\Container;
 
 
@@ -28,9 +29,9 @@ use Budkit\Dependency\Container;
  * @uses        Library\Database\Drivers\MySQLi\Driver For MySQLi;
  * @uses        Library\Database\Drivers\SQLite3\Driver For SQLite3;
  * @uses        Library\Database\Drivers\PostgreSQL\Driver For PostgreSQL;
-
  */
-class Database{
+class Database
+{
 
 
     //@TODO we need to find a better way to hide non static variables
@@ -47,26 +48,27 @@ class Database{
     //private $database;
 
     private $supported = [
-            "mysqli" => Drivers\MySQLi\Driver::class,
-            "postgresql" => Drivers\MySQLi\Driver::class,
-            "sqlite" => Drivers\MySQLi\Driver::class,
-            "mongodb" => Drivers\MySQLi\Driver::class,
-        ];
+        "mysqli" => Drivers\MySQLi\Driver::class,
+        "postgresql" => Drivers\MySQLi\Driver::class,
+        "sqlite" => Drivers\MySQLi\Driver::class,
+        "mongodb" => Drivers\MySQLi\Driver::class,
+    ];
 
     /**
      * Constructs the table object
      *
      * @param type $options
      */
-    public function __construct($driver, $options = []){
+    public function __construct($driver, $options = [])
+    {
 
         $this->container = new Container();
 
-        if (is_callable($this->supported[$driver]) ){
+        if (is_callable($this->supported[$driver])) {
 
             throw new \Exception("The requested database driver is not supported");
         }
-        $this->database = $this->container->createInstance($this->supported[$driver], [ $options ]);
+        $this->database = $this->container->createInstance($this->supported[$driver], [$options]);
 
         $this->driver = $driver;
 
@@ -79,19 +81,14 @@ class Database{
      * @param mixed $args
      * @return mixed
      */
-    final public function __call($method, $args) {
-
-
+    final public function __call($method, $args)
+    {
         $engine = $this->database;
-
-
         if (!\is_callable([$engine, $method])) {
             throw new \Exception("The requested Database::{$method} is not not callable");
             return false;
         }
-
         return @\call_user_func_array([$engine, $method], $args);
     }
-
 
 }

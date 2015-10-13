@@ -17,17 +17,19 @@ use Budkit\Datastore\Results;
  * @link       http://stonyhillshq/documents/index/carbon4/libraries/database/drivers/mysql/statement
  * @since      Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM
  */
-final class Statement extends Results {
+final class Statement extends Results
+{
 
 
     /**
      * Constructs the statement object
-     * 
+     *
      * @param array $options
      */
-    public function __construct(Driver $driver) {
+    public function __construct(Driver $driver)
+    {
 
-        $this->setDBO( $driver );
+        $this->setDBO($driver);
 
     }
 
@@ -36,15 +38,16 @@ final class Statement extends Results {
      *
      * @return
      */
-    public function execute() {
+    public function execute()
+    {
 
         $DB = $this->getDBO();
         //Run the Query;
         $resultId = $DB->exec();
         //\Platform\Debugger::log($resultId);
 
-        $this->setResultId( $resultId )->setConnectionId($DB->getResourceId())->setAffectedRows($this->getAffectedRows());
-        
+        $this->setResultId($resultId)->setConnectionId($DB->getResourceId())->setAffectedRows($this->getAffectedRows());
+
         $DB->resetRun();
 
         return $this;
@@ -52,38 +55,42 @@ final class Statement extends Results {
 
     /**
      * Explains a query
-     * 
-     * @return 
+     *
+     * @return
      */
-    public function explain() {
-        
+    public function explain()
+    {
+
     }
 
     /**
      * Counts the number of rows in a result set
-     * 
+     *
      * @return interger
      */
-    public function rowCount() {
+    public function rowCount()
+    {
 
         return @mysqli_num_rows($this->getResultId());
     }
 
     /**
      * Counts columns in a result row
-     * 
+     *
      * @return interger
      */
-    public function columnCount() {
+    public function columnCount()
+    {
         return @mysqli_num_fields($this->getResultId());
     }
 
     /**
      * Lists all columns in a result row
-     * 
+     *
      * @return array
      */
-    public function listColumns() {
+    public function listColumns()
+    {
         $fieldNames = array();
         $field = NULL;
         while ($field = mysqli_fetch_field($this->getResultId())) {
@@ -98,7 +105,8 @@ final class Statement extends Results {
      *
      * @return stdClass
      */
-    public function getColumnMeta($name = '') {
+    public function getColumnMeta($name = '')
+    {
 
         $retval = array();
         $field = NULL;
@@ -121,7 +129,8 @@ final class Statement extends Results {
      *
      * @return void
      */
-    public function freeResults() {
+    public function freeResults()
+    {
         if (is_a($this->getResultId(), "mysqli_result")) {
             mysqli_free_result($this->getResultId());
             $this->setResultId(FALSE);
@@ -134,16 +143,18 @@ final class Statement extends Results {
      * @param interger $n
      * @return boolean
      */
-    public function dataSeek($n = 0) {
+    public function dataSeek($n = 0)
+    {
         return mysqli_data_seek($this->getResultId(), $n);
     }
 
     /**
      * Fetches a result row as an associative array
-     * 
+     *
      * @return array
      */
-    public function fetchAssoc() {
+    public function fetchAssoc()
+    {
 
         //echo $this->getResultId();
 
@@ -152,10 +163,11 @@ final class Statement extends Results {
 
     /**
      * Returns a row in a result set
-     * 
-     * @return array 
+     *
+     * @return array
      */
-    public function fetch() {
+    public function fetch()
+    {
 
         //echo $this->getResultId();
 
@@ -164,21 +176,23 @@ final class Statement extends Results {
 
     /**
      * Fetches the next row and returns it as an object.
-     * 
+     *
      * @return object
      */
-    public function fetchObject() {
+    public function fetchObject()
+    {
 
         return mysqli_fetch_object($this->getResultId());
     }
-    
-    
+
+
     /**
      * Returns the ID of the last inserted row
-     * 
+     *
      * @return interger
      */
-    public function lastInsertId(){
-        return mysqli_insert_id( $this->getResultId() ); 
+    public function lastInsertId()
+    {
+        return mysqli_insert_id($this->getResultId());
     }
 }

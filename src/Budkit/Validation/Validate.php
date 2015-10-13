@@ -9,18 +9,66 @@
 namespace Budkit\Validation;
 
 
-class Validate {
+class Validate
+{
+
+    /**
+     * Validates a boolean datatype. Wrapper method for is_bool()
+     *
+     * @param mixed $bool the input data
+     *
+     * @return boolean Returns true if datatype is boolean
+     */
+    public static function isBoolean($bool)
+    {
+        return is_bool($bool);
+    }
+
+    /**
+     * Validates a decimal
+     *
+     * @param string $dec
+     *
+     * @return boolean True if is true decimal, False if not
+     */
+    public static function isDecimal($decimal)
+    {
+
+        $regEx = '/^\s*[+\-]?(?:\d+(?:\.\d*)?|\.\d+)\s*$/';
+        $return = preg_match($regex, $decimal);
+
+        return ((int)$return > 0) ? true : false;
+    }
+
+    /**
+     * Validates a character is alphanumeric
+     *
+     * @param string $alnum
+     * @param interger $length
+     *
+     * @return boolean True if is alphanumeric, false if not
+     */
+    public static function isAlphaNumeric($alnum, $length = null)
+    {
+
+        //Regular Expression
+        $regEx = '/^[A-Za-z0-9_]+$/';
+
+        //Validate the string;
+        return static::isString($alnum, $regEx, $length);
+    }
 
     /**
      * Uses a custom RegEx Pattern to validate a string. Or alternatively is_string()
      *
-     * @param string   $str    The input string to be validated
-     * @param string   $regExp A custom input validation pattern
+     * @param string $str The input string to be validated
+     * @param string $regExp A custom input validation pattern
      * @param interger $length Optional string length specification
      *
      * @return booleant true or false. Returns true if validation rules met, or false otherwise
      */
-    public static function isString($str, $regExp = null, $length = null) {
+    public static function isString($str, $regExp = null, $length = null)
+    {
 
         //Validate its a string;
         if (!is_string($str)) {
@@ -35,7 +83,7 @@ class Validate {
         }
         //Validate length;
         if (!empty($length) && static::isInterger($length)) {
-            $length  = (int)$length; //@TODO if array check for min (index 0) and max (index 1) values;s
+            $length = (int)$length; //@TODO if array check for min (index 0) and max (index 1) values;s
             $_length = strlen($str);
             //If the intergers don't match;
             if ($length <> $_length) {
@@ -53,51 +101,9 @@ class Validate {
      *
      * @return boolean True if is interger, False if its not.
      */
-    public static function isInterger($int) {
+    public static function isInterger($int)
+    {
         return is_int($int);
-    }
-
-    /**
-     * Validates a boolean datatype. Wrapper method for is_bool()
-     *
-     * @param mixed $bool the input data
-     *
-     * @return boolean Returns true if datatype is boolean
-     */
-    public static function isBoolean($bool) {
-        return is_bool($bool);
-    }
-
-    /**
-     * Validates a decimal
-     *
-     * @param string $dec
-     *
-     * @return boolean True if is true decimal, False if not
-     */
-    public static function isDecimal($decimal) {
-
-        $regEx  = '/^\s*[+\-]?(?:\d+(?:\.\d*)?|\.\d+)\s*$/';
-        $return = preg_match($regex, $decimal);
-
-        return ((int)$return > 0) ? true : false;
-    }
-
-    /**
-     * Validates a character is alphanumeric
-     *
-     * @param string   $alnum
-     * @param interger $length
-     *
-     * @return boolean True if is alphanumeric, false if not
-     */
-    public static function isAlphaNumeric($alnum, $length = null) {
-
-        //Regular Expression
-        $regEx = '/^[A-Za-z0-9_]+$/';
-
-        //Validate the string;
-        return static::isString($alnum, $regEx, $length);
     }
 
     /**
@@ -107,10 +113,11 @@ class Validate {
      *
      * @return boolean True if is timestamp, false if not;
      */
-    public static function isTimestamp($tstamp) {
+    public static function isTimestamp($tstamp)
+    {
         return ((string)(int)$tstamp === $tstamp)
-               && ($tstamp <= PHP_INT_MAX)
-               && ($tstamp >= ~PHP_INT_MAX);
+        && ($tstamp <= PHP_INT_MAX)
+        && ($tstamp >= ~PHP_INT_MAX);
     }
 
     /**
@@ -120,7 +127,8 @@ class Validate {
      *
      * @return boolean True if is float, False if not.
      */
-    public static function isFloat($flt) {
+    public static function isFloat($flt)
+    {
         return is_int($flt);
     }
 
@@ -131,7 +139,8 @@ class Validate {
      *
      * @return boolean True if is number, False if not
      */
-    public static function isNumber($num) {
+    public static function isNumber($num)
+    {
         return is_int($num);
     }
 
@@ -142,7 +151,8 @@ class Validate {
      *
      * @return boolean True if it is a valid IP address, False if Not.
      */
-    public static function isIP($address) {
+    public static function isIP($address)
+    {
 
         //Split the IP address of the form  into parts
         $parts = explode('.', $address);
@@ -166,7 +176,8 @@ class Validate {
      *
      * @return boolean True if is valid email address, False if not
      */
-    public static function isEmail($email) {
+    public static function isEmail($email)
+    {
 
         $isValid = true;
         //$isInValid  = false;
@@ -177,11 +188,11 @@ class Validate {
             return false;
         } else {
             $domain = substr($email, $atIndex + 1);
-            $local  = substr($email, 0, $atIndex);
+            $local = substr($email, 0, $atIndex);
 
             //Check the lengths of the domain and local parts
             //The maximum length of a local part is 64 characters (RFC 2821 4.5.3.1).
-            $localLen  = strlen($local);
+            $localLen = strlen($local);
             $domainLen = strlen($domain);
 
             //Validation
@@ -193,7 +204,7 @@ class Validate {
                 //static::setError(_t("The email domain exceeded maximum length"));
 
                 return false;
-            } else if ($local[0] == '.' || $local[ $localLen - 1 ] == '.') {
+            } else if ($local[0] == '.' || $local[$localLen - 1] == '.') {
                 //static::setError(_t("invalid end dot ('.') position in local of email"));
 
                 return false;
@@ -206,7 +217,7 @@ class Validate {
 
                 return false;
             } else if (preg_match('/\\.\\./', $domain)) {
-               // static::setError(_t("Two consecutive dots ('.') in domain of email"));
+                // static::setError(_t("Two consecutive dots ('.') in domain of email"));
 
                 return false;
             } else if (!preg_match('/^(\\\\.|[A-Za-z0-9!#%&`_=\\/$\'*+?^{}|~.-])+$/', str_replace("\\\\", "", $local))

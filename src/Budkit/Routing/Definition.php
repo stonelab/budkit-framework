@@ -12,7 +12,8 @@ namespace Budkit\Routing;
 use Budkit\Protocol\Request;
 
 
-abstract class Definition {
+abstract class Definition
+{
 
     /**
      *
@@ -96,12 +97,12 @@ abstract class Definition {
      * @var array
      *
      */
-    protected $accept   = [];
-    protected $values   = [];
-    protected $secure   = false;
+    protected $accept = [];
+    protected $values = [];
+    protected $secure = false;
     protected $wildcard = null;
     protected $routable = true;
-    protected $action   = null;
+    protected $action = null;
     protected $generate = null;
 
     /**
@@ -132,7 +133,8 @@ abstract class Definition {
      * @return mixed
      *
      */
-    public function __get($key) {
+    public function __get($key)
+    {
         return $this->$key;
     }
 
@@ -145,7 +147,8 @@ abstract class Definition {
      * @return bool
      *
      */
-    public function __isset($key) {
+    public function __isset($key)
+    {
         return isset($this->$key);
     }
 
@@ -157,7 +160,8 @@ abstract class Definition {
      *
      * @return $this
      */
-    public function setTokens(array $tokens) {
+    public function setTokens(array $tokens)
+    {
         $this->tokens = $tokens;
 
         return $this;
@@ -172,9 +176,10 @@ abstract class Definition {
      * @return $this
      *
      */
-    public function addTokens(array $tokens) {
+    public function addTokens(array $tokens)
+    {
         $this->tokens = array_merge($this->tokens, $tokens);
-        $this->regex  = null;
+        $this->regex = null;
 
         return $this;
     }
@@ -188,7 +193,8 @@ abstract class Definition {
      * @return $this
      *
      */
-    public function setServer(array $server) {
+    public function setServer(array $server)
+    {
         $this->server = $server;
 
         return $this;
@@ -203,9 +209,10 @@ abstract class Definition {
      * @return $this
      *
      */
-    public function addServer(array $server) {
+    public function addServer(array $server)
+    {
         $this->server = array_merge($this->server, $server);
-        $this->regex  = null;
+        $this->regex = null;
 
         return $this;
     }
@@ -219,7 +226,8 @@ abstract class Definition {
      * @return $this
      *
      */
-    public function setValues(array $values) {
+    public function setValues(array $values)
+    {
         $this->values = $values;
 
         return $this;
@@ -234,7 +242,8 @@ abstract class Definition {
      * @return $this
      *
      */
-    public function addValues(array $values) {
+    public function addValues(array $values)
+    {
         $this->values = array_merge($this->values, $values);
 
         return $this;
@@ -250,7 +259,8 @@ abstract class Definition {
      * @return $this
      *
      */
-    public function setSecure($secure = true) {
+    public function setSecure($secure = true)
+    {
         $this->secure = ($secure === null) ? null : (bool)$secure;
 
         return $this;
@@ -265,7 +275,8 @@ abstract class Definition {
      * @return $this
      *
      */
-    public function setWildcard($wildcard) {
+    public function setWildcard($wildcard)
+    {
         $this->wildcard = $wildcard;
 
         return $this;
@@ -281,14 +292,16 @@ abstract class Definition {
      * @return $this
      *
      */
-    public function setRoutable($routable = true) {
+    public function setRoutable($routable = true)
+    {
         $this->routable = (bool)$routable;
 
         return $this;
     }
 
 
-    public function setAction($actionController) {
+    public function setAction($actionController)
+    {
         $this->action = $actionController;
 
         return $this;
@@ -303,7 +316,8 @@ abstract class Definition {
      * @return $this
      *
      */
-    public function setIsMatchCallable($isMatch) {
+    public function setIsMatchCallable($isMatch)
+    {
         $this->isMatch = $isMatch;
 
         return $this;
@@ -320,7 +334,8 @@ abstract class Definition {
      * @return $this
      *
      */
-    public function setGenerateCallable($generate) {
+    public function setGenerateCallable($generate)
+    {
         $this->generate = $generate;
 
         return $this;
@@ -335,7 +350,8 @@ abstract class Definition {
      * @return $this
      *
      */
-    public function setMethod($method) {
+    public function setMethod($method)
+    {
         $this->method = (array)$method;
 
         return $this;
@@ -350,7 +366,8 @@ abstract class Definition {
      * @return $this
      *
      */
-    public function addMethod($method) {
+    public function addMethod($method)
+    {
         $this->method = array_merge($this->method, (array)$method);
 
         return $this;
@@ -366,7 +383,8 @@ abstract class Definition {
      * @return $this
      *
      */
-    public function setAccept($accept) {
+    public function setAccept($accept)
+    {
         $this->accept = (array)$accept;
 
         return $this;
@@ -381,19 +399,20 @@ abstract class Definition {
      * @return $this
      *
      */
-    public function addAccept($accept) {
+    public function addAccept($accept)
+    {
         $this->accept = array_merge($this->accept, (array)$accept);
 
         return $this;
     }
 
 
+    public function matches(Request $request, $strict = true)
+    {
 
-    public function matches(Request $request, $strict = true) {
-
-        $this->debug  = [];
+        $this->debug = [];
         $this->params = [];
-        $this->score  = 0;
+        $this->score = 0;
         $this->failed = null;
 
 

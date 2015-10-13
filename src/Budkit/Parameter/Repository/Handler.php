@@ -9,10 +9,13 @@ namespace Budkit\Parameter\Repository;
  * Time: 19:29
  */
 
-interface Handler{
+interface Handler
+{
 
     public function getParams($filepath = "");
-    public function saveParams(array $parameters , $environment = "");
+
+    public function saveParams(array $parameters, $environment = "");
+
     public function readParams($filepath);
 
 }

@@ -7,7 +7,7 @@
  *
  * Requires PHP version 5.3
  *
- * LICENSE: This source file is subject to version 3.01 of the GNU/GPL License 
+ * LICENSE: This source file is subject to version 3.01 of the GNU/GPL License
  * that is available through the world-wide-web at the following URI:
  * http://www.gnu.org/licenses/gpl.txt  If you did not receive a copy of
  * the GPL License and are unable to obtain it through the web, please
@@ -20,7 +20,7 @@
  * @version    Release: 1.0.0
  * @link       http://stonyhillshq/documents/index/carbon4/libraries/database/results
  * @since      Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM
- * 
+ *
  */
 
 namespace Budkit\Datastore;
@@ -38,7 +38,8 @@ namespace Budkit\Datastore;
  * @link       http://stonyhillshq/documents/index/carbon4/libraries/database/results
  * @since      Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM
  */
-abstract class Results implements Statement{
+abstract class Results implements Statement
+{
 
     /**
      * A copy of the current database object *RECURSIVE*
@@ -103,56 +104,66 @@ abstract class Results implements Statement{
      *
      * @var array
      */
-    private $_cache = array(
-    );
+    private $_cache = array();
 
-    final public function getQuery() {
-        
+    final public function getQuery()
+    {
+
     }
 
-    final public function getResource() {
-        
+    final public function getResource()
+    {
+
     }
 
-    final public function setDBO($dbo) {
-        $this->dbo = $dbo;
-    }
-
-    final public function getDBO() {
+    final public function getDBO()
+    {
         return $this->dbo;
     }
 
-    public function bindColumn() {
-        
+    final public function setDBO($dbo)
+    {
+        $this->dbo = $dbo;
     }
 
-    public function bindParam() {
-        
+    public function bindColumn()
+    {
+
     }
 
-    public function bindValue() {
-        
+    public function bindParam()
+    {
+
     }
 
-    public function closeCursor() {
-        
+    public function bindValue()
+    {
+
     }
 
-    public function errorCode() {
-        
+    public function closeCursor()
+    {
+
     }
 
-    public function errorInfo() {
-        
+    public function errorCode()
+    {
+
+    }
+
+    public function errorInfo()
+    {
+
     }
 
     /**
      * Returns an array containing all of the result set rows
-     * 
-     * @param type $style, numeric=numeric keys, object=object, array=array
-     * @param type $arguments 
+     *
+     * @param type $style , numeric=numeric keys, object=object, array=array
+     * @param type $arguments
      */
-    public function fetchAll($as='array', $arguments='') {
+    public function fetchAll($as = 'array', $arguments = '')
+    {
 
         $rows = array();
         $style = array(
@@ -161,7 +172,7 @@ abstract class Results implements Statement{
             "object" => "fetchObject"
         );
 
-        $as = !array_key_exists((string) $as, $style) ? "array" : (string) $as;
+        $as = !array_key_exists((string)$as, $style) ? "array" : (string)$as;
 
         //Getting all as an array
         while ($row = $this->$style[$as]($arguments)) {
@@ -174,43 +185,56 @@ abstract class Results implements Statement{
 
     /**
      * Returns the number of rows affected by the last MySQL query
-     * 
-     * @return type 
+     *
+     * @return type
      */
-    final public function getAffectedRows() {
+    final public function getAffectedRows()
+    {
         //return parent::getAffectedRows();
         return $this->rowCount();
     }
 
     /**
-     * Sets the result resource Id
-     * 
-     * @param type $resultId 
+     * Alias of setNumRows
+     *
+     * @param type $n
+     * @return Results
      */
-    final public function setResultId($resultId) {
-        $this->resultId = $resultId;
+    final public function setAffectedRows($n)
+    {
+        $this->numrows = $n;
 
         return $this;
     }
 
     /**
-     * Sets the database connection Id
-     * 
-     * @param type $connectionId 
+     * Returns the number of rows affected by the last executed statement
+     *
+     * @return interger
+     *
      */
-    final public function setConnectionId($connectionId) {
+    abstract public function rowCount();
+
+    /**
+     * Sets the database connection Id
+     *
+     * @param type $connectionId
+     */
+    final public function setConnectionId($connectionId)
+    {
         $this->connectionId = $connectionId;
 
         return $this;
     }
 
     /**
-     * Sets the Result Object 
-     * 
+     * Sets the Result Object
+     *
      * @param type $object
-     * @return Results 
+     * @return Results
      */
-    final public function setResultObject($object) {
+    final public function setResultObject($object)
+    {
         $this->resultObject = $object;
 
         return $this;
@@ -218,11 +242,12 @@ abstract class Results implements Statement{
 
     /**
      * Sets the Result Array
-     * 
+     *
      * @param type $array
-     * @return Results 
+     * @return Results
      */
-    final public function setResultArray($array) {
+    final public function setResultArray($array)
+    {
 
         $this->resultArray = $array;
 
@@ -231,22 +256,11 @@ abstract class Results implements Statement{
 
     /**
      * Sets the number of affected rows
-     * 
-     * @param type $n 
-     */
-    final public function setNumRows($n) {
-        $this->numrows = $n;
-
-        return $this;
-    }
-
-    /**
-     * Alias of setNumRows
-     * 
+     *
      * @param type $n
-     * @return Results 
      */
-    final public function setAffectedRows($n) {
+    final public function setNumRows($n)
+    {
         $this->numrows = $n;
 
         return $this;
@@ -254,10 +268,11 @@ abstract class Results implements Statement{
 
     /**
      * Returns the result Id
-     * 
-     * @return type 
+     *
+     * @return type
      */
-    final public function getResultId() {
+    final public function getResultId()
+    {
         return $this->resultId;
     }
 
@@ -292,51 +307,72 @@ abstract class Results implements Statement{
 //    }
 
     /**
-     * Alias of Fectch Assoc;
-     * 
-     * @return type 
+     * Sets the result resource Id
+     *
+     * @param type $resultId
      */
-    public function fetchArray() {
+    final public function setResultId($resultId)
+    {
+        $this->resultId = $resultId;
+
+        return $this;
+    }
+
+    /**
+     * Alias of Fectch Assoc;
+     *
+     * @return type
+     */
+    public function fetchArray()
+    {
         return $this->fetchAssoc();
     }
 
     /**
+     * Returns the next row in the result set as an array
+     * With column names (field names) as array Keys
+     *
+     * @return array
+     */
+    abstract public function fetchAssoc();
+
+    /**
      * Executes a prepared database sql statement
-     * 
+     *
      * @return boolean TRUE on success or FALSE on failure.
      */
     abstract public function execute();
 
     /**
      * Explains the query used to obetain the results
-     * 
+     *
      * @return
      */
     abstract public function explain();
 
     /**
      * Frees the resultse
-     * 
+     *
      * @return
      */
     abstract public function freeResults();
 
     /**
      * Returns metadata for a column in a result set
-     * 
+     *
      * Meta
      *  - name   = the name of the column
      *  - table  = the name of the column table
      *  - length = the length of the column
      *  - flags  = the data flags set for this column
-     * 
+     *
      * @return array assoc array
      */
     abstract public function getColumnMeta();
 
     /**
      * data seek
-     * 
+     *
      * @return
      */
     abstract public function dataSeek();
@@ -344,54 +380,38 @@ abstract class Results implements Statement{
     /**
      * Returns the next row in the result set as an object
      * With the column names (fieldnames) as property names
-     * 
+     *
      * @return object;
      */
     abstract public function fetchObject();
 
     /**
-     * Returns the next row in the result set as an array
-     * With column names (field names) as array Keys
-     * 
-     * @return array
-     */
-    abstract public function fetchAssoc();
-
-    /**
-     * Returns the number of columns in the result set represented by the PDOStatement object. 
+     * Returns the number of columns in the result set represented by the PDOStatement object.
      * If there is no result set, Results::columnCount() returns 0.
-     * 
+     *
      * @return interger the number of columns in the resultset
      */
     abstract public function columnCount();
 
     /**
      * List all the columns in a result set
-     * 
+     *
      * @return
      */
     abstract public function listColumns();
 
     /**
-     * Returns the number of rows affected by the last executed statement
-     * 
-     * @return interger
-     * 
+     *  Fetches a row in a resultset
+     *
+     * @return array
      */
-    abstract public function rowCount();
+    abstract public function fetch();
+
 
     /**
      *  Fetches a row in a resultset
-     * 
-     *  @return array 
-     */
-    abstract public function fetch();
-    
-    
-   /**
-     *  Fetches a row in a resultset
-     * 
-     *  @return array 
+     *
+     * @return array
      */
     abstract public function lastInsertId();
 }

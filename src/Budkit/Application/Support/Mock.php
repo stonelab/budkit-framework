@@ -10,7 +10,8 @@ namespace Budkit\Application\Support;
 
 use Budkit\Dependency\Container;
 
-trait Mock {
+trait Mock
+{
 
     private static $classContainer;
     private static $originalClass;
@@ -22,10 +23,11 @@ trait Mock {
      * @param Container $container
      * @param           $original
      */
-    public static function resolveOriginalClass(Container $container, $original) {
+    public static function resolveOriginalClass(Container $container, $original)
+    {
 
         static::$classContainer = $container;
-        static::$originalClass  = $original;
+        static::$originalClass = $original;
 
     }
 
@@ -34,11 +36,12 @@ trait Mock {
      * Handle dynamic, static calls to the object.
      *
      * @param  string $method
-     * @param  array  $args
+     * @param  array $args
      *
      * @return mixed
      */
-    public static function __callStatic($method, $arguments) {
+    public static function __callStatic($method, $arguments)
+    {
 
         //print_r(static::$classContainer->createInstance(static::$originalClass));
 

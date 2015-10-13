@@ -3,17 +3,20 @@
 
 namespace Budkit\View;
 
-interface Format {
+interface Format
+{
     /**
      * Get the compiled contents of the view.
      *
      * @param  string $path
-     * @param  array  $data
+     * @param  array $data
      *
      * @return string
      */
     public function compile($viewpath, array $data = []);
+
     public function addLayoutSearchPaths(array $searchPaths = []);
-    public function addLayoutData( array $layoutData );
+
+    public function addLayoutData(array $layoutData);
 
 }

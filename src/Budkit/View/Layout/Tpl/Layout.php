@@ -9,7 +9,8 @@ use DOMDocument;
 use DOMNode;
 use DOMXPath;
 
-class Layout implements Listener {
+class Layout implements Listener
+{
 
     protected $nsURI = "http://budkit.org/tpl";
 
@@ -20,22 +21,25 @@ class Layout implements Listener {
     protected $extending;
 
 
-    public function __construct(Loader $loader, Observer $observer) {
-        $this->loader   = $loader;
+    public function __construct(Loader $loader, Observer $observer)
+    {
+        $this->loader = $loader;
         $this->observer = $observer;
     }
 
-    public function definition() {
+    public function definition()
+    {
         return ['Layout.onCompile.layout.extension' => [
-						[$this, 'prepend'], 
-						[$this, 'append'], 
-						[$this, 'replace'],
-	                    [$this, 'remove']
-					]
-				];
+            [$this, 'prepend'],
+            [$this, 'append'],
+            [$this, 'replace'],
+            [$this, 'remove']
+        ]
+        ];
     }
 
-    public function element($Element, DOMXPath $xPath) {
+    public function element($Element, DOMXPath $xPath)
+    {
 
         //Get the Node being Parsed;
         $Node = $Element->getResult();
@@ -53,7 +57,7 @@ class Layout implements Listener {
         }
 
         //die;
-		//echo "1<br />";
+        //echo "1<br />";
         //Extending?
         $this->extension($Node, $xPath);
 
@@ -62,25 +66,26 @@ class Layout implements Listener {
         if ($Node->hasChildNodes()) {
             foreach ($Node->childNodes as $_node) {
                 //$_node = $document->importNode($_node, true);
-                $document->appendChild( $_node->cloneNode(true) );
+                $document->appendChild($_node->cloneNode(true));
             }
         }
 
         $document->removeChild($Node);
         $Element->setResult($document);
-		
-		//$Element->stop();
+
+        //$Element->stop();
     }
 
-    private function extension(&$Node, $xPath) {
+    private function extension(&$Node, $xPath)
+    {
         //check node has extension attribute;
         if (!($Node instanceof DOMNode) || !$Node->hasAttribute("extends")) {
             return;
         }
 
-        $layout          = $Node->getAttribute("extends");
+        $layout = $Node->getAttribute("extends");
         $this->extending = new DOMDocument();
-        $this->xPath     = $xPath;
+        $this->xPath = $xPath;
 
         //Get the imported document;
         $this->observer->attach($this, 'Layout.onCompile.layout.extension', $this->extending);
@@ -106,7 +111,8 @@ class Layout implements Listener {
         $Node = $import;
     }
 
-    public function append($Extension, &$Extending) {
+    public function append($Extension, &$Extending)
+    {
 
         //Get the Node being Parsed;
         $Node = $Extension->getResult();
@@ -137,7 +143,8 @@ class Layout implements Listener {
         }
     }
 
-    public function remove($Extension, &$Extending) {
+    public function remove($Extension, &$Extending)
+    {
 
         //Get the Node being Parsed;
         $Node = $Extension->getResult();
@@ -169,11 +176,13 @@ class Layout implements Listener {
      * @param $Extension
      * @param $Extending
      */
-    public function replace($Extension, &$Extending) {
+    public function replace($Extension, &$Extending)
+    {
         return $this->prepend($Extension, $Extending, true);
     }
 
-    public function prepend($Extension, &$Extending, $replace = false) {
+    public function prepend($Extension, &$Extending, $replace = false)
+    {
 
         //Get the Node being Parsed;
         $Node = $Extension->getResult();

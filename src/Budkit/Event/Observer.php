@@ -8,19 +8,21 @@
 
 namespace Budkit\Event;
 
-class Observer {
+class Observer
+{
 
 
     protected $listeners = [];
 
 
-
-    public function __construct(){
+    public function __construct()
+    {
 
     }
 
 
-    public function attach($callback, $eventName = null, &$params = []) {
+    public function attach($callback, $eventName = null, &$params = [])
+    {
 
         //get the event definitions
         if ($callback instanceOf Listener) {
@@ -54,12 +56,12 @@ class Observer {
         //Now check that callback is callable and that we have an eventName;
         if (is_callable($callback) && !empty($eventName)) {
 
-			//Check that we have not already attached this event;
-			if(isset($this->listeners[$eventName])){
-				if(array_search($callback, $this->listeners[$eventName], true) !== false){
-					return true; //we already have this callback
-				}
-			}
+            //Check that we have not already attached this event;
+            if (isset($this->listeners[$eventName])) {
+                if (array_search($callback, $this->listeners[$eventName], true) !== false) {
+                    return true; //we already have this callback
+                }
+            }
             //Priority must be numeric
             //if callback is already set for this eventype, skip it;
             $priority = 1;
@@ -69,14 +71,14 @@ class Observer {
 
                 if (isset($params['priority']) && !is_numeric($params['priority'])) unset($params['priority']);
 
-                $params   = array_merge(['priority' => $priority], $params);
+                $params = array_merge(['priority' => $priority], $params);
                 $priority = $params['priority'];
 
             }
 
-            $this->listeners[ $eventName ][ $priority ][] = [
+            $this->listeners[$eventName][$priority][] = [
                 'callable' => $callback,
-                'params'   => &$params
+                'params' => &$params
             ];
         }
     }
@@ -85,12 +87,13 @@ class Observer {
      * Removes a listerner from the callback tree;
      *
      * @param Listener $callback
-     * @param string   $eventName
+     * @param string $eventName
      *
      * @return void
      * @author Livingstone Fultang
      */
-    public function detach(Listener $callback, $eventName = null) {
+    public function detach(Listener $callback, $eventName = null)
+    {
 
         //get the event defintions
     }
@@ -104,7 +107,8 @@ class Observer {
      * @return void
      * @author Livingstone Fultang
      */
-    public function trigger($event) {
+    public function trigger($event)
+    {
 
         if (is_string($event)) {
             $event = new Event($event);
@@ -115,8 +119,12 @@ class Observer {
             return $event;
         }
 
+        //print_r($listeners);
+
+        //die;
+
         //Priorities... the bigger the more urgent
-        $urgency   = ksort($listeners, SORT_NUMERIC);
+        $urgency = ksort($listeners, SORT_NUMERIC);
         $callbacks = array_reverse($listeners, true);
 
         //Loop through callbacks;
@@ -144,12 +152,13 @@ class Observer {
      * @return void
      * @author Livingstone Fultang
      */
-    public function getListeners($eventName = null) {
+    public function getListeners($eventName = null)
+    {
 
         if (empty($eventName)) return $this->listeners;
-        if (!empty($eventName) && !isset($this->listeners[ $eventName ])) return [];
+        if (!empty($eventName) && !isset($this->listeners[$eventName])) return [];
 
-        return $this->listeners[ $eventName ];
+        return $this->listeners[$eventName];
     }
 
     /**
@@ -161,7 +170,8 @@ class Observer {
      * @return void
      * @author Livingstone Fultang
      */
-    protected function propergate(&$event, $callback) {
+    protected function propergate(&$event, $callback)
+    {
 
         //Pass the event, the data can be obtained from $event->data;
         $result = call_user_func($callback['callable'], $event, $callback['params']);

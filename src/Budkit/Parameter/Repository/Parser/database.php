@@ -1,6 +1,7 @@
 <?php
 
 namespace Budkit\Parameter\Repository\Parser;
+
 use Budkit\Parameter\Repository\Handler;
 
 
@@ -17,10 +18,19 @@ use Budkit\Parameter\Repository\Handler;
  * @link       http://stonyhillshq/documents/index/carbon4/libraries/config
  * @since      Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM
  */
-final class Database implements Handler {
+final class Database implements Handler
+{
 
-    public function getParams($filepath = ""){}
-    public function saveParams(array $parameters , $environment = ""){}
-    public function readParams($filepath){}
+    public function getParams($filepath = "")
+    {
+    }
+
+    public function saveParams(array $parameters, $environment = "")
+    {
+    }
+
+    public function readParams($filepath)
+    {
+    }
 
 }

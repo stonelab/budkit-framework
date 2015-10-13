@@ -12,7 +12,8 @@ use Budkit\Parameter\Factory as Parameters;
 use Budkit\Parameter\Utility;
 use Budkit\Protocol;
 
-class Response implements Protocol\Response {
+class Response implements Protocol\Response
+{
 
     /**
      * All HTTP status codes are defined in this trait;
@@ -68,7 +69,8 @@ class Response implements Protocol\Response {
     protected $buffered = false;
 
 
-    public function __construct($content = '', $status = 200, $options = [], Request $request) {
+    public function __construct($content = '', $status = 200, $options = [], Request $request)
+    {
 
         $this->request = $request;
 
@@ -86,34 +88,40 @@ class Response implements Protocol\Response {
     }
 
 
-    public function setStatusCode($code) {
+    public function setStatusCode($code)
+    {
         $this->statusCode = intval($code);
 
         return $this;
     }
 
-    public function getStatusCode() {
+    public function getStatusCode()
+    {
         return $this->statusCode;
     }
 
-    public function setStatusMessage($message = '') {
+    public function setStatusMessage($message = '')
+    {
         $this->statusText = $message;
 
         return $this;
     }
 
-    public function getStatusMessage() {
+    public function getStatusMessage()
+    {
         return $this->statusText;
     }
 
 
-    public function setCharset($charset = 'utf-8') {
+    public function setCharset($charset = 'utf-8')
+    {
         $this->charset = $charset;
 
         return $this;
     }
 
-    public function getCharset() {
+    public function getCharset()
+    {
         return $this->charset;
     }
 
@@ -125,7 +133,8 @@ class Response implements Protocol\Response {
      * @return void
      * @author Livingstone Fultang
      */
-    public function setCookies($cookies = []) {
+    public function setCookies($cookies = [])
+    {
 
         $this->cookies = ($cookies instanceof Parameters) ? $cookies : new Parameters("cookies", (array)$cookies);
 
@@ -138,12 +147,15 @@ class Response implements Protocol\Response {
      * @return void
      * @author Livingstone Fultang
      */
-    public function getCookies() {
+    public function getCookies()
+    {
         return $this->cookies;
     }
 
 
-    protected function sendCookies() { }
+    protected function sendCookies()
+    {
+    }
 
     /**
      * Adds a cookie to the response;
@@ -154,8 +166,9 @@ class Response implements Protocol\Response {
      * @return void
      * @author Livingstone Fultang
      */
-    public function addCookie($key, $value) {
-        $this->cookies[ $key ] = $value;
+    public function addCookie($key, $value)
+    {
+        $this->cookies[$key] = $value;
 
         return $this;
     }
@@ -168,7 +181,8 @@ class Response implements Protocol\Response {
      * @return void
      * @author Livingstone Fultang
      */
-    public function removeCookie($key) {
+    public function removeCookie($key)
+    {
         $this->cookies->removeParameter($key);
     }
 
@@ -180,8 +194,9 @@ class Response implements Protocol\Response {
      * @return void
      * @author Livingstone Fultang
      */
-    public function getCookie($key) {
-        return $this->cookies[ $key ];
+    public function getCookie($key)
+    {
+        return $this->cookies[$key];
     }
 
     /**
@@ -192,7 +207,8 @@ class Response implements Protocol\Response {
      * @return Response
      * @author Livingstone Fultang
      */
-    public function setHeaders(array $headers = []) {
+    public function setHeaders(array $headers = [])
+    {
 
         $this->headers = ($headers instanceof Headers) ? $headers : new Headers((array)$headers);
 
@@ -206,7 +222,8 @@ class Response implements Protocol\Response {
      * @return Headers
      * @author Livingstone Fultang
      */
-    public function getHeaders() {
+    public function getHeaders()
+    {
 
         //Make sure we have some headers to return;
         if (!$this->headers) $this->setHeaders();
@@ -223,7 +240,8 @@ class Response implements Protocol\Response {
      * @return void
      * @author Livingstone Fultang
      */
-    public function addHeader($key, $value = null) {
+    public function addHeader($key, $value = null)
+    {
         //if loation change code to 320;
         $headers = $this->getHeaders();
         $headers->set($key, $value);
@@ -239,7 +257,8 @@ class Response implements Protocol\Response {
      * @return void
      * @author Livingstone Fultang
      */
-    public function removeHeader($key) {
+    public function removeHeader($key)
+    {
 
         $headers = $this->getHeaders();
 
@@ -256,7 +275,8 @@ class Response implements Protocol\Response {
      * @return void
      * @author Livingstone Fultang
      */
-    public function getHeader($key, $default = '') {
+    public function getHeader($key, $default = '')
+    {
 
         $headers = $this->getheaders();
 
@@ -272,7 +292,8 @@ class Response implements Protocol\Response {
      * @return void
      * @author Livingstone Fultang
      */
-    public function addContent($content = null) {
+    public function addContent($content = null)
+    {
 
         if (!empty($content)) {
             $this->content[] = $content;
@@ -289,18 +310,20 @@ class Response implements Protocol\Response {
      * @return void
      * @author Livingstone Fultang
      */
-    public function getContent($packetId = null) {
+    public function getContent($packetId = null)
+    {
 
         if (!isset($this->packetId)) {
             return $content = implode("/n", $this->content);
         }
 
         //Return the content with PacketId;
-        return isset($this->content[ $packetId ]) ? $this->content[ $packetId ] : "";
+        return isset($this->content[$packetId]) ? $this->content[$packetId] : "";
     }
 
 
-    public function setContentLength($length = 0) {
+    public function setContentLength($length = 0)
+    {
 
         $length = empty($length) ? $this->getContentLength() : (int)$length;
 
@@ -309,14 +332,16 @@ class Response implements Protocol\Response {
         return $this;
     }
 
-    public function getContentLength() {
+    public function getContentLength()
+    {
 
         $content = $this->getContent(); // Not Ob_* content should already have been added to $content!;
 
         return strlen($content);
     }
 
-    public function setContentType($type = null, $charset = "utf-8", $overite = false) {
+    public function setContentType($type = null, $charset = "utf-8", $overite = false)
+    {
 
         if ($this->headers->has("Content-Type") && !$overite) return $this; //If the header type has already been set;
 
@@ -324,7 +349,7 @@ class Response implements Protocol\Response {
 
         $_charset = $this->getCharset();
         $_charset = !empty($_charset) ? "; charset=" . $_charset : null;
-        $_type    = $this->contentType = (is_null($type)) ? $this->getRequestFormat() : $type;
+        $_type = $this->contentType = (is_null($type)) ? $this->getRequestFormat() : $type;
 
         //echo $this->contentType;
 
@@ -336,19 +361,22 @@ class Response implements Protocol\Response {
     }
 
 
-    protected function getRequestFormat() {
+    protected function getRequestFormat()
+    {
         return $this->request->getAttribute("format", "html"); //@TODO change to a setting var for default contentType;
     }
 
 
-    public function getContentType() {
+    public function getContentType()
+    {
 
         if (empty($this->contentType)) $this->setContentType();
 
         return $this->contentType;
     }
 
-    protected function sendHeaders(array $headers = []) {
+    protected function sendHeaders(array $headers = [])
+    {
 
         $this->setContentLength();
         $this->setContentType();
@@ -362,7 +390,7 @@ class Response implements Protocol\Response {
             }
             //HTTP;
             header(sprintf('HTTP/%s %s %s', $this->getProtocolVersion(), $this->getStatusCode(),
-                           $this->getStatusMessage()), true, $this->getStatusCode());
+                $this->getStatusMessage()), true, $this->getStatusCode());
 
             foreach ($this->headers->getAll() as $key => $values) {
                 foreach ($values as $value) {
@@ -375,17 +403,20 @@ class Response implements Protocol\Response {
     }
 
 
-    public function setProtocolVersion($version) {
+    public function setProtocolVersion($version)
+    {
         $this->version = $version;
 
         return $this;
     }
 
-    public function getProtocolVersion() {
+    public function getProtocolVersion()
+    {
         return $this->version;
     }
 
-    protected function sendContent($content = null) {
+    protected function sendContent($content = null)
+    {
 
         //check we have all of these;
         //$this->setCookies();
@@ -408,10 +439,13 @@ class Response implements Protocol\Response {
      * @return void
      * @author Livingstone Fultang
      */
-    public function send($content = null) {
-        //if not buffer sent 
+    public function send($content = null)
+    {
+
+
+        //if not buffer sent
         if (!$this->buffered) {
-            return $this->sendBuffer();
+            return $this->sendBuffer($content);
         }
 
         $this->sendContent($content);
@@ -419,18 +453,21 @@ class Response implements Protocol\Response {
         return $this;
     }
 
-    public function sendRedirect($headers = []){
+    public function sendRedirect($headers = [])
+    {
 
         $this->sendHeaders($headers);
 
-        return ;
+        return;
     }
 
-    public function getDataArray() {
+    public function getDataArray()
+    {
         return $this->getAllParameters();
     }
 
-    public function setDataArray(array $data) {
+    public function setDataArray(array $data)
+    {
         foreach ($data as $key => $value) {
             $this->setData($key, $value);
         }
@@ -438,20 +475,24 @@ class Response implements Protocol\Response {
         return $this;
     }
 
-    public function setData($key, $value = '') {
+    public function setData($key, $value = '')
+    {
         return $this->setParameter($key, $value);
     }
 
-    public function getData($key) {
+    public function getData($key)
+    {
         return $this->getParameter($key);
     }
 
-    public function addAlert($message, $messageType="info"){
-        $this->addParameters(["alerts"=>[ ["message"=>strval($message),"type"=>strval($messageType)] ] ] );
+    public function addAlert($message, $messageType = "info")
+    {
+        $this->addParameters(["alerts" => [["message" => strval($message), "type" => strval($messageType)]]]);
 
     }
 
-    public function getAlerts(){
+    public function getAlerts()
+    {
 
         $alerts = $this->getData("alerts");
 
@@ -460,15 +501,28 @@ class Response implements Protocol\Response {
     }
 
 
-    protected function sendBuffer($content = null, $headers = []) {
+    protected function sendBuffer($content = null, $headers = [])
+    {
 
         $this->sendCookies();
-        $this->sendHeaders($headers);
+
+        //Are we sending any more headers with the buffer?
+        if (!empty($headers)) {
+            foreach ($headers as $key => $value) {
+                $this->addHeader($key, $value);
+            }
+        }
+
+        //Now send the headers
+        $this->sendHeaders();
+
+        //Attache the content;
         $this->sendContent($content);
 
+        //Buffered
         $this->buffered = true;
 
         //var_dump($this);
     }
 
-} 
+}

@@ -8,8 +8,8 @@
 
 namespace Budkit\View\Layout\Tpl;
 
-use Budkit\Event\Observer;
 use Budkit\Event\Event;
+use Budkit\Event\Observer;
 use Budkit\View\Layout\Loader;
 use DOMNode;
 
@@ -62,12 +62,11 @@ class Loop
 
         $document = $Node->parentNode;
 
-        //limit
-        if ($Node->hasAttribute("limit")) {
-            $limit       = $Node->getAttribute("limit");
-            $limitBy    = (int) $this->getData($limit, $Data);
+        if ($Node->hasAttribute("repeat")) {
 
-            for($l=0; $l < $limitBy; $l++){
+            $limitBy = (int)$Node->getAttribute("repeat");
+
+            for ($l = 0; $l < $limitBy; $l++) {
                 //$_node = $document->importNode($_node, true);
                 if ($Node->hasChildNodes()) {
 
@@ -78,7 +77,29 @@ class Loop
                         //We could just insert the childnode in thedocument,
                         //but its best to walk it ourselves with a subset of the data
                         //so the loop is respected;
-                        $document->insertBefore( $this->walk( $childNode->cloneNode( true ) , $Data ), $Node );
+                        $document->insertBefore($this->walk($childNode->cloneNode(true), $Data), $Node);
+                    }
+                }
+            }
+        }
+
+        //count
+        if ($Node->hasAttribute("count")) {
+            $limit = $Node->getAttribute("count");
+            $limitBy = (int)$this->getData($limit, $Data);
+
+            for ($l = 0; $l < $limitBy; $l++) {
+                //$_node = $document->importNode($_node, true);
+                if ($Node->hasChildNodes()) {
+
+                    for ($i = 0; $i < $Node->childNodes->length; $i++) {
+                        //$_node = $document->importNode($_node, true);
+                        $childNode = $Node->childNodes->item($i);
+
+                        //We could just insert the childnode in thedocument,
+                        //but its best to walk it ourselves with a subset of the data
+                        //so the loop is respected;
+                        $document->insertBefore($this->walk($childNode->cloneNode(true), $Data), $Node);
                     }
                 }
             }
@@ -112,14 +133,14 @@ class Loop
                         //We could just insert the childnode in thedocument,
                         //but its best to walk it ourselves with a subset of the data
                         //so the loop is respected;
-                        $document->insertBefore( $this->walk( $childNode->cloneNode( true ) , $_array ), $Node );
+                        $document->insertBefore($this->walk($childNode->cloneNode(true), $_array), $Node);
                     }
                 }
             }
 
         }
 
-        if ($Node->nextSibling  instanceof DOMNode ) {
+        if ($Node->nextSibling instanceof DOMNode) {
             $Element->setResult($Node->nextSibling);
         }
 
@@ -163,9 +184,9 @@ class Loop
     {
         if (preg_match('|^(.*)://(.+)$|', $path, $matches)) {
 
-            $parseDataScheme = new Event('Layout.onCompile.scheme.data', $this, ["scheme" => $matches[1], "path"=>$matches[2] ]);
+            $parseDataScheme = new Event('Layout.onCompile.scheme.data', $this, ["scheme" => $matches[1], "path" => $matches[2]]);
 
-            $parseDataScheme->setResult(null); //set initial result
+            //$parseDataScheme->setResult(null); //set initial result
 
             $this->observer->trigger($parseDataScheme); //Parse the Node;
 

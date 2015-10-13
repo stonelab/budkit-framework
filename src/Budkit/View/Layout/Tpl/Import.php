@@ -8,18 +8,21 @@ use DOMDocument;
 use DOMNode;
 use DOMXPath;
 
-class Import {
+class Import
+{
 
     protected $nsURI = "http://budkit.org/tpl";
 
     protected $localName = "import";
 
 
-    public function __construct(Loader $loader) {
+    public function __construct(Loader $loader)
+    {
         $this->loader = $loader;
     }
 
-    public function element($Element, DOMXPath $xPath) {
+    public function element($Element, DOMXPath $xPath)
+    {
 
 
         //Get the Node being Parsed;

@@ -107,7 +107,7 @@ class Display implements Mockable
 
             $this->mergedData[] = $key;
 
-            return $this->setData($key, [ $value ]);
+            return $this->setData($key, [$value]);
         } //If we have previously merged
         else if (in_array($key, $this->mergedData)) {
             $existing[$key][] = $value;
@@ -124,13 +124,14 @@ class Display implements Mockable
      * @param $position
      * @param $content use import://layout/name to import a layout at position
      */
-    public function addToBlock($position, $content){
+    public function addToBlock($position, $content)
+    {
 
         $blocks = $this->getData("block");
 
-        if(empty($blocks)) $blocks = [];
+        if (empty($blocks)) $blocks = [];
 
-        if(!isset($blocks[$position])){
+        if (!isset($blocks[$position])) {
             $blocks[$position] = [];
         }
 

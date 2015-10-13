@@ -1,17 +1,19 @@
 {
-    "name": "budkit/utility",
-    "description": "The budkit framework utility classes",
-    "license": "GPLv3",
-    "authors": [
-        {
-            "name": "Livingstone Fultang",
-            "email": "livingstonefultang@gmail.com"
-        }
-    ],
-    "require": {
-        "php": ">=5.4.0"
-    },
-    "autoload": {
-        "psr-4": {"Budkit\\Utility\\": ""}
-    },
+  "name": "budkit/utility",
+  "description": "The budkit framework utility classes",
+  "license": "GPLv3",
+  "authors": [
+    {
+      "name": "Livingstone Fultang",
+      "email": "livingstonefultang@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Budkit\\Utility\\": ""
+    }
+  },
 }

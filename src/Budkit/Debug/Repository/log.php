@@ -38,7 +38,8 @@ namespace Library;
  * @link       http://stonyhillshq/documents/index/carbon4/libraries/log
  * @since      Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM
  */
-class Log extends Object{
+class Log extends Object
+{
 
 
     static $log;
@@ -54,13 +55,19 @@ class Log extends Object{
      */
     static $enable = FALSE;
 
+    public function __construct()
+    {
+    }
+
     /**
      * Stores a message in the log file
      *
      * @param type $string
      * @param type $type
      */
-    public static function message($string='', $type="message"){}
+    public static function message($string = '', $type = "message")
+    {
+    }
 
     /**
      * Stores an error message in the log file
@@ -68,38 +75,27 @@ class Log extends Object{
      * @param type $string
      * @param type $code
      */
-    public static function error($string='',$code=404){}
+    public static function error($string = '', $code = 404)
+    {
+    }
 
     /**
      * Returns the contents of the log file
      *
      * @return string
      */
-    public static function getFile(){}
+    public static function getFile()
+    {
+    }
 
     /**
      * Returns the last message stored in the log
      *
      * @return array
      */
-    public static function getLastMessage(){}
-
-    /**
-     * Dumps the console log
-     *
-     * @return
-     */
-    public function dump(){}
-
-    public function setLog(){}
-
-    public function getLog(){}
-
-    public function setMode(){}
-
-    public function getConsole(){}
-    
-    public function __construct(){}
+    public static function getLastMessage()
+    {
+    }
 
     /**
      * Logs a system message
@@ -113,26 +109,27 @@ class Log extends Object{
      * @param type $logFile
      * @return type
      */
-    public static function _( $string,  $title="Console Log", $type="info",  $typekey="" ,$console=TRUE, $logFile=TRUE){
-  
-        $output     = \Library\Output::getInstance();
+    public static function _($string, $title = "Console Log", $type = "info", $typekey = "", $console = TRUE, $logFile = TRUE)
+    {
+
+        $output = \Library\Output::getInstance();
         //Remember to set the file;
-        self::$file = Config::getParam("logfile","system.log");
+        self::$file = Config::getParam("logfile", "system.log");
 
         //$output->addToPosition("do:console", $msgString , '', '', FALSE);
-        	
+
         //If isset this $log;
-        $logkey = md5(strval( $string.$console.$type.$logFile));
+        $logkey = md5(strval($string . $console . $type . $logFile));
 
         if (!isset(self::$log[$logkey])) {
             self::$log[$logkey] = array(
-                "title"     => $title,
-                "string"    => $string ,
-                "type"      => strtolower( $type ),
-                "key"       => $logkey,
-                "time"      => date("Y-m-d H:i:s"),
-                "_toconsole"=> $console,
-                "_tofile"   => $logFile
+                "title" => $title,
+                "string" => $string,
+                "type" => strtolower($type),
+                "key" => $logkey,
+                "time" => date("Y-m-d H:i:s"),
+                "_toconsole" => $console,
+                "_tofile" => $logFile
             );
         }
 
@@ -149,7 +146,8 @@ class Log extends Object{
      * @staticvar self $instance
      * @return self
      */
-    public static function getInstance(){
+    public static function getInstance()
+    {
 
         static $instance;
 
@@ -160,5 +158,30 @@ class Log extends Object{
         $instance = new self;
 
         return $instance;
+    }
+
+    /**
+     * Dumps the console log
+     *
+     * @return
+     */
+    public function dump()
+    {
+    }
+
+    public function setLog()
+    {
+    }
+
+    public function getLog()
+    {
+    }
+
+    public function setMode()
+    {
+    }
+
+    public function getConsole()
+    {
     }
 }

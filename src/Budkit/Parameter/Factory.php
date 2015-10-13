@@ -14,17 +14,18 @@ use Budkit\Validation\Validate;
 use Countable;
 use IteratorAggregate;
 
-class Factory implements ArrayAccess, Countable, IteratorAggregate  {
+class Factory implements ArrayAccess, Countable, IteratorAggregate
+{
 
     use Utility;
 
-    public static    $validator; //stores the parameter name;
-    public static    $sanitizer; //The parameter validate methods;
+    public static $validator; //stores the parameter name;
+    public static $sanitizer; //The parameter validate methods;
     protected static $types = []; //the parameter sanitize methods
-    protected        $group = null;
+    protected $group = null;
 
-    public function __construct($group, array $parameters = [], Sanitize $sanitizer = null, Validate $validator = null,
-                                $sanitize = true) {
+    public function __construct($group, array $parameters = [], $sanitize = true, Sanitize $sanitizer = null, Validate $validator = null)
+    {
 
         $this->group = $group;
 
@@ -52,22 +53,23 @@ class Factory implements ArrayAccess, Countable, IteratorAggregate  {
      *
      * @param $name
      */
-    public function getParameterListAsObject($name, $delimiter = ";") {
+    public function getParameterListAsObject($name, $delimiter = ";")
+    {
 
         $parameter = $this->getValidParameterOfType($name, "string");
-        $list      = preg_split('/\s*(?:,*("[^"]+"),*|,*(\'[^\']+\'),*|,+)\s*/', $parameter, null,
-                                PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+        $list = preg_split('/\s*(?:,*("[^"]+"),*|,*(\'[^\']+\'),*|,+)\s*/', $parameter, null,
+            PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
         //if emptyparameter return throw an exception because they'd be expecting an object;
 
 
         $parameters = [];
-        $values     = [];
+        $values = [];
 
         foreach ($list as $itemValue) {
             //if items have qualities associated with them we shall sort the parameter array by qualities;
-            $bits       = preg_split('/\s*(?:;*("[^"]+");*|;*(\'[^\']+\');*|;+)\s*/', $itemValue, 0,
-                                     PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
-            $value      = array_shift($bits);
+            $bits = preg_split('/\s*(?:;*("[^"]+");*|;*(\'[^\']+\');*|;+)\s*/', $itemValue, 0,
+                PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+            $value = array_shift($bits);
             $attributes = [];
 
             $lastNullAttribute = null;
@@ -76,26 +78,26 @@ class Factory implements ArrayAccess, Countable, IteratorAggregate  {
                     && ($start === '"'
                         || $start === '\'')
                 ) {
-                    $attributes[ $lastNullAttribute ] = substr($bit, 1, -1);
+                    $attributes[$lastNullAttribute] = substr($bit, 1, -1);
                 } elseif ('=' === $end) {
-                    $lastNullAttribute  = $bit = substr($bit, 0, -1);
-                    $attributes[ $bit ] = null;
+                    $lastNullAttribute = $bit = substr($bit, 0, -1);
+                    $attributes[$bit] = null;
                 } else {
-                    $parts                   = explode('=', $bit);
-                    $attributes[ $parts[0] ] = isset($parts[1]) && strlen($parts[1]) > 0 ? $parts[1] : '';
+                    $parts = explode('=', $bit);
+                    $attributes[$parts[0]] = isset($parts[1]) && strlen($parts[1]) > 0 ? $parts[1] : '';
                 }
             }
 
-            $parameters[
-            ($start = substr($value, 0, 1)) === ($end = substr($value, -1)) && ($start === '"' || $start === '\'')
-                ? substr($value, 1, -1) : $value ] = $attributes;
+            $parameters[($start = substr($value, 0, 1)) === ($end = substr($value, -1)) && ($start === '"' || $start === '\'')
+                ? substr($value, 1, -1) : $value] = $attributes;
 
         }
 
         return new Factory($name, $parameters, static::$sanitizer, static::$validator, false);
     }
 
-    public function getValidParameterOfType($name, $type) {
+    public function getValidParameterOfType($name, $type)
+    {
         //sanitize to datatype;
         if (!method_exists(static::$sanitizer, strtolower($type))) {
             throw new \Exception("{$type} parameter type is not supported by the input sanitizer");

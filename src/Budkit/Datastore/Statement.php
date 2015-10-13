@@ -8,7 +8,8 @@
 
 namespace Budkit\Datastore;
 
-interface Statement{
+interface Statement
+{
 
     public function getQuery();
 
@@ -33,10 +34,10 @@ interface Statement{
     /**
      * Returns an array containing all of the result set rows
      *
-     * @param type $style, numeric=numeric keys, object=object, array=array
+     * @param type $style , numeric=numeric keys, object=object, array=array
      * @param type $arguments
      */
-    public function fetchAll($as='array', $arguments='');
+    public function fetchAll($as = 'array', $arguments = '');
 
     /**
      * Returns the number of rows affected by the last MySQL query
@@ -96,7 +97,6 @@ interface Statement{
      * @return type
      */
     public function getResultId();
-
 
 
     /**
@@ -189,15 +189,15 @@ interface Statement{
     /**
      *  Fetches a row in a resultset
      *
-     *  @return array
+     * @return array
      */
-     public function fetch();
+    public function fetch();
 
 
     /**
      *  Fetches a row in a resultset
      *
-     *  @return array
+     * @return array
      */
     public function lastInsertId();
 

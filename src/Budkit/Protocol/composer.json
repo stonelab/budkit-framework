@@ -1,17 +1,19 @@
 {
-    "name": "budkit/protocol",
-    "description": "The budkit request/response handler classes ",
-    "license": "GPLv3",
-    "authors": [
-        {
-            "name": "Livingstone Fultang",
-            "email": "livingstonefultang@gmail.com"
-        }
-    ],
-    "require": {
-        "php": ">=5.4.0"
-    },
-    "autoload": {
-        "psr-4": {"Budkit\\Protocol\\": ""}
-    },
+  "name": "budkit/protocol",
+  "description": "The budkit request/response handler classes ",
+  "license": "GPLv3",
+  "authors": [
+    {
+      "name": "Livingstone Fultang",
+      "email": "livingstonefultang@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Budkit\\Protocol\\": ""
+    }
+  },
 }

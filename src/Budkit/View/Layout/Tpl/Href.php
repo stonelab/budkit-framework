@@ -6,18 +6,21 @@ namespace Budkit\View\Layout\Tpl;
 use Budkit\View\Layout\Loader;
 use DOMNode;
 
-class Href {
+class Href
+{
 
     protected $nsURI = "http://budkit.org/tpl";
 
     protected $localName = "href";
 
 
-    public function __construct(Loader $loader) {
+    public function __construct(Loader $loader)
+    {
         $this->loader = $loader;
     }
 
-    public function attribute($Element) {
+    public function attribute($Element)
+    {
 
         //Get the Node being Parsed;
         $Attr = $Element->getResult();

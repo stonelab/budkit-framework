@@ -2,16 +2,16 @@
 
 namespace Budkit\Datastore\Drivers\MySQLi;
 
-use Budkit\Debug\Log;
+use Budkit\Datastore\Driver as DatastoreDriver;
 use Budkit\Datastore\Engine;
 use Budkit\Datastore\Exception\ConnectionError;
 use Budkit\Datastore\Exception\InternalError;
 use Budkit\Datastore\Exception\QueryException;
-use Budkit\Datastore\Driver as DatastoreDriver;
+use Budkit\Debug\Log;
 
 
-final class Driver extends Engine implements DatastoreDriver{
-
+final class Driver extends Engine implements DatastoreDriver
+{
 
 
     var $prefix = "";
@@ -33,11 +33,11 @@ final class Driver extends Engine implements DatastoreDriver{
      * @var string
      */
     var $nameQuote = '`';
-    
+
     /**
      * Transaction queries
-     * 
-     * @var type 
+     *
+     * @var type
      */
     var $transactions = array();
 
@@ -45,20 +45,18 @@ final class Driver extends Engine implements DatastoreDriver{
     var $queries = array();
 
 
+    public function __construct($options = [])
+    {
+
+        $host = array_key_exists('host', $options) ? $options['host'] : 'localhost';
+        $user = array_key_exists('user', $options) ? $options['user'] : '';
+        $password = array_key_exists('password', $options) ? $options['password'] : '';
+        $database = array_key_exists('name', $options) ? $options['name'] : '';
+        $prefix = array_key_exists('prefix', $options) ? $options['prefix'] : 'bk_';
+        $select = array_key_exists('select', $options) ? $options['select'] : true;
 
 
-
-    public function __construct($options = []){
-
-        $host       = array_key_exists('host', $options) ? $options['host'] : 'localhost';
-        $user       = array_key_exists('user', $options) ? $options['user'] : '';
-        $password   = array_key_exists('password', $options) ? $options['password'] : '';
-        $database   = array_key_exists('name', $options) ? $options['name'] : '';
-        $prefix     = array_key_exists('prefix', $options) ? $options['prefix'] : 'bk_';
-        $select     = array_key_exists('select', $options) ? $options['select'] : true;
-
-        
-        if(!$this->connect($host, $user, $password, $database, $prefix, $select )){
+        if (!$this->connect($host, $user, $password, $database, $prefix, $select)) {
 
             //@TODO throw connection exceptions
             //throw new Exception("Could not connect to database with driver:mysqli");
@@ -76,53 +74,54 @@ final class Driver extends Engine implements DatastoreDriver{
         if ($this->utf) {
             $this->setUTF();
         }
-        
+
         $this->prefix = $prefix;
         $this->errorNum = 0;
-        $this->log =  new Log("mysqli-db.log");
+        $this->log = new Log("mysqli-db.log");
         $this->quoted = array();
         $this->hasQuoted = false;
-        $this->debug    = true;
+        $this->debug = true;
 
         // select the database
         if ($select) {
             $this->database($database);
         }
     }
-    
 
-    public function connect($server = 'localhost', $username = '', $password = '', $database = '' , $prefix='dd_' , $select = true) {
-        
-        if($this->isConnected()){
+
+    public function connect($server = 'localhost', $username = '', $password = '', $database = '', $prefix = 'dd_', $select = true)
+    {
+
+        if ($this->isConnected()) {
             return true;
         }
-        
+
         // mysql driver exists?
         if (!function_exists('mysqli_real_connect')) {
 
-            throw new ConnectionError('The MySQLi extension "mysqli" is not available.', 1 );
+            throw new ConnectionError('The MySQLi extension "mysqli" is not available.', 1);
 
             return false;
         }
-        
+
         $this->resourceId = mysqli_init();
-        
+
         if (!$this->resourceId) {
-            throw new InternalError('The MySQLi extension "mysqli" initialization failed.', 2 );
+            throw new InternalError('The MySQLi extension "mysqli" initialization failed.', 2);
             return false;
         }
-        
+
         //We want to keep autocomit on all the time exceplt when we are performing a transaction
         if (!$this->resourceId->options(MYSQLI_INIT_COMMAND, 'SET AUTOCOMMIT = 1')) {
-            throw new InternalError('Setting MySQLi to AUTOCOMIT failed.', 3 );
+            throw new InternalError('Setting MySQLi to AUTOCOMIT failed.', 3);
             return false;
         }
 
         if (!$this->resourceId->options(MYSQLI_OPT_CONNECT_TIMEOUT, 5)) {
-            throw new InternalError('Setting MYSQLI_OPT_CONNECT_TIMEOUT failed.', 4 );
+            throw new InternalError('Setting MYSQLI_OPT_CONNECT_TIMEOUT failed.', 4);
             return false;
         }
-        
+
         // connect to the server
         if (!$this->resourceId->real_connect($server, $username, $password, $database)) {
 
@@ -130,28 +129,29 @@ final class Driver extends Engine implements DatastoreDriver{
 
             return false;
         }
-        
+
         // select the database
         if ($select) {
-            if(!$this->database($database)){
+            if (!$this->database($database)) {
                 $this->close();
                 return false;
             }
         }
 
         $this->prefix = $prefix;
-        
+
         return true;
-        
+
     }
 
 
-   protected function database( $database ) {
+    protected function database($database)
+    {
         //Make sure its not empty
         if (!$database) {
             return false;
         }
-        
+
         //Chooses the database to connect to
         if (!mysqli_select_db($this->resourceId, $database)) {
             throw new ConnectionError('Could not connect to database');
@@ -166,19 +166,20 @@ final class Driver extends Engine implements DatastoreDriver{
      *
      * @return boolean
      */
-    public function isConnected(){
+    public function isConnected()
+    {
 
-        if (is_a($this->resourceId,"mysqli")) {
+        if (is_a($this->resourceId, "mysqli")) {
             return mysqli_ping($this->resourceId);
         }
         return false;
     }
 
 
-    public function getVersion(){
-        return mysqli_get_server_info( $this->resourceId );
+    public function getVersion()
+    {
+        return mysqli_get_server_info($this->resourceId);
     }
-
 
 
     /**
@@ -186,7 +187,9 @@ final class Driver extends Engine implements DatastoreDriver{
      *
      * @return boolean
      */
-    final public function __destruct() {}
+    final public function __destruct()
+    {
+    }
 
 
     /**
@@ -194,16 +197,18 @@ final class Driver extends Engine implements DatastoreDriver{
      *
      * @param $tablename
      */
-    final public function getTable($tablename){
+    final public function getTable($tablename)
+    {
 
         return new Table($tablename, $this);
 
     }
-    
-    
-    final public function close(){
+
+
+    final public function close()
+    {
         $return = false;
-        if (is_a($this->resourceId,"mysqli")) {
+        if (is_a($this->resourceId, "mysqli")) {
             $return = mysqli_close($this->resourceId);
         }
         $this->resourceId = NULL;
@@ -217,18 +222,20 @@ final class Driver extends Engine implements DatastoreDriver{
      * @access public
      * @return boolean  True on success, false otherwise.
      */
-    final public function test() {
+    final public function test()
+    {
         return (function_exists('mysqli_connect'));
     }
 
     /**
      * Determines if the connection to the server is active.
      *
-     * @access	public
-     * @return	boolean
+     * @access    public
+     * @return    boolean
      */
-    final public function connected() {
-        if (is_a($this->resourceId,"mysqli")) {
+    final public function connected()
+    {
+        if (is_a($this->resourceId, "mysqli")) {
             return mysqli_ping($this->resourceId);
         }
         return false;
@@ -237,33 +244,36 @@ final class Driver extends Engine implements DatastoreDriver{
     /**
      * Determines UTF support
      *
-     * @access	public
+     * @access    public
      * @return boolean True - UTF is supported
      */
-    final public function hasUTF() {
+    final public function hasUTF()
+    {
         $verParts = explode('.', $this->getVersion());
-        return ($verParts[0] == 5 || ($verParts[0] == 4 && $verParts[1] == 1 && (int) $verParts[2] >= 2));
+        return ($verParts[0] == 5 || ($verParts[0] == 4 && $verParts[1] == 1 && (int)$verParts[2] >= 2));
     }
 
     /**
      * Custom settings for UTF support
      *
-     * @access	public
+     * @access    public
      */
-    final public function setUTF() {
-        mysqli_query($this->resourceId,"SET NAMES 'utf8'");
+    final public function setUTF()
+    {
+        mysqli_query($this->resourceId, "SET NAMES 'utf8'");
     }
 
     /**
      * Get a database escaped string
      *
-     * @param	string	The string to be escaped
-     * @param	boolean	Optional parameter to provide extra escaping
-     * @return	string
-     * @access	public
+     * @param    string    The string to be escaped
+     * @param    boolean    Optional parameter to provide extra escaping
+     * @return    string
+     * @access    public
      * @abstract
      */
-    final public function getEscaped($text, $extra = false) {
+    final public function getEscaped($text, $extra = false)
+    {
         $result = mysqli_real_escape_string($this->resourceId, $text);
         if ($extra) {
             $result = addcslashes($result, '%_');
@@ -272,18 +282,18 @@ final class Driver extends Engine implements DatastoreDriver{
     }
 
 
-
-    final public function exec( $query ='') {
+    final public function exec($query = '')
+    {
 
         //@TODO how to verify the resource Id
         if (!is_a($this->resourceId, "mysqli")) {
-            throw new QueryException(t("No valid connection resource found") );
+            throw new QueryException(t("No valid connection resource found"));
             return false;
         }
 
         // Take a local copy so that we don't modify the original query and cause issues later
-        $sql = (empty($query)) ?  $this->query :  $query ;
-        $this->query = $sql = $this->replacePrefix( $sql ); //just for reference
+        $sql = (empty($query)) ? $this->query : $query;
+        $this->query = $sql = $this->replacePrefix($sql); //just for reference
 
         if ($this->limit > 0 || $this->offset > 0) {
             $sql .= ' LIMIT ' . max($this->offset, 0) . ', ' . max($this->limit, 0);
@@ -295,10 +305,10 @@ final class Driver extends Engine implements DatastoreDriver{
             $log = htmlentities($sql);
 
             //Does not play nice with the parser;
-            $this->log->message( $log, "DB Query {$this->ticker}" , "object");
+            $this->log->message($log, "DB Query {$this->ticker}", "object");
         }
 
-        $this->cursor = mysqli_query( $this->resourceId, $sql);
+        $this->cursor = mysqli_query($this->resourceId, $sql);
 
         if (!$this->cursor) {
             throw new QueryException(mysqli_errno($this->resourceId), mysqli_error($this->resourceId) . " SQL=$sql");
@@ -314,32 +324,34 @@ final class Driver extends Engine implements DatastoreDriver{
     }
 
 
-    final public function prepare($statement = NULL, $offset = 0, $limit = 0, $prefix='') {
+    final public function prepare($statement = NULL, $offset = 0, $limit = 0, $prefix = '')
+    {
 
         //Sets the query to be executed;
 
-        $this->offset = (int) $offset;
-        $this->limit = (int) $limit;
+        $this->offset = (int)$offset;
+        $this->limit = (int)$limit;
         $this->prefix = (!isset($prefix) && !empty($prefix)) ? $prefix : $this->prefix;
         $this->query = $this->replacePrefix($statement);
 
         //Get the Result Statement class;
 
-        return new Statement( $this );
+        return new Statement($this);
     }
 
-        /**
+    /**
      * Begins a database transaction
      *
      * @return void;
      */
-    public function startTransaction(){
+    public function startTransaction()
+    {
 
         if (!is_a($this->resourceId, "mysqli")) {
             throw new QueryException("No valid db resource Id found. This is required to start a transaction");
             return false;
         }
-        $this->resourceId->autocommit( FALSE ); //Turns autocommit off;
+        $this->resourceId->autocommit(FALSE); //Turns autocommit off;
 
     }
 
@@ -350,14 +362,15 @@ final class Driver extends Engine implements DatastoreDriver{
      * @param type $execute
      * @return boolean
      */
-    public function query($sql, $execute = FALSE){
+    public function query($sql, $execute = FALSE)
+    {
 
-        $query = (empty($sql)) ?  $this->query :  $sql ;
-        $this->transactions[] = $this->replacePrefix( $query ); //just for reference
+        $query = (empty($sql)) ? $this->query : $sql;
+        $this->transactions[] = $this->replacePrefix($query); //just for reference
 
         //@TODO;
-        if($execute){
-            $this->exec( $query );
+        if ($execute) {
+            $this->exec($query);
         }
 
         return true;
@@ -368,25 +381,26 @@ final class Driver extends Engine implements DatastoreDriver{
      *
      * @return boolean
      */
-    public function commitTransaction(){
+    public function commitTransaction()
+    {
 
-        if(empty($this->transactions)||!is_array($this->transactions)){
+        if (empty($this->transactions) || !is_array($this->transactions)) {
             throw new QueryException(t("No transaction queries found"));
             $this->transactions = array();
 
 
-            $this->resourceId->autocommit( TRUE ); //Turns autocommit back on
+            $this->resourceId->autocommit(TRUE); //Turns autocommit back on
             return false;
         }
         //Query transactions
-        foreach($this->transactions as $query){
+        foreach ($this->transactions as $query) {
 
 
-            if(!$this->exec($query)){
+            if (!$this->exec($query)) {
 
                 $this->resourceId->rollback(); //Rolls back the transaction;
                 $this->transactions = array();
-                $this->resourceId->autocommit( TRUE ); //Turns autocommit back on
+                $this->resourceId->autocommit(TRUE); //Turns autocommit back on
 
 
                 return false;
@@ -394,15 +408,15 @@ final class Driver extends Engine implements DatastoreDriver{
         }
 
         //Commit the transaction
-        if(!$this->resourceId->commit()){
+        if (!$this->resourceId->commit()) {
             throw new QueryException(t("The transaction could not be committed"));
             $this->transactions = array();
-            $this->resourceId->autocommit( TRUE ); //Turns autocommit back on
+            $this->resourceId->autocommit(TRUE); //Turns autocommit back on
             return false;
         }
-        
+
         $this->transactions = array();
-        $this->resourceId->autocommit( TRUE ); //Turns autocommit back on
+        $this->resourceId->autocommit(TRUE); //Turns autocommit back on
         return true;
     }
 
@@ -414,9 +428,10 @@ final class Driver extends Engine implements DatastoreDriver{
      * @param mixed $args
      * @return mixed
      */
-    final public function __call($method, $args) {
+    final public function __call($method, $args)
+    {
 
-        $activeRecord = new Accessory( $this );
+        $activeRecord = new Accessory($this);
 
 
         if (!\method_exists($activeRecord, $method)) {

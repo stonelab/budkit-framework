@@ -11,15 +11,15 @@ namespace Budkit\View\Layout\Tpl;
 use Budkit\Event\Event;
 use Budkit\Event\Observer;
 use Budkit\View\Layout\Loader;
+use DOMElement;
 use DOMNode;
-use DOMXPath;
 
-class Select
+class Input
 {
 
     protected $nsURI = "http://budkit.org/tpl";
 
-    protected $localName = "select";
+    protected $localName = "input";
 
     protected $data = [];
 
@@ -53,65 +53,46 @@ class Select
 
 
         //If the node is not of type tpl:layout; return
-        if ($Node->namespaceURI !== $this->nsURI || strtolower($Node->localName) !== $this->localName ||
-            !$Node->hasAttribute("selected")
-        ) {
+        if (!($Node instanceof DOMElement) || $Node->namespaceURI !== $this->nsURI || strtolower($Node->localName) !== $this->localName) {
             return;
         }
+        //Checkbox
+        if (in_array($Node->getAttribute("type"), ["checkbox", "radio"])) {
 
-        $document = $Node->parentNode;
+            //get the value of selected;
+            $value = $this->getData($Node->getAttribute("value"), $Data, $Node->getAttribute("value"));
+            $check = $this->getData($Node->getAttribute("data"), $Data, $Node->getAttribute("data"));
 
-
-        $xpath = new DOMXPath($Node->ownerDocument);
-        $select = $Node->ownerDocument->createElement("select");
-        $options = $xpath->query('.//option', $Node); //the dot at the start is importat to make it relative to the context node
-
-
-        if ($Node->hasAttributes()) {
-            foreach ($Node->attributes as $attribute) {
-                if (strtolower($attribute->nodeName) !== "selected") {
-                    $select->setAttribute($attribute->nodeName, $attribute->nodeValue);
-                }
+            if ($value == $check) {
+                $Node->setAttribute("checked", "checked");
             }
+
         }
+        //Change from tpl:input to
+        $this->renameNode($Node->ownerDocument, $Node, $this->localName);
+    }
 
-
-        //get the value of selected;
-        $_select = $Node->getAttribute("selected");
-        $selected = $this->getData($_select, $Data, $_select);
-
-
-        if ($options->length) {
-            for ($i = 0; $i < $options->length; $i++) {
-                //$_node = $document->importNode($_node, true);
-                $childNode = $options->item($i);
-
-                // check and select options value;
-                if (is_a($childNode, DOMNode::class)) {
-
-                    //print_R($childNode);
-
-                    if ($childNode->hasAttributes()) {
-
-
-                        if ($childNode->hasAttribute("value")) {
-
-
-                            if ($childNode->getAttribute("value") == $selected) {
-
-
-                                $childNode->setAttribute("selected", "true");
-                            }
-                        }
-                    }
-                }
-
-                $select->appendChild($childNode);
-            }
+    function renameNode($document, $node, $elementTag)
+    {
+        $newNode = $document->createElement($elementTag);
+        // get all attributes from old node
+        $attributes = $node->attributes;
+        foreach ($attributes as $attribute) {
+            $name = $attribute->name;
+            $value = $attribute->value;
+            $newNode->setAttribute($name, $value);
         }
+        // get all children from old node
+        $children = $node->childNodes;
 
-        //Replace this select;
-        $document->replaceChild($select, $Node);
+        foreach ($children as $child) {
+            // clone node and add it to newNode
+            $newChild = $child->cloneNode(true);
+            $newNode->appendChild($newChild);
+        }
+        // replace the old node with the newNode
+        $node->parentNode->replaceChild($newNode, $node);
+
     }
 
 

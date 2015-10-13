@@ -21,6 +21,21 @@ class File
     protected static $pathinfo = [];
 
     /**
+     * Determines if a path links to a folder or file
+     *
+     * @param string $path
+     * @param boolean $folder , value to return if is folder
+     *
+     */
+    final public static function is($path, $folder = TRUE)
+    {
+
+        $return = is_dir($path) ? $folder : !$folder;
+
+        return (bool)$return;
+    }
+
+    /**
      * Get File Name
      *
      * @param type $file
@@ -90,7 +105,7 @@ class File
      */
     public function read($file)
     {
-        //@TODO Rewrite; 
+        //@TODO Rewrite;
         return file_get_contents($file);
     }
 
@@ -142,7 +157,7 @@ class File
     public function getModifiedDate($path)
     {
 
-        //Check for the last modified 
+        //Check for the last modified
         $lmodified = 0;
         $files = glob($path . '/*');
 
@@ -168,7 +183,6 @@ class File
     public function getSize($path)
     {
     }
-
 
     /**
      * Get the returned value of a file.
@@ -199,21 +213,6 @@ class File
         if (file_exists($filepath)):
             $return = is_file($filepath);
         endif;
-
-        return (bool)$return;
-    }
-
-    /**
-     * Determines if a path links to a folder or file
-     *
-     * @param string $path
-     * @param boolean $folder , value to return if is folder
-     *
-     */
-    final public static function is($path, $folder = TRUE)
-    {
-
-        $return = is_dir($path) ? $folder : !$folder;
 
         return (bool)$return;
     }

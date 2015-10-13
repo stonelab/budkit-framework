@@ -2,11 +2,10 @@
 
 namespace Budkit\Session;
 
-use Budkit\Dependency\Container;
 use Budkit\Authentication\Authenticate;
 use Budkit\Datastore\Encrypt;
+use Budkit\Dependency\Container;
 use Budkit\Protocol\Uri;
-use Budkit\Session\Registry;
 use Whoops\Example\Exception;
 
 /**
@@ -22,7 +21,8 @@ use Whoops\Example\Exception;
  * @link       http://stonyhillshq/documents/index/carbon4/libraries/session
  * @since      Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM
  */
-class Store {
+class Store
+{
 
     /**
      *
@@ -37,11 +37,11 @@ class Store {
     protected $registry = array();
 
 
-    protected $handler ;
+    protected $handler;
 
     static $repositories = array(
         "database" => Repository\Database::class,
-        "file"  => Repository\File::class
+        "file" => Repository\File::class
     );
 
     /**
@@ -49,7 +49,8 @@ class Store {
      *
      * @param type $namespace
      */
-    public function __construct($options = [], Container $container) {
+    public function __construct($options = [], Container $container)
+    {
 
         //Need to destroy any existing sessions started with session.auto_start
         if (session_id()) {
@@ -66,19 +67,19 @@ class Store {
 
 
         $this->input = $container->input;
-        $this->uri = $container->createInstance( Uri::class, [ $container->request ] );
-        $this->authenticator = $container->createInstance( Authenticate::class );
-        $this->encryptor =  $container->createInstance( Encrypt::class );
+        $this->uri = $container->createInstance(Uri::class, [$container->request]);
+        $this->authenticator = $container->createInstance(Authenticate::class);
+        $this->encryptor = $container->createInstance(Encrypt::class);
 
 
         $this->registry['default'] = new Registry("default");
 
-        if (!isset($options["store"]) || !array_key_exists($options["store"], static::$repositories)){
+        if (!isset($options["store"]) || !array_key_exists($options["store"], static::$repositories)) {
             throw new \Exception("Invalid session handler");
             return false;
         }
 
-        $this->handler = $container->createInstance( static::$repositories[ $options[ "store"] ] ) ;
+        $this->handler = $container->createInstance(static::$repositories[$options["store"]]);
 
         ini_set('session.use_trans_sid', '0');
         //Libraries
@@ -89,7 +90,8 @@ class Store {
      *
      * @return void
      */
-    public function close() {
+    public function close()
+    {
         session_write_close();
     }
 
@@ -98,7 +100,8 @@ class Store {
      *
      * @return type
      */
-    final public static function getUploadProgressName(){
+    final public static function getUploadProgressName()
+    {
         $name = ini_get("session.upload_progress.name");
         return $name;
     }
@@ -109,15 +112,15 @@ class Store {
      * @param type $formName
      * @return int
      */
-    final public static function getUploadProgress( $formName ){
+    final public static function getUploadProgress($formName)
+    {
 
         $key = ini_get("session.upload_progress.prefix") . $formName;
         if (!empty($_SESSION[$key])) {
             $current = $_SESSION[$key]["bytes_processed"];
             $total = $_SESSION[$key]["content_length"];
             return $current < $total ? ceil($current / $total * 100) : 100;
-        }
-        else {
+        } else {
             return 100;
         }
     }
@@ -128,7 +131,8 @@ class Store {
      * @param type $killPrevious
      * @return void
      */
-    final public function start($killPrevious = FALSE) {
+    final public function start($killPrevious = FALSE)
+    {
 
         //starts this session if not creates a new one
         //$self = (!isset($this) || !is_a($this, "Library\Session")) ? self::getInstance() : $this;
@@ -136,7 +140,7 @@ class Store {
         //If there is any previous and killprevious is false,
         //simply do a garbage collection and return;
         //if we can't read the session
-        if (( $session = $this->read()) !== FALSE) {
+        if (($session = $this->read()) !== FALSE) {
             $this->update($session);
         } else {
             $this->create();
@@ -150,14 +154,15 @@ class Store {
      *
      * @return type
      */
-    final public function getSplash() {
+    final public function getSplash()
+    {
 
         $userIp = md5($this->input->serialize($this->input->getVar('REMOTE_ADDR', \IS\STRING, '', 'server')));
         $userAgent = md5($this->input->serialize($this->input->getVar('HTTP_USER_AGENT', \IS\STRING, '', 'server')));
-        $userDomain = md5($this->input->serialize((string) $this->uri->getHost()));
+        $userDomain = md5($this->input->serialize((string)$this->uri->getHost()));
 
         //throw in a token for specific id of browser,
-        $token = (string) $this->generateToken();
+        $token = (string)$this->generateToken();
 
         $splash = array(
             "ip" => $userIp,
@@ -178,14 +183,15 @@ class Store {
      *
      * @return void
      */
-    final public function create() {
+    final public function create()
+    {
 
-        $self   = $this;
+        $self = $this;
 
         $splash = $self->getSplash();
         $sessId = $this->generateId($splash);
 
-        session_id( $sessId ); //Must be called before the sesion start to generate the Id
+        session_id($sessId); //Must be called before the sesion start to generate the Id
         session_cache_limiter('none');
 
         session_name(md5($self->cookie . $splash['agent'] . $splash['ip'] . $splash['domain']));
@@ -210,9 +216,10 @@ class Store {
      *
      * @return Authority
      */
-    final public function getAuthority() {
+    final public function getAuthority()
+    {
 
-        $self =  $this;
+        $self = $this;
         $auth = $self->get("handler", "auth");
 
         //$authority = \Platform\Authorize::getInstance();
@@ -233,14 +240,15 @@ class Store {
      *
      * @return boolean True or false depending on auth status
      */
-    final public function isAuthenticated() {
+    final public function isAuthenticated()
+    {
 
         $self = $this;
         $auth = $self->get("handler", "auth");
 
         if (is_a($auth, Authenticate::class)) {
             if (isset($auth->authenticated)) {
-                return (bool) $auth->authenticated;
+                return (bool)$auth->authenticated;
             }
         }
 
@@ -252,17 +260,19 @@ class Store {
      *
      * @return type
      */
-    final public function generateToken() {
+    final public function generateToken()
+    {
         $code = md5(uniqid(rand(), true));
         return substr($code, 0, 32);
     }
 
 
-    final public function getCSRFToken(){
+    final public function getCSRFToken()
+    {
 
         $csrftoken = $this->get("csrftoken");
 
-        if(empty($csrftoken)) {
+        if (empty($csrftoken)) {
 
             $splash = $this->getSplash();
 
@@ -280,8 +290,8 @@ class Store {
     }
 
 
-
-    final public function validateCSRFToken($token){
+    final public function validateCSRFToken($token)
+    {
 
         $splash = $this->getSplash();
 
@@ -292,7 +302,7 @@ class Store {
 
         $csrftoken = $this->generateId($splash);
 
-        if($token !== $csrftoken){
+        if ($token !== $csrftoken) {
             return false;
         }
 
@@ -305,7 +315,8 @@ class Store {
      * @param type $name
      * @return type
      */
-    final public function getNamespace($name = 'default') {
+    final public function getNamespace($name = 'default')
+    {
         //Returns the Registry object corresponding to the
         //namespace $name from $this->registry
 
@@ -318,7 +329,8 @@ class Store {
      * @param type $splash
      * @return type
      */
-    final public function generateId($splash) {
+    final public function generateId($splash)
+    {
 
         $encryptor = $this->encryptor;
         $input = $this->input;
@@ -333,7 +345,8 @@ class Store {
      * @param string $id
      * @return Boolean False on failed and session ID on success
      */
-    final public function read($id = Null) {
+    final public function read($id = Null)
+    {
 
         $self = $this;
 
@@ -346,7 +359,7 @@ class Store {
         //Do we have a cookie?
         $sessCookie = md5($self->cookie . $splash['agent'] . $splash['ip'] . $splash['domain']);
 
-        $sessId = $input->getCookie( $sessCookie );
+        $sessId = $input->getCookie($sessCookie);
 
         if (empty($sessId) || !$sessId) {
             //we will have to create a new session
@@ -355,7 +368,7 @@ class Store {
 
         $userIp = md5($input->serialize($input->getVar('REMOTE_ADDR', \IS\STRING, '', 'server')));
         $userAgent = md5($input->serialize($input->getVar('HTTP_USER_AGENT', \IS\STRING, '', 'server')));
-        $userDomain = md5($input->serialize((string) $uri->getHost()));
+        $userDomain = md5($input->serialize((string)$uri->getHost()));
 
         //Read the session
         //$_handler = ucfirst($self->store);
@@ -363,7 +376,7 @@ class Store {
         $object = $handler->read($splash, $self, $sessId);
 
         //If this is not an object then we have a problem
-        if(!is_object($object)) return false;
+        if (!is_object($object)) return false;
 
         //Redecorate
         $splash = array(
@@ -426,13 +439,14 @@ class Store {
      * @param type $userdata
      * @return type
      */
-    final public function update($sessId, $userdata = array()) {
+    final public function update($sessId, $userdata = array())
+    {
 
         if (empty($sessId)) {
             return false;
         }
 
-        $self =  $this;
+        $self = $this;
 
         //updates a started session for exp time
         //stores data for the registry
@@ -453,7 +467,7 @@ class Store {
         //Read the session
         $handler = $this->handler;
         //Must be called before the sesion start to generate the Id
-        session_id( $sessId );
+        session_id($sessId);
         //session_start();
 
         if (!$handler->update($update, $self, $self->id)) {
@@ -469,7 +483,8 @@ class Store {
      *
      * @return void
      */
-    final public function restart() {
+    final public function restart()
+    {
 
         $id = $this->getId();
 
@@ -484,7 +499,8 @@ class Store {
      * @param type $id
      * @param type $restart
      */
-    final public function destroy($id = "") {
+    final public function destroy($id = "")
+    {
 
         $id = !empty($id) ? $id : $this->getId();
         $now = time();
@@ -512,10 +528,11 @@ class Store {
      * @param type $sessId
      * @return type
      */
-    final public function write($sessId, $data = array()) {
+    final public function write($sessId, $data = array())
+    {
 
         //Writes user data to the db;
-        $self =  $this;
+        $self = $this;
 
         //expires
         $expires = time() + $self->life;
@@ -547,7 +564,8 @@ class Store {
      *
      * @param type $options
      */
-    final public function setOptions($options = array()) {
+    final public function setOptions($options = array())
+    {
         //sets session options
     }
 
@@ -558,7 +576,8 @@ class Store {
      *
      * @return void
      */
-    final public function maxTimeToExpire() {
+    final public function maxTimeToExpire()
+    {
         //Expires the session id in x time
         //If x is = zero, set expire time to 50 days from now (60*60*24*50*1);
     }
@@ -570,7 +589,8 @@ class Store {
      *
      * @return void;
      */
-    final public function maxRequestToExpire() {
+    final public function maxRequestToExpire()
+    {
         //Expires the session id in x Requests
         //if x is = zero, allow unlimited requests
     }
@@ -580,7 +600,8 @@ class Store {
      *
      * @return interger
      */
-    final public function getRequestCount() {
+    final public function getRequestCount()
+    {
         //Returns the total requests made in this session
     }
 
@@ -590,9 +611,10 @@ class Store {
      * @param type $forceDelete
      * @return void
      */
-    final private  function gc($forceDelete = '') {
+    final private function gc($forceDelete = '')
+    {
 
-        $self =  $this;
+        $self = $this;
 
         $handler = $this->handler;
 
@@ -627,7 +649,8 @@ class Store {
      * @param type $namespace
      * @return type
      */
-    final public function lock($namespace) {
+    final public function lock($namespace)
+    {
         //locks a namespace in this session to prevent editing
         if (empty($namespace)) {
             //@TODO throw an exception,
@@ -650,14 +673,15 @@ class Store {
      * @param type $namespace
      * @return type
      */
-    final public function isLocked($namespace) {
+    final public function isLocked($namespace)
+    {
 
         if (empty($namespace)) {
 
             return true; //just say its locked
         }
         //checks if a namespace in this session is locked
-        $session =  $this;
+        $session = $this;
         //unlocks a namespace
         if (isset($session->registry[$namespace])) {
             return $session->registry[$namespace]->isLocked();
@@ -676,14 +700,15 @@ class Store {
      * @param type $namespace
      * @return type
      */
-    final public function unlock($namespace) {
+    final public function unlock($namespace)
+    {
 
         if (empty($namespace)) {
             //@TODO throw an exception,
             //we don't know what namespace this is
             return false;
         }
-        $session =  $this;
+        $session = $this;
         //unlocks a namespace
         if (isset($session->registry[$namespace]) && $session->isLocked($namespace)) {
             $session->registry[$namespace]->unlock();
@@ -698,7 +723,8 @@ class Store {
      *
      * @return type
      */
-    final public function getId() {
+    final public function getId()
+    {
         $session = $this;
         return isset($session->id) ? $session->id : false;
     }
@@ -710,7 +736,8 @@ class Store {
      * @param type $namespace
      * @return type
      */
-    final public function get($varname, $namespace = 'default') {
+    final public function get($varname, $namespace = 'default')
+    {
         //gets a registry var, stored in a namespace of this session id
         $session = $this;
 
@@ -733,16 +760,16 @@ class Store {
      * @param type $namespace
      * @return Session
      */
-    final public function set($varname, $value = NULL, $namespace = 'default') {
+    final public function set($varname, $value = NULL, $namespace = 'default')
+    {
         //stores a value to a varname in a namespace of this session
-        $session =  $this;
+        $session = $this;
 
         if (!isset($namespace) || empty($namespace)) {
             //@TODO Throw an exception, we need a name or use the default;
             throw new Exception("Cannot set new Session variable to unknown '{$namespace}' namespace");
             return false;
         }
-
 
 
         //If we don't have a registry to that namespace;
@@ -770,11 +797,12 @@ class Store {
      * @param type $value
      * @param type $namespace
      */
-    final public function remove($varname = '', $namespace = 'default') {
+    final public function remove($varname = '', $namespace = 'default')
+    {
         //if the registry is empty and the namespace is not default
         //delete the registry;
         //stores a value to a varname in a namespace of this session
-        $session =  $this;
+        $session = $this;
 
 
         //echo $namespace;
@@ -795,7 +823,8 @@ class Store {
      *
      * @return void
      */
-    public function __destruct() {
+    public function __destruct()
+    {
 
         //You'd BREAK (a lot of) things if you change this!
         $this->update($this->getId());

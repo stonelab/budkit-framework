@@ -9,7 +9,8 @@
 namespace Budkit\Protocol;
 
 
-interface Request {
+interface Request
+{
 
     public function send(Request $request = null); //ability to send a request;
 

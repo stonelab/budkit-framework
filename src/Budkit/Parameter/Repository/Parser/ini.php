@@ -20,12 +20,13 @@ use Budkit\Validation\Validate;
  * @link       http://stonyhillshq/documents/index/carbon4/libraries/config
  * @since      Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM
  */
-final class Ini extends File implements Handler{
+final class Ini extends File implements Handler
+{
 
     /**
      * Config file params
-     * 
-     * @var type 
+     *
+     * @var type
      */
     public $namespace = array();
 
@@ -33,7 +34,8 @@ final class Ini extends File implements Handler{
     protected $searchPath = DIRECTORY_SEPARATOR;
 
 
-    public function __construct( $searchPath="" ){
+    public function __construct($searchPath = "")
+    {
 
         $this->searchPath = $searchPath;
 
@@ -41,11 +43,12 @@ final class Ini extends File implements Handler{
 
     /**
      * Parses an INI configuration file
-     * 
+     *
      * @param type $filename
-     * @return boolean 
+     * @return boolean
      */
-    public function readParams($filename) {
+    public function readParams($filename)
+    {
 
         //We will only parse the file if it has not already been parsed!;
         if (!array_key_exists($filename, $this->namespace)) {
@@ -58,9 +61,11 @@ final class Ini extends File implements Handler{
                     return $this->namespace[$filename];
                 }
             } else {
-               // throw new Exception( sprintf("The configuration file (%s) does not exists",$filename ) );
+                // throw new Exception( sprintf("The configuration file (%s) does not exists",$filename ) );
                 return [];
             }
+        } else {
+            return $this->namespace[$filename];
         }
     }
 
@@ -70,10 +75,11 @@ final class Ini extends File implements Handler{
      * @param type $file
      * @param type $sections
      */
-    public function saveParams( array $parameters , $environment = "") {
+    public function saveParams(array $parameters, $environment = "")
+    {
 
 
-        foreach ($parameters as $namespace => $section ) {
+        foreach ($parameters as $namespace => $section) {
 
             $_file = PATH_CONFIG . DS . strtolower($namespace) . ".ini";
             $_globals = "";
@@ -88,14 +94,14 @@ final class Ini extends File implements Handler{
 
             //Only save if the config file is not empty
 
-            if (!empty($_globals)){
-                    //check if we have a file;
-                    if (!$this->isFile($_file)) {
-                        if (!$this->create($_file)) {
-                            throw new \Exception("Could not create the configuration file {$_file}. Please check you have sufficient permission to do this");
-                            return false;
-                        }
+            if (!empty($_globals)) {
+                //check if we have a file;
+                if (!$this->isFile($_file)) {
+                    if (!$this->create($_file)) {
+                        throw new \Exception("Could not create the configuration file {$_file}. Please check you have sufficient permission to do this");
+                        return false;
                     }
+                }
 
                 //write to file
                 if (!$this->write($_file, $_globals)) {
@@ -114,35 +120,37 @@ final class Ini extends File implements Handler{
      * @param type $filename
      * @return type
      */
-    public function getParams($filename = "") {
+    public function getParams($filename = "")
+    {
 
         if (empty($filename)) {
             return $this->namespace;
         } elseif (!empty($filename) && isset($this->namespace[$filename])) {
             return $this->namespace[$filename];
-        }else{
+        } else {
             return array(); //if the params don't exists;
         }
     }
 
     /**
      * Converts a config array of elements to an ini string
-     * 
+     *
      * @param type $params
      * @param type $section
      * @return string
      */
-    public static function toIniString($params = array(), $section = NULL) {
-        
+    public static function toIniString($params = array(), $section = NULL)
+    {
+
         $_br = "\n";
         $_tab = NULL; //Use "\t" to indent;
-        $_globals = !empty($section)? "\n[" . $section . "]\n" : '';
+        $_globals = !empty($section) ? "\n[" . $section . "]\n" : '';
 
         foreach ($params as $param => $value) {
             if (!is_array($value)) {
                 $value = static::normalizeValue($value);
                 //BUG: Non alphanumeric value need to be stored in double quotes
-                $_globals .= $_tab . $param . ' = ' .( Validate::isAlphaNumeric($value) ? $value : '"'.$value.'"') . $_br;
+                $_globals .= $_tab . $param . ' = ' . (Validate::isAlphaNumeric($value) ? $value : '"' . $value . '"') . $_br;
             }
         }
         return $_globals;
@@ -156,12 +164,13 @@ final class Ini extends File implements Handler{
      *
      * @return string
      */
-    protected static function normalizeValue($value) {
+    protected static function normalizeValue($value)
+    {
         if (is_bool($value)) {
-            $value = (bool) $value;
+            $value = (bool)$value;
             return $value;
         } elseif (is_numeric($value)) {
-            return (int) $value;
+            return (int)$value;
         }
         return $value;
     }

@@ -13,7 +13,8 @@ use Budkit\Protocol\Request;
 use Budkit\Protocol\Server;
 
 
-class Route extends Definition {
+class Route extends Definition
+{
 
 
     /**
@@ -94,10 +95,11 @@ class Route extends Definition {
     protected $failed = null;
 
 
-    public function __construct($path, $name = null, array $parameters = []) {
+    public function __construct($path, $name = null, array $parameters = [])
+    {
 
-        $this->name   = $name;
-        $this->path   = $path;
+        $this->name = $name;
+        $this->path = $path;
         $this->params = $parameters;
 
         return $this;
@@ -110,7 +112,8 @@ class Route extends Definition {
      * @return bool
      *
      */
-    public function failedAccept() {
+    public function failedAccept()
+    {
         return $this->failed == self::FAILED_ACCEPT;
     }
 
@@ -121,16 +124,18 @@ class Route extends Definition {
      * @return bool
      *
      */
-    public function failedMethod() {
+    public function failedMethod()
+    {
         return $this->failed == self::FAILED_METHOD;
     }
 
-    public function setParam($key, $value, $replace = true) {
+    public function setParam($key, $value, $replace = true)
+    {
 
-        if (isset($this->params[ $key ]) && !$replace) {
+        if (isset($this->params[$key]) && !$replace) {
             return $this;
         }
-        $this->params[ $key ] = $value;
+        $this->params[$key] = $value;
 
         return $this;
     }
@@ -139,22 +144,23 @@ class Route extends Definition {
      *
      * Is the route a full match?
      *
-     * @param string $path   The path to check against this route
+     * @param string $path The path to check against this route
      *
-     * @param array  $server A copy of $_SERVER so that this Route can check
+     * @param array $server A copy of $_SERVER so that this Route can check
      *                       against the server values.
      *
      * @return bool
      *
      */
-    protected function isMatch($path, Server $server) {
+    protected function isMatch($path, Server $server)
+    {
         return $this->isRoutableMatch()
-               && $this->isSecureMatch($server)
-               && $this->isRegexMatch($path)
-               && $this->isMethodMatch($server)
-               && $this->isAcceptMatch($server)
-               && $this->isServerMatch($server)
-               && $this->isCustomMatch($server);
+        && $this->isSecureMatch($server)
+        && $this->isRegexMatch($path)
+        && $this->isMethodMatch($server)
+        && $this->isAcceptMatch($server)
+        && $this->isServerMatch($server)
+        && $this->isCustomMatch($server);
     }
 
     /**
@@ -164,7 +170,8 @@ class Route extends Definition {
      * @return bool
      *
      */
-    protected function isRoutableMatch() {
+    protected function isRoutableMatch()
+    {
         if ($this->routable) {
             return $this->pass();
         }
@@ -179,7 +186,8 @@ class Route extends Definition {
      * @return bool
      *
      */
-    protected function pass() {
+    protected function pass()
+    {
         $this->score++;
 
         return true;
@@ -196,9 +204,10 @@ class Route extends Definition {
      * @return bool
      *
      */
-    protected function fail($failed, $append = null) {
+    protected function fail($failed, $append = null)
+    {
         $this->debug[] = $failed . $append;
-        $this->failed  = $failed;
+        $this->failed = $failed;
 
         return false;
     }
@@ -212,9 +221,10 @@ class Route extends Definition {
      * @param Request $request
      * @return bool
      */
-    public function isRequestMatch(Request $request){
+    public function isRequestMatch(Request $request)
+    {
 
-        if($this->isMatch($request->getPathInfo(), $request->getServer())){
+        if ($this->isMatch($request->getPathInfo(), $request->getServer())) {
             return true;
         }
 
@@ -227,7 +237,8 @@ class Route extends Definition {
      *
      * @return string
      */
-    public function getPath(){
+    public function getPath()
+    {
 
         return $this->path;
     }
@@ -238,7 +249,8 @@ class Route extends Definition {
      *
      * @return string
      */
-    public function getName(){
+    public function getName()
+    {
 
         return $this->name;
 
@@ -254,7 +266,8 @@ class Route extends Definition {
      * @return bool True on a match, false if not.
      *
      */
-    protected function isSecureMatch($server) {
+    protected function isSecureMatch($server)
+    {
         if ($this->secure === null) {
             return $this->pass();
         }
@@ -275,9 +288,10 @@ class Route extends Definition {
      * @return bool
      *
      */
-    protected function serverIsSecure($server) {
+    protected function serverIsSecure($server)
+    {
         return (isset($server['HTTPS']) && $server['HTTPS'] == 'on')
-               || (isset($server['SERVER_PORT']) && $server['SERVER_PORT'] == 443);
+        || (isset($server['SERVER_PORT']) && $server['SERVER_PORT'] == 443);
     }
 
     /**
@@ -289,7 +303,8 @@ class Route extends Definition {
      * @return bool True on a match, false if not.
      *
      */
-    protected function isRegexMatch($path) {
+    protected function isRegexMatch($path)
+    {
         $regex = new Regex;
 
         $match = $regex->match($this, $path);
@@ -313,13 +328,14 @@ class Route extends Definition {
      * @return bool
      *
      */
-    protected function isMethodMatch($server) {
+    protected function isMethodMatch($server)
+    {
         if (!$this->method) {
             return $this->pass();
         }
 
         $pass = isset($server['REQUEST_METHOD'])
-                && in_array($server['REQUEST_METHOD'], $this->method);
+            && in_array($server['REQUEST_METHOD'], $this->method);
 
         return $pass
             ? $this->pass()
@@ -335,7 +351,8 @@ class Route extends Definition {
      * @return bool
      *
      */
-    protected function isAcceptMatch($server) {
+    protected function isAcceptMatch($server)
+    {
         if (!$this->accept || !isset($server['HTTP_ACCEPT'])) {
             return $this->pass();
         }
@@ -366,12 +383,13 @@ class Route extends Definition {
      * @return bool
      *
      */
-    protected function isAcceptMatchHeader($type, $header) {
+    protected function isAcceptMatchHeader($type, $header)
+    {
         list($type, $subtype) = explode('/', $type);
-        $type    = preg_quote($type);
+        $type = preg_quote($type);
         $subtype = preg_quote($subtype);
-        $regex   = "#$type/($subtype|\*)(;q=(\d\.\d))?#";
-        $found   = preg_match($regex, $header, $matches);
+        $regex = "#$type/($subtype|\*)(;q=(\d\.\d))?#";
+        $found = preg_match($regex, $header, $matches);
         if (!$found) {
             return false;
         }
@@ -388,13 +406,14 @@ class Route extends Definition {
      * @return bool True if they all match, false if not.
      *
      */
-    protected function isServerMatch($server) {
+    protected function isServerMatch($server)
+    {
         foreach ($this->server as $name => $regex) {
             $matches = $this->isServerMatchRegex($server, $name, $regex);
             if (!$matches) {
                 return $this->fail(self::FAILED_SERVER, " ($name)");
             }
-            $this->matches[ $name ] = $matches[ $name ];
+            $this->matches[$name] = $matches[$name];
         }
 
         return $this->pass();
@@ -404,18 +423,19 @@ class Route extends Definition {
      *
      * Does a server key match a regex?
      *
-     * @param array  $server The server values.
+     * @param array $server The server values.
      *
-     * @param string $name   The server key.
+     * @param string $name The server key.
      *
-     * @param string $regex  The regex to match against.
+     * @param string $regex The regex to match against.
      *
      * @return array
      *
      */
-    protected function isServerMatchRegex($server, $name, $regex) {
-        $value = isset($server[ $name ])
-            ? $server[ $name ]
+    protected function isServerMatchRegex($server, $name, $regex)
+    {
+        $value = isset($server[$name])
+            ? $server[$name]
             : '';
         $regex = "#(?P<{$name}>{$regex})#";
         preg_match($regex, $value, $matches);
@@ -433,7 +453,8 @@ class Route extends Definition {
      * @return bool True on a match, false if not.
      *
      */
-    protected function isCustomMatch($server) {
+    protected function isCustomMatch($server)
+    {
         if (!$this->isMatch) {
             return $this->pass();
         }
@@ -456,7 +477,8 @@ class Route extends Definition {
      * @return null
      *
      */
-    protected function setParams() {
+    protected function setParams()
+    {
         $this->params = $this->values;
         $this->setParamsWithMatches();
         $this->setParamsWithWildcard();
@@ -470,13 +492,14 @@ class Route extends Definition {
      * @return null
      *
      */
-    protected function setParamsWithMatches() {
+    protected function setParamsWithMatches()
+    {
         // populate the path matches into the route values. if the path match
         // is exactly an empty string, treat it as missing/unset. (this is
         // to support optional ".format" param values.)
         foreach ($this->matches as $key => $val) {
             if (is_string($key) && $val !== '') {
-                $this->params[ $key ] = rawurldecode($val);
+                $this->params[$key] = rawurldecode($val);
             }
         }
     }
@@ -488,20 +511,21 @@ class Route extends Definition {
      * @return null
      *
      */
-    protected function setParamsWithWildcard() {
+    protected function setParamsWithWildcard()
+    {
         if (!$this->wildcard) {
             return;
         }
 
-        if (empty($this->params[ $this->wildcard ])) {
-            $this->params[ $this->wildcard ] = [];
+        if (empty($this->params[$this->wildcard])) {
+            $this->params[$this->wildcard] = [];
 
             return;
         }
 
-        $this->params[ $this->wildcard ] = array_map(
+        $this->params[$this->wildcard] = array_map(
             'rawurldecode',
-            explode('/', $this->params[ $this->wildcard ])
+            explode('/', $this->params[$this->wildcard])
         );
     }
 } 

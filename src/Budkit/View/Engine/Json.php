@@ -4,16 +4,19 @@ namespace Budkit\View\Engine;
 
 use Budkit\View\Format;
 
-class Json implements Format{
+class Json implements Format
+{
 
     protected $data;
 
-    public function __construct() {
+    public function __construct()
+    {
 
 
     }
 
-    public function compile($viewpath, array $data = []) {
+    public function compile($viewpath, array $data = [])
+    {
 
         echo "copiling json";
         //only data that would otherwise be displayed template file will be passed as json output;
@@ -22,12 +25,14 @@ class Json implements Format{
     }
 
 
-    public function  addLayoutSearchPaths(array $searchPaths = []){
+    public function  addLayoutSearchPaths(array $searchPaths = [])
+    {
 
     }
 
 
-    public function addLayoutData( array $layoutData ){
+    public function addLayoutData(array $layoutData)
+    {
 
 
     }

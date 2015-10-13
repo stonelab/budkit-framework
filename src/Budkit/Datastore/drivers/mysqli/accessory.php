@@ -3,7 +3,7 @@
 
 namespace Budkit\Datastore\Drivers\MySQLi;
 
-use Budkit\Datastore\ActiveRecord;
+use Budkit\Datastore\Activerecord;
 
 
 /**
@@ -19,16 +19,39 @@ use Budkit\Datastore\ActiveRecord;
  * @link       http://stonyhillshq/documents/index/carbon4/libraries/database/drivers/mysql/accessory
  * @since      Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM
  */
-class Accessory extends ActiveRecord {
+class Accessory extends Activerecord
+{
 
     /**
      * Construst the Accessory Class
-     * 
+     *
      * @return void
      */
-    public function __construct(Driver $dbo) {
+    public function __construct(Driver $dbo)
+    {
         //Set the DBO Object
         $this->DBO = $dbo;
+    }
+
+    /**
+     * Returns an instance of the acessory class
+     *
+     * @staticvar self $instance
+     * @param type $options
+     * @return self
+     */
+    public static function getInstance($options = array())
+    {
+
+        static $instance;
+
+        //If the class was already instantiated, just return it
+        if (isset($instance))
+            return $instance;
+
+        $instance = new self();
+
+        return $instance;
     }
 
     /**
@@ -36,7 +59,8 @@ class Accessory extends ActiveRecord {
      * @param <type> $table
      * @param <type> $set
      */
-    final public function insert($table='', $set=NULL, $updateIfExists = FALSE , $updateUnique=NULL, $autocexecute = TRUE ) {
+    final public function insert($table = '', $set = NULL, $updateIfExists = FALSE, $updateUnique = NULL, $autocexecute = TRUE)
+    {
 
         if (!is_null($set)) {
             //print_R($set);
@@ -45,7 +69,7 @@ class Accessory extends ActiveRecord {
 
         if (count($this->arraySet) == 0) {
             $this->setError(_t("There are no values to insert into the database"));
-            if ((bool) $this->_debug) {
+            if ((bool)$this->_debug) {
                 return FALSE; //display error
             }
             return FALSE;
@@ -54,7 +78,7 @@ class Accessory extends ActiveRecord {
         if ($table == '') {
             if (!isset($this->arrayFrom[0])) {
                 $this->setError(_t("No table to insert data to defined"));
-                if ((bool) $this->_debug) {
+                if ((bool)$this->_debug) {
                     return FALSE; //display error
                 }
                 return FALSE;
@@ -65,19 +89,19 @@ class Accessory extends ActiveRecord {
         $table = $this->DBO->identifiers($table, TRUE, NULL, FALSE);
         $keys = array_keys($this->arraySet);
         $values = array_values($this->arraySet);
-        $keyword = ($updateIfExists) ? "REPLACE":"INSERT";
+        $keyword = ($updateIfExists) ? "REPLACE" : "INSERT";
         $shortgunsql = $this->query = "{$keyword} INTO " . $table . " (" . implode(', ', $keys) . ") VALUES (" . implode(', ', $values) . ")";
 
 
         $this->DBO->resetRun();
 
         //@TODO somepeople might want to know what the inserted ID is?
-        if(!$autocexecute){
+        if (!$autocexecute) {
             return $shortgunsql;
         }
-        
+
         return $this->DBO->exec($shortgunsql); //this returns a cursor. will need to check for errors and other stuff
-        
+
     }
 
     /**
@@ -85,9 +109,10 @@ class Accessory extends ActiveRecord {
      * @param <type> $table
      * @param <type> $where
      * @param <type> $limit
-     * @param <type> $resetData 
+     * @param <type> $resetData
      */
-    final public function delete($table = '', $where = '', $limit = NULL, $resetData = TRUE) {
+    final public function delete($table = '', $where = '', $limit = NULL, $resetData = TRUE)
+    {
 
 
         if ($table == '') {
@@ -155,7 +180,8 @@ class Accessory extends ActiveRecord {
      * @param <type> $where
      * @param <type> $limit
      */
-    final public function update($table = '', $set = NULL, $where = NULL, $limit = NULL) {
+    final public function update($table = '', $set = NULL, $where = NULL, $limit = NULL)
+    {
 
         if (!is_null($set)) {
             $this->setValues($set);
@@ -207,26 +233,6 @@ class Accessory extends ActiveRecord {
         $this->DBO->resetRun();
 
         return $this->DBO->exec($shortgunsql);
-    }
-
-    /**
-     * Returns an instance of the acessory class
-     * 
-     * @staticvar self $instance
-     * @param type $options
-     * @return self 
-     */
-    public static function getInstance($options = array()) {
-
-        static $instance;
-
-        //If the class was already instantiated, just return it
-        if (isset($instance))
-            return $instance;
-
-        $instance = new self();
-
-        return $instance;
     }
 
 }

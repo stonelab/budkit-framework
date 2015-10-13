@@ -2,7 +2,8 @@
 
 namespace Budkit\View\Layout;
 
-interface Parser {
+interface Parser
+{
 
     public function execute($content, $data = []);
 
