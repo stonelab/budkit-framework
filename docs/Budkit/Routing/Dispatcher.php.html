@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dispatcher</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    
+    <link href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/assets/kube.css" type="text/css" rel="stylesheet"/>
+    <link href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/assets/highlight/styles/railscasts.css" rel="stylesheet">
+    <link href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/assets/styles.css" type="text/css" rel="stylesheet"/>
+        <script src="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/assets/highlight/highlight.pack.js"></script>
+
+    
+
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div class="sidebar column">
+    <ol class='tree'><li><label for="Budkit">Budkit</label><input type="checkbox"checked="checked"id="Budkit"><ol class='tree'><li><label for="Application">Application</label><input type="checkbox"id="Application"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Instance.php.html">Instance.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Provider.php.html">Provider.php</a></li><li><label for="Support">Support</label><input type="checkbox"id="Support"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Application.php.html">Application.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Mock.php.html">Mock.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Mockable.php.html">Mockable.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Mockery.php.html">Mockery.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Providers.php.html">Providers.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Service.php.html">Service.php</a></li></ol></li><li><label for="Utilities">Utilities</label><input type="checkbox"id="Utilities"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Utilities/bootstrap.php.html">bootstrap.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Utilities/constants.php.html">constants.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Utilities/functions.php.html">functions.php</a></li></ol></li></ol></li><li><label for="Authentication">Authentication</label><input type="checkbox"id="Authentication"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/Authenticate.php.html">Authenticate.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/Handler.php.html">Handler.php</a></li><li><label for="Type">Type</label><input type="checkbox"id="Type"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/Type/dbauth.php.html">dbauth.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/Type/ldap.php.html">ldap.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/Type/openID.php.html">openID.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/User.php.html">User.php</a></li></ol></li><li><label for="Datastore">Datastore</label><input type="checkbox"id="Datastore"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Activerecord.php.html">Activerecord.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Database.php.html">Database.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Driver.php.html">Driver.php</a></li><li><label for="Drivers">Drivers</label><input type="checkbox"id="Drivers"><ol class='tree'><li><label for="MySQLi">MySQLi</label><input type="checkbox"id="MySQLi"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Drivers/MySQLi/Accessory.php.html">Accessory.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Drivers/MySQLi/Driver.php.html">Driver.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Drivers/MySQLi/Statement.php.html">Statement.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Drivers/MySQLi/Table.php.html">Table.php</a></li></ol></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Encrypt.php.html">Encrypt.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Engine.php.html">Engine.php</a></li><li><label for="Exception">Exception</label><input type="checkbox"id="Exception"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Exception/ConnectionError.php.html">ConnectionError.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Exception/InternalError.php.html">InternalError.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Exception/QuerryException.php.html">QuerryException.php</a></li></ol></li><li><label for="Model">Model</label><input type="checkbox"id="Model"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/DataModel.php.html">DataModel.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/Entity.php.html">Entity.php</a></li><li><label for="Graph">Graph</label><input type="checkbox"id="Graph"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/Graph/Edge.php.html">Edge.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/Graph/Node.php.html">Node.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/Graph.php.html">Graph.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Pagination.php.html">Pagination.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Results.php.html">Results.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Statement.php.html">Statement.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Table.php.html">Table.php</a></li></ol></li><li><label for="Debug">Debug</label><input type="checkbox"id="Debug"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Debug/Log.php.html">Log.php</a></li><li><label for="Repository">Repository</label><input type="checkbox"id="Repository"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Debug/Repository/debugger.php.html">debugger.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Debug/Repository/log.php.html">log.php</a></li></ol></li></ol></li><li><label for="Dependency">Dependency</label><input type="checkbox"id="Dependency"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Dependency/Container.php.html">Container.php</a></li></ol></li><li><label for="Event">Event</label><input type="checkbox"id="Event"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Event/Event.php.html">Event.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Event/Listener.php.html">Listener.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Event/Observer.php.html">Observer.php</a></li></ol></li><li><label for="Filesystem">Filesystem</label><input type="checkbox"id="Filesystem"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Filesystem/Directory.php.html">Directory.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Filesystem/File.php.html">File.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Filesystem/Packer.php.html">Packer.php</a></li></ol></li><li><label for="Helper">Helper</label><input type="checkbox"id="Helper"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Helper/Date.php.html">Date.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Helper/Object.php.html">Object.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Helper/Time.php.html">Time.php</a></li></ol></li><li><label for="Parameter">Parameter</label><input type="checkbox"id="Parameter"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Factory.php.html">Factory.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Loader.php.html">Loader.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Manager.php.html">Manager.php</a></li><li><label for="Repository">Repository</label><input type="checkbox"id="Repository"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/Database.php.html">Database.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/File.php.html">File.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/Handler.php.html">Handler.php</a></li><li><label for="Parser">Parser</label><input type="checkbox"id="Parser"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/Parser/database.php.html">database.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/Parser/ini.php.html">ini.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/Parser/xml.php.html">xml.php</a></li></ol></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Utility.php.html">Utility.php</a></li></ol></li><li><label for="Protocol">Protocol</label><input type="checkbox"id="Protocol"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Content.php.html">Content.php</a></li><li><label for="Http">Http</label><input type="checkbox"id="Http"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Http/Codes.php.html">Codes.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Http/Headers.php.html">Headers.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Http/Request.php.html">Request.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Http/Response.php.html">Response.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Http/Server.php.html">Server.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Input.php.html">Input.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Request.php.html">Request.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Response.php.html">Response.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Server.php.html">Server.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Uri.php.html">Uri.php</a></li></ol></li><li><label for="Routing">Routing</label><input type="checkbox"checked="checked"id="Routing"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Collection.php.html">Collection.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Controller.php.html">Controller.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Definition.php.html">Definition.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Dispatcher.php.html">Dispatcher.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Factory.php.html">Factory.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Regex.php.html">Regex.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Route.php.html">Route.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Router.php.html">Router.php</a></li></ol></li><li><label for="Session">Session</label><input type="checkbox"id="Session"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Session/Handler.php.html">Handler.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Session/Registry.php.html">Registry.php</a></li><li><label for="repository">repository</label><input type="checkbox"id="repository"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Session/repository/database.php.html">database.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Session/repository/file.php.html">file.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Session/Store.php.html">Store.php</a></li></ol></li><li><label for="Utility">Utility</label><input type="checkbox"id="Utility"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Utility/Loader.php.html">Loader.php</a></li></ol></li><li><label for="Validation">Validation</label><input type="checkbox"id="Validation"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Validation/Sanitize.php.html">Sanitize.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Validation/Validate.php.html">Validate.php</a></li></ol></li><li><label for="View">View</label><input type="checkbox"id="View"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Display.php.html">Display.php</a></li><li><label for="Engine">Engine</label><input type="checkbox"id="Engine"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Engine/Html.php.html">Html.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Engine/Json.php.html">Json.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Engine.php.html">Engine.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Format.php.html">Format.php</a></li><li><label for="Layout">Layout</label><input type="checkbox"id="Layout"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Compiler.php.html">Compiler.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Loader.php.html">Loader.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Parser.php.html">Parser.php</a></li><li><label for="Tpl">Tpl</label><input type="checkbox"id="Tpl"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Attributes.php.html">Attributes.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Block.php.html">Block.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Condition.php.html">Condition.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Data.php.html">Data.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Datetime.php.html">Datetime.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Href.php.html">Href.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Import.php.html">Import.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Input.php.html">Input.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Layout.php.html">Layout.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Link.php.html">Link.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Loop.php.html">Loop.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Menu.php.html">Menu.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Select.php.html">Select.php</a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+<div class="content">
+    <div class="background">
+        <div class="codeblock"></div>
+    </div>
+        
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                                            <div class="doc">
+
+                                                                    <div class="req">Budkit\Routing</div>
+                                
+                                
+                                                                                                                                                        <p><p>Created by PhpStorm.
+User: livingstonefultang
+Date: 04/07/2014
+Time: 20:05</p></p>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="<br />
+<b>Notice</b>:  Undefined index: id in <b>/opt/local/apache2/htdocs/budkit/vendor/budkit/docs/src/Layout.php</b> on line <b>58</b><br />
+">
+
+                                        
+                                                                                                                                    <span
+                                                    class="label label-primary" >class</span>
+                                                                                    
+                                        Dispatcher
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                        
+                                                                                            <span class="label label-default" outline>Implements</span>
+                                                <a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Event/Listener.php.html"><span
+                                                        class="small">Budkit\Event\Listener</span></a>
+                                                <br/>
+                                            
+
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+                                    <dl>
+                                        <dt>Methods</dt>
+                                        <dd>
+                                                                                        <row>
+                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:definition">definition() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getObserver">getObserver() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:parseRoute">parseRoute() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:dispatch">dispatch() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:abort">abort() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:redirect">redirect() </a>
+                                                </column>
+                                                                                                                                            </row>
+                                        </dd>
+
+                                    </dl>
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                            </div>
+                </div>
+                
+
+        
+                                        
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:__construct">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        __construct
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Constructs the Dispatcher class
+and attaches itself to the observer;</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>Observer $observer</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Author</dt>
+                                                                                                    <dd><p>Livingstone Fultang</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function __construct(Observer $observer, Router $router, Container $application)
+    {
+
+        $this-&gt;observer = $observer;
+        $this-&gt;router = $router;
+        $this-&gt;application = $application;
+
+        $this-&gt;observer-&gt;attach($this);
+
+        //var_dump($this-&gt;observer-&gt;getListeners(&#039;Dispatcher.beforeDispatch&#039;)  );
+
+        //@TODO load additional listeners from config
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:definition">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        definition
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function definition()
+    {
+
+        return [&#039;Dispatcher.beforeDispatch&#039; =&gt; &#039;parseRoute&#039;];
+
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getObserver">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getObserver
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function getObserver()
+    {
+        return $this-&gt;observer;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:parseRoute">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        parseRoute
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Recieves the beforeDispatchEvent,
+Routes the applicaition and gets all route params
+Stores Route params in the beforeDispatch Event results</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>string $beforeDispatch Event</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>void</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Author</dt>
+                                                                                                    <dd><p>Livingstone Fultang</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function parseRoute($beforeDispatch)
+    {
+
+        //echo &#039;1. Check the request; &lt;br/&gt;2. $response =  $this-&gt;sync(); //to get a synchronous response; &lt;br/&gt;3. $response-&gt;send();&lt;br /&gt;&#039;;
+
+        //var_dump($this-&gt;router);
+        //var_dump($beforeDispatch-&gt;get(&#039;data&#039;));
+        $request = $beforeDispatch-&gt;getData(&#039;request&#039;);
+        $route = $this-&gt;router-&gt;matchToRoute($request);
+
+        if (!($route instanceof Route)) {
+            throw new Exception(&quot;A valid route could not be determined&quot;);
+        }
+        $format = &quot;html&quot;;
+        //clean up format
+        if (isset($route-&gt;params[&#039;format&#039;])) {
+            $format = str_replace([&quot;.&quot;, &quot; &quot;, &quot;_&quot;, &quot;-&quot;], &quot;&quot;, $route-&gt;params[&#039;format&#039;]);
+
+        }
+        $route-&gt;setParam(&quot;format&quot;, $format);
+
+        $request-&gt;setAttributes($route-&gt;params);
+
+        //Store the route in the event data
+        $beforeDispatch-&gt;data[&#039;route&#039;] = $route;
+
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:dispatch">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        dispatch
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function dispatch(Request $request, Response $response = null, $params = [])
+    {
+
+        //create an event;
+        $beforeDispatch = new Event\Event(&#039;Dispatcher.beforeDispatch&#039;, $this, compact(&#039;request&#039;, &#039;response&#039;, &#039;params&#039;));
+        $this-&gt;observer-&gt;trigger($beforeDispatch);
+
+
+        //For microframework routes that use lambdas, just return a response object;
+        if ($beforeDispatch-&gt;getResult() instanceof Response) {
+            $beforeDispatch-&gt;getResult()-&gt;send();
+
+            return;
+        }
+
+        //create an event;
+        $afterRouteMatch = new Event\Event(&#039;Dispatcher.afterRouteMatch&#039;, $this, compact(&#039;request&#039;, &#039;response&#039;));
+        $this-&gt;observer-&gt;trigger($afterRouteMatch);
+
+
+        $controller = $this-&gt;resolveController($request);
+
+
+        if (!$controller || !is_callable($controller)) {
+            throw new Exception(&quot;Controller is not callable&quot;);
+        }
+
+
+        //print_r($request);
+
+        $params = $request-&gt;getAttributes();
+        $params = $params-&gt;getAllParameters(); //from parameter factory;
+
+        unset($params[&#039;action&#039;]); //remove the action;
+
+        //Can we get the route?
+        //$route  = $beforeDispatch-&gt;getData(&#039;route&#039;);
+
+        //Are there any left over alerts?
+
+        //If we are using lambdas;
+        if ($controller instanceof Closure) {
+            $response = call_user_func_array($controller, [$response, $params]);
+        } else {
+            list($class, $method) = $controller;
+            $response = $this-&gt;invoke($class, $method, $params);
+
+            //print_R($response-&gt;getDataArray() );  die;
+        }
+
+        // if (isset($request-&gt;params[&#039;return&#039;])) {
+        // 	return $response-&gt;body();
+        // }
+
+        //create an event;
+        $afterDispatch = new Event\Event(&#039;Dispatcher.afterDispatch&#039;, $this, compact(&#039;request&#039;, &#039;response&#039;));
+        $this-&gt;observer-&gt;trigger($afterDispatch);
+
+        if (isset($afterDispatch-&gt;data[&#039;response&#039;])) {
+            $afterDispatch-&gt;data[&#039;response&#039;]-&gt;send();
+        }
+
+
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:resolveController">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-black" >protected</span>
+                                                                                    
+                                        resolveController
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">protected function resolveController(Request $request)
+    {
+
+        $controller = false;
+        $attributes = $request-&gt;getAttributes();
+
+
+        //print_r($attributes);
+
+        if (!empty($attributes[&#039;action&#039;])) {
+            //Note that this will be true if action is a valid controller or lambda;
+            $controller = $attributes[&#039;action&#039;];
+
+
+            if (is_callable($controller)) {
+                //If the controller is not a function;
+                if (!($controller instanceof Closure)) {
+                    return $this-&gt;getController($controller);
+                }
+            }
+
+
+            //If its not callable and is string;
+            if (is_string($attributes[&#039;action&#039;])) {
+
+
+                if (isset($attributes[&#039;controller&#039;])) {
+
+
+                    //for when /{controller}/{action}{/param1,param2,param3} is used
+                    $class = $this-&gt;sanitize($attributes[&#039;controller&#039;]);
+                    $method = $this-&gt;sanitize($attributes[&#039;action&#039;]);
+
+
+                } else {
+                    //for when no action is give, uses route name
+                    //if route is in group then most likely it has a name like Prefix.name
+                    $action = explode(&quot;.&quot;, $attributes[&#039;action&#039;]);
+
+
+                    $class = $this-&gt;sanitize(ucfirst($action[0]));//controller;
+                    $method = $this-&gt;sanitize(isset($action[1]) ? $action[1] : &quot;index&quot;);  //method;
+
+                }
+                //Does the action exists in the actionController?
+                if (!method_exists($class, $method)) {
+                    throw new Exception(&quot;Method &#039;{$method}&#039; does not exists in Controller &#039;{$class}&#039;&quot;);
+
+                    return false;
+                }
+
+
+                $controller = [$this-&gt;getController($class), $method];
+
+
+                if (is_callable($controller)) {
+                    return $controller;
+                }
+            }
+        }
+
+        return $controller;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getController">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-black" >protected</span>
+                                                                                    
+                                        getController
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">protected function getController($class)
+    {
+
+
+        if (isset($this-&gt;application[$class])) {
+            return $this-&gt;application[$class];
+        }
+
+        //Otherwise return an instance of Controller;
+        return $this-&gt;application-&gt;shareInstance($this-&gt;application-&gt;createInstance($class), $class);
+
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:sanitize">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-black" >protected</span>
+                                                                                    
+                                        sanitize
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">protected function sanitize($string, $notallowed = [&quot;.&quot;, &quot; &quot;, &quot;_&quot;, &quot;-&quot;])
+    {
+        return str_replace($notallowed, &quot;&quot;, $string);
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:invoke">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-black" >protected</span>
+                                                                                    
+                                        invoke
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">protected function invoke(Controller $controller, $method = &quot;index&quot;, $params = [])
+    {
+
+        $controller-&gt;initialize();
+
+        //Reset old alerts
+        $oldAlerts = $this-&gt;application-&gt;session-&gt;get(&quot;alerts&quot;);
+        if (!empty($oldAlerts)) {
+            $controller-&gt;resetStoredResponseVars([&quot;alerts&quot; =&gt; $oldAlerts]);
+            $this-&gt;application-&gt;session-&gt;remove(&quot;alerts&quot;);
+        }
+
+
+        $response = $controller-&gt;getResponse();
+        $render = true;
+
+        $result = $controller-&gt;invokeAction($method, $params);
+
+        if ($result instanceof Response) {
+            $render = false;
+            $response = $result;
+        }
+
+        if ($render &amp;&amp; $controller-&gt;autoRender) {
+            $response = $controller-&gt;render();
+        } elseif (!($result instanceof Response) &amp;&amp; $response-&gt;getContent() === null) {
+            $response-&gt;addContent($result);
+        }
+
+        $controller-&gt;shutdown();
+
+        return $response;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:abort">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-" outline>final</span>
+                                                                                            <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        abort
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Aborts the execution of the script</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>void</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    final public function abort()
+    {
+        exit();
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:redirect">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        redirect
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Executes post dispatch redirect</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $url</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function redirect($url, $code = HTTP_FOUND, $message = &quot;Moved Permanently&quot;, $alerts = [])
+    {
+
+        $response = $this-&gt;application-&gt;response;
+        $uri = $this-&gt;application-&gt;createInstance(Uri::class, [$this-&gt;application-&gt;request]);
+
+        //Before we redirect, if there are any alerts in the response,
+        //Exceptional: Store alerts for future display
+        if (!empty($alerts)) {
+            $session = $this-&gt;application-&gt;session;
+
+            //$session-&gt;unlock(&quot;default&quot;); //unlock the default namespace
+            $session-&gt;set(&quot;alerts&quot;, $alerts, &quot;default&quot;);
+            //$session-&gt;update( $session-&gt;getId() );
+        }
+
+        $response-&gt;setStatusCode($code);
+        $response-&gt;setStatusMessage($message);
+        $response-&gt;addHeader(&quot;Location&quot;, $uri-&gt;internalize($url));
+
+        $response-&gt;sendRedirect();
+
+        $this-&gt;abort();
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            </div>
+</body>
+</html>

@@ -1,0 +1,3315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Request</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    
+    <link href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/assets/kube.css" type="text/css" rel="stylesheet"/>
+    <link href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/assets/highlight/styles/railscasts.css" rel="stylesheet">
+    <link href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/assets/styles.css" type="text/css" rel="stylesheet"/>
+        <script src="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/assets/highlight/highlight.pack.js"></script>
+
+    
+
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div class="sidebar column">
+    <ol class='tree'><li><label for="Budkit">Budkit</label><input type="checkbox"checked="checked"id="Budkit"><ol class='tree'><li><label for="Application">Application</label><input type="checkbox"id="Application"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Instance.php.html">Instance.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Provider.php.html">Provider.php</a></li><li><label for="Support">Support</label><input type="checkbox"id="Support"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Application.php.html">Application.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Mock.php.html">Mock.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Mockable.php.html">Mockable.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Mockery.php.html">Mockery.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Providers.php.html">Providers.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Service.php.html">Service.php</a></li></ol></li><li><label for="Utilities">Utilities</label><input type="checkbox"id="Utilities"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Utilities/bootstrap.php.html">bootstrap.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Utilities/constants.php.html">constants.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Utilities/functions.php.html">functions.php</a></li></ol></li></ol></li><li><label for="Authentication">Authentication</label><input type="checkbox"id="Authentication"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/Authenticate.php.html">Authenticate.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/Handler.php.html">Handler.php</a></li><li><label for="Type">Type</label><input type="checkbox"id="Type"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/Type/dbauth.php.html">dbauth.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/Type/ldap.php.html">ldap.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/Type/openID.php.html">openID.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/User.php.html">User.php</a></li></ol></li><li><label for="Datastore">Datastore</label><input type="checkbox"id="Datastore"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Activerecord.php.html">Activerecord.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Database.php.html">Database.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Driver.php.html">Driver.php</a></li><li><label for="Drivers">Drivers</label><input type="checkbox"id="Drivers"><ol class='tree'><li><label for="MySQLi">MySQLi</label><input type="checkbox"id="MySQLi"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Drivers/MySQLi/Accessory.php.html">Accessory.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Drivers/MySQLi/Driver.php.html">Driver.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Drivers/MySQLi/Statement.php.html">Statement.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Drivers/MySQLi/Table.php.html">Table.php</a></li></ol></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Encrypt.php.html">Encrypt.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Engine.php.html">Engine.php</a></li><li><label for="Exception">Exception</label><input type="checkbox"id="Exception"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Exception/ConnectionError.php.html">ConnectionError.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Exception/InternalError.php.html">InternalError.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Exception/QuerryException.php.html">QuerryException.php</a></li></ol></li><li><label for="Model">Model</label><input type="checkbox"id="Model"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/DataModel.php.html">DataModel.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/Entity.php.html">Entity.php</a></li><li><label for="Graph">Graph</label><input type="checkbox"id="Graph"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/Graph/Edge.php.html">Edge.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/Graph/Node.php.html">Node.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/Graph.php.html">Graph.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Pagination.php.html">Pagination.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Results.php.html">Results.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Statement.php.html">Statement.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Table.php.html">Table.php</a></li></ol></li><li><label for="Debug">Debug</label><input type="checkbox"id="Debug"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Debug/Log.php.html">Log.php</a></li><li><label for="Repository">Repository</label><input type="checkbox"id="Repository"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Debug/Repository/debugger.php.html">debugger.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Debug/Repository/log.php.html">log.php</a></li></ol></li></ol></li><li><label for="Dependency">Dependency</label><input type="checkbox"id="Dependency"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Dependency/Container.php.html">Container.php</a></li></ol></li><li><label for="Event">Event</label><input type="checkbox"id="Event"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Event/Event.php.html">Event.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Event/Listener.php.html">Listener.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Event/Observer.php.html">Observer.php</a></li></ol></li><li><label for="Filesystem">Filesystem</label><input type="checkbox"id="Filesystem"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Filesystem/Directory.php.html">Directory.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Filesystem/File.php.html">File.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Filesystem/Packer.php.html">Packer.php</a></li></ol></li><li><label for="Helper">Helper</label><input type="checkbox"id="Helper"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Helper/Date.php.html">Date.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Helper/Object.php.html">Object.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Helper/Time.php.html">Time.php</a></li></ol></li><li><label for="Parameter">Parameter</label><input type="checkbox"id="Parameter"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Factory.php.html">Factory.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Loader.php.html">Loader.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Manager.php.html">Manager.php</a></li><li><label for="Repository">Repository</label><input type="checkbox"id="Repository"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/Database.php.html">Database.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/File.php.html">File.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/Handler.php.html">Handler.php</a></li><li><label for="Parser">Parser</label><input type="checkbox"id="Parser"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/Parser/database.php.html">database.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/Parser/ini.php.html">ini.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/Parser/xml.php.html">xml.php</a></li></ol></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Utility.php.html">Utility.php</a></li></ol></li><li><label for="Protocol">Protocol</label><input type="checkbox"checked="checked"id="Protocol"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Content.php.html">Content.php</a></li><li><label for="Http">Http</label><input type="checkbox"checked="checked"id="Http"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Http/Codes.php.html">Codes.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Http/Headers.php.html">Headers.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Http/Request.php.html">Request.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Http/Response.php.html">Response.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Http/Server.php.html">Server.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Input.php.html">Input.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Request.php.html">Request.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Response.php.html">Response.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Server.php.html">Server.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Uri.php.html">Uri.php</a></li></ol></li><li><label for="Routing">Routing</label><input type="checkbox"id="Routing"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Collection.php.html">Collection.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Controller.php.html">Controller.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Definition.php.html">Definition.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Dispatcher.php.html">Dispatcher.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Factory.php.html">Factory.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Regex.php.html">Regex.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Route.php.html">Route.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Router.php.html">Router.php</a></li></ol></li><li><label for="Session">Session</label><input type="checkbox"id="Session"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Session/Handler.php.html">Handler.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Session/Registry.php.html">Registry.php</a></li><li><label for="repository">repository</label><input type="checkbox"id="repository"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Session/repository/database.php.html">database.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Session/repository/file.php.html">file.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Session/Store.php.html">Store.php</a></li></ol></li><li><label for="Utility">Utility</label><input type="checkbox"id="Utility"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Utility/Loader.php.html">Loader.php</a></li></ol></li><li><label for="Validation">Validation</label><input type="checkbox"id="Validation"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Validation/Sanitize.php.html">Sanitize.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Validation/Validate.php.html">Validate.php</a></li></ol></li><li><label for="View">View</label><input type="checkbox"id="View"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Display.php.html">Display.php</a></li><li><label for="Engine">Engine</label><input type="checkbox"id="Engine"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Engine/Html.php.html">Html.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Engine/Json.php.html">Json.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Engine.php.html">Engine.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Format.php.html">Format.php</a></li><li><label for="Layout">Layout</label><input type="checkbox"id="Layout"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Compiler.php.html">Compiler.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Loader.php.html">Loader.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Parser.php.html">Parser.php</a></li><li><label for="Tpl">Tpl</label><input type="checkbox"id="Tpl"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Attributes.php.html">Attributes.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Block.php.html">Block.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Condition.php.html">Condition.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Data.php.html">Data.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Datetime.php.html">Datetime.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Href.php.html">Href.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Import.php.html">Import.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Input.php.html">Input.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Layout.php.html">Layout.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Link.php.html">Link.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Loop.php.html">Loop.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Menu.php.html">Menu.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Select.php.html">Select.php</a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+<div class="content">
+    <div class="background">
+        <div class="codeblock"></div>
+    </div>
+        
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                                            <div class="doc">
+
+                                                                    <div class="req">Budkit\Protocol\Http</div>
+                                
+                                
+                                                                                                                                                        <p><p>Created by PhpStorm.
+User: livingstonefultang
+Date: 27/06/2014
+Time: 03:58</p></p>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="<br />
+<b>Notice</b>:  Undefined index: id in <b>/opt/local/apache2/htdocs/budkit/vendor/budkit/docs/src/Layout.php</b> on line <b>58</b><br />
+">
+
+                                        
+                                                                                                                                    <span
+                                                    class="label label-primary" >class</span>
+                                                                                    
+                                        Request
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                        
+                                                                                            <span class="label label-default" outline>Implements</span>
+                                                <a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Request.php.html"><span
+                                                        class="small">Budkit\Protocol\Request</span></a>
+                                                <br/>
+                                            
+
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+                                    <dl>
+                                        <dt>Methods</dt>
+                                        <dd>
+                                                                                        <row>
+                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getAttributes">getAttributes() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:setAttributes">setAttributes() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getAttribute">getAttribute() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getSession">getSession() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:setSession">setSession() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:hasPreviousSession">hasPreviousSession() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:hasSession">hasSession() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getScriptName">getScriptName() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getBasePath">getBasePath() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getBaseUrl">getBaseUrl() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getRequestUri">getRequestUri() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getSchemeAndHttpHost">getSchemeAndHttpHost() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getScheme">getScheme() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getHttpHost">getHttpHost() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getPort">getPort() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getHost">getHost() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getProtocol">getProtocol() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getResponse">getResponse() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:send">send() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getUri">getUri() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getMethodData">getMethodData() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getQueryString">getQueryString() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:normalizeQueryString">normalizeQueryString() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getPathInfo">getPathInfo() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getUriForPath">getUriForPath() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getMimeType">getMimeType() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getFormat">getFormat() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:setFormat">setFormat() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getRequestFormat">getRequestFormat() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:setRequestFormat">setRequestFormat() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getMethod">getMethod() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:setMethod">setMethod() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getQuery">getQuery() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getData">getData() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getCookies">getCookies() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getFiles">getFiles() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getServer">getServer() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getHeaders">getHeaders() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getContent">getContent() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getETags">getETags() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:isNoCache">isNoCache() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getPreferredLanguage">getPreferredLanguage() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getLanguages">getLanguages() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getCharsets">getCharsets() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getEncodings">getEncodings() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getAcceptableContentTypes">getAcceptableContentTypes() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:isXmlHttpRequest">isXmlHttpRequest() </a>
+                                                </column>
+                                                                                                                                            </row>
+                                        </dd>
+
+                                    </dl>
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                            </div>
+                </div>
+                
+
+        
+                                        
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:__construct">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        __construct
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Create a new request passing the request parameters;</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>array $query</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function __construct(array $query = [], array $data = [], array $attributes = [], array $cookies = [],
+                                array $files = [], array $server = [], $content = null)
+    {
+
+        $this-&gt;get = new Parameters(&quot;get&quot;, $query); //stores all the get parameters;
+        $this-&gt;post = new Parameters(&quot;post&quot;, $data, false); //stores all the post data params = get+post+cookie params;
+
+        $this-&gt;attributes = new Parameters(&quot;attributes&quot;, $attributes);
+        $this-&gt;cookies = new Parameters(&quot;cookies&quot;, $cookies); //stores all the cookies;
+        $this-&gt;files = new Parameters(&quot;files&quot;, $files);
+        $this-&gt;server = new Server($server);
+        $this-&gt;headers = new Headers($this-&gt;server-&gt;getHeaders());
+
+        $this-&gt;content = $content;
+        $this-&gt;languages = null;
+        $this-&gt;charsets = null;
+        $this-&gt;encodings = null;
+        $this-&gt;acceptableContentTypes = null;
+        $this-&gt;pathInfo = null;
+        $this-&gt;requestUri = null;
+        $this-&gt;baseUrl = null;
+        $this-&gt;basePath = null;
+        $this-&gt;method = null;
+        $this-&gt;format = null;
+        $this-&gt;session = null;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getAttributes">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getAttributes
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function getAttributes()
+    {
+        return $this-&gt;attributes;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:setAttributes">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        setAttributes
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function setAttributes($attributes = [])
+    {
+        if ($attributes instanceof Parameters) {
+            return $this-&gt;attributes = $attributes;
+        }
+
+        if (is_array($attributes)) {
+
+            $this-&gt;get-&gt;addParameters($attributes);
+
+            return $this-&gt;attributes-&gt;addParameters($attributes);
+        }
+
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getAttribute">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getAttribute
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function getAttribute($key, $default = null)
+    {
+
+        return $this-&gt;attributes-&gt;getParameter($key, $default);
+
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getSession">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getSession
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function getSession()
+    {
+        return $this-&gt;session;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:setSession">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        setSession
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function setSession(Session\Handler $session)
+    {
+        $this-&gt;session = $session;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:hasPreviousSession">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        hasPreviousSession
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function hasPreviousSession()
+    {
+        // the check for $this-&gt;session avoids malicious users trying to fake a session cookie with proper name
+        return $this-&gt;hasSession() &amp;&amp; $this-&gt;cookies-&gt;hasParameter($this-&gt;session-&gt;getName());
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:hasSession">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        hasSession
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function hasSession()
+    {
+        return null !== $this-&gt;session;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getScriptName">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getScriptName
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function getScriptName()
+    {
+        return ($this-&gt;server-&gt;hasParameter(&#039;SCRIPT_NAME&#039;)) ? $this-&gt;server-&gt;getParameter(&#039;SCRIPT_NAME&#039;)
+            : $this-&gt;server-&gt;getParameter(&#039;ORIG_SCRIPT_NAME&#039;);
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getBasePath">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getBasePath
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function getBasePath()
+    {
+        if (null === $this-&gt;basePath) {
+            $this-&gt;basePath = $this-&gt;prepareBasePath();
+        }
+
+        return $this-&gt;basePath;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:prepareBasePath">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-black" >protected</span>
+                                                                                    
+                                        prepareBasePath
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">protected function prepareBasePath()
+    {
+        $filename = basename($this-&gt;server-&gt;getParameter(&#039;SCRIPT_FILENAME&#039;));
+        $baseUrl = $this-&gt;getBaseUrl();
+        if (empty($baseUrl)) {
+            return &#039;&#039;;
+        }
+
+        if (basename($baseUrl) === $filename) {
+            $basePath = dirname($baseUrl);
+        } else {
+            $basePath = $baseUrl;
+        }
+
+        if (&#039;\\&#039; === DIRECTORY_SEPARATOR) {
+            $basePath = str_replace(&#039;\\&#039;, &#039;/&#039;, $basePath);
+        }
+
+        return rtrim($basePath, &#039;/&#039;);
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getBaseUrl">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getBaseUrl
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function getBaseUrl()
+    {
+        if (null === $this-&gt;baseUrl) {
+            $this-&gt;baseUrl = $this-&gt;prepareBaseUrl();
+        }
+
+        return $this-&gt;baseUrl;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:prepareBaseUrl">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-black" >protected</span>
+                                                                                    
+                                        prepareBaseUrl
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">protected function prepareBaseUrl()
+    {
+        $filename = basename($this-&gt;server-&gt;getParameter(&#039;SCRIPT_FILENAME&#039;));
+
+        if (basename($this-&gt;server-&gt;getParameter(&#039;SCRIPT_NAME&#039;)) === $filename) {
+            $baseUrl = $this-&gt;server-&gt;getParameter(&#039;SCRIPT_NAME&#039;);
+        } elseif (basename($this-&gt;server-&gt;getParameter(&#039;PHP_SELF&#039;)) === $filename) {
+            $baseUrl = $this-&gt;server-&gt;getParameter(&#039;PHP_SELF&#039;);
+        } elseif (basename($this-&gt;server-&gt;getParameter(&#039;ORIG_SCRIPT_NAME&#039;)) === $filename) {
+            $baseUrl = $this-&gt;server-&gt;getParameter(&#039;ORIG_SCRIPT_NAME&#039;); // 1and1 shared hosting compatibility
+        } else {
+            // Backtrack up the script_filename to find the portion matching
+            // php_self
+            $path = $this-&gt;server-&gt;getParameter(&#039;PHP_SELF&#039;, &#039;&#039;);
+            $file = $this-&gt;server-&gt;getParameter(&#039;SCRIPT_FILENAME&#039;, &#039;&#039;);
+            $segs = explode(&#039;/&#039;, trim($file, &#039;/&#039;));
+            $segs = array_reverse($segs);
+            $index = 0;
+            $last = count($segs);
+            $baseUrl = &#039;&#039;;
+            do {
+                $seg = $segs[$index];
+                $baseUrl = &#039;/&#039; . $seg . $baseUrl;
+                ++$index;
+            } while ($last &gt; $index &amp;&amp; (false !== $pos = strpos($path, $baseUrl)) &amp;&amp; 0 != $pos);
+        }
+
+        // Does the baseUrl have anything in common with the request_uri?
+        $requestUri = $this-&gt;getRequestUri();
+
+        if ($baseUrl &amp;&amp; false !== $prefix = $this-&gt;getUrlencodedPrefix($requestUri, $baseUrl)) {
+            // full $baseUrl matches
+            return $prefix;
+        }
+
+        if ($baseUrl &amp;&amp; false !== $prefix = $this-&gt;getUrlencodedPrefix($requestUri, dirname($baseUrl))) {
+            // directory portion of $baseUrl matches
+            return rtrim($prefix, &#039;/&#039;);
+        }
+
+        $truncatedRequestUri = $requestUri;
+        if (false !== $pos = strpos($requestUri, &#039;?&#039;)) {
+            $truncatedRequestUri = substr($requestUri, 0, $pos);
+        }
+
+        $basename = basename($baseUrl);
+        if (empty($basename) || !strpos(rawurldecode($truncatedRequestUri), $basename)) {
+            // no match whatsoever; set it blank
+            return &#039;&#039;;
+        }
+
+        // If using mod_rewrite or ISAPI_Rewrite strip the script filename
+        // out of baseUrl. $pos !== 0 makes sure it is not matching a value
+        // from PATH_INFO or QUERY_STRING
+        if (strlen($requestUri) &gt;= strlen($baseUrl) &amp;&amp; (false !== $pos = strpos($requestUri, $baseUrl)) &amp;&amp; $pos !== 0) {
+            $baseUrl = substr($requestUri, 0, $pos + strlen($baseUrl));
+        }
+
+        return rtrim($baseUrl, &#039;/&#039;);
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getRequestUri">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getRequestUri
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function getRequestUri()
+    {
+        if (null === $this-&gt;requestUri) {
+            $this-&gt;requestUri = $this-&gt;prepareRequestUri();
+        }
+
+        return $this-&gt;requestUri;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:prepareRequestUri">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-black" >protected</span>
+                                                                                    
+                                        prepareRequestUri
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">protected function prepareRequestUri()
+    {
+
+        $requestUri = &#039;&#039;;
+
+        if ($this-&gt;headers-&gt;hasParameter(&#039;X_ORIGINAL_URL&#039;)) {
+            // IIS with Microsoft Rewrite Module
+            $requestUri = $this-&gt;headers-&gt;getParameter(&#039;X_ORIGINAL_URL&#039;);
+            $this-&gt;headers-&gt;removeParameter(&#039;X_ORIGINAL_URL&#039;);
+            $this-&gt;server-&gt;removeParameter(&#039;HTTP_X_ORIGINAL_URL&#039;);
+            $this-&gt;server-&gt;removeParameter(&#039;UNENCODED_URL&#039;);
+            $this-&gt;server-&gt;removeParameter(&#039;IIS_WasUrlRewritten&#039;);
+        } elseif ($this-&gt;headers-&gt;hasParameter(&#039;X_REWRITE_URL&#039;)) {
+            // IIS with ISAPI_Rewrite
+            $requestUri = $this-&gt;headers-&gt;getParameter(&#039;X_REWRITE_URL&#039;);
+            $this-&gt;headers-&gt;removeParameter(&#039;X_REWRITE_URL&#039;);
+        } elseif ($this-&gt;server-&gt;getParameter(&#039;IIS_WasUrlRewritten&#039;) == &#039;1&#039;
+            &amp;&amp; $this-&gt;server-&gt;getParameter(&#039;UNENCODED_URL&#039;) != &#039;&#039;
+        ) {
+            // IIS7 with URL Rewrite: make sure we get the unencoded URL (double slash problem)
+            $requestUri = $this-&gt;server-&gt;getParameter(&#039;UNENCODED_URL&#039;);
+            $this-&gt;server-&gt;removeParameter(&#039;UNENCODED_URL&#039;);
+            $this-&gt;server-&gt;removeParameter(&#039;IIS_WasUrlRewritten&#039;);
+        } elseif ($this-&gt;server-&gt;hasParameter(&#039;REQUEST_URI&#039;)) {
+            $requestUri = $this-&gt;server-&gt;getParameter(&#039;REQUEST_URI&#039;);
+            // HTTP proxy reqs setup request URI with scheme and host [and port] + the URL path, only use URL path
+            $schemeAndHttpHost = $this-&gt;getSchemeAndHttpHost();
+            if (strpos($requestUri, $schemeAndHttpHost) === 0) {
+                $requestUri = substr($requestUri, strlen($schemeAndHttpHost));
+            }
+        } elseif ($this-&gt;server-&gt;hasParameter(&#039;ORIG_PATH_INFO&#039;)) {
+            // IIS 5.0, PHP as CGI
+            $requestUri = $this-&gt;server-&gt;getParameter(&#039;ORIG_PATH_INFO&#039;);
+            if (&#039;&#039; != $this-&gt;server-&gt;getParameter(&#039;QUERY_STRING&#039;)) {
+                $requestUri .= &#039;?&#039; . $this-&gt;server-&gt;getParameter(&#039;QUERY_STRING&#039;);
+            }
+            $this-&gt;server-&gt;removeParameter(&#039;ORIG_PATH_INFO&#039;);
+        }
+
+        // normalize the request URI to ease creating sub-requests from this request
+        $this-&gt;server-&gt;setParameter(&#039;REQUEST_URI&#039;, $requestUri);
+
+        return $requestUri;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getSchemeAndHttpHost">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getSchemeAndHttpHost
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function getSchemeAndHttpHost()
+    {
+        return $this-&gt;getScheme() . &#039;://&#039; . $this-&gt;getHttpHost();
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getScheme">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getScheme
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function getScheme()
+    {
+
+        $schemeOn =
+            &#039;on&#039; == strtolower($this-&gt;server-&gt;getParameter(&#039;HTTPS&#039;)) || 1 == $this-&gt;server-&gt;getParameter(&#039;HTTPS&#039;);
+
+        return $schemeOn ? &quot;https&quot; : &quot;http&quot;;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getHttpHost">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getHttpHost
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function getHttpHost()
+    {
+        $scheme = $this-&gt;getScheme();
+        $port = $this-&gt;getPort();
+
+        if ((&#039;http&#039; == $scheme &amp;&amp; $port == 80) || (&#039;https&#039; == $scheme &amp;&amp; $port == 443)) {
+            return $this-&gt;getHost();
+        }
+
+        return $this-&gt;getHost() . &#039;:&#039; . $port;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getPort">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getPort
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function getPort()
+    {
+
+        if ($host = $this-&gt;headers-&gt;getParameter(&#039;HOST&#039;)) {
+            if (false !== $pos = strrpos($host, &#039;:&#039;)) {
+                return intval(substr($host, $pos + 1));
+            }
+
+            return &#039;https&#039; === $this-&gt;getScheme() ? 443 : 80;
+        }
+
+        return $this-&gt;server-&gt;getParameter(&#039;SERVER_PORT&#039;);
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getHost">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getHost
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function getHost()
+    {
+        if (!$host = $this-&gt;headers-&gt;getParameter(&#039;HOST&#039;)) {
+            if (!$host = $this-&gt;server-&gt;getParameter(&#039;SERVER_NAME&#039;)) {
+                $host = $this-&gt;server-&gt;getParameter(&#039;SERVER_ADDR&#039;, &#039;&#039;);
+            }
+        }
+
+        //need to check if this is empty and throw an error. Malformed request maybe.
+
+        // trim and remove port number from host
+        // host is lowercase as per RFC 952/2181
+        $host = strtolower(preg_replace(&#039;/:\d+$/&#039;, &#039;&#039;, trim($host)));
+
+        // as the host can come from the user (HTTP_HOST and depending on the configuration, SERVER_NAME too can come from the user)
+        // check that it does not contain forbidden characters (see RFC 952 and RFC 2181)
+        if ($host &amp;&amp; !preg_match(&#039;/^\[?(?:[a-zA-Z0-9-:\]_]+\.?)+$/&#039;, $host)) {
+            throw new \UnexpectedValueException(sprintf(&#039;Invalid Host &quot;%s&quot;&#039;, $host));
+        }
+
+        return $host;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getProtocol">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getProtocol
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function getProtocol()
+    {
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getResponse">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getResponse
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function getResponse()
+    {
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:send">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        send
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function send(Protocol\Request $request = null)
+    {
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getUri">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getUri
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function getUri()
+    {
+        if (null !== $qs = $this-&gt;getQueryString()) {
+            $qs = &#039;?&#039; . $qs;
+        }
+
+        return $this-&gt;getSchemeAndHttpHost() . $this-&gt;getBaseUrl() . $this-&gt;getPathInfo() . $qs;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getMethodData">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getMethodData
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">function getMethodData($method = &quot;get&quot;)
+    {
+
+        if (isset($this-&gt;$method)) {
+            if (is_a($this-&gt;$method, Parameters::class)) {
+                $parameters = $this-&gt;$method;
+                return $parameters-&gt;getAllParameters();
+            }
+        }
+
+        return false;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getQueryString">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getQueryString
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function getQueryString()
+    {
+        $qs = static::normalizeQueryString($this-&gt;server-&gt;getParameter(&#039;QUERY_STRING&#039;));
+
+        return &#039;&#039; === $qs ? null : $qs;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:normalizeQueryString">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                            <span
+                                                    class="label label-default" >static</span>
+                                                                                    
+                                        normalizeQueryString
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public static function normalizeQueryString($qs)
+    {
+        if (&#039;&#039; == $qs) {
+            return &#039;&#039;;
+        }
+
+        $parts = [];
+        $order = [];
+
+        foreach (explode(&#039;&amp;&#039;, $qs) as $param) {
+            if (&#039;&#039; === $param || &#039;=&#039; === $param[0]) {
+                // Ignore useless delimiters, e.g. &quot;x=y&amp;&quot;.
+                // Also ignore pairs with empty key, even if there was a value, e.g. &quot;=value&quot;, as such nameless values cannot be retrieved anyway.
+                // PHP also does not include them when building _GET.
+                continue;
+            }
+
+            $keyValuePair = explode(&#039;=&#039;, $param, 2);
+
+            // GET parameters, that are submitted from a HTML form, encode spaces as &quot;+&quot; by default (as defined in enctype application/x-www-form-urlencoded).
+            // PHP also converts &quot;+&quot; to spaces when filling the global _GET or when using the function parse_str. This is why we use urldecode and then normalize to
+            // RFC 3986 with rawurlencode.
+            $parts[] = isset($keyValuePair[1])
+                ?
+                rawurlencode(urldecode($keyValuePair[0])) . &#039;=&#039; . rawurlencode(urldecode($keyValuePair[1]))
+                :
+                rawurlencode(urldecode($keyValuePair[0]));
+            $order[] = urldecode($keyValuePair[0]);
+        }
+
+        array_multisort($order, SORT_ASC, $parts);
+
+        return implode(&#039;&amp;&#039;, $parts);
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getPathInfo">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getPathInfo
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function getPathInfo()
+    {
+        if (null === $this-&gt;pathInfo) {
+            $this-&gt;pathInfo = $this-&gt;preparePathInfo();
+        }
+
+        return $this-&gt;pathInfo;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:preparePathInfo">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-black" >protected</span>
+                                                                                    
+                                        preparePathInfo
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">protected function preparePathInfo()
+    {
+        $baseUrl = $this-&gt;getBaseUrl();
+
+        if (null === ($requestUri = $this-&gt;getRequestUri())) {
+            return &#039;/&#039;;
+        }
+
+        $pathInfo = &#039;/&#039;;
+
+        // Remove the query string from REQUEST_URI
+        if ($pos = strpos($requestUri, &#039;?&#039;)) {
+            $requestUri = substr($requestUri, 0, $pos);
+        }
+
+        if (null !== $baseUrl &amp;&amp; false === $pathInfo = substr($requestUri, strlen($baseUrl))) {
+            // If substr() returns false then PATH_INFO is set to an empty string
+            return &#039;/&#039;;
+        } elseif (null === $baseUrl) {
+            return $requestUri;
+        }
+
+        return (string)$pathInfo;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getUriForPath">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getUriForPath
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function getUriForPath($path)
+    {
+        return $this-&gt;getSchemeAndHttpHost() . $this-&gt;getBaseUrl() . $path;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getMimeType">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getMimeType
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function getMimeType($format)
+    {
+        if (null === static::$formats) {
+            static::initializeFormats();
+        }
+
+        return isset(static::$formats[$format]) ? static::$formats[$format][0] : null;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:initializeFormats">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-default" >static</span>
+                                                                                            <span
+                                                    class="label label-black" >protected</span>
+                                                                                    
+                                        initializeFormats
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">protected static function initializeFormats()
+    {
+        static::$formats = [
+            &#039;html&#039; =&gt; [&#039;text/html&#039;, &#039;application/xhtml+xml&#039;],
+            &#039;txt&#039; =&gt; [&#039;text/plain&#039;],
+            &#039;js&#039; =&gt; [&#039;application/javascript&#039;, &#039;application/x-javascript&#039;, &#039;text/javascript&#039;],
+            &#039;css&#039; =&gt; [&#039;text/css&#039;],
+            &#039;json&#039; =&gt; [&#039;application/json&#039;, &#039;application/x-json&#039;],
+            &#039;xml&#039; =&gt; [&#039;text/xml&#039;, &#039;application/xml&#039;, &#039;application/x-xml&#039;],
+            &#039;rdf&#039; =&gt; [&#039;application/rdf+xml&#039;],
+            &#039;atom&#039; =&gt; [&#039;application/atom+xml&#039;],
+            &#039;rss&#039; =&gt; [&#039;application/rss+xml&#039;],
+        ];
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getFormat">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getFormat
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function getFormat($mimeType)
+    {
+        if (false !== $pos = strpos($mimeType, &#039;;&#039;)) {
+            $mimeType = substr($mimeType, 0, $pos);
+        }
+
+        if (null === static::$formats) {
+            static::initializeFormats();
+        }
+
+        foreach (static::$formats as $format =&gt; $mimeTypes) {
+            if (in_array($mimeType, (array)$mimeTypes)) {
+                return $format;
+            }
+        }
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:setFormat">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        setFormat
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function setFormat($format, $mimeTypes)
+    {
+        if (null === static::$formats) {
+            static::initializeFormats();
+        }
+        static::$formats[$format] = is_array($mimeTypes) ? $mimeTypes : [$mimeTypes];
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getRequestFormat">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getRequestFormat
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function getRequestFormat($default = &#039;html&#039;)
+    {
+        if (null === $this-&gt;format) {
+            $this-&gt;format = $this-&gt;get(&#039;_format&#039;, $default); //lookup in $_REQUEST
+        }
+
+        return $this-&gt;format;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:setRequestFormat">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        setRequestFormat
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function setRequestFormat($format)
+    {
+        $this-&gt;format = $format;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getMethod">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getMethod
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function getMethod()
+    {
+        if (null === $this-&gt;method) {
+            $this-&gt;method = strtoupper($this-&gt;server-&gt;getParameter(&#039;REQUEST_METHOD&#039;, &#039;GET&#039;));
+
+            if (&#039;POST&#039; === $this-&gt;method) {
+                if ($method = $this-&gt;headers-&gt;getParameter(&#039;X-HTTP-METHOD-OVERRIDE&#039;)) {
+                    $this-&gt;method = strtoupper($method);
+                }
+            }
+        }
+
+        return $this-&gt;method;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:setMethod">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        setMethod
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function setMethod($method)
+    {
+        $this-&gt;method = null;
+        $this-&gt;server-&gt;setParameter(&#039;REQUEST_METHOD&#039;, $method);
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getQuery">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getQuery
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function getQuery()
+    {
+        return $this-&gt;get;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getData">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getData
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function getData()
+    {
+        return $this-&gt;post;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getCookies">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getCookies
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function getCookies()
+    {
+        return $this-&gt;cookies;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getFiles">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getFiles
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function getFiles()
+    {
+        return $this-&gt;files;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getServer">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getServer
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function getServer()
+    {
+        return $this-&gt;server;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getHeaders">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getHeaders
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function getHeaders()
+    {
+        return $this-&gt;headers;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getContent">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getContent
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Returns the request body content.</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>bool $asResource If true, a resource will be returned</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>string|resource The request body content or a resource to read the body stream.</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Throws</dt>
+                                                                                                    <dd><p>\LogicException</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getContent($asResource = false)
+    {
+        if (false === $this-&gt;content || (true === $asResource &amp;&amp; null !== $this-&gt;content)) {
+            throw new \LogicException(&#039;getContent() can only be called once when using the resource return type.&#039;);
+        }
+
+        if (true === $asResource) {
+            $this-&gt;content = false;
+
+            return fopen(&#039;php://input&#039;, &#039;rb&#039;);
+        }
+
+        if (null === $this-&gt;content) {
+            $this-&gt;content = file_get_contents(&#039;php://input&#039;);
+        }
+
+        return $this-&gt;content;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getETags">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getETags
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Gets the Etags.</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>array The entity tags</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getETags()
+    {
+        return preg_split(&#039;/\s*,\s*/&#039;, $this-&gt;headers-&gt;getParameter(&#039;if_none_match&#039;), null, PREG_SPLIT_NO_EMPTY);
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:isNoCache">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        isNoCache
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>bool</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function isNoCache()
+    {
+        return $this-&gt;headers-&gt;hasCacheControlDirective(&#039;no-cache&#039;)
+        || &#039;no-cache&#039; == $this-&gt;headers-&gt;getParameter(&#039;Pragma&#039;);
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getPreferredLanguage">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getPreferredLanguage
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Returns the preferred language.</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>array $locales An array of ordered available locales</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>string|null The preferred locale</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Api</dt>
+                                                                                                    <dd></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getPreferredLanguage(array $locales = null)
+    {
+        $preferredLanguages = $this-&gt;getLanguages();
+
+        if (empty($locales)) {
+            return isset($preferredLanguages[0]) ? $preferredLanguages[0] : null;
+        }
+
+        if (!$preferredLanguages) {
+            return $locales[0];
+        }
+
+        $extendedPreferredLanguages = [];
+        foreach ($preferredLanguages as $language) {
+            $extendedPreferredLanguages[] = $language;
+            if (false !== $position = strpos($language, &#039;_&#039;)) {
+                $superLanguage = substr($language, 0, $position);
+                if (!in_array($superLanguage, $preferredLanguages)) {
+                    $extendedPreferredLanguages[] = $superLanguage;
+                }
+            }
+        }
+
+        $preferredLanguages = array_values(array_intersect($extendedPreferredLanguages, $locales));
+
+        return isset($preferredLanguages[0]) ? $preferredLanguages[0] : $locales[0];
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getLanguages">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getLanguages
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Gets a list of languages acceptable by the client browser.</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>array Languages ordered in the user browser preferences</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Api</dt>
+                                                                                                    <dd></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getLanguages()
+    {
+        if (null !== $this-&gt;languages) {
+            return $this-&gt;languages;
+        }
+
+        $languages = $this-&gt;headers-&gt;getParameterListAsObject(&#039;Accept-Language&#039;);
+        //@TODO convert comma seperated list to Array
+        $this-&gt;languages = [];
+
+        foreach (array_keys($languages) as $lang) {
+            if (strstr($lang, &#039;-&#039;)) {
+                $codes = explode(&#039;-&#039;, $lang);
+                if ($codes[0] == &#039;i&#039;) {
+                    // Language not listed in ISO 639 that are not variants
+                    // of any listed language, which can be registered with the
+                    // i-prefix, such as i-cherokee
+                    if (count($codes) &gt; 1) {
+                        $lang = $codes[1];
+                    }
+                } else {
+                    for ($i = 0, $max = count($codes); $i &lt; $max; $i++) {
+                        if ($i == 0) {
+                            $lang = strtolower($codes[0]);
+                        } else {
+                            $lang .= &#039;_&#039; . strtoupper($codes[$i]);
+                        }
+                    }
+                }
+            }
+
+            $this-&gt;languages[] = $lang;
+        }
+
+        return $this-&gt;languages;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getCharsets">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getCharsets
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Gets a list of charsets acceptable by the client browser.</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>array List of charsets in preferable order</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Api</dt>
+                                                                                                    <dd></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getCharsets()
+    {
+        if (null !== $this-&gt;charsets) {
+            return $this-&gt;charsets;
+        }
+
+        $charsets = $this-&gt;headers-&gt;getParameterListAsObject(&#039;Accept-Charset&#039;);
+
+        return $this-&gt;charsets = $charsets-&gt;getParameterKeys();
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getEncodings">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getEncodings
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Gets a list of encodings acceptable by the client browser.</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>array List of encodings in preferable order</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getEncodings()
+    {
+        if (null !== $this-&gt;encodings) {
+            return $this-&gt;encodings;
+        }
+        $charsets = $this-&gt;headers-&gt;getParameterListAsObject(&#039;ACCEPT_ENCODINGS&#039;);
+
+        return $this-&gt;encodings = $encodings-&gt;getParameterKeys();
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getAcceptableContentTypes">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getAcceptableContentTypes
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Gets a list of content types acceptable by the client browser</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>array List of content types in preferable order</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Api</dt>
+                                                                                                    <dd></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getAcceptableContentTypes()
+    {
+        if (null !== $this-&gt;acceptableContentTypes) {
+            return $this-&gt;acceptableContentTypes;
+        }
+
+        $acceptableContentTypes = $this-&gt;headers-&gt;getParameterListAsObject(&#039;ACCEPT&#039;);
+
+        return $this-&gt;acceptableContentTypes = $acceptableContentTypes-&gt;getParameterKeys();
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:isXmlHttpRequest">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        isXmlHttpRequest
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Returns true if the request is a XMLHttpRequest.</p></p>
+                                                                                                                                                                <p><p>It works if your JavaScript library set an X-Requested-With HTTP header.
+It is known to work with common JavaScript frameworks:</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Link</dt>
+                                                                                                    <dd><p><a href="http://en.wikipedia.org/wiki/List_of_Ajax_frameworks#JavaScript">http://en.wikipedia.org/wiki/List_of_Ajax_frameworks#JavaScript</a></p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>bool    true if the request is an XMLHttpRequest, false otherwise</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Api</dt>
+                                                                                                    <dd></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function isXmlHttpRequest()
+    {
+        return &#039;XMLHttpRequest&#039; == $this-&gt;headers-&gt;getParameter(&#039;X-Requested-With&#039;);
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            </div>
+</body>
+</html>

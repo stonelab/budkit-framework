@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * The application bootstrap;
+ *
+ *
+ */
+
 /*
 |--------------------------------------------------------------------------
 | Important platform constants

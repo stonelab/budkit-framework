@@ -1,0 +1,3033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Entity</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    
+    <link href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/assets/kube.css" type="text/css" rel="stylesheet"/>
+    <link href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/assets/highlight/styles/railscasts.css" rel="stylesheet">
+    <link href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/assets/styles.css" type="text/css" rel="stylesheet"/>
+        <script src="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/assets/highlight/highlight.pack.js"></script>
+
+    
+
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div class="sidebar column">
+    <ol class='tree'><li><label for="Budkit">Budkit</label><input type="checkbox"checked="checked"id="Budkit"><ol class='tree'><li><label for="Application">Application</label><input type="checkbox"id="Application"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Instance.php.html">Instance.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Provider.php.html">Provider.php</a></li><li><label for="Support">Support</label><input type="checkbox"id="Support"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Application.php.html">Application.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Mock.php.html">Mock.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Mockable.php.html">Mockable.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Mockery.php.html">Mockery.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Providers.php.html">Providers.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Service.php.html">Service.php</a></li></ol></li><li><label for="Utilities">Utilities</label><input type="checkbox"id="Utilities"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Utilities/bootstrap.php.html">bootstrap.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Utilities/constants.php.html">constants.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Utilities/functions.php.html">functions.php</a></li></ol></li></ol></li><li><label for="Authentication">Authentication</label><input type="checkbox"id="Authentication"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/Authenticate.php.html">Authenticate.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/Handler.php.html">Handler.php</a></li><li><label for="Type">Type</label><input type="checkbox"id="Type"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/Type/dbauth.php.html">dbauth.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/Type/ldap.php.html">ldap.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/Type/openID.php.html">openID.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/User.php.html">User.php</a></li></ol></li><li><label for="Datastore">Datastore</label><input type="checkbox"checked="checked"id="Datastore"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Activerecord.php.html">Activerecord.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Database.php.html">Database.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Driver.php.html">Driver.php</a></li><li><label for="Drivers">Drivers</label><input type="checkbox"id="Drivers"><ol class='tree'><li><label for="MySQLi">MySQLi</label><input type="checkbox"id="MySQLi"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Drivers/MySQLi/Accessory.php.html">Accessory.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Drivers/MySQLi/Driver.php.html">Driver.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Drivers/MySQLi/Statement.php.html">Statement.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Drivers/MySQLi/Table.php.html">Table.php</a></li></ol></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Encrypt.php.html">Encrypt.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Engine.php.html">Engine.php</a></li><li><label for="Exception">Exception</label><input type="checkbox"id="Exception"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Exception/ConnectionError.php.html">ConnectionError.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Exception/InternalError.php.html">InternalError.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Exception/QuerryException.php.html">QuerryException.php</a></li></ol></li><li><label for="Model">Model</label><input type="checkbox"checked="checked"id="Model"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/DataModel.php.html">DataModel.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/Entity.php.html">Entity.php</a></li><li><label for="Graph">Graph</label><input type="checkbox"id="Graph"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/Graph/Edge.php.html">Edge.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/Graph/Node.php.html">Node.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/Graph.php.html">Graph.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Pagination.php.html">Pagination.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Results.php.html">Results.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Statement.php.html">Statement.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Table.php.html">Table.php</a></li></ol></li><li><label for="Debug">Debug</label><input type="checkbox"id="Debug"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Debug/Log.php.html">Log.php</a></li><li><label for="Repository">Repository</label><input type="checkbox"id="Repository"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Debug/Repository/debugger.php.html">debugger.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Debug/Repository/log.php.html">log.php</a></li></ol></li></ol></li><li><label for="Dependency">Dependency</label><input type="checkbox"id="Dependency"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Dependency/Container.php.html">Container.php</a></li></ol></li><li><label for="Event">Event</label><input type="checkbox"id="Event"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Event/Event.php.html">Event.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Event/Listener.php.html">Listener.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Event/Observer.php.html">Observer.php</a></li></ol></li><li><label for="Filesystem">Filesystem</label><input type="checkbox"id="Filesystem"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Filesystem/Directory.php.html">Directory.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Filesystem/File.php.html">File.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Filesystem/Packer.php.html">Packer.php</a></li></ol></li><li><label for="Helper">Helper</label><input type="checkbox"id="Helper"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Helper/Date.php.html">Date.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Helper/Object.php.html">Object.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Helper/Time.php.html">Time.php</a></li></ol></li><li><label for="Parameter">Parameter</label><input type="checkbox"id="Parameter"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Factory.php.html">Factory.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Loader.php.html">Loader.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Manager.php.html">Manager.php</a></li><li><label for="Repository">Repository</label><input type="checkbox"id="Repository"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/Database.php.html">Database.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/File.php.html">File.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/Handler.php.html">Handler.php</a></li><li><label for="Parser">Parser</label><input type="checkbox"id="Parser"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/Parser/database.php.html">database.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/Parser/ini.php.html">ini.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/Parser/xml.php.html">xml.php</a></li></ol></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Utility.php.html">Utility.php</a></li></ol></li><li><label for="Protocol">Protocol</label><input type="checkbox"id="Protocol"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Content.php.html">Content.php</a></li><li><label for="Http">Http</label><input type="checkbox"id="Http"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Http/Codes.php.html">Codes.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Http/Headers.php.html">Headers.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Http/Request.php.html">Request.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Http/Response.php.html">Response.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Http/Server.php.html">Server.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Input.php.html">Input.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Request.php.html">Request.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Response.php.html">Response.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Server.php.html">Server.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Uri.php.html">Uri.php</a></li></ol></li><li><label for="Routing">Routing</label><input type="checkbox"id="Routing"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Collection.php.html">Collection.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Controller.php.html">Controller.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Definition.php.html">Definition.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Dispatcher.php.html">Dispatcher.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Factory.php.html">Factory.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Regex.php.html">Regex.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Route.php.html">Route.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Router.php.html">Router.php</a></li></ol></li><li><label for="Session">Session</label><input type="checkbox"id="Session"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Session/Handler.php.html">Handler.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Session/Registry.php.html">Registry.php</a></li><li><label for="repository">repository</label><input type="checkbox"id="repository"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Session/repository/database.php.html">database.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Session/repository/file.php.html">file.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Session/Store.php.html">Store.php</a></li></ol></li><li><label for="Utility">Utility</label><input type="checkbox"id="Utility"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Utility/Loader.php.html">Loader.php</a></li></ol></li><li><label for="Validation">Validation</label><input type="checkbox"id="Validation"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Validation/Sanitize.php.html">Sanitize.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Validation/Validate.php.html">Validate.php</a></li></ol></li><li><label for="View">View</label><input type="checkbox"id="View"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Display.php.html">Display.php</a></li><li><label for="Engine">Engine</label><input type="checkbox"id="Engine"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Engine/Html.php.html">Html.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Engine/Json.php.html">Json.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Engine.php.html">Engine.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Format.php.html">Format.php</a></li><li><label for="Layout">Layout</label><input type="checkbox"id="Layout"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Compiler.php.html">Compiler.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Loader.php.html">Loader.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Parser.php.html">Parser.php</a></li><li><label for="Tpl">Tpl</label><input type="checkbox"id="Tpl"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Attributes.php.html">Attributes.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Block.php.html">Block.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Condition.php.html">Condition.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Data.php.html">Data.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Datetime.php.html">Datetime.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Href.php.html">Href.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Import.php.html">Import.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Input.php.html">Input.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Layout.php.html">Layout.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Link.php.html">Link.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Loop.php.html">Loop.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Menu.php.html">Menu.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Select.php.html">Select.php</a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+<div class="content">
+    <div class="background">
+        <div class="codeblock"></div>
+    </div>
+        
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                                            <div class="doc">
+
+                                                                    <div class="req">Budkit\Datastore\Model</div>
+                                
+                                
+                                                                                                                                                        <p><p>model.php</p></p>
+                                                                                                                                                                <p><p>Requires PHP version 5.3</p>
+<p>LICENSE: This source file is subject to version 3.01 of the GNU/GPL License
+that is available through the world-wide-web at the following URI:
+<a href="http://www.gnu.org/licenses/gpl.txt">http://www.gnu.org/licenses/gpl.txt</a>  If you did not receive a copy of
+the GPL License and are unable to obtain it through the web, please
+send a note to support@stonyhillshq.com so we can mail you a copy immediately.</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Category</dt>
+                                                                                                    <dd><p>Utility</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Author</dt>
+                                                                                                    <dd><p>Livingstone Fultang <a href="mailto:livingstone.fultang@stonyhillshq.com">livingstone.fultang@stonyhillshq.com</a></p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Copyright</dt>
+                                                                                                    <dd><p>1997-2012 Stonyhills HQ</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>License</dt>
+                                                                                                    <dd><p><a href="http://www.gnu.org/licenses/gpl.txt">http://www.gnu.org/licenses/gpl.txt</a>.  GNU GPL License 3.01</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Version</dt>
+                                                                                                    <dd><p>Release: 1.0.0</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Since</dt>
+                                                                                                    <dd><p>Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="<br />
+<b>Notice</b>:  Undefined index: id in <b>/opt/local/apache2/htdocs/budkit/vendor/budkit/docs/src/Layout.php</b> on line <b>58</b><br />
+">
+
+                                        
+                                                                                                                                    <span
+                                                    class="label label-primary" >class</span>
+                                                                                    
+                                        Entity
+
+                                    </h1>
+                                    <p>
+                                        
+                                                                                            <span class="label label-default" outline>Extends</span>
+                                                <a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/DataModel.php.html"><span
+                                                        class="small">Budkit\Datastore\Model\DataModel</span></a>
+                                                <br/>
+                                                                                            <span class="label label-default" outline>Extends</span>
+                                                <a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Helper/Object.php.html"><span
+                                                        class="small">Budkit\Helper\Object</span></a>
+                                                <br/>
+                                            
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>What is the purpose of this class, in one sentence?</p></p>
+                                                                                                                                                                <p><p>How does this class achieve the desired purpose?</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Category</dt>
+                                                                                                    <dd><p>Utility</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Author</dt>
+                                                                                                    <dd><p>Livingstone Fultang <a href="mailto:livingstone.fultang@stonyhillshq.com">livingstone.fultang@stonyhillshq.com</a></p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Copyright</dt>
+                                                                                                    <dd><p>1997-2012 Stonyhills HQ</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>License</dt>
+                                                                                                    <dd><p><a href="http://www.gnu.org/licenses/gpl.txt">http://www.gnu.org/licenses/gpl.txt</a>.  GNU GPL License 3.01</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Version</dt>
+                                                                                                    <dd><p>Release: 1.0.0</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Since</dt>
+                                                                                                    <dd><p>Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+                                    <dl>
+                                        <dt>Methods</dt>
+                                        <dd>
+                                                                                        <row>
+                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:setPropertyValue">setPropertyValue() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:setObjectType">setObjectType() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getObjectType">getObjectType() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:setLastSavedObjectURI">setLastSavedObjectURI() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getLastSavedObjectURI">getLastSavedObjectURI() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:setObjectId">setObjectId() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getObjectId">getObjectId() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:setObjectURI">setObjectURI() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getObjectURI">getObjectURI() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getPropertyDefinition">getPropertyDefinition() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getPropertyValue">getPropertyValue() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getObjectsByPropertyValueBetween">getObjectsByPropertyValueBetween() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getObjectsByPropertyValueLike">getObjectsByPropertyValueLike() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:setPropertyValueCondition">setPropertyValueCondition() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getObjectsByPropertyValueMatch">getObjectsByPropertyValueMatch() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:setListOrderBy">setListOrderBy() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getListOrderByStatement">getListOrderByStatement() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:setListLookUpConditions">setListLookUpConditions() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getListLookUpConditionsClause">getListLookUpConditionsClause() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:resetListLookUpConditions">resetListLookUpConditions() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getObjectsList">getObjectsList() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getObjectsListCount">getObjectsListCount() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getObjectById">getObjectById() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:loadObjectByURI">loadObjectByURI() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:loadObjectById">loadObjectById() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:bindPropertyData">bindPropertyData() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:removeObject">removeObject() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:removeObjectProperty">removeObjectProperty() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:saveObject">saveObject() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getPropertyModel">getPropertyModel() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getPropertyData">getPropertyData() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:extendPropertyModel">extendPropertyModel() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:definePropertyModel">definePropertyModel() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:defineValueGroup">defineValueGroup() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getValueGroup">getValueGroup() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:display">display() </a>
+                                                </column>
+                                                                                                                                            </row>
+                                        </dd>
+
+                                    </dl>
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                            </div>
+                </div>
+                
+
+        
+                                        
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:__construct">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        __construct
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function __construct(Database $database, Container $container)
+    {
+
+        parent::__construct($container);
+
+        $this-&gt;container = $container;
+        $this-&gt;database = $database;
+
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:setPropertyValue">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        setPropertyValue
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Sets the property Value before save</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>string $property Proprety ID or Property Name</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function setPropertyValue($property, $value = NULL, $objectId = NULL)
+    {
+
+        $property = strtolower($property);
+        //1. Check that the property exists in $dataModel;
+        if (!array_key_exists($property, $this-&gt;propertyModel))
+            return false; //@TODO Raise error? specified column not found
+        //2. Validate the Value?
+        if (empty($value)):
+            //Attempt to get the default value;
+            if (isset($this-&gt;propertyModel[$property][3])) //the third item in the array should be the default value;
+                $value = $this-&gt;propertyModel[$property][3];
+        endif;
+        //3. Store the value with the property name in $propertyData;
+        if (empty($objectId) || (int)$objectId == $this-&gt;objectId):
+            $this-&gt;propertyData[$property] = $value;
+            //elseif(!empty($objectId)):
+            //@TODO Go to the database set the property value for this object
+        endif;
+
+        return $this;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:setObjectType">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        setObjectType
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Set the Entity Type for the current Entity</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>string $entityType</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>void</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function setObjectType($objectType)
+    {
+        $this-&gt;objectType = $objectType;
+        return $this;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getObjectType">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getObjectType
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Get the Entity Type for the current Entity</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>string $entityType</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>void</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getObjectType()
+    {
+        return $this-&gt;objectType;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:setLastSavedObjectURI">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        setLastSavedObjectURI
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Set the Entity Type for the current Entity</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>string $entityType</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>void</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function setLastSavedObjectURI($objectId)
+    {
+        $this-&gt;savedObjectURI = $objectId;
+        return $this;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getLastSavedObjectURI">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getLastSavedObjectURI
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Get the Entity Type for the current Entity</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>string $entityType</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>void</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getLastSavedObjectURI()
+    {
+        return $this-&gt;savedObjectURI;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:setObjectId">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        setObjectId
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Set the Entity Type for the current Entity</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>string $entityType</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>void</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function setObjectId($objectId)
+    {
+        $this-&gt;objectId = $objectId;
+        return $this;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getObjectId">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getObjectId
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Get the Entity Type for the current Entity</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>string $entityType</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>void</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getObjectId()
+    {
+        return $this-&gt;objectId;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:setObjectURI">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        setObjectURI
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $objectURI</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>\Platform\Entity</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function setObjectURI($objectURI)
+    {
+        $this-&gt;objectURI = $objectURI;
+        return $this;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getObjectURI">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getObjectURI
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $objectURI</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>\Platform\Entity</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getObjectURI()
+    {
+        return $this-&gt;objectURI;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getPropertyDefinition">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getPropertyDefinition
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Returns the property definition for a given property by name
+Use {static::getProperNameFromId} to get the propery name from an Id</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>string $propertyName</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>array</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getPropertyDefinition($propertyName)
+    {
+
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getPropertyValue">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getPropertyValue
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Returns an entity property value by propery name if exists</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Todo</dt>
+                                                                                                    <dd><p>Allow for default value setting;</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>string $propertyName</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>mixed</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getPropertyValue($propertyName, $objectId = null)
+    {
+
+        //You can return this protected properties as objects too.
+        if (in_array($propertyName, array(&quot;objectId&quot;, &quot;objectType&quot;, &quot;objectURI&quot;)) &amp;&amp; isset($this-&gt;$propertyName)) {
+            return $this-&gt;$propertyName;
+        }
+
+        $property = strtolower($propertyName);
+        //1. Check that the property exists in $dataModel;
+        if (!array_key_exists($property, $this-&gt;propertyModel))
+            return false; //@TODO Raise error? specified column not found
+        //2. if isset objectId and object is this object, check value in propertyData
+        if ((!empty($objectId) &amp;&amp; (int)$objectId == $this-&gt;objectId) || empty($objectId)) {
+            //IF we have a property that is not defined go get 
+            if (!isset($this-&gt;propertyData[$property])) {
+                //@TODO Database QUERY with objectId
+                //Remember that this will most likely be used for &#039;un-modeled&#039; data
+                return;
+            }
+            //If we already have the property set and the objectId is empty
+            return $this-&gt;propertyData[$property];
+        }
+        //3. If we have an Id and its not the same go back to the DB
+        //if we have an id
+        return;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getObjectsByPropertyValueBetween">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getObjectsByPropertyValueBetween
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Return Object lists with matched properties between two values</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $property</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getObjectsByPropertyValueBetween($property, $valueA, $valueB, array $select, $objectType = NULL, $objectURI = NULL, $objectId = NULL)
+    {
+
+        if (empty($property) || empty($valueA) || empty($valueB) || empty($select))
+            return false; //We must have eactly one property value pair defined 
+
+        $query = static::getObjectQuery($select, &quot;?{$this-&gt;valueGroup}property_values&quot;, $objectId, $objectType, $objectURI);
+
+        $query .= &quot;\nGROUP BY o.object_id&quot;;
+        $query .= &quot;\nHAVING {$property} BETWEEN {$valueA} AND {$valueB}&quot;; //@TODO check if we are comparing dates and use CAST() to convert to dates 
+
+
+        $results = $this-&gt;database-&gt;prepare($query)-&gt;execute();
+
+        return $results;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getObjectsByPropertyValueLike">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getObjectsByPropertyValueLike
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Return Object lists with properties values similar to defined value (in part or whole)</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $property the property name or alias used in searching. MUST be included in the select array. @TODO group concat property array for searching in multiple fields</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getObjectsByPropertyValueLike($property, $value, array $select = array(), $objectType = NULL, $objectURI = NULL, $objectId = NULL)
+    {
+
+        if (empty($property) || empty($value))
+            return NULL; //We must have eactly one property value pair defined 
+        $select = (empty($select)) ? array($property) : array_merge(array($property), $select); //If we have an empty select use the values from property;
+        $query = static::getObjectQuery($select, &quot;?{$this-&gt;valueGroup}property_values&quot;, $objectId, $objectType, $objectURI);
+
+        $query .= &quot;\nGROUP BY o.object_id&quot;;
+        $query .= &quot;\nHAVING {$property} LIKE &#039;%{$value}%&#039;&quot;;
+
+
+        $results = $this-&gt;database-&gt;prepare($query)-&gt;execute();
+
+        return $results;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:setPropertyValueCondition">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        setPropertyValueCondition
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Sets a property conditional value for the select query</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $property</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function setPropertyValueCondition($property, $value)
+    {
+        return $this-&gt;setListLookUpConditions($property, $value);
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getObjectsByPropertyValueMatch">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getObjectsByPropertyValueMatch
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Return Object lists with properties matching the given value</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $properties list of properties to match to values, must have exactly a value pair in the values array and must be included in the select array</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getObjectsByPropertyValueMatch(array $properties, array $values, array $select = array(), $objectType = NULL, $objectURI = NULL, $objectId = NULL)
+    {
+
+        if (empty($properties) || empty($values))
+            return false; //We must have eactly one property value pair defined 
+        $select = array_merge($properties, $select); //If we have an empty select use the values from property;
+        $query = static::getObjectQuery($select, &quot;?{$this-&gt;valueGroup}property_values&quot;, $objectId, $objectType, $objectType);
+
+        $query .= &quot;\nGROUP BY o.object_id&quot;;
+        $p = count($properties);
+        $v = count($values);
+        if (!empty($properties) &amp;&amp; !empty($values) &amp;&amp; $p === $v):
+            $query .= &quot;\nHAVING\t&quot;;
+            $having = false;
+            for ($i = 0; $i &lt; $p; $i++):
+                $query .= ($having) ? &quot;\tAND\t&quot; : &quot;&quot;;
+                $query .= &quot;{$properties[$i]} = &quot; . $this-&gt;database-&gt;quote($values[$i]);
+                $having = true;
+            endfor;
+        endif;
+
+        $results = $this-&gt;database-&gt;prepare($query)-&gt;execute();
+
+        return $results;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:setListOrderBy">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-" outline>final</span>
+                                                                                            <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        setListOrderBy
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Sets the list order direction</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $fields comma seperated list, or array</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>\Platform\Entity</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    final public function setListOrderBy($fields, $direction = &quot;ASC&quot;)
+    {
+
+        $direction = (in_array(strtoupper(trim($direction)), array(&#039;ASC&#039;, &#039;DESC&#039;), TRUE)) ? &#039; &#039; . $direction : &#039; ASC&#039;;
+        $orderby = NULL;
+        //Clean up the order by field list
+        if (!empty($fields) &amp;&amp; !is_array($fields)) {
+            $temp = array();
+            foreach (explode(&#039;,&#039;, $fields) as $part) {
+                $part = trim($part);
+                $temp[] = $part;
+            }
+
+            $orderby = implode(&#039;, &#039;, $temp);
+        } else if (is_array($fields)) {
+            $temp = array();
+            foreach ($fields as $field) {
+                $part = trim($field);
+                $temp[] = $part;
+            }
+            $orderby = implode(&#039;, &#039;, $temp);
+        }
+
+
+        if (!empty($orderby)) {
+            $this-&gt;listOrderByStatement = &quot;\nORDER BY &quot; . $orderby . $direction;
+        }
+        //Return this object
+        return $this;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getListOrderByStatement">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-" outline>final</span>
+                                                                                            <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getListOrderByStatement
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Returns the list orderby statement if any defined or NULL if none</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>string</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    final public function getListOrderByStatement()
+    {
+        return $this-&gt;listOrderByStatement;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:setListLookUpConditions">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-" outline>final</span>
+                                                                                            <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        setListLookUpConditions
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Sets lookup conditions for entity table search</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $key</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>\Platform\Entity</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    final public function setListLookUpConditions($key, $value = NULL, $type = &#039;AND&#039;, $exact = FALSE, $escape = TRUE, $comparison = &quot;LIKE&quot;)
+    {
+
+        if (empty($key)) {
+            return $this;
+        }
+        if (!is_array($key)) {
+            if (is_null($value)) { //some values could be &#039;&#039; so don&#039;t use empty here
+                return $this;
+            }
+            $key = array($key =&gt; $value);
+        }
+        //print_R($key);
+        $dataModel = $this-&gt;getPropertyModel();
+        foreach ($key as $k =&gt; $v) {
+
+            //For count queries, we will only add properties if their value is in having or where clause;
+            if (array_key_exists($k, $dataModel)):
+                $this-&gt;listLookUpConditionProperties[] = $k;
+            endif;
+
+            //The firs item adds the and prefix;
+            $prefix = (count($this-&gt;listLookUpConditions) == 0 AND count($this-&gt;listLookUpConditions) == 0) ? &#039;&#039; : $type . &quot;\t&quot;;
+            if ($escape === TRUE) {
+                $v = $this-&gt;database-&gt;escape($v);
+                //$v = $this-&gt;quote( stripslashes($v) );
+            }
+            if (empty($v)) {
+                // value appears not to have been set, assign the test to IS NULL 
+                // IFNULL(xxx, &#039;&#039;)
+                $v = &quot; IS NULL&quot;;
+            } else {
+                if (is_array($v)):
+                    $_values = array_map(array($this-&gt;database, &quot;quote&quot;), $v);
+                    $values = implode(&#039;,&#039;, $_values);
+                    $v = &quot; IN ($values)&quot;;
+                else:
+                    $v = (strtoupper($comparison) == &quot;LIKE&quot;) ? &quot; LIKE &#039;%{$v}%&#039;&quot; : &quot; {$comparison} &#039;{$v}&#039;&quot;;
+                endif;
+            }
+            if ($exact &amp;&amp; is_array($this-&gt;listLookUpConditions) &amp;&amp; !empty($this-&gt;listLookUpConditions)):
+                $conditions = implode(&quot;\t&quot;, $this-&gt;listLookUpConditions);
+                $this-&gt;listLookUpConditions = array();
+                $this-&gt;listLookUpConditions[] = &quot;(&quot; . $conditions . &quot;)&quot;;
+            endif;
+            $this-&gt;listLookUpConditions[] = $prefix . $k . $v;
+        }
+
+        return $this;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getListLookUpConditionsClause">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getListLookUpConditionsClause
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Returns the list select clause additional conditions</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>string or null if no conditions</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getListLookUpConditionsClause()
+    {
+        $query = null;
+        if (is_array($this-&gt;listLookUpConditions) &amp;&amp; !empty($this-&gt;listLookUpConditions)):
+            $query .= &quot;\nHAVING\t&quot;;
+            $query .= implode(&quot;\t&quot;, $this-&gt;listLookUpConditions);
+        endif;
+        //Reset the listLookUp after the query has been generated, to avoid issues;
+        //$this-&gt;resetListLookUpConditions();
+        return $query;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:resetListLookUpConditions">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        resetListLookUpConditions
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Resets the list lookUpconditions after each query;</p></p>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function resetListLookUpConditions()
+    {
+        $this-&gt;listLookUpConditions = array();
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getObjectsList">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-" outline>final</span>
+                                                                                            <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getObjectsList
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Returns objects lists table with attributes list and values</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $objectType</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>type $statement</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    final public function getObjectsList($objectType, $properties = array(), $objectURI = NULL, $objectId = NULL)
+    {
+
+        if (empty($properties)):
+            if (!empty($this-&gt;propertyModel))
+                $properties = array_keys($this-&gt;propertyModel);
+        endif;
+
+        $query = static::getObjectQuery($properties, &quot;?{$this-&gt;valueGroup}property_values&quot;, NULL, $objectType, $objectURI, $objectId);
+
+        //echo($this-&gt;withConditions) ;
+        $query .= &quot;\nGROUP BY o.object_id&quot;;
+        $query .= $this-&gt;getListLookUpConditionsClause();
+        $query .= $this-&gt;getListOrderByStatement();
+        $query .= $this-&gt;getLimitClause();
+
+        $total = $this-&gt;getObjectsListCount($objectType, $properties, $objectURI, $objectId); //Count first
+        $results = $this-&gt;database-&gt;prepare($query)-&gt;execute();
+        //Could use SQL_CALC_FOUND here but just the same as just using a second query really;
+        //$queries = $this-&gt;database-&gt;getQueryLog();
+        $this-&gt;resetListLookUpConditions();
+        $this-&gt;setListTotal($total);
+
+        return $results;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getObjectsListCount">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-" outline>final</span>
+                                                                                            <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getObjectsListCount
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Gets the object List Count</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $objectType</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>type</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    final public function getObjectsListCount($objectType, $properties = array(), $objectURI = NULL, $objectId = NULL)
+    {
+        if (empty($properties)):
+            if (!empty($this-&gt;propertyModel))
+                $properties = array_keys($this-&gt;propertyModel);
+        endif;
+        $query = $this-&gt;getObjectCountQuery($properties, &quot;?{$this-&gt;valueGroup}property_values&quot;, $objectId, $objectType, $objectURI);
+        //echo($this-&gt;withConditions) ;
+        $query .= &quot;\nGROUP BY o.object_id&quot;;
+        $query .= $this-&gt;getListLookUpConditionsClause();
+        $query .= $this-&gt;getListOrderByStatement();
+        $cquery = &quot;SELECT COUNT(total_objects) as count FROM ($query) AS total_entities&quot;;
+        $results = $this-&gt;database-&gt;prepare($cquery)-&gt;execute();
+        $count = 0;
+        while ($row = $results-&gt;fetchAssoc()) {
+            $count = $row[&#039;count&#039;];
+        }
+        return $count;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getObjectById">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-" outline>final</span>
+                                                                                            <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getObjectById
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">final public function getObjectById($objectId, $properties = array())
+    {
+        if (empty($properties)):
+            if (!empty($this-&gt;propertyModel))
+                $properties = array_keys($this-&gt;propertyModel);
+        endif;
+
+        $query = static::getObjectQuery($properties, &quot;?{$this-&gt;valueGroup}property_values&quot;);
+        $query .= &quot;\nWHERE o.object_id=&#039;{$objectId}&#039; GROUP BY o.object_id&quot;;
+
+        $results = $this-&gt;database-&gt;prepare($query)-&gt;execute();
+
+        return $results;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:loadObjectByURI">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        loadObjectByURI
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Return an Unique Object with or without attributes attributes</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $objectURI</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function loadObjectByURI($objectURI, $properties = array(), $replaceThis = false)
+    {
+
+        if (empty($properties)):
+            if (!empty($this-&gt;propertyModel))
+                $properties = array_keys($this-&gt;propertyModel);
+        endif;
+
+        $query = static::getObjectQuery($properties, &quot;?{$this-&gt;valueGroup}property_values&quot;);
+        $query .= &quot;\nWHERE o.object_uri=&#039;{$objectURI}&#039; GROUP BY o.object_id&quot;;
+        $rows = array();
+        $key = sha1($query);
+        //Can we limit the number of times we load by URI?
+        //$results = $this-&gt;database-&gt;prepare($query)-&gt;execute();
+        if (isset($this-&gt;registry[$key])):
+            $rows = $this-&gt;registry[$key];
+        else:
+            $results = $this-&gt;database-&gt;prepare($query)-&gt;execute();
+            $fetched = $results-&gt;fetchAll();
+            $rows = reset($fetched);
+
+            $this-&gt;registry[$key] = $rows;
+        endif;
+
+        //$n = 0;
+
+
+        $object = (!$replaceThis) ? new Entity($this-&gt;database, $this-&gt;container) : $this;
+
+        $object-&gt;definePropertyModel($this-&gt;propertyModel);
+        //$object-&gt;defineValueGroup($this-&gt;valueGroup);
+
+        foreach ((array)$rows as $property =&gt; $value):
+            if (strtolower($property) == &quot;object_type&quot;) {
+                $object-&gt;setObjectType($value);
+                continue;
+            }
+            if (strtolower($property) == &quot;object_id&quot;) {
+                $object-&gt;setObjectId($value);
+                continue;
+            }
+            if (strtolower($property) == &quot;object_uri&quot;) {
+                $object-&gt;setObjectURI($value);
+                continue;
+            }
+            $object-&gt;setPropertyValue($property, $value);
+        endforeach;
+
+        return $object;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:loadObjectById">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        loadObjectById
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Return an Unique Object with or without attributes attributes</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $objectId</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function loadObjectById($objectId, $properties = array())
+    {
+
+        $results = $this-&gt;getObjectById($objectId, $properties);
+        //If success, store the object id in
+        $n = 0;
+        $object = new Entity($this-&gt;database, $this-&gt;container);
+        $object-&gt;definePropertyModel($this-&gt;propertyModel);
+        //$object-&gt;defineValueGroup($this-&gt;valueGroup);
+
+        while ($row = $results-&gt;fetchAssoc()) {
+            foreach ($row as $property =&gt; $value):
+                if (strtolower($property) == &quot;object_type&quot;) {
+                    $object-&gt;setObjectType($value);
+                    continue;
+                }
+                if (strtolower($property) == &quot;object_id&quot;) {
+                    $object-&gt;setObjectId($value);
+                    continue;
+                }
+                if (strtolower($property) == &quot;object_uri&quot;) {
+                    $object-&gt;setObjectURI($value);
+                    continue;
+                }
+                $object-&gt;setPropertyValue($property, $value);
+            endforeach;
+            $n++;
+        }
+        return $object;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:bindPropertyData">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-" outline>final</span>
+                                                                                            <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        bindPropertyData
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">final public function bindPropertyData()
+    {
+
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:removeObject">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-" outline>final</span>
+                                                                                            <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        removeObject
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Saves an object to the EAV database</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $objectURI</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>boolean</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    final public function removeObject($objectURI)
+    {
+
+        if (empty($objectURI)) return false; //@TODO should throw an exception
+
+        $object = $this-&gt;database-&gt;select()-&gt;from(&quot;?objects&quot;)-&gt;where(array(&quot;object_uri&quot; =&gt; $this-&gt;database-&gt;quote($objectURI)))-&gt;prepare()-&gt;execute()-&gt;fetchObject();
+
+        if (empty($object-&gt;object_id)) return false; //@TODO should throw an exception
+        //Get all value table names;
+        $tables = $this-&gt;database-&gt;prepare(&quot;SHOW TABLES LIKE &#039;%_property_values&#039;&quot;)-&gt;execute();
+        $from = array();
+
+        while ($row = $tables-&gt;fetchAssoc()) {
+            $from[] = array_shift(array_values($row));
+        }
+        //Trigger BeforeObject Removal;
+        //Library\Event::trigger(&#039;beforeRemoveObject&#039;, $object-&gt;object_id, $object-&gt;object_uri, $object-&gt;object_type );
+
+        //Start Deleting transaction
+        //$this-&gt;database-&gt;startTransaction();
+        //Delete the object from each value table;
+        foreach ($from as $vtable):
+            if (!$this-&gt;database-&gt;delete($vtable, array(&quot;object_id&quot; =&gt; $this-&gt;database-&gt;quote($object-&gt;object_id)))) {
+                static::setError($this-&gt;database-&gt;getError());
+                return false;
+            }
+        endforeach;
+        //then remove the object from the objects table
+        if (!$this-&gt;database-&gt;delete(&#039;?objects&#039;, array(&quot;object_id&quot; =&gt; $this-&gt;database-&gt;quote($object-&gt;object_id)))) {
+            static::setError($this-&gt;database-&gt;getError());
+            return false;
+        }
+
+        // $this-&gt;database-&gt;commitTransaction();
+
+        //Trigger AfterObjectType Removal;
+        // Library\Event::trigger(&#039;afterRemoveObject&#039;, $object-&gt;object_id, $object-&gt;object_uri, $object-&gt;object_type );
+
+        unset($object);
+        return true;
+
+        //die;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:removeObjectProperty">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-" outline>final</span>
+                                                                                            <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        removeObjectProperty
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">final public function removeObjectProperty($objectURI)
+    {
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:saveObject">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-" outline>final</span>
+                                                                                            <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        saveObject
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Saves an object to the EAV database</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $objectURI</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>boolean</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    final public function saveObject($objectURI = NULL, $objectType = NULL, $objectId = NULL)
+    {
+
+        $isNew = (empty($objectId) &amp;&amp; empty($objectURI)) ? true : false;
+
+        //Get a randomstring for the objectURI
+        $objectURI = empty($objectURI) ? getRandomString(10, false, true) : $objectURI;
+        $objectType = empty($objectType) ? &#039;entity&#039; : $objectType;
+        //$objectId = empty($objectId) ?  (!empty($this-&gt;objectId) ? $this-&gt;objectId : null ) : $objectId;
+        //Ensure we have all the properties
+        if (empty($this-&gt;propertyModel) || empty($this-&gt;propertyData))
+            return false; //We have nothing to save
+
+        //Use a transaction;
+        $this-&gt;database-&gt;startTransaction();
+        $pquery = &quot;INSERT IGNORE INTO ?properties (property_name, property_label, property_datatype, property_charsize, property_default, property_indexed) VALUES\n&quot;;
+        $pqueryV = array();
+        foreach ($this-&gt;propertyModel as $property =&gt; $definition) {
+            $values = array($this-&gt;database-&gt;quote($property), $this-&gt;database-&gt;quote($definition[0]), $this-&gt;database-&gt;quote($definition[1])); //Name, Label, DataType
+            $values[] = (isset($definition[2])) ? $this-&gt;database-&gt;quote($definition[2]) : $this-&gt;database-&gt;quote(&quot;&quot;); //Charsize
+            $values[] = (isset($definition[3])) ? $this-&gt;database-&gt;quote($definition[3]) : $this-&gt;database-&gt;quote(&quot;&quot;); //Default
+            $values[] = (isset($definition[4]) &amp;&amp; $definition[4]) ? $this-&gt;database-&gt;quote(1) : $this-&gt;database-&gt;quote(0); //Indexed
+
+            $pqueryV[] = &quot; (&quot; . implode(&#039;, &#039;, $values) . &quot; )&quot;;
+        }
+        $pquery .= implode(&#039;, &#039;, $pqueryV);
+
+        //update the properties
+        $this-&gt;database-&gt;query($pquery);
+
+        //If objectId is NULL then NEW Create new object
+        if ($isNew):
+
+            //Log::message(&quot;Object ID is {$objectId}&quot;);
+
+            $timestamp = Time::stamp();
+
+            $oquery = $this-&gt;database-&gt;insert(&quot;?objects&quot;, array(&quot;object_uri&quot; =&gt; $this-&gt;database-&gt;quote($objectURI), &quot;object_type&quot; =&gt; $this-&gt;database-&gt;quote($objectType), &quot;object_created_on&quot; =&gt; $this-&gt;database-&gt;quote($timestamp)), FALSE, NULL, FALSE);
+            $this-&gt;database-&gt;query($oquery);
+
+            $this-&gt;setLastSavedObjectURI($objectURI);
+        endif;
+
+
+        //If property exists and value doesnt insert new value row
+        //If property exists and value exists update value
+        //if property does not exists, insert property and insert value
+        $vtable = &quot;?{$this-&gt;valueGroup}property_values&quot;;
+
+        $iquery = &quot;REPLACE INTO {$vtable} (property_id, object_id, value_data)&quot;;
+        $iqueryV = array();
+        foreach ($this-&gt;propertyData as $propertyName =&gt; $valueData):
+            //@TODO validate the data?
+            if (empty($valueData))
+                continue; //There is no point in storing empty values;
+
+
+//@TODO also check that value data has data for fields demarkated as allowempty=false;
+            $iqueryV[] = &quot;\nSELECT p.property_id, o.object_id, {$this-&gt;database-&gt;quote($valueData)}  FROM `?properties` AS p JOIN `?objects` AS o WHERE o.object_uri={$this-&gt;database-&gt;quote($objectURI)} AND p.property_name={$this-&gt;database-&gt;quote($propertyName)}&quot;;
+        endforeach;
+        $iquery .= implode(&quot;\nUNION ALL&quot;, $iqueryV);
+
+        $this-&gt;database-&gt;query($iquery);
+        //Update the object URI so the last update field is auto updated
+        //$this-&gt;database-&gt;exec( &quot;UPDATE ?objects SET objected_updated_on=CURRENT_TIMESTAMP&quot; WHERE object_uri=&quot; );
+
+        if (!$this-&gt;database-&gt;commitTransaction()) {
+            throw new Exception(&quot;Could not commit transaction&quot;);
+            return false;
+        }
+
+        return true;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getPropertyModel">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-" outline>final</span>
+                                                                                            <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getPropertyModel
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Returns the current data model</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>type</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    final public function getPropertyModel()
+    {
+        return $this-&gt;propertyModel;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getPropertyData">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getPropertyData
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Returns the current data model values</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>type</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getPropertyData()
+    {
+        return $this-&gt;propertyData;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:extendPropertyModel">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-" outline>final</span>
+                                                                                            <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        extendPropertyModel
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Extends the parent data model
+Allows the current object to use parent object properties</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $dataModel array(property_name=&gt;array(&quot;label&quot;=&gt;&quot;&quot;,&quot;datatype&quot;=&gt;&quot;&quot;,&quot;charsize&quot;=&gt;&quot;&quot; , &quot;default&quot;=&gt;&quot;&quot;, &quot;index&quot;=&gt;FALSE, &quot;allowempty&quot;=&gt;FALSE))</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    final public function extendPropertyModel($dataModel = array(), $objectType = &quot;object&quot;)
+    {
+
+        $this-&gt;propertyModel = array_merge($this-&gt;propertyModel, $dataModel);
+        $this-&gt;setObjectType($objectType);
+
+        return $this;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:definePropertyModel">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-" outline>final</span>
+                                                                                            <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        definePropertyModel
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Creates a completely new data model.
+Any Properties not explicitly described for this object will be ignored</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $dataModel</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    final public function definePropertyModel($dataModel = array(), $objectType = &quot;object&quot;)
+    {
+
+        $this-&gt;propertyModel = $dataModel;
+        $this-&gt;setObjectType($objectType);
+
+        return $this;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:defineValueGroup">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-" outline>final</span>
+                                                                                            <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        defineValueGroup
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Defines a sub table for value data;</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $valueGroup</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    final public function defineValueGroup($valueGroup = NULL)
+    {
+        $this-&gt;valueGroup = !empty($valueGroup) ? trim($valueGroup) . &quot;_&quot; : NULL;
+        //you must have this proxy table created at setup
+        //also object type must be the same as valuegroup
+        if (!empty($valueGroup)) {
+            return $this-&gt;setObjectType(trim($valueGroup));
+        }
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getValueGroup">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-" outline>final</span>
+                                                                                            <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getValueGroup
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Returns the value group</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>string</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    final public function getValueGroup()
+    {
+        return $this-&gt;valueGroup;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:display">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        display
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Pivot this entity into a sparse matrix</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>array associative array</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function display()
+    {
+        //@TODO: Renders the display data, as per other models
+        return;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                
+                                
+
+
+                                
+                                    <dl>
+                                        <dt>Inherited Methods from Budkit\Datastore\Model\DataModel</dt>
+                                        <dd>
+                                                                                        <row>
+                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/DataModel.php.html#method:setListTotal">setListTotal() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/DataModel.php.html#method:getLimitClause">getLimitClause() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/DataModel.php.html#method:getState">getState() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/DataModel.php.html#method:getListLimit">getListLimit() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/DataModel.php.html#method:getListOffset">getListOffset() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/DataModel.php.html#method:setListLimit">setListLimit() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/DataModel.php.html#method:setState">setState() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/DataModel.php.html#method:setListOffset">setListOffset() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/DataModel.php.html#method:getPagination">getPagination() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/DataModel.php.html#method:setPagination">setPagination() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/DataModel.php.html#method:getListTotal">getListTotal() </a>
+                                                </column>
+                                                                                                                                            </row>
+                                        </dd>
+
+                                    </dl>
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                
+                                
+
+
+                                
+                                    <dl>
+                                        <dt>Inherited Methods from Budkit\Helper\Object</dt>
+                                        <dd>
+                                                                                        <row>
+                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Helper/Object.php.html#method:setError">setError() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Helper/Object.php.html#method:Object">Object() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Helper/Object.php.html#method:get">get() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Helper/Object.php.html#method:getError">getError() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Helper/Object.php.html#method:getErrorString">getErrorString() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Helper/Object.php.html#method:getErrors">getErrors() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Helper/Object.php.html#method:set">set() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Helper/Object.php.html#method:setProperties">setProperties() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Helper/Object.php.html#method:toString">toString() </a>
+                                                </column>
+                                                                                                                                            </row>
+                                        </dd>
+
+                                    </dl>
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                            </div>
+                </div>
+                
+
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                
+                                
+
+
+                                
+                                    <dl>
+                                        <dt>Inherited Properties from Budkit\Helper\Object</dt>
+                                        <dd>
+                                                                                        <row>
+                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Helper/Object.php.html#property:hooks">hooks </a>
+                                                </column>
+                                                                                                                                            </row>
+                                        </dd>
+
+                                    </dl>
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                            </div>
+                </div>
+                
+
+            </div>
+</body>
+</html>

@@ -1,0 +1,1986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>File</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    
+    <link href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/assets/kube.css" type="text/css" rel="stylesheet"/>
+    <link href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/assets/highlight/styles/railscasts.css" rel="stylesheet">
+    <link href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/assets/styles.css" type="text/css" rel="stylesheet"/>
+        <script src="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/assets/highlight/highlight.pack.js"></script>
+
+    
+
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div class="sidebar column">
+    <ol class='tree'><li><label for="Budkit">Budkit</label><input type="checkbox"checked="checked"id="Budkit"><ol class='tree'><li><label for="Application">Application</label><input type="checkbox"id="Application"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Instance.php.html">Instance.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Provider.php.html">Provider.php</a></li><li><label for="Support">Support</label><input type="checkbox"id="Support"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Application.php.html">Application.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Mock.php.html">Mock.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Mockable.php.html">Mockable.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Mockery.php.html">Mockery.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Providers.php.html">Providers.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Service.php.html">Service.php</a></li></ol></li><li><label for="Utilities">Utilities</label><input type="checkbox"id="Utilities"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Utilities/bootstrap.php.html">bootstrap.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Utilities/constants.php.html">constants.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Utilities/functions.php.html">functions.php</a></li></ol></li></ol></li><li><label for="Authentication">Authentication</label><input type="checkbox"id="Authentication"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/Authenticate.php.html">Authenticate.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/Handler.php.html">Handler.php</a></li><li><label for="Type">Type</label><input type="checkbox"id="Type"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/Type/dbauth.php.html">dbauth.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/Type/ldap.php.html">ldap.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/Type/openID.php.html">openID.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/User.php.html">User.php</a></li></ol></li><li><label for="Datastore">Datastore</label><input type="checkbox"id="Datastore"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Activerecord.php.html">Activerecord.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Database.php.html">Database.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Driver.php.html">Driver.php</a></li><li><label for="Drivers">Drivers</label><input type="checkbox"id="Drivers"><ol class='tree'><li><label for="MySQLi">MySQLi</label><input type="checkbox"id="MySQLi"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Drivers/MySQLi/Accessory.php.html">Accessory.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Drivers/MySQLi/Driver.php.html">Driver.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Drivers/MySQLi/Statement.php.html">Statement.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Drivers/MySQLi/Table.php.html">Table.php</a></li></ol></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Encrypt.php.html">Encrypt.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Engine.php.html">Engine.php</a></li><li><label for="Exception">Exception</label><input type="checkbox"id="Exception"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Exception/ConnectionError.php.html">ConnectionError.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Exception/InternalError.php.html">InternalError.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Exception/QuerryException.php.html">QuerryException.php</a></li></ol></li><li><label for="Model">Model</label><input type="checkbox"id="Model"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/DataModel.php.html">DataModel.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/Entity.php.html">Entity.php</a></li><li><label for="Graph">Graph</label><input type="checkbox"id="Graph"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/Graph/Edge.php.html">Edge.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/Graph/Node.php.html">Node.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/Graph.php.html">Graph.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Pagination.php.html">Pagination.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Results.php.html">Results.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Statement.php.html">Statement.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Table.php.html">Table.php</a></li></ol></li><li><label for="Debug">Debug</label><input type="checkbox"id="Debug"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Debug/Log.php.html">Log.php</a></li><li><label for="Repository">Repository</label><input type="checkbox"id="Repository"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Debug/Repository/debugger.php.html">debugger.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Debug/Repository/log.php.html">log.php</a></li></ol></li></ol></li><li><label for="Dependency">Dependency</label><input type="checkbox"id="Dependency"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Dependency/Container.php.html">Container.php</a></li></ol></li><li><label for="Event">Event</label><input type="checkbox"id="Event"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Event/Event.php.html">Event.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Event/Listener.php.html">Listener.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Event/Observer.php.html">Observer.php</a></li></ol></li><li><label for="Filesystem">Filesystem</label><input type="checkbox"checked="checked"id="Filesystem"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Filesystem/Directory.php.html">Directory.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Filesystem/File.php.html">File.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Filesystem/Packer.php.html">Packer.php</a></li></ol></li><li><label for="Helper">Helper</label><input type="checkbox"id="Helper"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Helper/Date.php.html">Date.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Helper/Object.php.html">Object.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Helper/Time.php.html">Time.php</a></li></ol></li><li><label for="Parameter">Parameter</label><input type="checkbox"id="Parameter"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Factory.php.html">Factory.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Loader.php.html">Loader.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Manager.php.html">Manager.php</a></li><li><label for="Repository">Repository</label><input type="checkbox"id="Repository"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/Database.php.html">Database.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/File.php.html">File.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/Handler.php.html">Handler.php</a></li><li><label for="Parser">Parser</label><input type="checkbox"id="Parser"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/Parser/database.php.html">database.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/Parser/ini.php.html">ini.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/Parser/xml.php.html">xml.php</a></li></ol></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Utility.php.html">Utility.php</a></li></ol></li><li><label for="Protocol">Protocol</label><input type="checkbox"id="Protocol"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Content.php.html">Content.php</a></li><li><label for="Http">Http</label><input type="checkbox"id="Http"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Http/Codes.php.html">Codes.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Http/Headers.php.html">Headers.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Http/Request.php.html">Request.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Http/Response.php.html">Response.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Http/Server.php.html">Server.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Input.php.html">Input.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Request.php.html">Request.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Response.php.html">Response.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Server.php.html">Server.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Uri.php.html">Uri.php</a></li></ol></li><li><label for="Routing">Routing</label><input type="checkbox"id="Routing"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Collection.php.html">Collection.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Controller.php.html">Controller.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Definition.php.html">Definition.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Dispatcher.php.html">Dispatcher.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Factory.php.html">Factory.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Regex.php.html">Regex.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Route.php.html">Route.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Router.php.html">Router.php</a></li></ol></li><li><label for="Session">Session</label><input type="checkbox"id="Session"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Session/Handler.php.html">Handler.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Session/Registry.php.html">Registry.php</a></li><li><label for="repository">repository</label><input type="checkbox"id="repository"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Session/repository/database.php.html">database.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Session/repository/file.php.html">file.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Session/Store.php.html">Store.php</a></li></ol></li><li><label for="Utility">Utility</label><input type="checkbox"id="Utility"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Utility/Loader.php.html">Loader.php</a></li></ol></li><li><label for="Validation">Validation</label><input type="checkbox"id="Validation"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Validation/Sanitize.php.html">Sanitize.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Validation/Validate.php.html">Validate.php</a></li></ol></li><li><label for="View">View</label><input type="checkbox"id="View"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Display.php.html">Display.php</a></li><li><label for="Engine">Engine</label><input type="checkbox"id="Engine"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Engine/Html.php.html">Html.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Engine/Json.php.html">Json.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Engine.php.html">Engine.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Format.php.html">Format.php</a></li><li><label for="Layout">Layout</label><input type="checkbox"id="Layout"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Compiler.php.html">Compiler.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Loader.php.html">Loader.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Parser.php.html">Parser.php</a></li><li><label for="Tpl">Tpl</label><input type="checkbox"id="Tpl"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Attributes.php.html">Attributes.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Block.php.html">Block.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Condition.php.html">Condition.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Data.php.html">Data.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Datetime.php.html">Datetime.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Href.php.html">Href.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Import.php.html">Import.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Input.php.html">Input.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Layout.php.html">Layout.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Link.php.html">Link.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Loop.php.html">Loop.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Menu.php.html">Menu.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Select.php.html">Select.php</a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+<div class="content">
+    <div class="background">
+        <div class="codeblock"></div>
+    </div>
+        
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                                            <div class="doc">
+
+                                                                    <div class="req">Budkit\Filesystem</div>
+                                
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="<br />
+<b>Notice</b>:  Undefined index: id in <b>/opt/local/apache2/htdocs/budkit/vendor/budkit/docs/src/Layout.php</b> on line <b>58</b><br />
+">
+
+                                        
+                                                                                                                                    <span
+                                                    class="label label-primary" >class</span>
+                                                                                    
+                                        File
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+                                    <dl>
+                                        <dt>Methods</dt>
+                                        <dd>
+                                                                                        <row>
+                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:is">is() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getName">getName() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getExtension">getExtension() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getPath">getPath() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:read">read() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:write">write() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getFileStream">getFileStream() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getModifiedDate">getModifiedDate() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getSize">getSize() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getRequire">getRequire() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:isFile">isFile() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:requireOnce">requireOnce() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:prepend">prepend() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:exists">exists() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:put">put() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:append">append() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:move">move() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:remove">remove() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:delete">delete() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:isWritable">isWritable() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:copy">copy() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:hasBackup">hasBackup() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:restoreBackup">restoreBackup() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:chmod">chmod() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getPermission">getPermission() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:setFile">setFile() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:unpack">unpack() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getMimeType">getMimeType() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:create">create() </a>
+                                                </column>
+                                                                                                                                            </row>
+                                        </dd>
+
+                                    </dl>
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                            </div>
+                </div>
+                
+
+        
+                                        
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:is">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-" outline>final</span>
+                                                                                            <span
+                                                    class="label label-success" >public</span>
+                                                                                            <span
+                                                    class="label label-default" >static</span>
+                                                                                    
+                                        is
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Determines if a path links to a folder or file</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>string $path</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    final public static function is($path, $folder = TRUE)
+    {
+
+        $return = is_dir($path) ? $folder : !$folder;
+
+        return (bool)$return;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getName">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getName
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Get File Name</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $file</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>type</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getName($file = &quot;&quot;, $default = null)
+    {
+
+        $file = (empty($file) &amp;&amp; isset($this-&gt;file)) ? $this-&gt;file : $file;
+
+        if (empty($file)) {
+            return $default;
+        }
+
+        //Determine the filename
+        return pathinfo($file, PATHINFO_FILENAME);
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getExtension">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getExtension
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Gets the file extension;</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $file</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>string</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getExtension($file = &quot;&quot;, $default = null)
+    {
+
+        $file = (empty($file) &amp;&amp; isset($this-&gt;file)) ? $this-&gt;file : $file;
+
+        if (empty($file)) {
+            return $default;
+        }
+
+        //Determine the file extension
+        return pathinfo($file, PATHINFO_EXTENSION);
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getPath">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-" outline>final</span>
+                                                                                            <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getPath
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Returns only the directory name from the filepath;</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $file</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    final public function getPath($file = &quot;&quot;, $default = null)
+    {
+
+        $file = (empty($file) &amp;&amp; isset($this-&gt;file)) ? $this-&gt;file : $file;
+
+        if (empty($file)) {
+            return $default;
+        }
+
+        //Determine the file extension
+        return pathinfo($file, PATHINFO_DIRNAME);
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:read">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        read
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Reads the contents of a file;</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $file</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>type</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function read($file)
+    {
+        //@TODO Rewrite;
+        return file_get_contents($file);
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:write">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        write
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Write File</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $file</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function write($file, $content = &quot;&quot;, $mode = &quot;w+&quot;)
+    {
+
+        $stream = $this-&gt;getFileStream($file, $mode);
+
+        //Write the contents
+        fwrite($stream, $content);
+        fclose($stream);
+
+        return true;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getFileStream">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getFileStream
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Get the file stream</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $file</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>boolean</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getFileStream($file, $mode = &quot;w+&quot;)
+    {
+
+        //Throw some errors
+        if (($handle = fopen($file, $mode)) == false) { //this fopen with w will attempt to create the file
+
+            //@Throw error
+            return false;
+        }
+
+        return $handle;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getModifiedDate">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getModifiedDate
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Returns the UNIX timestamp representation
+of the last time the folder was modified</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>string $path</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getModifiedDate($path)
+    {
+
+        //Check for the last modified
+        $lmodified = 0;
+        $files = glob($path . &#039;/*&#039;);
+
+        foreach ($files as $file) {
+            if (is_dir($file)) {
+                $modified = dirmtime($file);
+            } else {
+                $modified = filemtime($file);
+            }
+            if ($modified &gt; $lmodified) {
+                $lmodified = $modified;
+            }
+        }
+
+        return $lmodified;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getSize">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getSize
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Returns in int representation of the file size in bytes</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>string $path</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getSize($path)
+    {
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getRequire">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getRequire
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Get the returned value of a file.</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>string $path</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>mixed</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Throws</dt>
+                                                                                                    <dd><p>FileNotFoundException</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getRequire($path)
+    {
+        if ($this-&gt;isFile($path)) return require $path;
+
+        throw new FileNotFoundException(&quot;File does not exist at path {$path}&quot;);
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:isFile">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-" outline>final</span>
+                                                                                            <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        isFile
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Determines if a path links to a folder or file</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>string $path</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    final public function isFile($filepath)
+    {
+        $return = false;
+        if (file_exists($filepath)):
+            $return = is_file($filepath);
+        endif;
+
+        return (bool)$return;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:requireOnce">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        requireOnce
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Require the given file once.</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>string $file</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>mixed</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function requireOnce($file)
+    {
+        require_once $file;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:prepend">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        prepend
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Prepend to a file.</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>string $path</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>int</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function prepend($path, $data)
+    {
+        if ($this-&gt;exists($path)) {
+            return $this-&gt;put($path, $data . $this-&gt;get($path));
+        } else {
+            return $this-&gt;put($path, $data);
+        }
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:exists">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-" outline>final</span>
+                                                                                            <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        exists
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Determines if a path is credible</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $path</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    final public function exists($path)
+    {
+        return file_exists($path);
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:put">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        put
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Write the contents of a file.</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>string $path</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>int</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function put($path, $contents)
+    {
+        return file_put_contents($path, $contents);
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:append">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        append
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Append to a file.</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>string $path</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>int</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function append($path, $data)
+    {
+        return file_put_contents($path, $data, FILE_APPEND);
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:move">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        move
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Moves the folder to a new location</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $path</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Todo</dt>
+                                                                                                    <dd><p>Will always replace for now.</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function move($path, $toPath, $deleteOriginal = true)
+    {
+        if (copy($path, $toPath)) {
+            if ($deleteOriginal) {
+                if (!$this-&gt;remove($path)) {
+                    //@todo say you could not delete the original
+                }
+            }
+
+            return true;
+        }
+
+        return false;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:remove">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        remove
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Deletes a folder</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $path</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function remove($path)
+    {
+        return $this-&gt;delete($path);
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:delete">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-" outline>final</span>
+                                                                                            <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        delete
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Deletes a file or folder if exists</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $path</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    final public function delete($path)
+    {
+
+        //If we have permission to remove this file
+        if ($this-&gt;isWritable($path)) {
+            if (!@unlink($path)) //This is highly unreliable as unlink returns a warning not a bool
+            {
+                return false;
+            }
+        } else {
+            if (!@unlink($path)) //This is highly unreliable as unlink returns a warning not a bool
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:isWritable">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-" outline>final</span>
+                                                                                            <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        isWritable
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Checks if a file or folder is writable</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $path</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    final public function isWritable($path, $writable = true)
+    {
+        return (bool)is_writable($path) ? $writable : !$writable;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:copy">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        copy
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Copies the file or folder to a new destination</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $path</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Todo</dt>
+                                                                                                    <dd><p>Will always replace for now.</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function copy($path, $toPath)
+    {
+        if (empty($path) || empty($toPath)) return false;
+
+        return copy($path, $toPath);
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:hasBackup">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        hasBackup
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function hasBackup($path)
+    {
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:restoreBackup">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        restoreBackup
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function restoreBackup($path)
+    {
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:chmod">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        chmod
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function chmod($path, $permission)
+    {
+        chmod($path, $permission);
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getPermission">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getPermission
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function getPermission($filepath)
+    {
+        return substr(sprintf(&#039;%o&#039;, fileperms($filepath)), -4);
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:setFile">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        setFile
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Sets the file for execution</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>string $file</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>object An instance of the file class</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function setFile($file)
+    {
+
+        //Return false if file does not exists;
+        if (!$this-&gt;isFile($file)) {
+            return false;
+        }
+        //Get the file info
+        $this-&gt;file = $file;
+        $this-&gt;pathinfo[$file] = pathinfo($file);
+
+        //Return an instance of the file object;
+        return $this;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:unpack">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        unpack
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Unpacks and archived file</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $path</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function unpack($path, $type = &#039;tar.gz&#039;)
+    {
+
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getMimeType">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getMimeType
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Get the MimeType of a file;</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $path</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getMimeType($path, $default = &quot;application/octet-stream&quot;)
+    {
+
+        $finfo = finfo_open(FILEINFO_MIME_TYPE); // return mime type ala mimetype extension
+        $fmtype = finfo_file($finfo, $path);
+
+        finfo_close($finfo);
+
+        return !empty($fmtype) ? $fmtype : $default;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:create">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        create
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Creates a new file</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $path</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function create($filepath, $mode = &quot;w&quot;)
+    {
+        //@1 Fopen cannot create directories,
+        //so if trying to create a file in subfolders that don&#039;t exist will throw a warning
+        //wewill first create these directories;
+        $dirname = dirname($filepath);
+
+        if (!is_dir($dirname)) {
+            if (mkdir($dirname, 0755, true)) {
+                return $dirname;
+            } else {
+                return false;
+            }
+        }
+
+        //@2 Attempt to create the file
+        if (!($file = $this-&gt;getFileStream($filepath, $mode))) {
+            return false;
+        }
+
+        return $file;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            </div>
+</body>
+</html>

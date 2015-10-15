@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Graph</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    
+    <link href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/assets/kube.css" type="text/css" rel="stylesheet"/>
+    <link href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/assets/highlight/styles/railscasts.css" rel="stylesheet">
+    <link href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/assets/styles.css" type="text/css" rel="stylesheet"/>
+        <script src="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/assets/highlight/highlight.pack.js"></script>
+
+    
+
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div class="sidebar column">
+    <ol class='tree'><li><label for="Budkit">Budkit</label><input type="checkbox"checked="checked"id="Budkit"><ol class='tree'><li><label for="Application">Application</label><input type="checkbox"id="Application"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Instance.php.html">Instance.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Provider.php.html">Provider.php</a></li><li><label for="Support">Support</label><input type="checkbox"id="Support"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Application.php.html">Application.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Mock.php.html">Mock.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Mockable.php.html">Mockable.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Mockery.php.html">Mockery.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Providers.php.html">Providers.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Service.php.html">Service.php</a></li></ol></li><li><label for="Utilities">Utilities</label><input type="checkbox"id="Utilities"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Utilities/bootstrap.php.html">bootstrap.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Utilities/constants.php.html">constants.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Utilities/functions.php.html">functions.php</a></li></ol></li></ol></li><li><label for="Authentication">Authentication</label><input type="checkbox"id="Authentication"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/Authenticate.php.html">Authenticate.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/Handler.php.html">Handler.php</a></li><li><label for="Type">Type</label><input type="checkbox"id="Type"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/Type/dbauth.php.html">dbauth.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/Type/ldap.php.html">ldap.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/Type/openID.php.html">openID.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/User.php.html">User.php</a></li></ol></li><li><label for="Datastore">Datastore</label><input type="checkbox"checked="checked"id="Datastore"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Activerecord.php.html">Activerecord.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Database.php.html">Database.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Driver.php.html">Driver.php</a></li><li><label for="Drivers">Drivers</label><input type="checkbox"id="Drivers"><ol class='tree'><li><label for="MySQLi">MySQLi</label><input type="checkbox"id="MySQLi"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Drivers/MySQLi/Accessory.php.html">Accessory.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Drivers/MySQLi/Driver.php.html">Driver.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Drivers/MySQLi/Statement.php.html">Statement.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Drivers/MySQLi/Table.php.html">Table.php</a></li></ol></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Encrypt.php.html">Encrypt.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Engine.php.html">Engine.php</a></li><li><label for="Exception">Exception</label><input type="checkbox"id="Exception"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Exception/ConnectionError.php.html">ConnectionError.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Exception/InternalError.php.html">InternalError.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Exception/QuerryException.php.html">QuerryException.php</a></li></ol></li><li><label for="Model">Model</label><input type="checkbox"checked="checked"id="Model"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/DataModel.php.html">DataModel.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/Entity.php.html">Entity.php</a></li><li><label for="Graph">Graph</label><input type="checkbox"checked="checked"id="Graph"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/Graph/Edge.php.html">Edge.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/Graph/Node.php.html">Node.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/Graph.php.html">Graph.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Pagination.php.html">Pagination.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Results.php.html">Results.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Statement.php.html">Statement.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Table.php.html">Table.php</a></li></ol></li><li><label for="Debug">Debug</label><input type="checkbox"id="Debug"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Debug/Log.php.html">Log.php</a></li><li><label for="Repository">Repository</label><input type="checkbox"id="Repository"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Debug/Repository/debugger.php.html">debugger.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Debug/Repository/log.php.html">log.php</a></li></ol></li></ol></li><li><label for="Dependency">Dependency</label><input type="checkbox"id="Dependency"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Dependency/Container.php.html">Container.php</a></li></ol></li><li><label for="Event">Event</label><input type="checkbox"id="Event"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Event/Event.php.html">Event.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Event/Listener.php.html">Listener.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Event/Observer.php.html">Observer.php</a></li></ol></li><li><label for="Filesystem">Filesystem</label><input type="checkbox"id="Filesystem"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Filesystem/Directory.php.html">Directory.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Filesystem/File.php.html">File.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Filesystem/Packer.php.html">Packer.php</a></li></ol></li><li><label for="Helper">Helper</label><input type="checkbox"id="Helper"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Helper/Date.php.html">Date.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Helper/Object.php.html">Object.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Helper/Time.php.html">Time.php</a></li></ol></li><li><label for="Parameter">Parameter</label><input type="checkbox"id="Parameter"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Factory.php.html">Factory.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Loader.php.html">Loader.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Manager.php.html">Manager.php</a></li><li><label for="Repository">Repository</label><input type="checkbox"id="Repository"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/Database.php.html">Database.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/File.php.html">File.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/Handler.php.html">Handler.php</a></li><li><label for="Parser">Parser</label><input type="checkbox"id="Parser"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/Parser/database.php.html">database.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/Parser/ini.php.html">ini.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/Parser/xml.php.html">xml.php</a></li></ol></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Utility.php.html">Utility.php</a></li></ol></li><li><label for="Protocol">Protocol</label><input type="checkbox"id="Protocol"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Content.php.html">Content.php</a></li><li><label for="Http">Http</label><input type="checkbox"id="Http"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Http/Codes.php.html">Codes.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Http/Headers.php.html">Headers.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Http/Request.php.html">Request.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Http/Response.php.html">Response.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Http/Server.php.html">Server.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Input.php.html">Input.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Request.php.html">Request.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Response.php.html">Response.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Server.php.html">Server.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Uri.php.html">Uri.php</a></li></ol></li><li><label for="Routing">Routing</label><input type="checkbox"id="Routing"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Collection.php.html">Collection.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Controller.php.html">Controller.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Definition.php.html">Definition.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Dispatcher.php.html">Dispatcher.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Factory.php.html">Factory.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Regex.php.html">Regex.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Route.php.html">Route.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Router.php.html">Router.php</a></li></ol></li><li><label for="Session">Session</label><input type="checkbox"id="Session"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Session/Handler.php.html">Handler.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Session/Registry.php.html">Registry.php</a></li><li><label for="repository">repository</label><input type="checkbox"id="repository"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Session/repository/database.php.html">database.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Session/repository/file.php.html">file.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Session/Store.php.html">Store.php</a></li></ol></li><li><label for="Utility">Utility</label><input type="checkbox"id="Utility"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Utility/Loader.php.html">Loader.php</a></li></ol></li><li><label for="Validation">Validation</label><input type="checkbox"id="Validation"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Validation/Sanitize.php.html">Sanitize.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Validation/Validate.php.html">Validate.php</a></li></ol></li><li><label for="View">View</label><input type="checkbox"id="View"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Display.php.html">Display.php</a></li><li><label for="Engine">Engine</label><input type="checkbox"id="Engine"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Engine/Html.php.html">Html.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Engine/Json.php.html">Json.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Engine.php.html">Engine.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Format.php.html">Format.php</a></li><li><label for="Layout">Layout</label><input type="checkbox"id="Layout"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Compiler.php.html">Compiler.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Loader.php.html">Loader.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Parser.php.html">Parser.php</a></li><li><label for="Tpl">Tpl</label><input type="checkbox"id="Tpl"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Attributes.php.html">Attributes.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Block.php.html">Block.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Condition.php.html">Condition.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Data.php.html">Data.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Datetime.php.html">Datetime.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Href.php.html">Href.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Import.php.html">Import.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Input.php.html">Input.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Layout.php.html">Layout.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Link.php.html">Link.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Loop.php.html">Loop.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Menu.php.html">Menu.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Select.php.html">Select.php</a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+<div class="content">
+    <div class="background">
+        <div class="codeblock"></div>
+    </div>
+        
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                                            <div class="doc">
+
+                                                                    <div class="req">Budkit\Datastore\Model</div>
+                                
+                                
+                                                                                                                                                        <p><p>graph.php</p></p>
+                                                                                                                                                                <p><p>Requires PHP version 5.3</p>
+<p>LICENSE: This source file is subject to version 3.01 of the GNU/GPL License
+that is available through the world-wide-web at the following URI:
+<a href="http://www.gnu.org/licenses/gpl.txt">http://www.gnu.org/licenses/gpl.txt</a>  If you did not receive a copy of
+the GPL License and are unable to obtain it through the web, please
+send a note to support@stonyhillshq.com so we can mail you a copy immediately.</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Category</dt>
+                                                                                                    <dd><p>Utilities</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Author</dt>
+                                                                                                    <dd><p>Livingstone Fultang <a href="mailto:livingstone.fultang@stonyhillshq.com">livingstone.fultang@stonyhillshq.com</a></p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Copyright</dt>
+                                                                                                    <dd><p>1997-2012 Stonyhills HQ</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>License</dt>
+                                                                                                    <dd><p><a href="http://www.gnu.org/licenses/gpl.txt">http://www.gnu.org/licenses/gpl.txt</a>.  GNU GPL License 3.01</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Version</dt>
+                                                                                                    <dd><p>Release: 1.0.0</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Link</dt>
+                                                                                                    <dd><p><a href="http://stonyhillshq/documents/index/carbon4/libraries/graph">http://stonyhillshq/documents/index/carbon4/libraries/graph</a></p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Since</dt>
+                                                                                                    <dd><p>Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="<br />
+<b>Notice</b>:  Undefined index: id in <b>/opt/local/apache2/htdocs/budkit/vendor/budkit/docs/src/Layout.php</b> on line <b>58</b><br />
+">
+
+                                        
+                                                                                                                                    <span
+                                                    class="label label-" outline>final</span>
+                                                                                            <span
+                                                    class="label label-primary" >class</span>
+                                                                                    
+                                        Graph
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>What is the purpose of this class, in one sentence?</p></p>
+                                                                                                                                                                <p><p>How does this class achieve the desired purpose?</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Category</dt>
+                                                                                                    <dd><p>Utility</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Author</dt>
+                                                                                                    <dd><p>Livingstone Fultang <a href="mailto:livingstone.fultang@stonyhillshq.com">livingstone.fultang@stonyhillshq.com</a></p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Copyright</dt>
+                                                                                                    <dd><p>1997-2012 Stonyhills HQ</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>License</dt>
+                                                                                                    <dd><p><a href="http://www.gnu.org/licenses/gpl.txt">http://www.gnu.org/licenses/gpl.txt</a>.  GNU GPL License 3.01</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Version</dt>
+                                                                                                    <dd><p>Release: 1.0.0</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Link</dt>
+                                                                                                    <dd><p><a href="http://stonyhillshq/documents/index/carbon4/libraries/graph">http://stonyhillshq/documents/index/carbon4/libraries/graph</a></p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Since</dt>
+                                                                                                    <dd><p>Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+                                    <dl>
+                                        <dt>Methods</dt>
+                                        <dd>
+                                                                                        <row>
+                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getInstance">getInstance() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getPath">getPath() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getPathLength">getPathLength() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getSize">getSize() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getOrder">getOrder() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getArcSet">getArcSet() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getEdgeSet">getEdgeSet() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getMaxDegree">getMaxDegree() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getMinDegree">getMinDegree() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getIsolated">getIsolated() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getLeaves">getLeaves() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:getNode">getNode() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:addEdge">addEdge() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:removeNode">removeNode() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:removeEdge">removeEdge() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:isDirected">isDirected() </a>
+                                                </column>
+                                                                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:createNode">createNode() </a>
+                                                </column>
+                                                                                                                                                                                                <column cols="6"><a
+                                                        href="#method:addNode">addNode() </a>
+                                                </column>
+                                                                                                                                            </row>
+                                        </dd>
+
+                                    </dl>
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                            </div>
+                </div>
+                
+
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                                            <div class="doc">
+
+                                
+                                
+                                
+
+
+                                
+                                    <dl>
+                                        <dt>Properties</dt>
+                                        <dd>
+                                                                                        <row>
+                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#property:instance">instance </a>
+                                                </column>
+                                                                                                                                            </row>
+                                        </dd>
+
+                                    </dl>
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="property:instance">
+
+                                                                                    <span
+                                                class="label label-primary">property</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-default" >static</span>
+                                                                                            <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        instance
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">static $instance;</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:__construct">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        __construct
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Constructs a new graph.</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $nodes</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function __construct($nodes = array(), $edges = array(), $directed = FALSE, $graphID = NULL)
+    {
+        //parent::__construct();
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getInstance">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                            <span
+                                                    class="label label-default" >static</span>
+                                                                                    
+                                        getInstance
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Returns and instantiated Instance of the graph class</p></p>
+                                                                                                                                                                <p><p>NOTE: As of PHP5.3 it is vital that you include constructors in your class
+especially if they are defined under a namespace. A method with the same
+name as the class is no longer considered to be its constructor</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Staticvar</dt>
+                                                                                                    <dd><p>object $instance</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Property-read</dt>
+                                                                                                    <dd><p>object $instance To determine if class was previously instantiated</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Property-write</dt>
+                                                                                                    <dd><p>object $instance</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>object graph</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public static function getInstance($graphUID = NULL, $nodes = array(), $edges = array(), $directed = FALSE)
+    {
+        if (is_object(static::$instance[$graphUID]) &amp;&amp; is_a(static::$instance[$graphUID], &#039;Graph&#039;))
+            return static::$instance[$graphUID];
+        $graph = new self($nodes, $edges, $directed, $graphUID);
+        if (!empty($graphUID)) {
+            static::$instance[$graphUID] = &amp;$graph;
+        }
+        return $graph;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getPath">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getPath
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Determines the shortest distance between two nodes
+d(u,v)</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $nodeA</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>array(); An ordered array sequence of nodes from u to v</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getPath($nodeA, $nodeB)
+    {
+
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getPathLength">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getPathLength
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>The Path length |d(u,v)| is the total number of edges in the path connecting
+nodeA to nodeB.</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $nodeA</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Reurns</dt>
+                                                                                                    <dd><p>interger a pathlength of zero implies infinity, i.e no path was found</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getPathLength($nodeA, $nodeB)
+    {
+
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getSize">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getSize
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>The size of a graph is the number of its edges |E(G)|</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>interger</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getSize()
+    {
+
+        if (empty($this-&gt;edgeSet))
+            return 0;
+
+        //Count the number of nodes in this graph;
+        return count($this-&gt;nodeSet);
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getOrder">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getOrder
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>The order of a graph is the number of its nodes/vertices |V(G)|</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>interger</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getOrder()
+    {
+
+        if (empty($this-&gt;nodeSet))
+            return 0;
+
+        //Count the number of nodes in this graph;
+        return count($this-&gt;nodeSet);
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getArcSet">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getArcSet
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Returns an array of edgeIds for directed edges (arcs)</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>type</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getArcSet()
+    {
+        return $this-&gt;arcSet;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getEdgeSet">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getEdgeSet
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Returns all edges describing this graph</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>type</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getEdgeSet()
+    {
+        return $this-&gt;edgeSet;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getMaxDegree">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getMaxDegree
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Returns the maximum degree incident on graph nodes</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>interger</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getMaxDegree()
+    {
+
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getMinDegree">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getMinDegree
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Returns the minimum degree.
+Degrees are a represenation of the number of degrees
+incident to a node.</p></p>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getMinDegree()
+    {
+
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getIsolated">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getIsolated
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Isolated nodes are nodes with a degree of zero</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>array</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getIsolated()
+    {
+
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getLeaves">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getLeaves
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Returns all nodes with a degree of 1;</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>array;</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getLeaves()
+    {
+
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getNode">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getNode
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Returns a node object if exists in graph</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $nodeId case sensitive ID of the node requested</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>object $node if found;</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function getNode($nodeId)
+    {
+        static $instance = array();
+        if (isset($instance[$nodeId]))
+            return $instance[$nodeId];
+        $nodes = $this-&gt;nodeSet;
+        if (empty($nodes))
+            return NULL;
+        foreach ($nodes as $node):
+            if ($node-&gt;getId() == $nodeId):
+                $instance[$nodeId] = &amp;$node;
+                break;
+            endif;
+        endforeach;
+        return NULL;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:addEdge">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        addEdge
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Adds an edge between two node endpoints.</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $nodeA</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>boolean</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function addEdge(&amp;$nodeA, &amp;$nodeB, $name = NULL, $directed = TRUE, $data = array(), $weight = 0)
+    {
+
+        $edge = new Graph\Edge($nodeA, $name, $nodeB, $data, $directed, $weight); //Will need to decide whether to use nodeAId-nodeBId as edgeId
+        $edgeId = $edge-&gt;getId();
+
+        //Directed edges have their Id&#039;s referenced in arcSet
+        if ($directed &amp;&amp; !in_array($edgeId, $this-&gt;arcSet))
+            $this-&gt;arcSet[] = $edgeId;
+
+        //@TODO This is not the ideal way to set parrallel edges, Parralel edges connect the same pair of nodes
+        //If edge already exists, increment the weight;
+        if (isset($this-&gt;edgeSet[$edgeId])) {
+            $this-&gt;edgeSet[$edgeId]-&gt;weight++;
+            $edgeData = $this-&gt;edgeSet[$edgeId]-&gt;getData();
+            $data = array_merge($edgeData, $data);
+            //Makeing a directed array undirected
+            if (!$directed &amp;&amp; in_array($edgeId, $this-&gt;arcSet))
+                $this-&gt;arcSet = array_diff($this-&gt;arcSet, array($edgeId));
+            return true;
+        }
+        //array_merge edge data
+        if (!isset($this-&gt;edgeSet[$edgeId]))
+            $this-&gt;edgeSet[$edgeId] = &amp;$edge;
+
+        //If directed, use edgeIsArc to indicate;
+        return true;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:removeNode">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        removeNode
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Removes a node from the graph</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $nodeId</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function removeNode($nodeId)
+    {
+        if (isset($this-&gt;nodeSet[$nodeId]))
+            unset($this-&gt;nodeSet[$nodeId]);
+        return true;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:removeEdge">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        removeEdge
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Removes an Edge from the graph. Use removeArc to remove directed edges</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $head</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>boolean</p></dd>
+                                                
+                                            </dl>
+                                                                                                                                                                <dl>
+                                                <dt>Throws</dt>
+                                                                                                    <dd><p>\Platform\Exception</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function removeEdge(&amp;$head, &amp;$tail, $directed = TRUE)
+    {
+
+        if (!is_a($head, &quot;\Platform\Graph\Node&quot;) || !is_a($tail, &quot;\Platform\Graph\Node&quot;)) {
+            throw new \Platform\Exception(&quot;Nodes used to create a new Edge must be instances of \Platform\Graph\Node&quot;, PLATFORM_ERROR);
+        }
+        $_nodeIds = array($head-&gt;getId(), $tail-&gt;getId());
+        $edges = $this-&gt;edgeSet;
+        //find all edges with these two nodes incident
+        foreach ($edges as $edge):
+            echo $edge-&gt;getId() . &quot;&lt;br /&gt;&quot;;
+            if (in_array($edge-&gt;getHead()-&gt;getId(), $_nodeIds) &amp;&amp; in_array($edge-&gt;getTail()-&gt;getId(), $_nodeIds)):
+                if (!$directed):
+                    unset($this-&gt;edgeSet[$edge-&gt;getId()]);
+                elseif ($edge-&gt;getHead()-&gt;getId() == reset($_nodeIds) &amp;&amp; $edge-&gt;getTail()-&gt;getId() == end($_nodeIds)):
+                    //Remove the value from the arcSet array
+                    $this-&gt;arcSet = array_diff($this-&gt;arcSet, array($edge-&gt;getId()));
+                    unset($this-&gt;edgeSet[$edge-&gt;getId()]);
+                endif;
+            endif;
+        endforeach;
+
+        return true;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:isDirected">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        isDirected
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Checks if the current graph is a directed graph</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Return</dt>
+                                                                                                    <dd><p>boolean true if directed and false if not;</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function isDirected()
+    {
+        //if size of arcSet is greater than1 , then this graph is directed;
+        if (empty($this-&gt;arcSet))
+            return false;
+
+        return true;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:createNode">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        createNode
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Creates and adds a Node to the graph if none, already exists</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $nodeId</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function createNode($nodeId, $data = array())
+    {
+
+        $node = new Graph\Node($nodeId, $data);
+        $node-&gt;setGraph($this);
+        $this-&gt;addNode($node);
+
+        return $node;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:addNode">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        addNode
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                                                                                                                                        <p><p>Adds a node to the current graph</p></p>
+                                                                                                                                                                <dl>
+                                                <dt>Param</dt>
+                                                                                                    <dd><p>type $node</p></dd>
+                                                
+                                            </dl>
+                                                                            
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">
+    public function addNode(&amp;$node)
+    {
+        //Nodes must be an instance graph Node;
+        if (!$this-&gt;isNode($node)) {
+            throw new \Exception(&quot;Node must be an instance of Graph\Node&quot;, PLATFORM_ERROR);
+        }
+        $nodedId = $node-&gt;getId();
+        if (!empty($nodedId) &amp;&amp; !isset($this-&gt;nodeSet[$node-&gt;getId()])) {
+            $this-&gt;nodeSet[$node-&gt;getId()] = &amp;$node;
+        }
+        return $this;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            </div>
+</body>
+</html>

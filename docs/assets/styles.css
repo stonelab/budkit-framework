@@ -1,0 +1,356 @@
+/*html, body, div, span, applet, object, iframe,*/
+/*h1, h2, h3, h4, h5, h6, p, blockquote, pre,*/
+/*a, abbr, acronym, address, big, cite, code,*/
+/*del, dfn, em, img, ins, kbd, q, s, samp,*/
+/*small, strike, strong, sub, sup, tt, var,*/
+/*b, u, i, center,*/
+/*dl, dt, dd, ol, ul, li,*/
+/*fieldset, form, label, legend,*/
+/*table, caption, tbody, tfoot, thead, tr, th, td,*/
+/*article, aside, canvas, details, embed,*/
+/*figure, figcaption, footer, header, hgroup,*/
+/*menu, nav, output, ruby, section, summary,*/
+/*time, mark, audio, video {*/
+    /*/!*margin: 0;*!/*/
+    /*/!*padding: 0;*!/*/
+    /*border: 0;*/
+    /*font-size: 100%;*/
+    /*font: inherit;*/
+    /*vertical-align: baseline;*/
+/*}*/
+/*/!* HTML5 display-role reset for older browsers *!/*/
+/*article, aside, details, figcaption, figure,*/
+/*footer, header, hgroup, menu, nav, section {*/
+    /*display: block;*/
+/*}*/
+/*body {*/
+    /*line-height: 1;*/
+/*}*/
+/*ol, ul {*/
+    /*list-style: none;*/
+/*}*/
+/*blockquote, q {*/
+    /*quotes: none;*/
+/*}*/
+/*blockquote:before, blockquote:after,*/
+/*q:before, q:after {*/
+    /*content: '';*/
+    /*content: none;*/
+/*}*/
+/*table {*/
+    /*border-collapse: collapse;*/
+    /*border-spacing: 0;*/
+/*}*/
+
+body, html {
+    position: relative;
+    height: 100%;
+    padding: 0;
+    margin: 0px;
+
+}
+
+
+
+.column {
+    box-sizing: border-box;
+    overflow-y: scroll;
+}
+
+.content {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    overflow: scroll;
+}
+
+.sidebar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0px;
+    width: 250px;
+    background: #fafcfc;
+    border-right: 1px solid #f0f4f7;
+    padding: 20px 10px;
+}
+
+.sidebar ~ .content {
+    left: 250px
+}
+
+.sidebar ol.tree
+{
+    /*padding: 0 0 0 10px;*/
+    /*width: 300px;*/
+}
+.sidebar li
+{
+    position: relative;
+    margin-left: -15px;
+    list-style: none;
+}
+.sidebar li.file
+{
+    padding-left: 4px;
+    margin-left: -1px !important;
+}
+.sidebar li.file a
+{
+    background: url(document.png) 0 5px no-repeat;
+    padding-left: 21px;
+    text-decoration: none;
+    display: block;
+}
+.sidebar li.file a[href *= '.pdf']	{ background: url(document.png) 0 0 no-repeat; }
+.sidebar li.file a[href *= '.html']	{ background: url(document.png) 0 0 no-repeat; }
+.sidebar li.file a[href $= '.css']	{ background: url(document.png) 0 0 no-repeat; }
+.sidebar li.file a[href $= '.js']		{ background: url(document.png) 0 0 no-repeat; }
+.sidebar li.file a[href $= '.php']	{ background: url(document-php.png) 0 5px no-repeat; }
+.sidebar li input
+{
+    position: absolute;
+    left: 0;
+    margin-left: 0;
+    opacity: 0;
+    z-index: 2;
+    cursor: pointer;
+    height: 1em;
+    width: 1em;
+    top: 0;
+}
+.sidebar li input + ol
+{
+    background: url(toggle-small-expand.png) -2px 2px no-repeat;
+    /* margin: -3.2em 0 0 -45px; */
+    /* height: 0.6em; */
+    margin-top: -20px;
+    padding-top: 20px;
+    margin-left: -3px;
+}
+.sidebar li input + ol > li {
+    display: none; margin-left: -14px !important; padding-left: 1px;
+}
+.sidebar li label
+{
+    background: url(folder-horizontal.png) 15px 5px no-repeat;
+    cursor: pointer;
+    display: block;
+    padding-left: 37px;
+}
+
+.sidebar li input:checked + ol
+{
+    background: url(toggle-small.png) 40px -3px no-repeat;
+    /* margin: -3.2em 0 0 -45px; */
+    padding-left: 30px;
+    /* height: auto; */
+    margin-left: -45px;
+    padding-left: 80px;
+    margin-top: -15px;
+    padding-top: 15px;
+}
+.sidebar li input:checked + ol > li { display: block; margin: 0 0 0.125em;  /* 2px */}
+.sidebar li input:checked + ol > li:last-child { margin: 0 0 0.063em; /* 1px */ }
+
+
+.codeblock {
+    width: 45%;
+    position: relative;
+    float: right;
+    top:0;
+    bottom: 0;
+    background: #2d3134;
+    float: right;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+.codeblock pre{
+    /*padding: 0px;*/
+    margin:0px;
+    display: block;
+    font-size: 1rem;
+}
+.codeblock pre code{
+    line-height: 1.5em;
+    display: block;
+}
+.codeblock pre code:after{
+    padding: 0px;
+    margin:0px;
+}
+
+
+.background{
+    height: 100%;
+    position: fixed;
+    left: 250px;
+    right: 0;
+    bottom: 0;
+    top: 0;
+}
+.background .codeblock{
+    position: absolute;;
+    top: 0;
+    bottom:0;
+    right: 0;
+}
+.codedoc{
+    width: 55%;
+    display: inline-block;
+    position: relative;
+    float:left;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+
+/**Code Doc code blocks **/
+/*
+
+Orginal Style from ethanschoonover.com/solarized (c) Jeremy Hull <sourdrums@gmail.com>
+
+*/
+
+.code{ background: #fdfdfd;}
+.codedoc pre{
+    padding: 0px;
+    background: #fdfdfd;
+    border: 1px solid #f0f4f7;
+}
+
+.codedoc pre .hljs{
+    padding: 20px;
+    font-size: 90%;
+    display: block;
+}
+.codedoc .hljs {
+    display: block;
+    overflow-x: auto;
+    padding: 0.5em;
+    background: transparent;
+    color: #657b83;
+    -webkit-text-size-adjust: none;
+}
+
+.codedoc .hljs-comment,
+.codedoc .diff .hljs-header,
+.codedoc .hljs-doctype,
+.codedoc .hljs-pi,
+.codedoc .lisp .hljs-string {
+    color: #93a1a1;
+}
+
+/* Solarized Green */
+.codedoc .hljs-keyword,
+.codedoc .hljs-winutils,
+.codedoc .method,
+.codedoc .hljs-addition,
+.codedoc .css .hljs-tag,
+.codedoc .hljs-request,
+.codedoc .hljs-status,
+.codedoc .nginx .hljs-title {
+    color: #859900;
+}
+
+/* Solarized Cyan */
+.codedoc .hljs-number,
+.codedoc .hljs-command,
+.codedoc .hljs-string,
+.codedoc .hljs-tag .hljs-value,
+.codedoc .hljs-rule .hljs-value,
+.codedoc .hljs-doctag,
+.codedoc .tex .hljs-formula,
+.codedoc .hljs-regexp,
+.codedoc .hljs-hexcolor,
+.codedoc .hljs-link_url {
+    color: #2aa198;
+}
+
+/* Solarized Blue */
+.codedoc .hljs-title,
+.codedoc .hljs-localvars,
+.codedoc .hljs-chunk,
+.codedoc .hljs-decorator,
+.codedoc .hljs-built_in,
+.codedoc .hljs-identifier,
+.codedoc .vhdl .hljs-literal,
+.codedoc .hljs-id,
+.codedoc .css .hljs-function,
+.codedoc .hljs-name {
+    color: #268bd2;
+}
+
+/* Solarized Yellow */
+.codedoc .hljs-attribute,
+.codedoc .hljs-variable,
+.codedoc .lisp .hljs-body,
+.codedoc .smalltalk .hljs-number,
+.codedoc .hljs-constant,
+.codedoc .hljs-class .hljs-title,
+.codedoc .hljs-parent,
+.codedoc .hljs-type,
+.codedoc .hljs-link_reference {
+    color: #b58900;
+}
+
+/* Solarized Orange */
+.codedoc .hljs-preprocessor,
+.codedoc .hljs-preprocessor .hljs-keyword,
+.codedoc .hljs-pragma,
+.codedoc .hljs-shebang,
+.codedoc .hljs-symbol,
+.codedoc .hljs-symbol .hljs-string,
+.codedoc .diff .hljs-change,
+.codedoc .hljs-special,
+.codedoc .hljs-attr_selector,
+.codedoc .hljs-subst,
+.codedoc .hljs-cdata,
+.codedoc .css .hljs-pseudo,
+.codedoc .hljs-header {
+    color: #cb4b16;
+}
+
+/* Solarized Red */
+.codedoc .hljs-deletion,
+.codedoc .hljs-important {
+    color: #dc322f;
+}
+
+/* Solarized Violet */
+.codedoc .hljs-link_label {
+    color: #6c71c4;
+}
+
+.codedoc .tex .hljs-formula {
+    background: #eee8d5;
+}
+
+
+/** Literals **/
+
+.literal {
+    width: 100%;
+    position: relative;
+    border-bottom: 1px solid rgba(134, 134, 134, 0.08);
+    overflow: hidden;
+}
+
+
+.to-top{
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 10px;
+    padding: 0 8px;
+    background-color: #F3F3F3;
+    text-decoration: none;
+}
+

@@ -39,6 +39,11 @@ use Budkit\Protocol\Http;
 class Instance extends Support\Application
 {
 
+    /**
+     * Property is deprecated
+     *
+     * @deprecated since after commit [#13245](http://linkToCommit)
+     */
     protected $paths;
 
 

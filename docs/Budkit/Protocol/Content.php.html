@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Content</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    
+    <link href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/assets/kube.css" type="text/css" rel="stylesheet"/>
+    <link href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/assets/highlight/styles/railscasts.css" rel="stylesheet">
+    <link href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/assets/styles.css" type="text/css" rel="stylesheet"/>
+        <script src="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/assets/highlight/highlight.pack.js"></script>
+
+    
+
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div class="sidebar column">
+    <ol class='tree'><li><label for="Budkit">Budkit</label><input type="checkbox"checked="checked"id="Budkit"><ol class='tree'><li><label for="Application">Application</label><input type="checkbox"id="Application"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Instance.php.html">Instance.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Provider.php.html">Provider.php</a></li><li><label for="Support">Support</label><input type="checkbox"id="Support"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Application.php.html">Application.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Mock.php.html">Mock.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Mockable.php.html">Mockable.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Mockery.php.html">Mockery.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Providers.php.html">Providers.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Support/Service.php.html">Service.php</a></li></ol></li><li><label for="Utilities">Utilities</label><input type="checkbox"id="Utilities"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Utilities/bootstrap.php.html">bootstrap.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Utilities/constants.php.html">constants.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Application/Utilities/functions.php.html">functions.php</a></li></ol></li></ol></li><li><label for="Authentication">Authentication</label><input type="checkbox"id="Authentication"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/Authenticate.php.html">Authenticate.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/Handler.php.html">Handler.php</a></li><li><label for="Type">Type</label><input type="checkbox"id="Type"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/Type/dbauth.php.html">dbauth.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/Type/ldap.php.html">ldap.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/Type/openID.php.html">openID.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Authentication/User.php.html">User.php</a></li></ol></li><li><label for="Datastore">Datastore</label><input type="checkbox"id="Datastore"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Activerecord.php.html">Activerecord.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Database.php.html">Database.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Driver.php.html">Driver.php</a></li><li><label for="Drivers">Drivers</label><input type="checkbox"id="Drivers"><ol class='tree'><li><label for="MySQLi">MySQLi</label><input type="checkbox"id="MySQLi"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Drivers/MySQLi/Accessory.php.html">Accessory.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Drivers/MySQLi/Driver.php.html">Driver.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Drivers/MySQLi/Statement.php.html">Statement.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Drivers/MySQLi/Table.php.html">Table.php</a></li></ol></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Encrypt.php.html">Encrypt.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Engine.php.html">Engine.php</a></li><li><label for="Exception">Exception</label><input type="checkbox"id="Exception"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Exception/ConnectionError.php.html">ConnectionError.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Exception/InternalError.php.html">InternalError.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Exception/QuerryException.php.html">QuerryException.php</a></li></ol></li><li><label for="Model">Model</label><input type="checkbox"id="Model"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/DataModel.php.html">DataModel.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/Entity.php.html">Entity.php</a></li><li><label for="Graph">Graph</label><input type="checkbox"id="Graph"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/Graph/Edge.php.html">Edge.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/Graph/Node.php.html">Node.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Model/Graph.php.html">Graph.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Pagination.php.html">Pagination.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Results.php.html">Results.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Statement.php.html">Statement.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Datastore/Table.php.html">Table.php</a></li></ol></li><li><label for="Debug">Debug</label><input type="checkbox"id="Debug"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Debug/Log.php.html">Log.php</a></li><li><label for="Repository">Repository</label><input type="checkbox"id="Repository"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Debug/Repository/debugger.php.html">debugger.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Debug/Repository/log.php.html">log.php</a></li></ol></li></ol></li><li><label for="Dependency">Dependency</label><input type="checkbox"id="Dependency"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Dependency/Container.php.html">Container.php</a></li></ol></li><li><label for="Event">Event</label><input type="checkbox"id="Event"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Event/Event.php.html">Event.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Event/Listener.php.html">Listener.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Event/Observer.php.html">Observer.php</a></li></ol></li><li><label for="Filesystem">Filesystem</label><input type="checkbox"id="Filesystem"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Filesystem/Directory.php.html">Directory.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Filesystem/File.php.html">File.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Filesystem/Packer.php.html">Packer.php</a></li></ol></li><li><label for="Helper">Helper</label><input type="checkbox"id="Helper"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Helper/Date.php.html">Date.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Helper/Object.php.html">Object.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Helper/Time.php.html">Time.php</a></li></ol></li><li><label for="Parameter">Parameter</label><input type="checkbox"id="Parameter"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Factory.php.html">Factory.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Loader.php.html">Loader.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Manager.php.html">Manager.php</a></li><li><label for="Repository">Repository</label><input type="checkbox"id="Repository"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/Database.php.html">Database.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/File.php.html">File.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/Handler.php.html">Handler.php</a></li><li><label for="Parser">Parser</label><input type="checkbox"id="Parser"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/Parser/database.php.html">database.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/Parser/ini.php.html">ini.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Repository/Parser/xml.php.html">xml.php</a></li></ol></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Parameter/Utility.php.html">Utility.php</a></li></ol></li><li><label for="Protocol">Protocol</label><input type="checkbox"checked="checked"id="Protocol"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Content.php.html">Content.php</a></li><li><label for="Http">Http</label><input type="checkbox"id="Http"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Http/Codes.php.html">Codes.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Http/Headers.php.html">Headers.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Http/Request.php.html">Request.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Http/Response.php.html">Response.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Http/Server.php.html">Server.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Input.php.html">Input.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Request.php.html">Request.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Response.php.html">Response.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Server.php.html">Server.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Protocol/Uri.php.html">Uri.php</a></li></ol></li><li><label for="Routing">Routing</label><input type="checkbox"id="Routing"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Collection.php.html">Collection.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Controller.php.html">Controller.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Definition.php.html">Definition.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Dispatcher.php.html">Dispatcher.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Factory.php.html">Factory.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Regex.php.html">Regex.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Route.php.html">Route.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Routing/Router.php.html">Router.php</a></li></ol></li><li><label for="Session">Session</label><input type="checkbox"id="Session"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Session/Handler.php.html">Handler.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Session/Registry.php.html">Registry.php</a></li><li><label for="repository">repository</label><input type="checkbox"id="repository"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Session/repository/database.php.html">database.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Session/repository/file.php.html">file.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Session/Store.php.html">Store.php</a></li></ol></li><li><label for="Utility">Utility</label><input type="checkbox"id="Utility"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Utility/Loader.php.html">Loader.php</a></li></ol></li><li><label for="Validation">Validation</label><input type="checkbox"id="Validation"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Validation/Sanitize.php.html">Sanitize.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/Validation/Validate.php.html">Validate.php</a></li></ol></li><li><label for="View">View</label><input type="checkbox"id="View"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Display.php.html">Display.php</a></li><li><label for="Engine">Engine</label><input type="checkbox"id="Engine"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Engine/Html.php.html">Html.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Engine/Json.php.html">Json.php</a></li></ol></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Engine.php.html">Engine.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Format.php.html">Format.php</a></li><li><label for="Layout">Layout</label><input type="checkbox"id="Layout"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Compiler.php.html">Compiler.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Loader.php.html">Loader.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Parser.php.html">Parser.php</a></li><li><label for="Tpl">Tpl</label><input type="checkbox"id="Tpl"><ol class='tree'><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Attributes.php.html">Attributes.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Block.php.html">Block.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Condition.php.html">Condition.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Data.php.html">Data.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Datetime.php.html">Datetime.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Href.php.html">Href.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Import.php.html">Import.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Input.php.html">Input.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Layout.php.html">Layout.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Link.php.html">Link.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Loop.php.html">Loop.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Menu.php.html">Menu.php</a></li><li class="file"><a href="/opt/local/apache2/htdocs/budkit/vendor/budkit/framework/docs/Budkit/View/Layout/Tpl/Select.php.html">Select.php</a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+<div class="content">
+    <div class="background">
+        <div class="codeblock"></div>
+    </div>
+        
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                                            <div class="doc">
+
+                                                                    <div class="req">Budkit\Protocol</div>
+                                
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="<br />
+<b>Notice</b>:  Undefined index: id in <b>/opt/local/apache2/htdocs/budkit/vendor/budkit/docs/src/Layout.php</b> on line <b>58</b><br />
+">
+
+                                        
+                                                                                                                                    <span
+                                                    class="label label-primary" >trait</span>
+                                                                                            <span
+                                                    class="label label-warning" >abstract</span>
+                                                                                    
+                                        Content
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+                                    <dl>
+                                        <dt>Methods</dt>
+                                        <dd>
+                                                                                        <row>
+                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#method:getMimeType">getMimeType() </a>
+                                                </column>
+                                                                                                                                            </row>
+                                        </dd>
+
+                                    </dl>
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                            </div>
+                </div>
+                
+
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                                            <div class="doc">
+
+                                
+                                
+                                
+
+
+                                
+                                    <dl>
+                                        <dt>Properties</dt>
+                                        <dd>
+                                                                                        <row>
+                                                                                                                                            </row>
+                                            <row>
+                                                                                                <column cols="6"><a
+                                                        href="#property:mimetypes">mimetypes </a>
+                                                </column>
+                                                                                                                                            </row>
+                                        </dd>
+
+                                    </dl>
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="property:mimetypes">
+
+                                                                                    <span
+                                                class="label label-primary">property</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-default" >static</span>
+                                                                                            <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        mimetypes
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public static $mimetypes = [
+        &#039;3dm&#039; =&gt; &#039;x-world/x-3dmf&#039;,
+        &#039;3dmf&#039; =&gt; &#039;x-world/x-3dmf&#039;,
+        &#039;a&#039; =&gt; &#039;application/octet-stream&#039;,
+        &#039;aab&#039; =&gt; &#039;application/x-authorware-bin&#039;,
+        &#039;aam&#039; =&gt; &#039;application/x-authorware-map&#039;,
+        &#039;aas&#039; =&gt; &#039;application/x-authorware-seg&#039;,
+        &#039;abc&#039; =&gt; &#039;text/vnd.abc&#039;,
+        &#039;acgi&#039; =&gt; &#039;text/html&#039;,
+        &#039;afl&#039; =&gt; &#039;video/animaflex&#039;,
+        &#039;ai&#039; =&gt; &#039;application/postscript&#039;,
+        &#039;aif&#039; =&gt; [&#039;audio/aiff&#039;, &#039;audio/x-aiff&#039;],
+        &#039;aifc&#039; =&gt; [&#039;audio/aiff&#039;, &#039;audio/x-aiff&#039;],
+        &#039;aiff&#039; =&gt; [&#039;audio/aiff&#039;, &#039;audio/x-aiff&#039;],
+        &#039;aim&#039; =&gt; &#039;application/x-aim&#039;,
+        &#039;aip&#039; =&gt; &#039;text/x-audiosoft-intra&#039;,
+        &#039;ani&#039; =&gt; &#039;application/x-navi-animation&#039;,
+        &#039;aos&#039; =&gt; &#039;application/x-nokia-9000-communicator-add-on-software&#039;,
+        &#039;aps&#039; =&gt; &#039;application/mime&#039;,
+        &#039;arc&#039; =&gt; &#039;application/octet-stream&#039;,
+        &#039;arj&#039; =&gt; [&#039;application/arj&#039;, &#039;application/octet-stream&#039;],
+        &#039;art&#039; =&gt; &#039;image/x-jg&#039;,
+        &#039;asf&#039; =&gt; &#039;video/x-ms-asf&#039;,
+        &#039;asm&#039; =&gt; &#039;text/x-asm&#039;,
+        &#039;asp&#039; =&gt; &#039;text/asp&#039;,
+        &#039;asx&#039; =&gt; [&#039;application/x-mplayer2&#039;, &#039;video/x-ms-asf&#039;, &#039;video/x-ms-asf-plugin&#039;],
+        &#039;au&#039; =&gt; [&#039;audio/basic&#039;, &#039;audio/x-au&#039;],
+        &#039;avi&#039; =&gt; [&#039;application/x-troff-msvideo&#039;, &#039;video/avi&#039;, &#039;video/msvideo&#039;, &#039;video/x-msvideo&#039;],
+        &#039;avs&#039; =&gt; &#039;video/avs-video&#039;,
+        &#039;bcpio&#039; =&gt; &#039;application/x-bcpio&#039;,
+        &#039;bin&#039; =&gt; [&#039;application/mac-binary&#039;, &#039;application/macbinary&#039;, &#039;application/octet-stream&#039;,
+            &#039;application/x-binary&#039;, &#039;application/x-macbinary&#039;],
+        &#039;bm&#039; =&gt; &#039;image/bmp&#039;,
+        &#039;bmp&#039; =&gt; [&#039;image/bmp&#039;, &#039;image/x-windows-bmp&#039;],
+        &#039;boo&#039; =&gt; &#039;application/book&#039;,
+        &#039;book&#039; =&gt; &#039;application/book&#039;,
+        &#039;boz&#039; =&gt; &#039;application/x-bzip2&#039;,
+        &#039;bsh&#039; =&gt; &#039;application/x-bsh&#039;,
+        &#039;bz&#039; =&gt; &#039;application/x-bzip&#039;,
+        &#039;bz2&#039; =&gt; &#039;application/x-bzip2&#039;,
+        &#039;c&#039; =&gt; [&#039;text/plain&#039;, &#039;text/x-c&#039;],
+        &#039;c++&#039; =&gt; &#039;text/plain&#039;,
+        &#039;cat&#039; =&gt; &#039;application/vnd.ms-pki.seccat&#039;,
+        &#039;cc&#039; =&gt; [&#039;text/plain&#039;, &#039;text/x-c&#039;],
+        &#039;ccad&#039; =&gt; &#039;application/clariscad&#039;,
+        &#039;cco&#039; =&gt; &#039;application/x-cocoa&#039;,
+        &#039;cdf&#039; =&gt; [&#039;application/cdf&#039;, &#039;application/x-cdf&#039;, &#039;application/x-netcdf&#039;],
+        &#039;cer&#039; =&gt; [&#039;application/pkix-cert&#039;, &#039;application/x-x509-ca-cert&#039;],
+        &#039;cha&#039; =&gt; &#039;application/x-chat&#039;,
+        &#039;chat&#039; =&gt; &#039;application/x-chat&#039;,
+        &#039;class&#039; =&gt; [&#039;application/java&#039;, &#039;application/java-byte-code&#039;, &#039;application/x-java-class&#039;],
+        &#039;com&#039; =&gt; [&#039;application/octet-stream&#039;, &#039;text/plain&#039;],
+        &#039;conf&#039; =&gt; &#039;text/plain&#039;,
+        &#039;cpio&#039; =&gt; &#039;application/x-cpio&#039;,
+        &#039;cpp&#039; =&gt; &#039;text/x-c&#039;,
+        &#039;cpt&#039; =&gt; [&#039;application/mac-compactpro&#039;, &#039;application/x-compactpro&#039;, &#039;application/x-cpt&#039;],
+        &#039;crl&#039; =&gt; [&#039;application/pkcs-crl&#039;, &#039;application/pkix-crl&#039;],
+        &#039;crt&#039; =&gt; [&#039;application/pkix-cert&#039;, &#039;application/x-x509-ca-cert&#039;, &#039;application/x-x509-user-cert&#039;],
+        &#039;csh&#039; =&gt; [&#039;application/x-csh&#039;, &#039;text/x-script.csh&#039;],
+        &#039;css&#039; =&gt; [&#039;application/x-pointplus&#039;, &#039;text/css&#039;],
+        &#039;cxx&#039; =&gt; &#039;text/plain&#039;,
+        &#039;dcr&#039; =&gt; &#039;application/x-director&#039;,
+        &#039;deepv&#039; =&gt; &#039;application/x-deepv&#039;,
+        &#039;def&#039; =&gt; &#039;text/plain&#039;,
+        &#039;der&#039; =&gt; &#039;application/x-x509-ca-cert&#039;,
+        &#039;dif&#039; =&gt; &#039;video/x-dv&#039;,
+        &#039;dir&#039; =&gt; &#039;application/x-director&#039;,
+        &#039;dl&#039; =&gt; [&#039;video/dl&#039;, &#039;video/x-dl&#039;],
+        &#039;doc&#039; =&gt; &#039;application/msword&#039;,
+        &#039;dot&#039; =&gt; &#039;application/msword&#039;,
+        &#039;dp&#039; =&gt; &#039;application/commonground&#039;,
+        &#039;drw&#039; =&gt; &#039;application/drafting&#039;,
+        &#039;dump&#039; =&gt; &#039;application/octet-stream&#039;,
+        &#039;dv&#039; =&gt; &#039;video/x-dv&#039;,
+        &#039;dvi&#039; =&gt; &#039;application/x-dvi&#039;,
+        &#039;dwf&#039; =&gt; [&#039;drawing/x-dwf&#039;, &#039;model/vnd.dwf&#039;],
+        &#039;dwg&#039; =&gt; [&#039;application/acad&#039;, &#039;image/vnd.dwg&#039;, &#039;image/x-dwg&#039;],
+        &#039;dxf&#039; =&gt; [&#039;application/dxf&#039;, &#039;image/vnd.dwg&#039;, &#039;image/x-dwg&#039;],
+        &#039;dxr&#039; =&gt; &#039;application/x-director&#039;,
+        &#039;el&#039; =&gt; &#039;text/x-script.elisp&#039;,
+        &#039;elc&#039; =&gt; [&#039;application/x-bytecode.elisp&#039;, &#039;application/x-elc&#039;],
+        &#039;env&#039; =&gt; &#039;application/x-envoy&#039;,
+        &#039;eps&#039; =&gt; &#039;application/postscript&#039;,
+        &#039;es&#039; =&gt; &#039;application/x-esrehber&#039;,
+        &#039;etx&#039; =&gt; &#039;text/x-setext&#039;,
+        &#039;evy&#039; =&gt; [&#039;application/envoy&#039;, &#039;application/x-envoy&#039;],
+        &#039;exe&#039; =&gt; &#039;application/octet-stream&#039;,
+        &#039;f&#039; =&gt; [&#039;text/plain&#039;, &#039;text/x-fortran&#039;],
+        &#039;f77&#039; =&gt; &#039;text/x-fortran&#039;,
+        &#039;f90&#039; =&gt; [&#039;text/plain&#039;, &#039;text/x-fortran&#039;],
+        &#039;fdf&#039; =&gt; &#039;application/vnd.fdf&#039;,
+        &#039;fif&#039; =&gt; [&#039;application/fractals&#039;, &#039;image/fif&#039;],
+        &#039;fli&#039; =&gt; [&#039;video/fli&#039;, &#039;video/x-fli&#039;],
+        &#039;flo&#039; =&gt; &#039;image/florian&#039;,
+        &#039;flx&#039; =&gt; &#039;text/vnd.fmi.flexstor&#039;,
+        &#039;fmf&#039; =&gt; &#039;video/x-atomic3d-feature&#039;,
+        &#039;for&#039; =&gt; [&#039;text/plain&#039;, &#039;text/x-fortran&#039;],
+        &#039;fpx&#039; =&gt; [&#039;image/vnd.fpx&#039;, &#039;image/vnd.net-fpx&#039;],
+        &#039;frl&#039; =&gt; &#039;application/freeloader&#039;,
+        &#039;funk&#039; =&gt; &#039;audio/make&#039;,
+        &#039;g&#039; =&gt; &#039;text/plain&#039;,
+        &#039;g3&#039; =&gt; &#039;image/g3fax&#039;,
+        &#039;gif&#039; =&gt; &#039;image/gif&#039;,
+        &#039;gl&#039; =&gt; [&#039;video/gl&#039;, &#039;video/x-gl&#039;],
+        &#039;gsd&#039; =&gt; &#039;audio/x-gsm&#039;,
+        &#039;gsm&#039; =&gt; &#039;audio/x-gsm&#039;,
+        &#039;gsp&#039; =&gt; &#039;application/x-gsp&#039;,
+        &#039;gss&#039; =&gt; &#039;application/x-gss&#039;,
+        &#039;gtar&#039; =&gt; &#039;application/x-gtar&#039;,
+        &#039;gz&#039; =&gt; [&#039;application/x-compressed&#039;, &#039;application/x-gzip&#039;],
+        &#039;gzip&#039; =&gt; [&#039;application/x-gzip&#039;, &#039;multipart/x-gzip&#039;],
+        &#039;h&#039; =&gt; [&#039;text/plain&#039;, &#039;text/x-h&#039;],
+        &#039;hdf&#039; =&gt; &#039;application/x-hdf&#039;,
+        &#039;help&#039; =&gt; &#039;application/x-helpfile&#039;,
+        &#039;hgl&#039; =&gt; &#039;application/vnd.hp-hpgl&#039;,
+        &#039;hh&#039; =&gt; [&#039;text/plain&#039;, &#039;text/x-h&#039;],
+        &#039;hlb&#039; =&gt; &#039;text/x-script&#039;,
+        &#039;hlp&#039; =&gt; [&#039;application/hlp&#039;, &#039;application/x-helpfile&#039;, &#039;application/x-winhelp&#039;],
+        &#039;hpg&#039; =&gt; &#039;application/vnd.hp-hpgl&#039;,
+        &#039;hpgl&#039; =&gt; &#039;application/vnd.hp-hpgl&#039;,
+        &#039;hqx&#039; =&gt; [&#039;application/binhex&#039;, &#039;application/binhex4&#039;, &#039;application/mac-binhex&#039;,
+            &#039;application/mac-binhex40&#039;, &#039;application/x-binhex40&#039;, &#039;application/x-mac-binhex40&#039;],
+        &#039;hta&#039; =&gt; &#039;application/hta&#039;,
+        &#039;htc&#039; =&gt; &#039;text/x-component&#039;,
+        &#039;htm&#039; =&gt; &#039;text/html&#039;,
+        &#039;html&#039; =&gt; &#039;text/html&#039;,
+        &#039;htmls&#039; =&gt; &#039;text/html&#039;,
+        &#039;htt&#039; =&gt; &#039;text/webviewhtml&#039;,
+        &#039;htx&#039; =&gt; &#039;text/html&#039;,
+        &#039;ice&#039; =&gt; &#039;x-conference/x-cooltalk&#039;,
+        &#039;ico&#039; =&gt; &#039;image/x-icon&#039;,
+        &#039;idc&#039; =&gt; &#039;text/plain&#039;,
+        &#039;ief&#039; =&gt; &#039;image/ief&#039;,
+        &#039;iefs&#039; =&gt; &#039;image/ief&#039;,
+        &#039;iges&#039; =&gt; [&#039;application/iges&#039;, &#039;model/iges&#039;],
+        &#039;igs&#039; =&gt; [&#039;application/iges&#039;, &#039;model/iges&#039;],
+        &#039;ima&#039; =&gt; &#039;application/x-ima&#039;,
+        &#039;imap&#039; =&gt; &#039;application/x-httpd-imap&#039;,
+        &#039;inf&#039; =&gt; &#039;application/inf&#039;,
+        &#039;ins&#039; =&gt; &#039;application/x-internett-signup&#039;,
+        &#039;ip&#039; =&gt; &#039;application/x-ip2&#039;,
+        &#039;isu&#039; =&gt; &#039;video/x-isvideo&#039;,
+        &#039;it&#039; =&gt; &#039;audio/it&#039;,
+        &#039;iv&#039; =&gt; &#039;application/x-inventor&#039;,
+        &#039;ivr&#039; =&gt; &#039;i-world/i-vrml&#039;,
+        &#039;ivy&#039; =&gt; &#039;application/x-livescreen&#039;,
+        &#039;jam&#039; =&gt; &#039;audio/x-jam&#039;,
+        &#039;jav&#039; =&gt; [&#039;text/plain&#039;, &#039;text/x-java-source&#039;],
+        &#039;java&#039; =&gt; [&#039;text/plain&#039;, &#039;text/x-java-source&#039;],
+        &#039;jcm&#039; =&gt; &#039;application/x-java-commerce&#039;,
+        &#039;jfif&#039; =&gt; [&#039;image/jpeg&#039;, &#039;image/pjpeg&#039;],
+        &#039;jfif-tbnl&#039; =&gt; &#039;image/jpeg&#039;,
+        &#039;jpe&#039; =&gt; [&#039;image/jpeg&#039;, &#039;image/pjpeg&#039;],
+        &#039;jpeg&#039; =&gt; [&#039;image/jpeg&#039;, &#039;image/pjpeg&#039;],
+        &#039;jpg&#039; =&gt; [&#039;image/jpeg&#039;, &#039;image/pjpeg&#039;],
+        &#039;jps&#039; =&gt; &#039;image/x-jps&#039;,
+        &#039;js&#039; =&gt; [&#039;application/x-javascript&#039;, &#039;application/javascript&#039;],
+        &#039;json&#039; =&gt; &#039;application/json&#039;,
+        &#039;jsonp&#039; =&gt; &#039;text/javascript&#039;,
+        &#039;jut&#039; =&gt; &#039;image/jutvision&#039;,
+        &#039;kar&#039; =&gt; [&#039;audio/midi&#039;, &#039;music/x-karaoke&#039;],
+        &#039;ksh&#039; =&gt; [&#039;application/x-ksh&#039;, &#039;text/x-script.ksh&#039;],
+        &#039;la&#039; =&gt; [&#039;audio/nspaudio&#039;, &#039;audio/x-nspaudio&#039;],
+        &#039;lam&#039; =&gt; &#039;audio/x-liveaudio&#039;,
+        &#039;latex&#039; =&gt; &#039;application/x-latex&#039;,
+        &#039;lha&#039; =&gt; [&#039;application/lha&#039;, &#039;application/octet-stream&#039;, &#039;application/x-lha&#039;],
+        &#039;lhx&#039; =&gt; &#039;application/octet-stream&#039;,
+        &#039;list&#039; =&gt; &#039;text/plain&#039;,
+        &#039;lma&#039; =&gt; [&#039;audio/nspaudio&#039;, &#039;audio/x-nspaudio&#039;],
+        &#039;log&#039; =&gt; &#039;text/plain&#039;,
+        &#039;lsp&#039; =&gt; [&#039;application/x-lisp&#039;, &#039;text/x-script.lisp&#039;],
+        &#039;lst&#039; =&gt; &#039;text/plain&#039;,
+        &#039;lsx&#039; =&gt; &#039;text/x-la-asf&#039;,
+        &#039;ltx&#039; =&gt; &#039;application/x-latex&#039;,
+        &#039;lzh&#039; =&gt; [&#039;application/octet-stream&#039;, &#039;application/x-lzh&#039;],
+        &#039;lzx&#039; =&gt; [&#039;application/lzx&#039;, &#039;application/octet-stream&#039;, &#039;application/x-lzx&#039;],
+        &#039;m&#039; =&gt; [&#039;text/plain&#039;, &#039;text/x-m&#039;],
+        &#039;m1v&#039; =&gt; &#039;video/mpeg&#039;,
+        &#039;m2a&#039; =&gt; &#039;audio/mpeg&#039;,
+        &#039;m2v&#039; =&gt; &#039;video/mpeg&#039;,
+        &#039;m3u&#039; =&gt; &#039;audio/x-mpequrl&#039;,
+        &#039;man&#039; =&gt; &#039;application/x-troff-man&#039;,
+        &#039;map&#039; =&gt; &#039;application/x-navimap&#039;,
+        &#039;mar&#039; =&gt; &#039;text/plain&#039;,
+        &#039;mbd&#039; =&gt; &#039;application/mbedlet&#039;,
+        &#039;mc$&#039; =&gt; &#039;application/x-magic-cap-package-1.0&#039;,
+        &#039;mcd&#039; =&gt; [&#039;application/mcad&#039;, &#039;application/x-mathcad&#039;],
+        &#039;mcf&#039; =&gt; [&#039;image/vasa&#039;, &#039;text/mcf&#039;],
+        &#039;mcp&#039; =&gt; &#039;application/netmc&#039;,
+        &#039;me&#039; =&gt; &#039;application/x-troff-me&#039;,
+        &#039;mht&#039; =&gt; &#039;message/rfc822&#039;,
+        &#039;mhtml&#039; =&gt; &#039;message/rfc822&#039;,
+        &#039;mid&#039; =&gt; [&#039;application/x-midi&#039;, &#039;audio/midi&#039;, &#039;audio/x-mid&#039;, &#039;audio/x-midi&#039;, &#039;music/crescendo&#039;,
+            &#039;x-music/x-midi&#039;],
+        &#039;midi&#039; =&gt; [&#039;application/x-midi&#039;, &#039;audio/midi&#039;, &#039;audio/x-mid&#039;, &#039;audio/x-midi&#039;, &#039;music/crescendo&#039;,
+            &#039;x-music/x-midi&#039;],
+        &#039;mif&#039; =&gt; [&#039;application/x-frame&#039;, &#039;application/x-mif&#039;],
+        &#039;mime&#039; =&gt; [&#039;message/rfc822&#039;, &#039;www/mime&#039;],
+        &#039;mjf&#039; =&gt; &#039;audio/x-vnd.audioexplosion.mjuicemediafile&#039;,
+        &#039;mjpg&#039; =&gt; &#039;video/x-motion-jpeg&#039;,
+        &#039;mm&#039; =&gt; [&#039;application/base64&#039;, &#039;application/x-meme&#039;],
+        &#039;mme&#039; =&gt; &#039;application/base64&#039;,
+        &#039;mod&#039; =&gt; [&#039;audio/mod&#039;, &#039;audio/x-mod&#039;],
+        &#039;moov&#039; =&gt; &#039;video/quicktime&#039;,
+        &#039;mov&#039; =&gt; &#039;video/quicktime&#039;,
+        &#039;movie&#039; =&gt; &#039;video/x-sgi-movie&#039;,
+        &#039;mp2&#039; =&gt; [&#039;audio/mpeg&#039;, &#039;audio/x-mpeg&#039;, &#039;video/mpeg&#039;, &#039;video/x-mpeg&#039;, &#039;video/x-mpeq2a&#039;],
+        &#039;mp3&#039; =&gt; [&#039;audio/mpeg3&#039;, &#039;audio/x-mpeg-3&#039;, &#039;video/mpeg&#039;, &#039;video/x-mpeg&#039;],
+        &#039;mpa&#039; =&gt; [&#039;audio/mpeg&#039;, &#039;video/mpeg&#039;],
+        &#039;mpc&#039; =&gt; &#039;application/x-project&#039;,
+        &#039;mpe&#039; =&gt; &#039;video/mpeg&#039;,
+        &#039;mpeg&#039; =&gt; &#039;video/mpeg&#039;,
+        &#039;mpg&#039; =&gt; [&#039;audio/mpeg&#039;, &#039;video/mpeg&#039;],
+        &#039;mpga&#039; =&gt; &#039;audio/mpeg&#039;,
+        &#039;mpp&#039; =&gt; &#039;application/vnd.ms-project&#039;,
+        &#039;mpt&#039; =&gt; &#039;application/x-project&#039;,
+        &#039;mpv&#039; =&gt; &#039;application/x-project&#039;,
+        &#039;mpx&#039; =&gt; &#039;application/x-project&#039;,
+        &#039;mrc&#039; =&gt; &#039;application/marc&#039;,
+        &#039;ms&#039; =&gt; &#039;application/x-troff-ms&#039;,
+        &#039;mv&#039; =&gt; &#039;video/x-sgi-movie&#039;,
+        &#039;my&#039; =&gt; &#039;audio/make&#039;,
+        &#039;mzz&#039; =&gt; &#039;application/x-vnd.audioexplosion.mzz&#039;,
+        &#039;nap&#039; =&gt; &#039;image/naplps&#039;,
+        &#039;naplps&#039; =&gt; &#039;image/naplps&#039;,
+        &#039;nc&#039; =&gt; &#039;application/x-netcdf&#039;,
+        &#039;ncm&#039; =&gt; &#039;application/vnd.nokia.configuration-message&#039;,
+        &#039;nif&#039; =&gt; &#039;image/x-niff&#039;,
+        &#039;niff&#039; =&gt; &#039;image/x-niff&#039;,
+        &#039;nix&#039; =&gt; &#039;application/x-mix-transfer&#039;,
+        &#039;nsc&#039; =&gt; &#039;application/x-conference&#039;,
+        &#039;nvd&#039; =&gt; &#039;application/x-navidoc&#039;,
+        &#039;o&#039; =&gt; &#039;application/octet-stream&#039;,
+        &#039;oda&#039; =&gt; &#039;application/oda&#039;,
+        &#039;omc&#039; =&gt; &#039;application/x-omc&#039;,
+        &#039;omcd&#039; =&gt; &#039;application/x-omcdatamaker&#039;,
+        &#039;omcr&#039; =&gt; &#039;application/x-omcregerator&#039;,
+        &#039;p&#039; =&gt; &#039;text/x-pascal&#039;,
+        &#039;p10&#039; =&gt; [&#039;application/pkcs10&#039;, &#039;application/x-pkcs10&#039;],
+        &#039;p12&#039; =&gt; [&#039;application/pkcs-12&#039;, &#039;application/x-pkcs12&#039;],
+        &#039;p7a&#039; =&gt; &#039;application/x-pkcs7-signature&#039;,
+        &#039;p7c&#039; =&gt; [&#039;application/pkcs7-mime&#039;, &#039;application/x-pkcs7-mime&#039;],
+        &#039;p7m&#039; =&gt; [&#039;application/pkcs7-mime&#039;, &#039;application/x-pkcs7-mime&#039;],
+        &#039;p7r&#039; =&gt; &#039;application/x-pkcs7-certreqresp&#039;,
+        &#039;p7s&#039; =&gt; &#039;application/pkcs7-signature&#039;,
+        &#039;part&#039; =&gt; &#039;application/pro_eng&#039;,
+        &#039;pas&#039; =&gt; &#039;text/pascal&#039;,
+        &#039;pbm&#039; =&gt; &#039;image/x-portable-bitmap&#039;,
+        &#039;pcl&#039; =&gt; [&#039;application/vnd.hp-pcl&#039;, &#039;application/x-pcl&#039;],
+        &#039;pct&#039; =&gt; &#039;image/x-pict&#039;,
+        &#039;pcx&#039; =&gt; &#039;image/x-pcx&#039;,
+        &#039;pdb&#039; =&gt; &#039;chemical/x-pdb&#039;,
+        &#039;pdf&#039; =&gt; &#039;application/pdf&#039;,
+        &#039;pfunk&#039; =&gt; [&#039;audio/make&#039;, &#039;audio/make.my.funk&#039;],
+        &#039;pgm&#039; =&gt; [&#039;image/x-portable-graymap&#039;, &#039;image/x-portable-greymap&#039;],
+        &#039;pic&#039; =&gt; &#039;image/pict&#039;,
+        &#039;pict&#039; =&gt; &#039;image/pict&#039;,
+        &#039;pkg&#039; =&gt; &#039;application/x-newton-compatible-pkg&#039;,
+        &#039;pko&#039; =&gt; &#039;application/vnd.ms-pki.pko&#039;,
+        &#039;pl&#039; =&gt; [&#039;text/plain&#039;, &#039;text/x-script.perl&#039;],
+        &#039;plx&#039; =&gt; &#039;application/x-pixclscript&#039;,
+        &#039;pm&#039; =&gt; [&#039;image/x-xpixmap&#039;, &#039;text/x-script.perl-module&#039;],
+        &#039;pm4&#039; =&gt; &#039;application/x-pagemaker&#039;,
+        &#039;pm5&#039; =&gt; &#039;application/x-pagemaker&#039;,
+        &#039;png&#039; =&gt; &#039;image/png&#039;,
+        &#039;pnm&#039; =&gt; [&#039;application/x-portable-anymap&#039;, &#039;image/x-portable-anymap&#039;],
+        &#039;pot&#039; =&gt; [&#039;application/mspowerpoint&#039;, &#039;application/vnd.ms-powerpoint&#039;],
+        &#039;pov&#039; =&gt; &#039;model/x-pov&#039;,
+        &#039;ppa&#039; =&gt; &#039;application/vnd.ms-powerpoint&#039;,
+        &#039;ppm&#039; =&gt; &#039;image/x-portable-pixmap&#039;,
+        &#039;pps&#039; =&gt; [&#039;application/mspowerpoint&#039;, &#039;application/vnd.ms-powerpoint&#039;],
+        &#039;ppt&#039; =&gt; [&#039;application/mspowerpoint&#039;, &#039;application/powerpoint&#039;, &#039;application/vnd.ms-powerpoint&#039;,
+            &#039;application/x-mspowerpoint&#039;],
+        &#039;ppz&#039; =&gt; &#039;application/mspowerpoint&#039;,
+        &#039;pre&#039; =&gt; &#039;application/x-freelance&#039;,
+        &#039;prt&#039; =&gt; &#039;application/pro_eng&#039;,
+        &#039;ps&#039; =&gt; &#039;application/postscript&#039;,
+        &#039;psd&#039; =&gt; &#039;application/octet-stream&#039;,
+        &#039;pvu&#039; =&gt; &#039;paleovu/x-pv&#039;,
+        &#039;pwz&#039; =&gt; &#039;application/vnd.ms-powerpoint&#039;,
+        &#039;py&#039; =&gt; &#039;text/x-script.phyton&#039;,
+        &#039;pyc&#039; =&gt; &#039;applicaiton/x-bytecode.python&#039;,
+        &#039;qcp&#039; =&gt; &#039;audio/vnd.qcelp&#039;,
+        &#039;qd3&#039; =&gt; &#039;x-world/x-3dmf&#039;,
+        &#039;qd3d&#039; =&gt; &#039;x-world/x-3dmf&#039;,
+        &#039;qif&#039; =&gt; &#039;image/x-quicktime&#039;,
+        &#039;qt&#039; =&gt; &#039;video/quicktime&#039;,
+        &#039;qtc&#039; =&gt; &#039;video/x-qtc&#039;,
+        &#039;qti&#039; =&gt; &#039;image/x-quicktime&#039;,
+        &#039;qtif&#039; =&gt; &#039;image/x-quicktime&#039;,
+        &#039;ra&#039; =&gt; [&#039;audio/x-pn-realaudio&#039;, &#039;audio/x-pn-realaudio-plugin&#039;, &#039;audio/x-realaudio&#039;],
+        &#039;ram&#039; =&gt; &#039;audio/x-pn-realaudio&#039;,
+        &#039;ras&#039; =&gt; [&#039;application/x-cmu-raster&#039;, &#039;image/cmu-raster&#039;, &#039;image/x-cmu-raster&#039;],
+        &#039;rast&#039; =&gt; &#039;image/cmu-raster&#039;,
+        &#039;rexx&#039; =&gt; &#039;text/x-script.rexx&#039;,
+        &#039;rf&#039; =&gt; &#039;image/vnd.rn-realflash&#039;,
+        &#039;rgb&#039; =&gt; &#039;image/x-rgb&#039;,
+        &#039;rm&#039; =&gt; [&#039;application/vnd.rn-realmedia&#039;, &#039;audio/x-pn-realaudio&#039;],
+        &#039;rmi&#039; =&gt; &#039;audio/mid&#039;,
+        &#039;rmm&#039; =&gt; &#039;audio/x-pn-realaudio&#039;,
+        &#039;rmp&#039; =&gt; [&#039;audio/x-pn-realaudio&#039;, &#039;audio/x-pn-realaudio-plugin&#039;],
+        &#039;rng&#039; =&gt; [&#039;application/ringing-tones&#039;, &#039;application/vnd.nokia.ringing-tone&#039;],
+        &#039;rnx&#039; =&gt; &#039;application/vnd.rn-realplayer&#039;,
+        &#039;roff&#039; =&gt; &#039;application/x-troff&#039;,
+        &#039;rp&#039; =&gt; &#039;image/vnd.rn-realpix&#039;,
+        &#039;rpm&#039; =&gt; &#039;audio/x-pn-realaudio-plugin&#039;,
+        &#039;rt&#039; =&gt; [&#039;text/richtext&#039;, &#039;text/vnd.rn-realtext&#039;],
+        &#039;rtf&#039; =&gt; [&#039;application/rtf&#039;, &#039;application/x-rtf&#039;, &#039;text/richtext&#039;],
+        &#039;rtx&#039; =&gt; [&#039;application/rtf&#039;, &#039;text/richtext&#039;],
+        &#039;rv&#039; =&gt; &#039;video/vnd.rn-realvideo&#039;,
+        &#039;s&#039; =&gt; &#039;text/x-asm&#039;,
+        &#039;s3m&#039; =&gt; &#039;audio/s3m&#039;,
+        &#039;saveme&#039; =&gt; &#039;application/octet-stream&#039;,
+        &#039;sbk&#039; =&gt; &#039;application/x-tbook&#039;,
+        &#039;scm&#039; =&gt; [&#039;application/x-lotusscreencam&#039;, &#039;text/x-script.guile&#039;, &#039;text/x-script.scheme&#039;, &#039;video/x-scm&#039;],
+        &#039;sdml&#039; =&gt; &#039;text/plain&#039;,
+        &#039;sdp&#039; =&gt; [&#039;application/sdp&#039;, &#039;application/x-sdp&#039;],
+        &#039;sdr&#039; =&gt; &#039;application/sounder&#039;,
+        &#039;sea&#039; =&gt; [&#039;application/sea&#039;, &#039;application/x-sea&#039;],
+        &#039;set&#039; =&gt; &#039;application/set&#039;,
+        &#039;sgm&#039; =&gt; [&#039;text/sgml&#039;, &#039;text/x-sgml&#039;],
+        &#039;sgml&#039; =&gt; [&#039;text/sgml&#039;, &#039;text/x-sgml&#039;],
+        &#039;sh&#039; =&gt; [&#039;application/x-bsh&#039;, &#039;application/x-sh&#039;, &#039;application/x-shar&#039;, &#039;text/x-script.sh&#039;],
+        &#039;shar&#039; =&gt; [&#039;application/x-bsh&#039;, &#039;application/x-shar&#039;],
+        &#039;shtml&#039; =&gt; [&#039;text/html&#039;, &#039;text/x-server-parsed-html&#039;],
+        &#039;sid&#039; =&gt; &#039;audio/x-psid&#039;,
+        &#039;sit&#039; =&gt; [&#039;application/x-sit&#039;, &#039;application/x-stuffit&#039;],
+        &#039;skd&#039; =&gt; &#039;application/x-koan&#039;,
+        &#039;skm&#039; =&gt; &#039;application/x-koan&#039;,
+        &#039;skp&#039; =&gt; &#039;application/x-koan&#039;,
+        &#039;skt&#039; =&gt; &#039;application/x-koan&#039;,
+        &#039;sl&#039; =&gt; &#039;application/x-seelogo&#039;,
+        &#039;smi&#039; =&gt; &#039;application/smil&#039;,
+        &#039;smil&#039; =&gt; &#039;application/smil&#039;,
+        &#039;snd&#039; =&gt; [&#039;audio/basic&#039;, &#039;audio/x-adpcm&#039;],
+        &#039;sol&#039; =&gt; &#039;application/solids&#039;,
+        &#039;spc&#039; =&gt; [&#039;application/x-pkcs7-certificates&#039;, &#039;text/x-speech&#039;],
+        &#039;spl&#039; =&gt; &#039;application/futuresplash&#039;,
+        &#039;spr&#039; =&gt; &#039;application/x-sprite&#039;,
+        &#039;sprite&#039; =&gt; &#039;application/x-sprite&#039;,
+        &#039;src&#039; =&gt; &#039;application/x-wais-source&#039;,
+        &#039;ssi&#039; =&gt; &#039;text/x-server-parsed-html&#039;,
+        &#039;ssm&#039; =&gt; &#039;application/streamingmedia&#039;,
+        &#039;sst&#039; =&gt; &#039;application/vnd.ms-pki.certstore&#039;,
+        &#039;step&#039; =&gt; &#039;application/step&#039;,
+        &#039;stl&#039; =&gt; [&#039;application/sla&#039;, &#039;application/vnd.ms-pki.stl&#039;, &#039;application/x-navistyle&#039;],
+        &#039;stp&#039; =&gt; &#039;application/step&#039;,
+        &#039;sv4cpio&#039; =&gt; &#039;application/x-sv4cpio&#039;,
+        &#039;sv4crc&#039; =&gt; &#039;application/x-sv4crc&#039;,
+        &#039;svf&#039; =&gt; [&#039;image/vnd.dwg&#039;, &#039;image/x-dwg&#039;],
+        &#039;svr&#039; =&gt; [&#039;application/x-world&#039;, &#039;x-world/x-svr&#039;],
+        &#039;swf&#039; =&gt; &#039;application/x-shockwave-flash&#039;,
+        &#039;t&#039; =&gt; &#039;application/x-troff&#039;,
+        &#039;talk&#039; =&gt; &#039;text/x-speech&#039;,
+        &#039;tar&#039; =&gt; &#039;application/x-tar&#039;,
+        &#039;tbk&#039; =&gt; [&#039;application/toolbook&#039;, &#039;application/x-tbook&#039;],
+        &#039;tcl&#039; =&gt; [&#039;application/x-tcl&#039;, &#039;text/x-script.tcl&#039;],
+        &#039;tcsh&#039; =&gt; &#039;text/x-script.tcsh&#039;,
+        &#039;tex&#039; =&gt; &#039;application/x-tex&#039;,
+        &#039;texi&#039; =&gt; &#039;application/x-texinfo&#039;,
+        &#039;texinfo&#039; =&gt; &#039;application/x-texinfo&#039;,
+        &#039;text&#039; =&gt; [&#039;application/plain&#039;, &#039;text/plain&#039;],
+        &#039;tgz&#039; =&gt; [&#039;application/gnutar&#039;, &#039;application/x-compressed&#039;],
+        &#039;tif&#039; =&gt; [&#039;image/tiff&#039;, &#039;image/x-tiff&#039;],
+        &#039;tiff&#039; =&gt; [&#039;image/tiff&#039;, &#039;image/x-tiff&#039;],
+        &#039;tr&#039; =&gt; &#039;application/x-troff&#039;,
+        &#039;tsi&#039; =&gt; &#039;audio/tsp-audio&#039;,
+        &#039;tsp&#039; =&gt; [&#039;application/dsptype&#039;, &#039;audio/tsplayer&#039;],
+        &#039;tsv&#039; =&gt; &#039;text/tab-separated-values&#039;,
+        &#039;turbot&#039; =&gt; &#039;image/florian&#039;,
+        &#039;txt&#039; =&gt; &#039;text/plain&#039;,
+        &#039;uil&#039; =&gt; &#039;text/x-uil&#039;,
+        &#039;uni&#039; =&gt; &#039;text/uri-list&#039;,
+        &#039;unis&#039; =&gt; &#039;text/uri-list&#039;,
+        &#039;unv&#039; =&gt; &#039;application/i-deas&#039;,
+        &#039;uri&#039; =&gt; &#039;text/uri-list&#039;,
+        &#039;uris&#039; =&gt; &#039;text/uri-list&#039;,
+        &#039;ustar&#039; =&gt; [&#039;application/x-ustar&#039;, &#039;multipart/x-ustar&#039;],
+        &#039;uu&#039; =&gt; [&#039;application/octet-stream&#039;, &#039;text/x-uuencode&#039;],
+        &#039;uue&#039; =&gt; &#039;text/x-uuencode&#039;,
+        &#039;vcd&#039; =&gt; &#039;application/x-cdlink&#039;,
+        &#039;vcs&#039; =&gt; &#039;text/x-vcalendar&#039;,
+        &#039;vda&#039; =&gt; &#039;application/vda&#039;,
+        &#039;vdo&#039; =&gt; &#039;video/vdo&#039;,
+        &#039;vew&#039; =&gt; &#039;application/groupwise&#039;,
+        &#039;viv&#039; =&gt; [&#039;video/vivo&#039;, &#039;video/vnd.vivo&#039;],
+        &#039;vivo&#039; =&gt; [&#039;video/vivo&#039;, &#039;video/vnd.vivo&#039;],
+        &#039;vmd&#039; =&gt; &#039;application/vocaltec-media-desc&#039;,
+        &#039;vmf&#039; =&gt; &#039;application/vocaltec-media-file&#039;,
+        &#039;voc&#039; =&gt; [&#039;audio/voc&#039;, &#039;audio/x-voc&#039;],
+        &#039;vos&#039; =&gt; &#039;video/vosaic&#039;,
+        &#039;vox&#039; =&gt; &#039;audio/voxware&#039;,
+        &#039;vqe&#039; =&gt; &#039;audio/x-twinvq-plugin&#039;,
+        &#039;vqf&#039; =&gt; &#039;audio/x-twinvq&#039;,
+        &#039;vql&#039; =&gt; &#039;audio/x-twinvq-plugin&#039;,
+        &#039;vrml&#039; =&gt; [&#039;application/x-vrml&#039;, &#039;model/vrml&#039;, &#039;x-world/x-vrml&#039;],
+        &#039;vrt&#039; =&gt; &#039;x-world/x-vrt&#039;,
+        &#039;vsd&#039; =&gt; &#039;application/x-visio&#039;,
+        &#039;vst&#039; =&gt; &#039;application/x-visio&#039;,
+        &#039;vsw&#039; =&gt; &#039;application/x-visio&#039;,
+        &#039;w60&#039; =&gt; &#039;application/wordperfect6.0&#039;,
+        &#039;w61&#039; =&gt; &#039;application/wordperfect6.1&#039;,
+        &#039;w6w&#039; =&gt; &#039;application/msword&#039;,
+        &#039;wav&#039; =&gt; [&#039;audio/wav&#039;, &#039;audio/x-wav&#039;],
+        &#039;wb1&#039; =&gt; &#039;application/x-qpro&#039;,
+        &#039;wbmp&#039; =&gt; &#039;image/vnd.wap.wbmp&#039;,
+        &#039;web&#039; =&gt; &#039;application/vnd.xara&#039;,
+        &#039;wiz&#039; =&gt; &#039;application/msword&#039;,
+        &#039;wk1&#039; =&gt; &#039;application/x-123&#039;,
+        &#039;wmf&#039; =&gt; &#039;windows/metafile&#039;,
+        &#039;wml&#039; =&gt; &#039;text/vnd.wap.wml&#039;,
+        &#039;wmlc&#039; =&gt; &#039;application/vnd.wap.wmlc&#039;,
+        &#039;wmls&#039; =&gt; &#039;text/vnd.wap.wmlscript&#039;,
+        &#039;wmlsc&#039; =&gt; &#039;application/vnd.wap.wmlscriptc&#039;,
+        &#039;word&#039; =&gt; &#039;application/msword&#039;,
+        &#039;wp&#039; =&gt; &#039;application/wordperfect&#039;,
+        &#039;wp5&#039; =&gt; [&#039;application/wordperfect&#039;, &#039;application/wordperfect6.0&#039;],
+        &#039;wp6&#039; =&gt; &#039;application/wordperfect&#039;,
+        &#039;wpd&#039; =&gt; [&#039;application/wordperfect&#039;, &#039;application/x-wpwin&#039;],
+        &#039;wq1&#039; =&gt; &#039;application/x-lotus&#039;,
+        &#039;wri&#039; =&gt; [&#039;application/mswrite&#039;, &#039;application/x-wri&#039;],
+        &#039;wrl&#039; =&gt; [&#039;application/x-world&#039;, &#039;model/vrml&#039;, &#039;x-world/x-vrml&#039;],
+        &#039;wrz&#039; =&gt; [&#039;model/vrml&#039;, &#039;x-world/x-vrml&#039;],
+        &#039;wsc&#039; =&gt; &#039;text/scriplet&#039;,
+        &#039;wsrc&#039; =&gt; &#039;application/x-wais-source&#039;,
+        &#039;wtk&#039; =&gt; &#039;application/x-wintalk&#039;,
+        &#039;xbm&#039; =&gt; [&#039;image/x-xbitmap&#039;, &#039;image/x-xbm&#039;, &#039;image/xbm&#039;],
+        &#039;xdr&#039; =&gt; &#039;video/x-amt-demorun&#039;,
+        &#039;xgz&#039; =&gt; &#039;xgl/drawing&#039;,
+        &#039;xif&#039; =&gt; &#039;image/vnd.xiff&#039;,
+        &#039;xl&#039; =&gt; &#039;application/excel&#039;,
+        &#039;xla&#039; =&gt; [&#039;application/excel&#039;, &#039;application/x-excel&#039;, &#039;application/x-msexcel&#039;],
+        &#039;xlb&#039; =&gt; [&#039;application/excel&#039;, &#039;application/vnd.ms-excel&#039;, &#039;application/x-excel&#039;],
+        &#039;xlc&#039; =&gt; [&#039;application/excel&#039;, &#039;application/vnd.ms-excel&#039;, &#039;application/x-excel&#039;],
+        &#039;xld&#039; =&gt; [&#039;application/excel&#039;, &#039;application/x-excel&#039;],
+        &#039;xlk&#039; =&gt; [&#039;application/excel&#039;, &#039;application/x-excel&#039;],
+        &#039;xll&#039; =&gt; [&#039;application/excel&#039;, &#039;application/vnd.ms-excel&#039;, &#039;application/x-excel&#039;],
+        &#039;xlm&#039; =&gt; [&#039;application/excel&#039;, &#039;application/vnd.ms-excel&#039;, &#039;application/x-excel&#039;],
+        &#039;xls&#039; =&gt; [&#039;application/excel&#039;, &#039;application/vnd.ms-excel&#039;, &#039;application/x-excel&#039;,
+            &#039;application/x-msexcel&#039;],
+        &#039;xlt&#039; =&gt; [&#039;application/excel&#039;, &#039;application/x-excel&#039;],
+        &#039;xlv&#039; =&gt; [&#039;application/excel&#039;, &#039;application/x-excel&#039;],
+        &#039;xlw&#039; =&gt; [&#039;application/excel&#039;, &#039;application/vnd.ms-excel&#039;, &#039;application/x-excel&#039;,
+            &#039;application/x-msexcel&#039;],
+        &#039;xm&#039; =&gt; &#039;audio/xm&#039;,
+        &#039;xml&#039; =&gt; [&#039;application/xml&#039;, &#039;text/xml&#039;],
+        &#039;xmz&#039; =&gt; &#039;xgl/movie&#039;,
+        &#039;xpix&#039; =&gt; &#039;application/x-vnd.ls-xpix&#039;,
+        &#039;xpm&#039; =&gt; [&#039;image/x-xpixmap&#039;, &#039;image/xpm&#039;],
+        &#039;x-png&#039; =&gt; &#039;image/png&#039;,
+        &#039;xsr&#039; =&gt; &#039;video/x-amt-showrun&#039;,
+        &#039;xwd&#039; =&gt; [&#039;image/x-xwd&#039;, &#039;image/x-xwindowdump&#039;],
+        &#039;xyz&#039; =&gt; &#039;chemical/x-pdb&#039;,
+        &#039;z&#039; =&gt; [&#039;application/x-compress&#039;, &#039;application/x-compressed&#039;],
+        &#039;zip&#039; =&gt; [&#039;application/x-compressed&#039;, &#039;application/x-zip-compressed&#039;, &#039;application/zip&#039;,
+            &#039;multipart/x-zip&#039;],
+        &#039;zoo&#039; =&gt; &#039;application/octet-stream&#039;,
+        &#039;zsh&#039; =&gt; &#039;text/x-script.zsh&#039;,
+    ];</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            
+        
+                                    
+                            <div class="literal column">
+                    <div class="codedoc">
+                                                    <a class="to-top" href="">Back To Top</a>
+                                                                            <div class="doc">
+
+                                
+                                                                    <h1 id="method:getMimeType">
+
+                                                                                    <span
+                                                class="label label-primary">method</span>
+                                        
+                                                                                                                                    <span
+                                                    class="label label-success" >public</span>
+                                                                                    
+                                        getMimeType
+
+                                    </h1>
+                                    <p>
+                                        
+
+                                        
+                                                                            </p>
+
+
+                                
+                                
+
+
+                                
+
+                                                            </div>
+                                            </div>
+                    <div class="codeblock">
+                                                    <pre>
+                                    <code
+                                        class="php">public function getMimeType($format, $raw = false)
+    {
+
+        if (isset(static::$mimetypes[$format])) {
+            $format = static::$mimetypes[$format];
+
+            return ($raw) ? $format : (is_array($format) ? implode(&quot;,&quot;, $format) : $format);
+        }
+
+        //Or just return whatever it was given;
+        return $format;
+    }</code>
+                                </pre>
+                                            </div>
+                </div>
+                
+
+            </div>
+</body>
+</html>
