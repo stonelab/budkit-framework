@@ -108,7 +108,8 @@ body, html {
 .sidebar li.file a[href *= '.html']	{ background: url(document.png) 0 0 no-repeat; }
 .sidebar li.file a[href $= '.css']	{ background: url(document.png) 0 0 no-repeat; }
 .sidebar li.file a[href $= '.js']		{ background: url(document.png) 0 0 no-repeat; }
-.sidebar li.file a[href $= '.php']	{ background: url(document-php.png) 0 5px no-repeat; }
+.sidebar li.file a[href $= '.php'],
+.sidebar li.file a[href $= '.php.html']{ background: url(document-php.png) 0 5px no-repeat; }
 .sidebar li input
 {
     position: absolute;
