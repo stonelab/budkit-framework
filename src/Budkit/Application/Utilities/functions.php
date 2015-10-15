@@ -43,7 +43,9 @@ function t($message)
 }
 
 /**
- * The plural version of _t(). Some languages have more than one form for plural messages dependent on the count.
+ * The plural version of t().
+ *
+ * Some languages have more than one form for plural messages dependent on the count.
  *
  * @param string $msgid1
  * @param string $msgid2

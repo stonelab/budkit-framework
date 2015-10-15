@@ -1,27 +1,30 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: livingstonefultang
- * Date: 03/07/2014
- * Time: 11:47
- */
 
 namespace Budkit\Application\Support;
 
 use Budkit\Dependency\Container;
 
+/**
+ * Declares methods required by the Mockable Interface
+ *
+ * @See [Budkit\Application\Support\Mockable](?file=Budkit/Application/Support/Mockable.php)
+ */
 trait Mock
 {
 
     private static $classContainer;
+
     private static $originalClass;
 
 
     /**
-     * All mockable class must register a container the name of the original class;
+     * All Mockable class must register a container the name of the original class.
      *
-     * @param Container $container
-     * @param           $original
+     * If Mockable is managed by a different container, remember to call this method after the
+     * object is instantiated.
+     *
+     * @param Container $container the current app instance container
+     * @param           $original Mockable class name
      */
     public static function resolveOriginalClass(Container $container, $original)
     {
@@ -35,10 +38,9 @@ trait Mock
     /**
      * Handle dynamic, static calls to the object.
      *
-     * @param  string $method
-     * @param  array $args
-     *
-     * @return mixed
+     * @param $method The method to call
+     * @param $arguments Arguments to be passed to a Mockable class method
+     * @return mixed Mockable class method output
      */
     public static function __callStatic($method, $arguments)
     {

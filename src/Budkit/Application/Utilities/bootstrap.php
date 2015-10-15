@@ -1,8 +1,20 @@
 <?php
 
 /**
- * The application bootstrap;
+ * The application bootstrap declarations. Include this utility file at the top of your /public/index.php file to create
+ * a complete app instance. This utility
  *
+ *  - Declares a bunch of constants defined in [Budkit\Application\Utilities\constants.php](?file=Budkit\Application\Utilities\constants.php)
+ *  - Declares a bunch of useful PATH_ constants
+ *  - Imports the composer autoload utility
+ *  - Sets a default UTC timezone
+ *  - Creates an `Budkit\Application\Instance` and attaches it to a global `$app`
+ *  - Creates an exception manager object and attaches it to `$app->error`
+ *  - Creates a file based config manager object and attaches it to `$app->config`;
+ *  - Creates a data store encryption object and attaches it to `$app->encrypt`;
+ *  - If using data store (defined in config), creates and attaches `$app->datastore`
+ *  - Creates a session manager store and attaches to `$app->session`
+ *  - Runs `$app->registerServices()` to register all services run by vendor providers
  *
  */
 
@@ -37,7 +49,7 @@ $loader = require $paths['vendor'] . '/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
-| Setsthe default timezone
+| Sets the default timezone
 |--------------------------------------------------------------------------
 |
 | The composer auto-load class can be used to add lookup directories for

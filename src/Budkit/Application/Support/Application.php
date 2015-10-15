@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: livingstonefultang
- * Date: 25/06/2014
- * Time: 20:48
- */
 
 namespace Budkit\Application\Support;
 
@@ -13,17 +7,23 @@ use Budkit\Event\Event;
 use Budkit\Protocol\Request;
 use Exception;
 
+/**
+ * The application definition controller
+ *
+ */
 abstract class Application extends Dependency\Container
 {
 
     use Mockery;
 
+    /**
+     *  An array of system paths
+     */
     protected $paths;
 
     /**
-     * Construct/Initialises the application and required resources;
+     * Construct/Initialises the application and required resources.
      *
-     * @param Request $request
      */
     public function __construct()
     {
@@ -31,7 +31,10 @@ abstract class Application extends Dependency\Container
 
     }
 
-    //Adds base aliases to container
+    /**
+     * Adds base aliases to container
+     *
+     */
     public function addBaseReferenceAliases()
     {
         $this->createAlias([
@@ -71,7 +74,17 @@ abstract class Application extends Dependency\Container
     }
 
 
-    public function registerServices($services = [])
+    /**
+     * Registers an array of services, to be initiated by the app.
+     *
+     * - Triggers the `app.register` event
+     *
+     * @param An array of $services e.g [ "Budkit\\Cms\\Provider", .. ]
+     * @return False if the vendor/services.json file could not be loaded, or an Exception was thrown
+     * @throws \Exception if a defined service is not callable, or if its not an instance of Service
+     *
+     */
+    public function registerServices(array $services = [])
     {
 
         if (empty($services)) {
@@ -114,6 +127,11 @@ abstract class Application extends Dependency\Container
     }
 
 
+    /**
+     * Initialised the app when all services are registered.
+     *
+     * - Triggers the `app.init` event
+     */
     public function initialize()
     {
         //The global dispatcher
@@ -135,7 +153,13 @@ abstract class Application extends Dependency\Container
     }
 
 
-    //Abstract methods
+    /**
+     * Executes the application instance
+     *
+     * @param Request|null $request - the request object
+     * @return Ideally should return nothing, just execute
+     *
+     */
     abstract public function execute(Request $request = null);
 
 } 
