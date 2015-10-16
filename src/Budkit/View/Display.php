@@ -46,6 +46,8 @@ class Display implements Mockable
         $layout = (empty($layout) && !$partial) ? $this->getLayout() : $layout;
         $handler = $this->engine->getHandler();
 
+        //print_r($this->searchPaths); die;
+
         $handler->addLayoutSearchPaths($this->searchPaths);
         $handler->addLayoutData($this->getDataArray());
 

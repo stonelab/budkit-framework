@@ -135,7 +135,10 @@ class Condition
 
             $document = $Node->parentNode;
 
+
             //print_R($document->removeChild($Node));
+            $document->removeChild($Node);
+            //$Element->setResult($document);
 
             //die;
             if ($Node->nextSibling instanceof DOMNode) {
@@ -144,9 +147,7 @@ class Condition
 
             }
 
-            $document->removeChild($Node);
 
-            $Element->setResult($document);
 
             return;
         }

@@ -93,6 +93,7 @@ class Compiler implements Parser, Listener
         $tpl->resolveExternals = true;
         $tpl->preserveWhiteSpace = false;
 
+        //libxml_use_internal_errors(true);
         $tpl->loadXML($content, LIBXML_COMPACT & LIBXML_NOBLANKS & LIBXML_DTDATTR);
         //$this->masterName = $tpl->documentElement->attributes->getNamedItem("name")->nodeValue;
         $this->xPath = new DOMXPath($tpl);

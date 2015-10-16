@@ -47,7 +47,7 @@ class Import
         $imported = new DOMDocument();
 
         //Get the imported document;
-        $imported->loadXML($this->loader->find($viewpath), LIBXML_COMPACT);
+        $imported->loadXML($this->loader->find($viewpath),  LIBXML_COMPACT & LIBXML_NOBLANKS & LIBXML_DTDATTR);
         $import = $xPath->document->importNode($imported->documentElement, true);
 
         //@TODO fallbacks as in xinclude?
