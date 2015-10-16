@@ -12,6 +12,7 @@
         <script src="../../../assets/highlight/highlight.pack.js"></script>
 
     
+    <link href='//fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 
     <script>hljs.initHighlightingOnLoad();</script>
 </head>
@@ -61,7 +62,7 @@
 
                                         
                                                                                     <h1 id="<br />
-<b>Notice</b>:  Undefined index: id in <b>/opt/local/apache2/htdocs/budkit/vendor/budkit/docs/src/Layout.php</b> on line <b>65</b><br />
+<b>Notice</b>:  Undefined index: id in <b>/opt/local/apache2/htdocs/budkit/vendor/budkit/docs/src/Layout.php</b> on line <b>66</b><br />
 ">
 
                                                 
@@ -513,6 +514,7 @@
         $tpl-&gt;resolveExternals = true;
         $tpl-&gt;preserveWhiteSpace = false;
 
+        //libxml_use_internal_errors(true);
         $tpl-&gt;loadXML($content, LIBXML_COMPACT &amp; LIBXML_NOBLANKS &amp; LIBXML_DTDATTR);
         //$this-&gt;masterName = $tpl-&gt;documentElement-&gt;attributes-&gt;getNamedItem(&quot;name&quot;)-&gt;nodeValue;
         $this-&gt;xPath = new DOMXPath($tpl);
