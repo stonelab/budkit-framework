@@ -54,10 +54,9 @@ final class Driver extends Engine implements DatastoreDriver
         $database = array_key_exists('name', $options) ? $options['name'] : '';
         $prefix = array_key_exists('prefix', $options) ? $options['prefix'] : 'bk_';
         $select = array_key_exists('select', $options) ? $options['select'] : true;
-        $port = array_key_exists('port', $options) ? $options['port'] : '3306';
 
 
-        if (!$this->connect($host, $user, $password, $database, $prefix, $select, $port)) {
+        if (!$this->connect($host, $user, $password, $database, $prefix, $select)) {
 
             //@TODO throw connection exceptions
             //throw new Exception("Could not connect to database with driver:mysqli");
@@ -90,7 +89,7 @@ final class Driver extends Engine implements DatastoreDriver
     }
 
 
-    public function connect($server = 'localhost', $username = '', $password = '', $database = '', $prefix = 'dd_', $select = true, $port = '')
+    public function connect($server = 'localhost', $username = '', $password = '', $database = '', $prefix = 'dd_', $select = true)
     {
 
         if ($this->isConnected()) {
