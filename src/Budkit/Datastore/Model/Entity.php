@@ -843,10 +843,12 @@ class Entity extends DataModel
      * @param type $objectType
      * @return boolean
      */
-    final public function saveObject($objectURI = NULL, $objectType = NULL, $objectId = NULL)
+    final public function saveObject($objectURI = NULL, $objectType = NULL, $objectId = NULL, $forceNew = false )
     {
 
-        $isNew = (empty($objectId) && empty($objectURI)) ? true : false;
+        $isNew = (empty($objectId) && empty($objectURI)) ? true : (($forceNew)? true : false );
+
+        //if we are forcing a new object;
 
         //Get a randomstring for the objectURI
         $objectURI = empty($objectURI) ? getRandomString(10, false, true) : $objectURI;
@@ -870,6 +872,7 @@ class Entity extends DataModel
         }
         $pquery .= implode(', ', $pqueryV);
 
+
         //update the properties
         $this->database->query($pquery);
 
@@ -885,6 +888,7 @@ class Entity extends DataModel
 
             $this->setLastSavedObjectURI($objectURI);
         endif;
+
 
 
         //If property exists and value doesnt insert new value row
