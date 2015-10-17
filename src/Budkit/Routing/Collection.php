@@ -337,7 +337,7 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
         $tokens = [];
 
         if (!isset($router->tokens['id'])) {
-            $tokens['id'] = '(\d+)([a-zA-Z0-9-_]{9})$'; //(\d+)([a-zA-Z0-9-_]+)?so that we can have clean urls like 1230-title
+            $tokens['id'] = '\d+[a-zA-Z0-9-_]{9}'; //(\d+)([a-zA-Z0-9-_]+)?so that we can have clean urls like 1230-title
         }
         if (!isset($router->tokens['format'])) {
             $tokens['format'] = '(\.[^/]+)?';
