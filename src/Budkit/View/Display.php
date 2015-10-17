@@ -5,6 +5,8 @@ namespace Budkit\View;
 
 use Budkit\Application\Support\Mock;
 use Budkit\Application\Support\Mockable;
+use Budkit\Dependency\Container;
+use Budkit\Event\Event;
 use Budkit\Protocol\Response;
 use Budkit\View\Engine;
 
@@ -23,12 +25,45 @@ class Display implements Mockable
     protected $mergedData = [];
 
 
-    public function __construct(Response $response, Engine $engine = null)
+    public function __construct(Response $response, Engine $engine = null, Container $application)
     {
 
         $this->response = $response;
         $this->engine = $engine;
 
+        //Need a layout resolver here which can also find layouts in templates;
+
+        //load all the themes;
+        $event = new Event("app.register.themes");
+        $application->observer->trigger($event);
+
+        $themes = (array)$event->getResult();
+
+        //In the odd chance the budkit/cms is installed, if not fail gracefully
+        $provider = $application->config->get("design.theme.provider", "budkit/cms");
+        $theme  = $application->config->get("design.theme.name", "default");
+
+
+        //@TODO what about extended child themes?
+        foreach($themes as $provided){
+
+            if(!isset($provided["provider"]) || !isset($provided["name"]) || !isset($provided["source"])) continue;
+
+            //find and register active theme;
+            if($provided["provider"] == $provider && $provided["name"] == $theme){
+
+                $source =  $provided["source"].DS."layouts/";
+
+                //create symbolic links for assets?
+                $symlink = PATH_PUBLIC.DS."theme";
+
+                if(!is_link($symlink)){
+                    symlink($provided["source"], $symlink);
+                }
+
+                $this->appendLayoutSearchPath(  $source  );
+            }
+        }
     }
 
 

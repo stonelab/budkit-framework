@@ -2,6 +2,8 @@
 
 namespace Budkit\View\Engine;
 
+use Budkit\Dependency\Container;
+use Budkit\Event\Event;
 use Budkit\View\Format;
 use Budkit\View\Layout\Compiler;
 use Budkit\View\Layout\Loader;
@@ -14,7 +16,6 @@ class Html implements Format
 
     public function __construct(Loader $loader, Compiler $compiler)
     {
-        //Need a layout resolver here which can also find layouts in templates;
         $this->loader = $loader;
         $this->compiler = $compiler;
 

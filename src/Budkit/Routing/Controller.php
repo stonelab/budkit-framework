@@ -60,10 +60,10 @@ class Controller implements Mockable, Listener
 
         //print_R($this->response->getAllParameters());
 
-        $handler = $this->application->createInstance("viewengine", [$this->response]);
+        //$handler = $this->application->createInstance("viewengine", [$this->response]);
 
         return $this->view =
-            ($this->view instanceof View) ? $this->view : new View($this->response, $this->getHandler());
+            ($this->view instanceof View) ? $this->view : new View($this->response, $this->getHandler(), $this->application);
     }
 
     /**
