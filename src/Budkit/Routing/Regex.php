@@ -55,7 +55,7 @@ class Regex
         $this->setRegexOptionalParams();
         $this->setRegexParams();
         $this->setRegexWildcard();
-        $this->regex = '#' . $this->regex . '$#';
+        $this->regex = '@' . $this->regex . '$@';
 
         return preg_match($this->regex, $path, $this->matches);
     }
@@ -70,7 +70,7 @@ class Regex
      */
     protected function setRegexOptionalParams()
     {
-        preg_match('#{/([a-z][a-zA-Z0-9_,]*)}#', $this->regex, $matches);
+        preg_match('@{/([a-z][a-zA-Z0-9_,]*)}@', $this->regex, $matches);
         if ($matches) {
             $repl = $this->getRegexOptionalParamsReplacement($matches[1]);
             $this->regex = str_replace($matches[0], $repl, $this->regex);
@@ -130,7 +130,7 @@ class Regex
      */
     protected function setRegexParams()
     {
-        $find = '#{([a-z][a-zA-Z0-9_]*)}#';
+        $find = '@{([a-z][a-zA-Z0-9_]*)}@';
         preg_match_all($find, $this->regex, $matches, PREG_SET_ORDER);
         foreach ($matches as $match) {
             $name = $match[1];
