@@ -65,7 +65,7 @@ class Layout implements Listener
 
         if ($Node->hasChildNodes()) {
             foreach ($Node->childNodes as $_node) {
-                //$_node = $document->importNode($_node, true);
+                $_node = $Node->ownerDocument->importNode($_node, true);
                 $document->appendChild($_node->cloneNode(true));
             }
         }

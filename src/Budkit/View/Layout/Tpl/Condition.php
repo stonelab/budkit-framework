@@ -132,22 +132,13 @@ class Condition
 
         if (!$this->$method($subject, $is)) {
 
-
             $document = $Node->parentNode;
-
-
-            //print_R($document->removeChild($Node));
             $document->removeChild($Node);
-            //$Element->setResult($document);
 
-            //die;
+
             if ($Node->nextSibling instanceof DOMNode) {
-
                 $Element->setResult($Node->nextSibling);
-
             }
-
-
 
             return;
         }
