@@ -337,7 +337,7 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
         $tokens = [];
 
         if (!isset($router->tokens['id'])) {
-            $tokens['id'] = '(\d+)[a-zA-Z0-9-_]+?'; //so that we can have clean urls like 1230-title
+            $tokens['id'] = '/(\d+)[a-zA-Z0-9-_]+?'; //so that we can have clean urls like 1230-title
         }
         if (!isset($router->tokens['format'])) {
             $tokens['format'] = '(\.[^/]+)?';
@@ -348,16 +348,16 @@ class Collection extends Definition implements ArrayAccess, Countable, IteratorA
 
         // add the routes
         $router->addGet('{format}', 'index');
-        $router->addGet('/{id}{format}', 'read');
+        $router->addGet('{/id}{format}', 'read');
         $router->addGet('{/id}/edit{format}', 'edit'); //if no id is set, return form for new
         //$router->addPost('/add{format}', 'add');
-        $router->addDelete('/{id}/delete{format}', 'delete');
+        $router->addDelete('{/id}/delete{format}', 'delete');
         //$router->addPost('/{id}/delete{format}', 'delete');
         $router->add('/create{format}', 'create');
         //$router->addPost('/{id}/update{format}', 'update');
-        $router->addPatch('/{id}/update{format}', 'update');
+        $router->addPatch('{/id}/update{format}', 'update');
         //$router->addPost('/{id}/replace{format}', 'replace');
-        $router->addPut('/{id}/replace{format}', 'replace');
+        $router->addPut('{/id}/replace{format}', 'replace');
         $router->addOptions('', 'options');
 
 
