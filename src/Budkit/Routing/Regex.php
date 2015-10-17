@@ -55,7 +55,9 @@ class Regex
         $this->setRegexOptionalParams();
         $this->setRegexParams();
         $this->setRegexWildcard();
-        $this->regex = '#^' . $this->regex . '$#';
+        $this->regex = '#' . $this->regex . '$#';
+
+        print_r("<code>".$this->regex."</code>");
 
         return preg_match($this->regex, $path, $this->matches);
     }
