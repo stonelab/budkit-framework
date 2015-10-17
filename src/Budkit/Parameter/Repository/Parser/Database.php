@@ -1,8 +1,8 @@
 <?php
 
-namespace Budkit\Authentication\Type;
+namespace Budkit\Parameter\Repository\Parser;
 
-use Budkit\Authentication\Handler;
+use Budkit\Parameter\Repository\Handler;
 
 
 /**
@@ -10,23 +10,26 @@ use Budkit\Authentication\Handler;
  *
  * How does this class achieve the desired purpose?
  *
- * @category   Platform
+ * @category   Library
  * @author     Livingstone Fultang <livingstone.fultang@stonyhillshq.com>
  * @copyright  1997-2012 Stonyhills HQ
  * @license    http://www.gnu.org/licenses/gpl.txt.  GNU GPL License 3.01
  * @version    Release: 1.0.0
- * @link       http://stonyhillshq/documents/index/carbon4/libraries/authenticate/openid
+ * @link       http://stonyhillshq/documents/index/carbon4/libraries/config
  * @since      Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM
  */
-class OpenId implements Handler
+final class Database implements Handler
 {
 
-    /**
-     * Validates the user login credentials
-     *
-     * @param type $credentials
-     */
-    public function attest(array $credentials)
+    public function getParams($filepath = "")
+    {
+    }
+
+    public function saveParams(array $parameters, $environment = "")
+    {
+    }
+
+    public function readParams($filepath)
     {
     }
 
