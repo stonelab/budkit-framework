@@ -57,8 +57,6 @@ class Regex
         $this->setRegexWildcard();
         $this->regex = '#' . $this->regex . '$#';
 
-        print_r("<code>".$this->regex."</code>");
-
         return preg_match($this->regex, $path, $this->matches);
     }
 
