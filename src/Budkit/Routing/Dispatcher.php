@@ -133,8 +133,8 @@ class Dispatcher implements Listener
 
         //print_r($request);
 
-        $params = $request->getAttributes();
-        $params = $params->getAllParameters(); //from parameter factory;
+        $attributes = $request->getAttributes();
+        $params = $attributes->getAllParameters(); //from parameter factory;
 
         unset($params['action']); //remove the action;
 

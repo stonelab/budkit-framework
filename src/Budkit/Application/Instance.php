@@ -92,7 +92,7 @@ class Instance extends Support\Application
 
     protected function createRequestFromGlobals()
     {
-        $_ATTRIBUTES = array_merge([], $_ENV, isset($_SESSION) ? $_SESSION : []);
+        $_ATTRIBUTES = array_merge([], isset($_SESSION) ? $_SESSION : []);
 
         $SERVER = $_SERVER;
 
