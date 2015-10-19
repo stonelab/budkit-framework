@@ -79,9 +79,12 @@ class Dispatcher implements Listener
 
         //echo '1. Check the request; <br/>2. $response =  $this->sync(); //to get a synchronous response; <br/>3. $response->send();<br />';
 
+        //print_R($this->observer->getListeners('Dispatcher.beforeDispatch'));
+
         //var_dump($this->router);
         //var_dump($beforeDispatch->get('data'));
-        $request = $beforeDispatch->getData('request');
+        $request = $this->application->request;
+
         $route = $this->router->matchToRoute($request);
 
         if (!($route instanceof Route)) {
@@ -95,6 +98,7 @@ class Dispatcher implements Listener
         }
         $route->setParam("format", $format);
 
+
         $request->setAttributes($route->params);
 
         //Store the route in the event data
@@ -103,23 +107,36 @@ class Dispatcher implements Listener
     }
 
 
-    public function dispatch(Request $request, Response $response = null, $params = [])
+    public function dispatch(Request &$request, Response &$response, $params = [])
     {
 
+        $request = $this->application->shareInstance($request , "request");
+        $response = $this->application->shareInstance($response, "response");
+
+        $this->params = &$params;
+
+
+        //print_R($request);
+
         //create an event;
-        $beforeDispatch = new Event\Event('Dispatcher.beforeDispatch', $this, compact('request', 'response', 'params'));
+        $beforeDispatch = new Event\Event('Dispatcher.beforeDispatch', $this );
+
+
         $this->observer->trigger($beforeDispatch);
+
 
 
         //For microframework routes that use lambdas, just return a response object;
         if ($beforeDispatch->getResult() instanceof Response) {
+
             $beforeDispatch->getResult()->send();
 
             return;
         }
 
+
         //create an event;
-        $afterRouteMatch = new Event\Event('Dispatcher.afterRouteMatch', $this, compact('request', 'response'));
+        $afterRouteMatch = new Event\Event('Dispatcher.afterRouteMatch', $this);
         $this->observer->trigger($afterRouteMatch);
 
 
@@ -145,7 +162,7 @@ class Dispatcher implements Listener
 
         //If we are using lambdas;
         if ($controller instanceof Closure) {
-            $response = call_user_func_array($controller, [$response, $params]);
+            $response = call_user_func_array($controller, [&$response, &$params]);
         } else {
             list($class, $method) = $controller;
             $response = $this->invoke($class, $method, $params);
@@ -158,13 +175,14 @@ class Dispatcher implements Listener
         // }
 
         //create an event;
-        $afterDispatch = new Event\Event('Dispatcher.afterDispatch', $this, compact('request', 'response'));
+        $afterDispatch = new Event\Event('Dispatcher.afterDispatch', $this);
         $this->observer->trigger($afterDispatch);
 
-        if (isset($afterDispatch->data['response'])) {
-            $afterDispatch->data['response']->send();
-        }
+//        if (isset($afterDispatch->)) {
+//            $afterDispatch->data['response']->send();
+//        }
 
+        $response->send();
 
     }
 

@@ -60,6 +60,7 @@ class Regex
         return preg_match($this->regex, $path, $this->matches);
     }
 
+
     /**
      *
      * Expands optional params in the regex from ``{/foo,bar,baz}` to

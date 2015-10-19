@@ -311,6 +311,8 @@ class Route extends Definition
 
         $this->regex = $regex->getRegexPath();
 
+        //print("<pre>".$this->regex."</pre>" );
+
         if (!$match) {
             return $this->fail(self::FAILED_REGEX);
         }
@@ -502,6 +504,53 @@ class Route extends Definition
                 $this->params[$key] = rawurldecode($val);
             }
         }
+    }
+
+    /**
+     * Generates a FQURL from the route path, with the passed values
+     *
+     * @param array $values
+     */
+    public function getUrlFromPathWithValues(array $values = []){
+
+        $url    = $this->path;
+        //$url  = preg_replace($this->regex, $values, $this->path);
+
+        //straightforward match and replace
+        preg_match_all('@{([a-zA-Z0-9_]*)}@', $url, $matches);
+
+        if($matches) {
+            foreach ($matches[1] as $k=>$optional){
+                $url = str_ireplace($matches[0][$k], isset($values[$optional])? $values[$optional] : null , $url );
+            }
+        }
+
+        //the more complicated stuff;
+        preg_match('@{/([a-zA-Z0-9_]*)}@', $url, $expandables);
+
+        if ($expandables) {
+            //expand /{foo,bar} type patterns
+            $list = explode(',', $expandables[1]);
+            $head = '';
+
+            if (substr($url, 0, 2) == '{/') {
+                $name = array_shift($list);
+                if(isset($values[$name])) {
+                    $head = "/{$values[$name]}";
+                }
+            }
+
+            $tail = '';
+
+            foreach ($list as $name) {
+                if(isset($values[$name])) {
+                    $head = "/{$values[$name]}";
+                }
+            }
+            $url = str_replace($expandables[0], $head . $tail, $url);
+        }
+
+        return $url;
     }
 
     /**

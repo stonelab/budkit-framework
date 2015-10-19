@@ -193,6 +193,7 @@ class Condition
 
     }
 
+
     protected function isBoolean($subject, $is)
     {
 

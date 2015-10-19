@@ -112,7 +112,6 @@ class Instance extends Support\Application
      */
     public function execute(Request $request = null)
     {
-
         $request = $request ?: $this->request;
 
         $this->dispatcher->dispatch($request, $this->response);

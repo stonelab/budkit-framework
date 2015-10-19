@@ -27,11 +27,13 @@ class DataModel extends Object
     protected $pagination;
 
 
+
     public function __construct(Container $container)
     {
 
         $this->config = $container->config;
         $this->database = $container->database;
+        $this->container = $container;
 
     }
 
@@ -91,7 +93,11 @@ class DataModel extends Object
     {
 
         $limit = $this->getState("limit", intval($default));
-        $limit = empty($limit) ? $this->config->get("content.list.length", 20) : $limit;
+
+        //print_R( $this->config->get("content.lists.length"));
+
+        $limit = empty($limit) ? $this->config->get("content.lists.length", 20) : $limit;
+
         return $limit;
     }
 
@@ -156,6 +162,8 @@ class DataModel extends Object
 
     public function getPagination()
     {
+        if(empty($this->pagination)) $this->setPagination();
+
         return $this->pagination;
     }
 
@@ -182,27 +190,28 @@ class DataModel extends Object
         $pages['limit'] = $limit;
 
         //Get the real path to the current page
-        $path = $this->container->request->getBaseURL();
-        $pages['current'] = $path . "/:" . strval($current);
+        $route = $this->container->router->getMatchedRoute();
+
+
+        $pages['current'] = $route->getURLfromPathWithValues(["page" => strval($current)]);
         //Previous page link
         if (intval($current - 1) > 0):
-            $pages['previous'] = $path . "/:" . strval($current - 1);
+            $pages['previous'] = $route->getURLfromPathWithValues(["page" => strval($current - 1)] );
         endif;
         //Next page link
         if (intval($current + 1) <= $pages['total']):
-            $pages['next'] = $path . "/:" . strval($current + 1);
+            $pages['next'] = $route->getURLfromPathWithValues(["page" => strval($current + 1)] );
         endif;
 
         //Build the pages;
         for ($i = 0; $i < $pages['total']; $i++):
             $page = $i + 1;
             $pages['pages'][] = array(
-                "title" => $page,
-                "link" => $path . "/page:" . $page,
-                "state" => ($page == $current) ? "active" : null,
+                "page_title" => strval($page),
+                "page_link" => $route->getURLfromPathWithValues(["page" => $page] ),
+                "page_state" => ($page == $current) ? "active" : null,
             );
         endfor;
-
 
         //Sets the pagination output;
         if (sizeof($pages['pages']) > 1)
