@@ -102,7 +102,7 @@ class Compiler implements Parser, Listener
 
         //It is not ideal to removeNodes from the Remove Queue whilst we walk over it, therefore,
         //Some nodes might need to be removed after iteration;
-        return $tpl->saveHTML();
+        return "<!DOCTYPE html>\n".trim($tpl->saveHTML());
     }
 
     /**
