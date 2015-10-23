@@ -430,7 +430,7 @@ class Response implements Protocol\Response
         //send content;
 
         //Print content to screen;
-        print($content);
+        print($content );
     }
 
     /**
