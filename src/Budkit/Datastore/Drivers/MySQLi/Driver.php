@@ -305,7 +305,7 @@ final class Driver extends Engine implements DatastoreDriver
             $log = htmlentities($sql);
 
             //Does not play nice with the parser;
-            $this->log->message($log, "DB Query {$this->ticker}", "object");
+            $this->log->message("DB Query {$this->ticker}:\n".$log);
         }
 
         $this->cursor = mysqli_query($this->resourceId, $sql);

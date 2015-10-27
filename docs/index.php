@@ -19,7 +19,7 @@ $requested_file_to_show = isset($_GET['file']) ? $_GET['file'] : null;
 
 $docs = new \Budkit\Docs\Documentor();
 
-if (isset( $_GET['save'] ) ){
+if ( isset( $_GET['save'] ) ){
 
     if( $docs->saveHTML($dir) ) {
 

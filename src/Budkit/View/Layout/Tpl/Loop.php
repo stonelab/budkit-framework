@@ -133,7 +133,7 @@ class Loop
                         //We could just insert the childnode in thedocument,
                         //but its best to walk it ourselves with a subset of the data
                         //so the loop is respected;
-                        $document->insertBefore($this->walk($childNode->cloneNode(true), $_array, $array), $Node);
+                        $document->insertBefore($this->walk($childNode->cloneNode(true), $_array), $Node);
                     }
                 }
             }

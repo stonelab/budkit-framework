@@ -69,7 +69,7 @@ class Data
 
 
                 $tmpDoc = new \DOMDocument();
-                $tmpDoc->loadHTML($replace, LIBXML_COMPACT);
+                $tmpDoc->loadHTML($replace, LIBXML_COMPACT | LIBXML_HTML_NOIMPLIED);
 
                 if ($tmpDoc->documentElement->hasChildNodes()) {
 

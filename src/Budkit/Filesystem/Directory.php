@@ -14,6 +14,7 @@ class Directory extends File
 
             return true;
         }
+        return false;
     }
 
     public function isFolder($path)

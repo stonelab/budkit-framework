@@ -156,7 +156,7 @@ class Manager implements ArrayAccess, Mockable
     protected function load($namespace, $merge = [])
     {
 
-        $settings = $this->repository->load($this->environment, $namespace, true);
+        $settings = $this->repository->load($this->environment, $namespace);
 
         if (!empty($merge)) {
             $settings = $this->arrayMergeRecursiveDistinct($settings, $merge);

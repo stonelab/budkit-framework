@@ -257,7 +257,7 @@ class Container implements ArrayAccess
         $reference = $this->mapReference($reference);
 
         $this[$reference] =
-            ($shared) ? static::share($callable, $parameters) : static::protect($callable, $parameters);
+            ($shared) ? static::share($callable) : static::protect($callable);
 
         return $this[$reference];
     }

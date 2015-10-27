@@ -69,10 +69,8 @@ class Controller implements Mockable, Listener
     /**
      * Sets the view for this controller action
      *
-     * @param string $view
-     *
-     * @return void
-     * @author Livingstone Fultang
+     * @param $view
+     * @return $this|bool
      */
     public function setView($view)
     {

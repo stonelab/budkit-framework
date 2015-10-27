@@ -2,8 +2,6 @@
 
 namespace Budkit\View\Engine;
 
-use Budkit\Dependency\Container;
-use Budkit\Event\Event;
 use Budkit\View\Format;
 use Budkit\View\Layout\Compiler;
 use Budkit\View\Layout\Loader;

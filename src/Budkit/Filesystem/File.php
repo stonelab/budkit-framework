@@ -378,6 +378,8 @@ class File
     public function chmod($path, $permission)
     {
         chmod($path, $permission);
+
+        return true;
     }
 
     public function getPermission($filepath)

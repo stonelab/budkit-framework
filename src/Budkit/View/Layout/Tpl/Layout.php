@@ -89,7 +89,7 @@ class Layout implements Listener
 
         //Get the imported document;
         $this->observer->attach($this, 'Layout.onCompile.layout.extension', $this->extending);
-        $this->extending->loadXML($this->loader->find($layout), LIBXML_COMPACT);
+        $this->extending->loadXML($this->loader->find($layout), LIBXML_COMPACT | LIBXML_HTML_NOIMPLIED);
 
         if ($Node->hasChildNodes()) {
 

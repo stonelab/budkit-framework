@@ -42,5 +42,6 @@ class Href
         $Attr->ownerElement->setAttribute("href", $value);
         $Attr->ownerElement->removeAttributeNode($Attr);
 
+        return true;
     }
 }

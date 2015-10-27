@@ -27,6 +27,8 @@ abstract class Application extends Dependency\Container
      */
     public function __construct()
     {
+        parent::__construct();
+
         $this->addBaseReferenceAliases();
 
     }

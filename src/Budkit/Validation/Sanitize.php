@@ -353,7 +353,7 @@ class Sanitize
 
         $doc = new \DOMDocument('1.0', 'UTF-8');
         //$doc->substituteEntities = TRUE;
-        $doc->loadHTML($string); //Load XML here, if you use loadHTML the string will be wrapped in HTML tags. Not good.
+        $doc->loadHTML($string, LIBXML_COMPACT | LIBXML_HTML_NOIMPLIED); //Load XML here, if you use loadHTML the string will be wrapped in HTML tags. Not good.
         $xpath = new \DOMXPath($doc);
         //@TODO remove tags that are not allowed;
         //Remove attributes
