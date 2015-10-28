@@ -40,8 +40,8 @@ class Display implements Mockable
         $themes = (array)$event->getResult();
 
         //In the odd chance the budkit/cms is installed, if not fail gracefully
-        $provider = $application->config->get("design.theme.provider", "budkit/cms");
-        $theme  = $application->config->get("design.theme.name", "default");
+        $provider = $application->config->get("design.theme.provider", "budkit/frontend");
+        $theme  = $application->config->get("design.theme.name", "theme");
 
 
         //@TODO what about extended child themes?
