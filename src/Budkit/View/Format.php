@@ -3,6 +3,8 @@
 
 namespace Budkit\View;
 
+use Budkit\Protocol\Response;
+
 interface Format
 {
     /**
@@ -18,5 +20,7 @@ interface Format
     public function addLayoutSearchPaths(array $searchPaths = []);
 
     public function addLayoutData(array $layoutData);
+
+    public function setResponse(Response $response);
 
 }

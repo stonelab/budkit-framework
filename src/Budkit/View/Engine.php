@@ -39,6 +39,8 @@ class Engine
             $this->handler = $this->container->createInstance(get_class(Handler\Html));
         }
 
+        $this->handler->setResponse( $this->container->response );
+
         return $this->handler;
     }
 

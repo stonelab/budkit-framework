@@ -84,8 +84,8 @@ class Loop
         }
 
         //count
-        if ($Node->hasAttribute("count")) {
-            $limit = $Node->getAttribute("count");
+        if ($Node->hasAttribute("limitby")) {
+            $limit = $Node->getAttribute("limitby");
             $limitBy = (int)$this->getData($limit, $Data);
 
             for ($l = 0; $l < $limitBy; $l++) {

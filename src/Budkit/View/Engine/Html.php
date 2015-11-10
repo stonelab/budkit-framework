@@ -2,6 +2,7 @@
 
 namespace Budkit\View\Engine;
 
+use Budkit\Protocol\Response;
 use Budkit\View\Format;
 use Budkit\View\Layout\Compiler;
 use Budkit\View\Layout\Loader;
@@ -38,6 +39,11 @@ class Html implements Format
     {
 
         $this->loader->addData($layoutData);
+
+    }
+
+
+    public function setResponse(Response $response){
 
     }
 
