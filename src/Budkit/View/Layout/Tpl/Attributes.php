@@ -37,7 +37,9 @@ class Attributes implements Listener
                 //translate ,
                 //sprintf
 
+                //Mark item as selected="true" if value="" attribute matches tpl:selected=""
                 //[new Href($this->loader), 'attribute']
+                //[new Select($this->loader, $this->observer), 'attribute']
             ]
         ];
         //content only on Text attributes; run last because removes namespace;

@@ -40,7 +40,8 @@ class Condition
             "boolean" => "isBoolean",
             "equals" => "isEqualTo",
             "empty" => "isEmpty",
-            "not" => "isNot"
+            "not" => "isNot",
+            "isset" => "isDefined"
         ];
 
     }
@@ -109,8 +110,8 @@ class Condition
         }
 
         $method = $this->methods[$test];
-
         $subject = $this->getData($Node->getAttribute("on"), $Data);
+
 
         //echo $is; die;
 
@@ -134,7 +135,6 @@ class Condition
 
             $document = $Node->parentNode;
             $document->removeChild($Node);
-
 
             if ($Node->nextSibling instanceof DOMNode) {
                 $Element->setResult($Node->nextSibling);
@@ -230,14 +230,20 @@ class Condition
     {
 
         //same as boolean but checking for is empty
-        $true = [1, "true", true];
-        $false = [0, "", "false", false, null];
+        $true = [1, "true", true, "1"];
+        $false = [0, "", "false", false, null, "0"];
 
-        if (empty($subject) && in_array($is, $true)) {
+
+        if (  empty($subject) && in_array($is, $true)) {
+            //echo $subject;
+
             return true;
         } else if (!empty($subject) && in_array($is, $false)) {
+
+            //print_r($subject);
             return true;
         }
+
         return false;
 
     }
