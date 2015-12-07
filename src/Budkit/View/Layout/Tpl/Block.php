@@ -4,20 +4,17 @@ namespace Budkit\View\Layout\Tpl;
 
 use Budkit\Event\Event;
 use Budkit\Event\Observer;
+use Budkit\View\Layout\Element;
 use Budkit\View\Layout\Loader;
 use DOMNode;
 
-class Block
-{
+class Block extends Element{
 
     protected $nsURI = "http://budkit.org/tpl";
     protected $localName = "block";
     protected $loader;
     protected $observer;
     protected $removeQueue = array();
-
-
-    const SEPARATOR = '/[:\.]/';
 
 
     public function __construct(Loader $loader, Observer $observer, Array &$removeQueue = array())
@@ -32,9 +29,18 @@ class Block
 
     }
 
+    public function getObserver(){
+        return $this->observer;
+    }
+
+    public function getElement(){
+        return $this->Element;
+    }
+
     public function position($Element)
     {
 
+        $this->Element = $Element;
 
         //Get the Node being Parsed;
         $Node = $Element->getResult();
@@ -124,28 +130,4 @@ class Block
 
         return $_Node;
     }
-
-
-    protected function getData($path, array $data)
-    {
-
-        $array = $data;
-        $keys = $this->explode($path);
-
-        foreach ($keys as $key) {
-            if (isset($array[$key])) {
-                $array = $array[$key];
-            } else {
-                return "";
-            }
-        }
-
-        return $array;
-    }
-
-    protected function explode($path)
-    {
-        return preg_split(self::SEPARATOR, $path);
-    }
-
 }

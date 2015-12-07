@@ -593,7 +593,6 @@ class Entity extends DataModel
         $object = (!$replaceThis) ? new Entity($this->database, $this->container) : $this;
 
         $object->definePropertyModel($this->propertyModel);
-        //$object->defineValueGroup($this->valueGroup);
 
         foreach ((array)$rows as $property => $value):
             if (strtolower($property) == "object_type") {
@@ -610,6 +609,8 @@ class Entity extends DataModel
             }
             $object->setPropertyValue($property, $value);
         endforeach;
+
+       // $object->defineValueGroup($this->valueGroup);
 
         return $object;
     }
@@ -909,7 +910,9 @@ class Entity extends DataModel
         endforeach;
         $iquery .= implode("\nUNION ALL", $iqueryV);
 
+
         $this->database->query($iquery);
+
         //Update the object URI so the last update field is auto updated
         //$this->database->exec( "UPDATE ?objects SET objected_updated_on=CURRENT_TIMESTAMP" WHERE object_uri=" );
 
@@ -982,9 +985,11 @@ class Entity extends DataModel
         $this->valueGroup = !empty($valueGroup) ? trim($valueGroup) . "_" : NULL;
         //you must have this proxy table created at setup
         //also object type must be the same as valuegroup
-        if (!empty($valueGroup)) {
+        if (!empty($valueGroup) && empty($this->objectType)) {
             return $this->setObjectType(trim($valueGroup));
         }
+
+        return $this;
     }
 
     /**

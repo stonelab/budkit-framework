@@ -327,8 +327,11 @@ class Dispatcher implements Listener
         $response = $this->application->response;
         $uri = $this->application->createInstance(Uri::class, [$this->application->request]);
 
+
         //Before we redirect, if there are any alerts in the response,
         //Exceptional: Store alerts for future display
+        $alerts = array_merge( $response->getAlerts(), $alerts );
+
         if (!empty($alerts)) {
             $session = $this->application->session;
 
@@ -344,6 +347,14 @@ class Dispatcher implements Listener
         $response->sendRedirect();
 
         $this->abort();
+    }
+
+
+    public function returnToReferrer(){
+
+        $referer = $this->application->input->getReferer();
+        $this->redirect( !empty($referer) ? $referer : "/" );
+
     }
 
 }

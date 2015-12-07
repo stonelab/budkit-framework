@@ -229,6 +229,18 @@ class File
         require_once $file;
     }
 
+
+    /**
+     * Require the given file once.
+     *
+     * @param  string $file
+     *
+     * @return mixed
+     */
+    public function requireFile($file)
+    {
+        require $file;
+    }
     /**
      * Prepend to a file.
      *

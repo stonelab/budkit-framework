@@ -65,6 +65,10 @@ class Attributes implements Listener
             $Attributes = $xPath->query("@*[namespace-uri()='{$this->nsURI}']", $Node);
             $parseAttribute = new Event('Layout.onCompile.attribute', $this, ["data" => $data, "xPath" => $xPath]);
 
+            //cascade parseNode or Element event attributes to parseAttribute attributes
+            //so that important event details such as needed in data loops are handled;
+            $parseAttribute->set("attributes", $Element->get("attributes"));
+
             foreach ($Attributes as $attribute) {
 
                 $parseAttribute->setResult($attribute);

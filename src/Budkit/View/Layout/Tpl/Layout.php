@@ -4,12 +4,13 @@ namespace Budkit\View\Layout\Tpl;
 use Budkit\Event\Event;
 use Budkit\Event\Listener;
 use Budkit\Event\Observer;
+use Budkit\View\Layout\Element;
 use Budkit\View\Layout\Loader;
 use DOMDocument;
 use DOMNode;
 use DOMXPath;
 
-class Layout implements Listener
+class Layout extends Element implements Listener
 {
 
     protected $nsURI = "http://budkit.org/tpl";
@@ -27,6 +28,16 @@ class Layout implements Listener
         $this->observer = $observer;
     }
 
+
+    public function getObserver(){
+        return $this->observer;
+    }
+
+    public function getElement(){
+        return $this->Element;
+    }
+
+
     public function definition()
     {
         return ['Layout.onCompile.layout.extension' => [
@@ -38,8 +49,9 @@ class Layout implements Listener
         ];
     }
 
-    public function element($Element, DOMXPath $xPath)
+    public function element(&$Element, DOMXPath $xPath)
     {
+        $this->Element = $Element;
 
         //Get the Node being Parsed;
         $Node = $Element->getResult();

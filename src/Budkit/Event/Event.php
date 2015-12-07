@@ -12,6 +12,7 @@ class Event
 {
 
     public $data = null;
+    protected $attributes = [];
     protected $name = null; //the object that generated this event;
     protected $object = null; //passed to the listener
     protected $result = null; //obtained from listener
@@ -30,9 +31,27 @@ class Event
         return $this->get($attribute);
     }
 
-    public function get($name)
+    /**
+     * For storing event attributes;
+     *
+     * @param $attribute
+     * @param string $value
+     *
+     */
+    public function set($attribute, $value=""){
+
+        $this->attributes[$attribute] = $value;
+
+    }
+
+    public function get($name , $default = null )
     {
-        return $this->{$name};
+        //print_R($this->attributes);
+
+        return (array_key_exists($name, $this->attributes))
+            ? $this->attributes[$name]
+            : (property_exists($this, $name) ?
+                $this->$name : $default );
     }
 
     public function getData($key = null)

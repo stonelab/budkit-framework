@@ -86,7 +86,7 @@ class Loader
         $layout = $found;
 
         $this->startBuffer();
-        $file->requireOnce($layout);
+        $file->requireFile($layout);
 
         return $this->getBuffer();
     }

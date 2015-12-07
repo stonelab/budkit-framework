@@ -6,10 +6,11 @@ namespace Budkit\View\Layout\Tpl;
 use Budkit\Event\Event;
 use Budkit\Event\Listener;
 use Budkit\Event\Observer;
+use Budkit\View\Layout\Element;
 use Budkit\View\Layout\Loader;
 use DOMNode;
 
-class Link implements Listener
+class Link extends Element implements Listener
 {
 
     protected $nsURI = "http://budkit.org/tpl";
@@ -30,6 +31,14 @@ class Link implements Listener
 
     }
 
+    public function getObserver(){
+        return $this->observer;
+    }
+
+    public function getElement(){
+        return $this->Element;
+    }
+
     public function definition()
     {
         return ['Layout.onCompile.link' => 'person'];
@@ -38,6 +47,7 @@ class Link implements Listener
 
     public function rel($Element)
     {
+        $this->Element = $Element;
 
         //Get the Node being Parsed;
         $Node = $Element->getResult();

@@ -10,10 +10,11 @@ namespace Budkit\View\Layout\Tpl;
 
 use Budkit\Event\Event;
 use Budkit\Event\Observer;
+use Budkit\View\Layout\Element;
 use Budkit\View\Layout\Loader;
 use DOMNode;
 
-class Condition
+class Condition extends Element
 {
 
     protected $nsURI = "http://budkit.org/tpl";
@@ -26,9 +27,6 @@ class Condition
 
 
     protected $methods;
-
-
-    const SEPARATOR = '/[:\.]/';
 
     public function __construct(Loader $loader, Observer $observer)
     {
@@ -46,9 +44,21 @@ class Condition
 
     }
 
+
+    public function getObserver(){
+        return $this->observer;
+    }
+
+    public function getElement(){
+        return $this->Element;
+    }
+
+
     public function evaluate(&$Element)
     {
 
+
+        $this->Element = $Element;
 
         //Get the Node being Parsed;
         $Node = $Element->getResult();
@@ -247,40 +257,4 @@ class Condition
         return false;
 
     }
-
-
-    protected function getData($path, array $data)
-    {
-
-        if (preg_match('|^(.*)://(.+)$|', $path, $matches)) {
-
-            $parseDataScheme = new Event('Layout.onCompile.scheme.data', $this, ["scheme" => $matches[1], "path" => $matches[2]]);
-
-            $parseDataScheme->setResult(null); //set initial result
-
-            $this->observer->trigger($parseDataScheme); //Parse the Node;
-
-            return $parseDataScheme->getResult();
-        }
-
-        $array = $data;
-        $keys = $this->explode($path);
-
-        foreach ($keys as $key) {
-            if (isset($array[$key])) {
-                $array = $array[$key];
-            } else {
-                return "";
-            }
-        }
-
-        return $array;
-    }
-
-    protected function explode($path)
-    {
-        return preg_split(self::SEPARATOR, $path);
-    }
-
-
 }

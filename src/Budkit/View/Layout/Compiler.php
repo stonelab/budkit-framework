@@ -49,7 +49,7 @@ class Compiler implements Parser, Listener
             //while do
             //if then else elseif
 
-            [new Tpl\Import($this->loader), 'element'],
+            [new Tpl\Import($this->loader, $this->observer), 'element'],
             [new Tpl\Layout($this->loader, $this->observer), 'element'],//also implements extension;
 
             [new Tpl\Menu($this->loader, $this->observer), 'execute'],
@@ -122,7 +122,7 @@ class Compiler implements Parser, Listener
 
                 $parseNode->setResult($Node);
 
-                $this->observer->trigger($parseNode); //Parse the Node;
+                $this->observer->trigger( $parseNode ); //Parse the Node;
 
                 if ($parseNode->getResult() instanceof DOMNode) {
 

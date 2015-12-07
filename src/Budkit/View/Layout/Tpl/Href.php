@@ -3,10 +3,11 @@
 namespace Budkit\View\Layout\Tpl;
 
 
+use Budkit\View\Layout\Element;
 use Budkit\View\Layout\Loader;
 use DOMNode;
 
-class Href
+class Href extends Element
 {
 
     protected $nsURI = "http://budkit.org/tpl";
@@ -19,8 +20,18 @@ class Href
         $this->loader = $loader;
     }
 
-    public function attribute($Element)
+    public function getObserver(){
+        return $this->observer;
+    }
+
+    public function getElement(){
+        return $this->Element;
+    }
+
+    public function attribute(&$Element)
     {
+
+        $this->Element = $Element;
 
         //Get the Node being Parsed;
         $Attr = $Element->getResult();
