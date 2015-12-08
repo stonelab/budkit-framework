@@ -71,12 +71,18 @@ class Data extends Element
 
         if (is_string($replace)) {
 
+            if($Node->hasAttribute("parsedown")){
+
+                $replace = \Parsedown::instance()
+                        // ->setBreaksEnabled(true) # enables automatic line breaks
+                        ->text( $replace );
+            }
+
+
             //lets import the markup;
             if ($Node->hasAttribute("markup") && !empty($replace)) {
 
                 $tmpImport = $Node->ownerDocument->createElement("div");
-
-
                 $tmpDoc = new \DOMDocument();
                 $tmpDoc->loadHTML($replace, LIBXML_COMPACT | LIBXML_HTML_NOIMPLIED);
 
