@@ -11,8 +11,7 @@
     "require": {
         "php": ">=5.4.0",
         "filp/whoops": "1.*",
-        "erusev/parsedown": "*",
-        "symfony/form": "*"
+        "erusev/parsedown": "*"
     },
     "autoload": {
         "psr-4": {"": "src/"}
