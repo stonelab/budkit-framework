@@ -145,9 +145,14 @@ class Data extends Element
             endforeach;
 
             //perform replace
+            //if(!empty($replace))
             $value = str_ireplace($searches, $replaces, $Attr->value);
 
-            $Attr->ownerElement->setAttribute($Attr->localName, $value);
+            if($value != $Attr->value) {
+
+                $Attr->ownerElement->setAttribute($Attr->localName, $value);
+
+            }
             $Attr->ownerElement->removeAttributeNode($Attr);
 
         }

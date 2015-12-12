@@ -40,7 +40,10 @@ class Compiler implements Parser, Listener
      */
     public function definition()
     {
+        //Attach initial attribute handlers.
+        $this->observer->attach([new Tpl\Data($this->loader, $this->observer), 'attribute'], "Layout.onCompile.attribute");
 
+        //Return Element handlers
         return ['Layout.onCompile' => [
 
             //block
@@ -69,8 +72,10 @@ class Compiler implements Parser, Listener
             //attributes Maybe run this last?
             [new Tpl\Input($this->loader, $this->observer), 'execute'],
             [new Tpl\Select($this->loader, $this->observer), 'execute'],
-            [new Tpl\Attributes($this->loader, $this->observer), 'nodelist']
 
+
+            //This should be LAST!
+            [new Tpl\Attributes($this->loader, $this->observer), 'nodelist']
 
         ]
         ];

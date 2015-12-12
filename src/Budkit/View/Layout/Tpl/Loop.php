@@ -134,13 +134,27 @@ class Loop extends Element
         //Foreach Loop
         $appendedChild = null;
 
-        if ($Node->hasAttribute("foreach")) {
+        if ($Node->hasAttribute("foreach") || $Node->hasAttribute("foreach-line")) {
 
             $this->loopdatakey = null;
 
-            $path = $Node->getAttribute("foreach");
+            $path = $Node->hasAttribute("foreach")
+                ? $Node->getAttribute("foreach")
+                : ( $Node->hasAttribute("foreach-line")
+                    ? $Node->getAttribute("foreach-line")
+                    : null  );
+
+
+
             $array = $this->getData($path, $Data);
 
+            //get each line in the data input;
+            if($Node->hasAttribute("foreach-line") && is_string($array)){
+
+                //here we are exploding each line into an array;
+                $array =  explode(PHP_EOL,  $array);
+
+            }
 
             if (!is_array($array)) {
                 $document = $Node->parentNode;

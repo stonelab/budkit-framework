@@ -33,7 +33,7 @@ class Attributes implements Listener
         return [
             'Layout.onCompile.attribute' => [
 
-                [new Data($this->loader, $this->observer), 'attribute'],
+                //[new Data($this->loader, $this->observer), 'attribute'],
                 //translate ,
                 //sprintf
 
@@ -44,6 +44,7 @@ class Attributes implements Listener
         ];
         //content only on Text attributes; run last because removes namespace;
     }
+
 
     public function nodelist($Element, DOMXPath $xPath)
     {

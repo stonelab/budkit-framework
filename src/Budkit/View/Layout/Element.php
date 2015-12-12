@@ -28,7 +28,7 @@ abstract class Element{
         //modifies such as ${config://} to get config data or do anything else fancy
         if (preg_match('|^(.*)://(.+)$|', $path, $matches)) {
 
-            $parseDataScheme = new Event('Layout.onCompile.scheme.data', $this, ["scheme" => $matches[1], "path" => $matches[2]]);
+            $parseDataScheme = new Event('Layout.onCompile.scheme.data', $this, ["scheme" => $matches[1], "path" => $matches[2], "data"=>$data]);
             $parseDataScheme->setResult(null); //set initial result
 
             $observer = $this->getObserver();

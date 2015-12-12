@@ -42,6 +42,8 @@ class Condition extends Element
             "isset" => "isDefined"
         ];
 
+        $this->observer->attach([$this, "evaluateAttribute"], "Layout.onCompile.scheme.data");
+
     }
 
 
@@ -51,6 +53,58 @@ class Condition extends Element
 
     public function getElement(){
         return $this->Element;
+    }
+
+
+    public function evaluateAttribute(&$event)
+    {
+
+        $this->Element = $event;
+
+        //print_r($event);
+
+        $scheme = $event->getData("scheme");
+        $data = $event->getData("data");
+
+        //if://required!=true
+
+        //The premise of this method is that if the attribute value is null,
+        //then it wont pe set on the parent node
+        //so this scheme checks if the data meets a certain criteria
+        //and only returns it if true, or returns null otherwise.
+
+        if (strtolower($scheme) == "if") {
+
+            $path = $event->getData("path");
+
+            $operators = ["="=>"isEqualTo","!="=>"isNot"];
+            $segments = preg_split("/(=|!=)/", $path, 2, PREG_SPLIT_DELIM_CAPTURE);
+
+            //get the data;
+            $replace = $this->getData($segments[0], $data);
+
+            //check checking if the var isset
+            if(count($segments) < 2 && isset($segments[0])){
+
+                return $event->setResult( $replace );
+
+            }else{
+
+                if(isset($segments[1]) && isset($segments[2]) && isset($operators[$segments[1]])){
+
+                    $method = $operators[$segments[1]];
+
+                    if ($this->$method($replace, $segments[2])) {
+                        return $event->setResult($replace);
+                    }
+                }
+            }
+
+            return null;
+            //if the scheme is config://get.config.path, then load the config data;
+            //return $event->setResult(trim($this->application->config->get($path)));
+        }
+
     }
 
 

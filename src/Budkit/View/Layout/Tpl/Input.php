@@ -14,6 +14,7 @@ use Budkit\View\Layout\Element;
 use Budkit\View\Layout\Loader;
 use DOMElement;
 use DOMNode;
+use DOMXPath;
 
 class Input extends Element
 {
@@ -43,7 +44,7 @@ class Input extends Element
         return $this->Element;
     }
 
-    public function execute(&$Element)
+    public function execute(&$Element, DOMXPath $xPath)
     {
 
         $this->Element = $Element;
@@ -64,6 +65,31 @@ class Input extends Element
         if (!($Node instanceof DOMElement) || $Node->namespaceURI !== $this->nsURI || strtolower($Node->localName) !== $this->localName) {
             return;
         }
+
+        //parse attributes
+        if ($Node->hasAttributes()) {
+
+            $Attributes = $xPath->query("@*[namespace-uri()='{$this->nsURI}']", $Node);
+            $parseAttribute = new Event('Layout.onCompile.attribute', $this, ["data" => $Data, "xPath" => $xPath]);
+
+            //cascade parseNode or Element event attributes to parseAttribute attributes
+            //so that important event details such as needed in data loops are handled;
+            $parseAttribute->set("attributes", $Element->get("attributes"));
+
+            foreach ($Attributes as $attribute) {
+
+                $parseAttribute->setResult($attribute);
+
+                //Callbacks on each Node;
+                $this->observer->trigger($parseAttribute); //Parse the Node;
+
+                if ($parseAttribute->getResult() instanceof DOMNode) {
+                    $attribute = $parseAttribute->getResult();
+                }
+            }
+        }
+
+
         //Checkbox
         if (in_array($Node->getAttribute("type"), ["checkbox", "radio"])) {
 

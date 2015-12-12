@@ -43,7 +43,7 @@ class Select extends Element
         return $this->Element;
     }
 
-    public function execute(&$Element)
+    public function execute(&$Element, DOMXPath $xPath)
     {
 
         $this->Element = $Element;
@@ -72,15 +72,39 @@ class Select extends Element
 
         $xpath = new DOMXPath($Node->ownerDocument);
         $select = $Node->ownerDocument->createElement("select");
-        $options = $xpath->query('.//option', $Node); //the dot at the start is importat to make it relative to the context node
+        $options = $xpath->query('.//option', $Node); //the dot at the start is important to make it relative to the context node
 
 
         if ($Node->hasAttributes()) {
-            foreach ($Node->attributes as $attribute) {
-                if (strtolower($attribute->nodeName) !== "selected") {
-                    $select->setAttribute($attribute->nodeName, $attribute->nodeValue);
+
+            $Attributes = $xPath->query("@*[namespace-uri()='{$this->nsURI}']", $Node);
+            $parseAttribute = new Event('Layout.onCompile.attribute', $this, ["data" => $Data, "xPath" => $xPath]);
+
+            //cascade parseNode or Element event attributes to parseAttribute attributes
+            //so that important event details such as needed in data loops are handled;
+            $parseAttribute->set("attributes", $Element->get("attributes"));
+
+            foreach ($Attributes as $attribute) {
+
+                $parseAttribute->setResult($attribute);
+
+                //Callbacks on each Node;
+                $this->observer->trigger($parseAttribute); //Parse the Node;
+
+                if ($parseAttribute->getResult() instanceof DOMNode) {
+                    $attribute = $parseAttribute->getResult();
                 }
             }
+
+            foreach ($Node->attributes as $attribute) {
+
+                if (strtolower($attribute->nodeName) !== "selected") {
+
+                    $select->setAttribute($attribute->nodeName, $attribute->nodeValue);
+
+                }
+            }
+
         }
 
 
