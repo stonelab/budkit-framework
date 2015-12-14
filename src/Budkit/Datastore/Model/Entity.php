@@ -83,10 +83,16 @@ class Entity extends DataModel
     public function setPropertyValue($property, $value = NULL, $objectId = NULL)
     {
 
-        $property = strtolower($property);
+        //$property = strtolower($property);
+
         //1. Check that the property exists in $dataModel;
-        if (!array_key_exists($property, $this->propertyModel))
+        if (!array_key_exists($property, $this->propertyModel)) {
+            //print_R($this->propertyModel);
             return false; //@TODO Raise error? specified column not found
+        }
+
+        //print_R($this->propertyModel). "\n";
+
         //2. Validate the Value?
         if (empty($value)):
             //Attempt to get the default value;
