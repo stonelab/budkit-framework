@@ -118,6 +118,7 @@ class Entity extends DataModel
     public function setObjectType($objectType)
     {
         $this->objectType = $objectType;
+
         return $this;
     }
 
