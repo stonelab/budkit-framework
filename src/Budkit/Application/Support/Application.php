@@ -57,7 +57,7 @@ abstract class Application extends Dependency\Container
             'response' => 'Budkit\Protocol\Http\Response',
             'session' => 'Budkit\Session\Store',
             'sanitize' => 'Budkit\Validation\Sanitize',
-            'uri' => 'Budkit\Routing\Uri',
+            'uri' => 'Budkit\Protocol\Uri',
             'validate' => 'Budkit\Validation\Validate',
             'view' => 'Budkit\View\Display',
             'viewengine' => 'Budkit\View\Engine',
