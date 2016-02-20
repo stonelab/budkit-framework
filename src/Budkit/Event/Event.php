@@ -34,12 +34,18 @@ class Event
     /**
      * For storing event attributes;
      *
+     * To replace, just set the first parameter as an array of attributes
+     *
      * @param $attribute
      * @param string $value
      *
      */
     public function set($attribute, $value=""){
 
+        if(is_array($attribute) && empty($value)) {
+            $this->attributes = (array)$attribute;
+            return true;
+        }
         $this->attributes[$attribute] = $value;
 
     }
@@ -67,7 +73,7 @@ class Event
         return $this->result;
     }
 
-    public function setResult($result)
+    public function setResult( $result)
     {
         $this->result = $result;
     }

@@ -102,7 +102,8 @@ class Request implements Protocol\Request
 
         $this->attributes = new Parameters("attributes", $attributes);
         $this->cookies = new Parameters("cookies", $cookies); //stores all the cookies;
-        $this->files = new Parameters("files", $files);
+        $this->files = new Parameters("files", $files, false);
+
         $this->server = new Server($server);
         $this->headers = new Headers($this->server->getHeaders());
 

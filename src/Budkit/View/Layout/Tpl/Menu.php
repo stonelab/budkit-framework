@@ -232,9 +232,10 @@ class Menu extends Element
                 $anchor->appendChild($caret);
 
                 //Add the menu anchor
-                $link->appendChild($anchor);
+                $dropup = $Node->hasAttribute("dropup")? " dropup ": null;
 
-                //$link->setAttribute("class",  'dropdown ' . $link->getAttribute("class"));
+                $link->appendChild($anchor);
+                $link->setAttribute("class",  'dropdown ' .$dropup. $link->getAttribute("class"));
 
                 $parents[] = $link;
 
@@ -244,7 +245,7 @@ class Menu extends Element
                 $parents = [];
 
                 //Dropdown ul
-                $_list->setAttribute("class", 'nav menu ' . $_list->getAttribute("class"));
+                $_list->setAttribute("class", 'nav menu dropdown-menu ' . $_list->getAttribute("class"));
 
                 $link->appendChild($_list);
                 $depth++;

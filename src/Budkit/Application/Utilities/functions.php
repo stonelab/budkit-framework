@@ -144,3 +144,22 @@ function getRandomString($length = 10, $lowercase = false, $startWithInt = false
 
     return $randomString;
 }
+
+
+/**
+ * Takes an ArrayObject and turn it into an associative array
+ *
+ * @param ArrayObject $obj
+ *
+ * @return array
+ */
+function getArrayObjectAsArray( $obj )
+{
+    $array  = array(); // noisy $array does not exist
+    $arrObj = is_object($obj) ? get_object_vars($obj) : $obj;
+    foreach ($arrObj as $key => $val) {
+        $val = (is_array($val) || is_object($val)) ? getArrayObjectAsArray( $val ) : $val;
+        $array[$key] = $val;
+    }
+    return $array;
+}

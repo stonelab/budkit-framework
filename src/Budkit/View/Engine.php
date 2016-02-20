@@ -36,7 +36,7 @@ class Engine
                 $this->handler = $engine;
             }
         } else {
-            $this->handler = $this->container->createInstance(get_class(Handler\Html));
+            $this->handler = $this->container->createInstance( Handler\Html::class );
         }
 
         $this->handler->setResponse( $this->container->response );

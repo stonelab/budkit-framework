@@ -26,6 +26,7 @@
 namespace Budkit\Datastore\Model\Graph;
 
 use Budkit\Datastore\Model\Graph;
+use ArrayAccess;
 
 /**
  * What is the purpose of this class, in one sentence?
@@ -40,7 +41,7 @@ use Budkit\Datastore\Model\Graph;
  * @link       http://stonyhillshq/documents/index/carbon4/libraries/graph
  * @since      Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM
  */
-final class Edge
+final class Edge implements ArrayAccess
 {
 
     /**
@@ -48,17 +49,25 @@ final class Edge
      * @var type
      */
     public $edgeWeight = 0;
+
+    /**
+     * Sets an arbitrary number for edge weight
+     * @var type
+     */
+    public $edgeIsDirected = true;
+
+
     /**
      * Identifies the current edge
      * @var type
      */
-    protected $edgeId = NULL;
+    public $edgeId = NULL;
     /**
      * Adds a name to describe the edge
      *
      * @var type
      */
-    protected $edgeName = NULL;
+    public $edgeName = NULL;
     /**
      * The edge Head Node
      * @var type
@@ -74,7 +83,7 @@ final class Edge
      *
      * @var type
      */
-    protected $edgeData = array();
+    public $edgeData = array();
 
     /**
      * Returns and instantiated Instance of the graph class
@@ -91,10 +100,10 @@ final class Edge
      * @param type $weight
      * @throws \Platform\Exception
      */
-    public function __construct(&$head, $name = "", &$tail, $edgeData = array(), $directed = FALSE, $weight = 0)
+    public function __construct(&$head, $name = "", &$tail, $edgeData = [], $directed = FALSE, $weight = 0)
     {
         if (!is_a($head, Graph\Node::class) || !is_a($tail, Graph\Node::class)) {
-            throw new \Exception("Nodes used to create a new Edge must be instances of Graph\\Node", PLATFORM_ERROR);
+            throw new \Exception("Nodes used to create a new Edge must be instances of {Node::class}", PLATFORM_ERROR);
         }
         $headId = $head->getId(); //If head is not node return false;
         $tailId = $tail->getId();
@@ -109,13 +118,22 @@ final class Edge
         $this->setName($name);
         $this->setHead($head);
         $this->setTail($tail);
+        $this->setIsDirected( $directed );
+        $this->setWeight($weight);
+
+    }
+
+    public function setIsDirected($directed = true ){
+
+        $this->edgeIsDirected = $directed;
+        return $this;
     }
 
     /**
      * Sets the edge Id
      *
      * @param type $edgeId
-     * @return \Platform\Graph\Node
+     * @return Node
      */
     public function setId($edgeId)
     {
@@ -123,11 +141,17 @@ final class Edge
         return $this;
     }
 
+
+    public function setWeight($weight){
+        $this->edgeWeight = $weight;
+        return $this;
+    }
+
     /**
      * Sets edge data
      *
      * @param type $edgeData
-     * @return \Platform\Graph\Node
+     * @return Node
      */
     public function setData($edgeData = array())
     {
@@ -139,11 +163,12 @@ final class Edge
      * Sets the edge Name
      *
      * @param type $edgeName
-     * @return \Platform\Graph\Node
+     * @return Edge
      */
     public function setName($edgeName)
     {
         $this->edgeName = strval($edgeName);
+
         return $this;
     }
 
@@ -151,7 +176,7 @@ final class Edge
      * Sets the edge Head;
      *
      * @param type $edgeHead
-     * @return \Platform\Graph\Edge
+     * @return Edge
      */
     public function setHead(&$edgeHead)
     {
@@ -163,7 +188,7 @@ final class Edge
      * Sets the edge Tail
      *
      * @param type $edgeTail
-     * @return \Platform\Graph\Edge
+     * @return Edge
      */
     public function setTail(&$edgeTail)
     {
@@ -180,6 +205,16 @@ final class Edge
     {
         return $this->edgeId;
     }
+
+    /**
+     * Returns the edge weight
+     *
+     * @return type
+     */
+    public function getWeight(){
+        return $this->edgeWeight;
+    }
+
 
     /**
      * Returns the edge Name if any exists
@@ -202,6 +237,17 @@ final class Edge
     }
 
     /**
+     * Adds data to the existing edgeData array without replacing the entire array
+     *
+     * @param $name
+     * @param $value
+     */
+    public function addData($name, $value){
+
+        $this->offsetSet($name, $value);
+    }
+
+    /**
      * Returns the edge Data if any exists
      *
      * @return type
@@ -219,6 +265,32 @@ final class Edge
     public function &getTail()
     {
         return $this->edgeTail;
+    }
+
+    public function offsetSet($name, $value)
+    {
+        //add the route to the collection container;
+        if (is_null($name)) {
+            $this->edgeData[] = $value;
+        } else {
+            $this->edgeData[$name] = $value;
+        }
+    }
+
+    public function offsetExists($name)
+    {
+        return (isset($this->edgeData[$name]) || isset($this->{$name}) ) ? true : false;
+    }
+
+    public function offsetGet($name)
+    {
+        return isset($this->edgeData[$name]) ? $this->edgeData[$name] :
+            ( isset($this->{$name}) ? $this->{$name} : null );
+    }
+
+    public function offsetUnset($name)
+    {
+        unset($this->edgeData[$name]);
     }
 }
 

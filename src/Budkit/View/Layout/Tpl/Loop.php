@@ -167,7 +167,8 @@ class Loop extends Element
             }
 
             //parent data;
-            $this->parentdata   = $Data;
+            $this->parentdata   = $array;
+            //$Element->set("parentdata", $this->parentdata);
 
             foreach ($array as $key => $_array) {
 
@@ -178,6 +179,9 @@ class Loop extends Element
                     for ($i = 0; $i < $Node->childNodes->length; $i++) {
                         //$_node = $document->importNode($_node, true);
                         $childNode = $Node->childNodes->item($i);
+
+
+                        //print_R($_array);
 
                         $newnode = $this->walk($childNode->cloneNode(true), $_array);
 
@@ -213,6 +217,8 @@ class Loop extends Element
 
         $parseNode->set("loopdatakey", $this->loopdatakey);
         $parseNode->set("parentdata", $this->parentdata);
+
+        //print_r($this->parentdata);
 
         $parseNode->setResult($Node);
 

@@ -94,7 +94,7 @@ class Loader
     private function startBuffer($handler = "ob_gzhandler")
     {
         if (!ob_start($handler)) {
-            ob_start();
+            ob_start($handler);
         }
     }
 

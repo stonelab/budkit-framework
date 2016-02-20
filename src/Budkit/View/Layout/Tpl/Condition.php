@@ -58,8 +58,17 @@ class Condition extends Element
 
     public function evaluateAttribute(&$event)
     {
+        $parent = $this->getElement();
+        $attributes = $parent->attributes;
+
 
         $this->Element = $event;
+
+        if(is_array($attributes) && array_key_exists("parentdata", $attributes)){
+            $this->Element->set($attributes, null); //completely replace the attributes
+        }
+        //Because this is an attribute, we need to cascade the parent of the element to the attribute;
+
 
         //print_r($event);
 
@@ -80,7 +89,6 @@ class Condition extends Element
             $operators = ["="=>"isEqualTo","!="=>"isNot"];
             $segments = preg_split("/(=|!=)/", $path, 2, PREG_SPLIT_DELIM_CAPTURE);
 
-            //get the data;
             $replace = $this->getData($segments[0], $data);
 
             //check checking if the var isset
@@ -93,8 +101,11 @@ class Condition extends Element
                 if(isset($segments[1]) && isset($segments[2]) && isset($operators[$segments[1]])){
 
                     $method = $operators[$segments[1]];
+                    $_value = $this->getData($segments[2], $data);
+                    $value  = !empty($_value) ? $_value : $segments[2];
 
-                    if ($this->$method($replace, $segments[2])) {
+
+                    if ($this->$method($replace, $value)) {
                         return $event->setResult($replace);
                     }
                 }

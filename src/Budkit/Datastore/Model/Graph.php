@@ -25,6 +25,9 @@
 
 namespace Budkit\Datastore\Model;
 
+use Budkit\Datastore\Model\Graph\Edge;
+use Budkit\Datastore\Model\Graph\Node;
+
 /**
  * What is the purpose of this class, in one sentence?
  *
@@ -47,7 +50,7 @@ final class Graph
     static $instance;
 
     /**
-     * A vertex (pl. vertices) or node is the fundamental unit of which a graph is formed.
+     * A vertex (pl. vertices) or node is the fundamental unit on which a graph is formed.
      * An array object containing graph vertex set.
      *
      * @var type
@@ -84,34 +87,14 @@ final class Graph
      * @param type $directed
      * @param type $graphID
      */
-    public function __construct($nodes = array(), $edges = array(), $directed = FALSE, $graphID = NULL)
+    public function __construct(Array $nodes = [], Array $edges = [], $directed = FALSE, $graphID = NULL)
     {
         //parent::__construct();
+        $this->nodeSet = $nodes;
+        $this->edgeSet = $edges;
+
     }
 
-    /**
-     * Returns and instantiated Instance of the graph class
-     *
-     * NOTE: As of PHP5.3 it is vital that you include constructors in your class
-     * especially if they are defined under a namespace. A method with the same
-     * name as the class is no longer considered to be its constructor
-     *
-     * @staticvar object $instance
-     * @property-read object $instance To determine if class was previously instantiated
-     * @property-write object $instance
-     *
-     * @return object graph
-     */
-    public static function getInstance($graphUID = NULL, $nodes = array(), $edges = array(), $directed = FALSE)
-    {
-        if (is_object(static::$instance[$graphUID]) && is_a(static::$instance[$graphUID], 'Graph'))
-            return static::$instance[$graphUID];
-        $graph = new self($nodes, $edges, $directed, $graphUID);
-        if (!empty($graphUID)) {
-            static::$instance[$graphUID] = &$graph;
-        }
-        return $graph;
-    }
 
     /**
      * Determines the shortest distance between two nodes
@@ -228,6 +211,7 @@ final class Graph
 
     }
 
+
     /**
      * Returns a node object if exists in graph
      *
@@ -235,20 +219,26 @@ final class Graph
      * @return object $node if found;
      *
      */
-    public function getNode($nodeId)
+    public function getNode( $nodeId )
     {
-        static $instance = array();
+        static $instance = [];
+
         if (isset($instance[$nodeId]))
             return $instance[$nodeId];
+
         $nodes = $this->nodeSet;
+
         if (empty($nodes))
             return NULL;
+
         foreach ($nodes as $node):
             if ($node->getId() == $nodeId):
-                $instance[$nodeId] = &$node;
+                    $instance[$nodeId] = &$node;
+                    return $instance[$nodeId];
                 break;
             endif;
         endforeach;
+
         return NULL;
     }
 
@@ -263,10 +253,10 @@ final class Graph
      * @param type $weight
      * @return boolean
      */
-    public function addEdge(&$nodeA, &$nodeB, $name = NULL, $directed = TRUE, $data = array(), $weight = 0)
+    public function addEdge(Node &$nodeA, Node &$nodeB, $name = NULL, $directed = TRUE, $data = array(), $weight = 0)
     {
 
-        $edge = new Graph\Edge($nodeA, $name, $nodeB, $data, $directed, $weight); //Will need to decide whether to use nodeAId-nodeBId as edgeId
+        $edge = new Edge($nodeA, $name, $nodeB, $data, $directed, $weight); //Will need to decide whether to use nodeAId-nodeBId as edgeId
         $edgeId = $edge->getId();
 
         //Directed edges have their Id's referenced in arcSet
@@ -279,17 +269,18 @@ final class Graph
             $this->edgeSet[$edgeId]->weight++;
             $edgeData = $this->edgeSet[$edgeId]->getData();
             $data = array_merge($edgeData, $data);
+
             //Makeing a directed array undirected
             if (!$directed && in_array($edgeId, $this->arcSet))
                 $this->arcSet = array_diff($this->arcSet, array($edgeId));
-            return true;
+            return $edge;
         }
         //array_merge edge data
         if (!isset($this->edgeSet[$edgeId]))
             $this->edgeSet[$edgeId] = &$edge;
 
         //If directed, use edgeIsArc to indicate;
-        return true;
+        return $edge;
     }
 
     /**
@@ -304,6 +295,125 @@ final class Graph
         return true;
     }
 
+
+    /**
+     * The number of head endpoints adjacent to the node is called the indegree.
+     * i.e Number of directed edges (arcs) to this node. Use getDegree to get
+     * the total number of edges (directed or undirected) to this node
+     *
+     * @return interger
+     */
+    public function getInDegree(Node $ofNode)
+    {
+
+        $graph = $this;
+        $arcIds = $graph->getArcSet();
+
+        //If this graph is undirected, then we can't calculate the  indegree to this node;
+        if (empty($arcIds))
+            return $this->getDegree();
+
+        $edges = $graph->getEdgeSet();
+        $incidence = 0;
+
+        //search for all arcs with this node as tail
+        foreach ($arcIds as $arc):
+            $edge = $edges[$arc];
+            if ($edge->getTail()->getId() == $ofNode->getId()) {
+                $incidence++;
+                //if head is the same as self, as is the case in cycled edges then we have one more indegree,
+                //looped vertices have an indegree of two;
+                if ($edge->getHead()->getId() == $ofNode->getId())
+                    $incidence++;
+            }
+        endforeach;
+
+        return $incidence;
+    }
+
+    /**
+     * Degree or valency is the number of edges incident to the vertex
+     * deg(v) where v = vertex or node
+     */
+    public function getDegree(Node $ofNode )
+    {
+
+        $incidence = 0;
+        $graph = $this;
+        $edges = $graph->getEdgeSet();
+
+        //If this graph is undirected, then we can't calculate the  indegree to this node;
+        if (empty($edges))
+            return $incidence;
+
+        //search for all arcs with this node as tail
+        foreach ($edges as $edge):
+            if ($edge->getTail()->getId() == $ofNode->getId()) {
+                $incidence++;
+                //if head is the same as self, as is the case in cycled edges then we have one more indegree,
+                //looped vertices have an indegree of two;
+                if ($edge->getHead()->getId() == $ofNode->getId())
+                    $incidence++;
+            } elseif ($edge->getHead()->getId() == $ofNode->getId()) {
+                //Cover for cycles
+                if ($edge->getHead()->getId() == $ofNode->getId())
+                    $incidence++;
+            }
+        endforeach;
+
+        return $incidence;
+    }
+
+    /**
+     * The number of tail endpoints adjacent to the node is called the outdegree
+     * i.e Number of directed edges (arcs) from this node. Use getDegree to get
+     * the total number of edges (directed or undirected) to this node
+     *
+     * @return interger
+     */
+    public function getOutDegree(Node $ofNode )
+    {
+
+        $graph = $this;
+        $arcIds = $graph->getArcSet();
+
+        //If this graph is undirected, then we can't calculate the  indegree to this node;
+        if (empty($arcIds))
+            return $this->getDegree();
+
+        $edges = $graph->getEdgeSet();
+        $incidence = 0;
+
+        //search for all arcs with this node as tail
+        foreach ($arcIds as $arc):
+            $edge = $edges[$arc];
+            if ($edge->getHead()->getId() == $ofNode->getId()) {
+                $incidence++;
+                //if head is the same as self, as is the case in cycled edges then we have one more indegree,
+                //looped vertices have an indegree of two;
+                if ($edge->getTail()->getId() == $ofNode->getId())
+                    $incidence++;
+            }
+        endforeach;
+
+        return $incidence;
+    }
+
+    public function removeEdgeWithId($edgeId){
+        if(isset($this->edgeSet[$edgeId])){
+
+            $edge = $this->edgeSet[$edgeId];
+
+            //Remove the value from the arcSet array
+            $this->arcSet = array_diff($this->arcSet, array($edge->getId()));
+
+            //Remove the value from the edgeSet array;
+            unset($this->edgeSet[$edgeId]);
+
+        }
+
+    }
+
     /**
      * Removes an Edge from the graph. Use removeArc to remove directed edges
      *
@@ -313,12 +423,14 @@ final class Graph
      * @return boolean
      * @throws \Platform\Exception
      */
-    public function removeEdge(&$head, &$tail, $directed = TRUE)
+    public function removeEdgeWithNodes(Node &$head, Node &$tail, $directed = TRUE)
     {
 
-        if (!is_a($head, "\Platform\Graph\Node") || !is_a($tail, "\Platform\Graph\Node")) {
-            throw new \Platform\Exception("Nodes used to create a new Edge must be instances of \Platform\Graph\Node", PLATFORM_ERROR);
+        if (!is_a($head, Node::class) || !is_a($tail, Node::class)) {
+            throw new \Exception("Nodes used to create a new Edge must be instances of {Node::class}");
+            return false;
         }
+
         $_nodeIds = array($head->getId(), $tail->getId());
         $edges = $this->edgeSet;
         //find all edges with these two nodes incident
@@ -360,24 +472,25 @@ final class Graph
      */
     public function createNode($nodeId, $data = array())
     {
+        $node = new Node($nodeId, $data);
 
-        $node = new Graph\Node($nodeId, $data);
-        $node->setGraph($this);
+        //@mark Add node will ignore node if it already exists;
         $this->addNode($node);
 
         return $node;
     }
 
-    /**
+    /**s
      * Adds a node to the current graph
      *
      * @param type $node
      */
-    public function addNode(&$node)
+    public function addNode(Node &$node)
     {
         //Nodes must be an instance graph Node;
         if (!$this->isNode($node)) {
-            throw new \Exception("Node must be an instance of Graph\Node", PLATFORM_ERROR);
+            throw new \Exception("Node must be an instance of {Node::class}");
+            return false;
         }
         $nodedId = $node->getId();
         if (!empty($nodedId) && !isset($this->nodeSet[$node->getId()])) {
@@ -392,10 +505,10 @@ final class Graph
      * @param type $node
      * @throws boolean
      */
-    private function isNode(&$node)
+    private function isNode(Node &$node)
     {
         //Nodes must be an instance graph Node;
-        if (!is_a($node, "\Graph\Node")) {
+        if (!is_a($node, Node::class )) {
             return false;
         }
         return true;

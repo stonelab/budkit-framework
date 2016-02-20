@@ -155,7 +155,7 @@ class Authenticate extends Object
 
             //Update
             $session->set("handler", $this, "auth");
-            $session->lock("auth");
+            //$session->lock("auth");
             $session->update($session->getId());
 
             return true;

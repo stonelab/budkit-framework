@@ -151,7 +151,7 @@ class Data extends Element
             if($value != $Attr->value) {
 
                 $Attr->ownerElement->setAttribute($Attr->localName, $value);
-
+                $Element->setResult($Attr);
             }
             $Attr->ownerElement->removeAttributeNode($Attr);
 

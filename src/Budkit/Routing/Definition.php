@@ -99,6 +99,8 @@ abstract class Definition
      */
     protected $accept = [];
     protected $values = [];
+    protected $permissions = [];
+    protected $requiredPermission = 'view'; //the minum permission required for this route;
     protected $secure = false;
     protected $wildcard = null;
     protected $routable = true;
@@ -303,6 +305,39 @@ abstract class Definition
     public function setAction($actionController)
     {
         $this->action = $actionController;
+
+        return $this;
+    }
+
+    /**
+     *
+     * Defines a callback with which to check for a particular permission
+     *
+     * @param string $for the permission e.g view, modify, execute, special
+     * @param string $withCallback the custom callable to use
+     *
+     */
+    public function setPermissionHandler($for, $withCallback){
+
+        if(!isset($this->permissions) || !is_array($this->permissions)){
+            $this->permissions = [];
+        }
+
+        $this->permissions = array_merge($this->permissions, [$for => $withCallback ]);
+
+        return $this;
+    }
+
+
+    public function setRequiredPermission($permission){
+
+        $permissions = ["view","modify","execute","special"];
+
+        //We can only accept certain types of permissions
+        if(!in_array($permission, $permissions)) return false;
+
+        $this->requiredPermission = strtolower($permission);
+
 
         return $this;
     }

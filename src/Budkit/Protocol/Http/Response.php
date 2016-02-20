@@ -375,7 +375,7 @@ class Response implements Protocol\Response
         return $this->contentType;
     }
 
-    protected function sendHeaders(array $headers = [])
+    public function sendHeaders(array $headers = [])
     {
 
         $this->setContentLength();

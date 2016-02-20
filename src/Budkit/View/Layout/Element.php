@@ -26,7 +26,7 @@ abstract class Element{
         }
 
         //modifies such as ${config://} to get config data or do anything else fancy
-        if (preg_match('|^(.*)://(.+)$|', $path, $matches)) {
+        if (preg_match('|^(.*?)://(.+)$|', $path, $matches)) {
 
             $parseDataScheme = new Event('Layout.onCompile.scheme.data', $this, ["scheme" => $matches[1], "path" => $matches[2], "data"=>$data]);
             $parseDataScheme->setResult(null); //set initial result
@@ -44,7 +44,7 @@ abstract class Element{
         //to get parent data add a $ as the first key, e.g "$.name"
         //reset($keys);
 
-        if(current($keys) == "$"){
+        if(in_array( current($keys), ["$" , "$$"] ) ){
 
             //echo "why three times? <br />";
             $Element = $this->getElement();
@@ -59,6 +59,14 @@ abstract class Element{
             if(!is_array($attributes) || !array_key_exists("parentdata", $attributes)){
                 return null;
             }
+
+//            if($keys == "$$"){
+//
+//                print_R($attributes);
+//
+//               // die;
+//            }
+
             //print_R($Element->attributes);
             //replace the current with parent data;
             $array = $attributes["parentdata"];
@@ -70,18 +78,26 @@ abstract class Element{
 
 
         //From this point we can only work with data arrays;
-        if(!is_array($array)) return null;
 
+        if( is_array($array) || $array instanceof \ArrayAcces ) {
 
-        foreach ($keys as $key) {
-            if (isset($array[$key])) {
-                $array = $array[$key];
-            } else {
-                return "";
+            foreach ($keys as $key) {
+                if (isset($array[$key])) {
+                    if($array instanceof \ArrayAcces){
+                        $array = $array->offsetGet( $key );
+                        //print_R($array);
+                    }else {
+                        $array = $array[$key];
+                    }
+                } else {
+                    return "";
+                }
             }
+
+            return $array;
         }
 
-        return $array;
+        return null;
     }
 
     protected function explode($path)

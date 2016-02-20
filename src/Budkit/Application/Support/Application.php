@@ -43,6 +43,7 @@ abstract class Application extends Dependency\Container
             'app' => 'Budkit\Application\Instance',
             'auth' => 'Budkit\Authentication\Authenticate',
             'database' => 'Budkit\Datastore\Database',
+            'directory' => 'Budkit\Filesystem\Directory',
             'encrypt' => 'Budkit\Datastore\Encrypt',
             'observer' => 'Budkit\Event\Observer',
             'file' => 'Budkit\Filesystem\File',

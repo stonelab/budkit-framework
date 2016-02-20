@@ -55,7 +55,9 @@ class Dispatcher implements Listener
     public function definition()
     {
 
-        return ['Dispatcher.beforeDispatch' => 'parseRoute'];
+        return [
+            'Dispatcher.beforeDispatch' => 'parseRoute'
+        ];
 
     }
 
@@ -94,18 +96,21 @@ class Dispatcher implements Listener
         //clean up format
         if (isset($route->params['format'])) {
             $format = str_replace([".", " ", "_", "-"], "", $route->params['format']);
-
         }
+
+        //removes extra demacations from usernames etc.
+        if (isset($route->params['username'])) {
+            $username = str_replace([".", " ", "_", "-", "@"], "", $route->params['username']);
+            $route->setParam("username", $username);
+        }
+
         $route->setParam("format", $format);
-
-
         $request->setAttributes($route->params);
 
         //Store the route in the event data
         $beforeDispatch->data['route'] = $route;
 
     }
-
 
     public function dispatch(Request &$request, Response &$response, $params = [])
     {
@@ -178,6 +183,8 @@ class Dispatcher implements Listener
         $afterDispatch = new Event\Event('Dispatcher.afterDispatch', $this);
         $this->observer->trigger($afterDispatch);
 
+        $afterDispatch->setResult( $response );
+
 //        if (isset($afterDispatch->)) {
 //            $afterDispatch->data['response']->send();
 //        }
@@ -186,11 +193,100 @@ class Dispatcher implements Listener
 
     }
 
-    protected function resolveController(Request $request)
+    /**
+     * Use for external method resolution within controllers
+     *
+     * @param array $attributes
+     * @return array|bool
+     * @throws Exception
+     *
+     */
+
+    public function resolveActionMethodWithAttributes($method, Array $attributes){
+
+        $controller = false;
+        $attributes = empty($attributes) ? $this->application->request->getAttributes() : $attributes;
+
+
+        //print_r($attributes);
+        if (is_callable($method)) {
+            //If the controller is not a function;
+            if (!($method instanceof Closure)) {
+                return $method;
+            }
+        }
+
+        if (!empty($attributes['action'])) {
+            //Note that this will be true if action is a valid controller or lambda;
+            $controller = $attributes['action'];
+
+            if (is_callable($controller)) {
+
+                return $controller;
+
+            } else if (is_string($controller)) {
+
+                if (isset($attributes['controller'])) {
+
+                    //for when /{controller}/{action}{/param1,param2,param3} is used
+                    $class = $this->sanitize($attributes['controller']);
+                    //$method = $this->sanitize($attributes['action']);
+
+                } else {
+                    //for when no action is give, uses route name
+                    //if route is in group then most likely it has a name like Prefix.name
+                    $action = explode(".", $attributes['action']);
+                    $class = $this->sanitize(ucfirst($action[0]));//controller;
+                   // $method = $this->sanitize(isset($action[1]) ? $action[1] : "index");  //method;
+
+                }
+                //Does the action exists in the actionController?
+                if (!method_exists($class, $method)) {
+                    throw new Exception("Method '{$method}' does not exists in Controller '{$class}'");
+
+                    return false;
+                }
+
+                $controller = [$this->getController($class), $method];
+
+                if (is_callable($controller)) {
+                    return $controller;
+                }
+            }
+        }
+
+    }
+
+    public function dispatchActionMethodWithAttributes(callable $action, Array $attributes){
+
+        //If we are using lambdas;
+        $params = $attributes;
+
+        unset($params['action']); //remove the action;
+
+        if ($action instanceof Closure) {
+            return call_user_func_array($action, [&$this->application->response, &$params]);
+        } else {
+
+            list($controller, $method) = $action;
+
+            $controller->initialize();
+
+            //Must return bool
+            return $controller->invokeAction($method, $params);
+
+            //print_R($response->getDataArray() );  die;
+        }
+
+        return false;
+
+    }
+
+    protected function resolveController(Request $request, $attributes = [])
     {
 
         $controller = false;
-        $attributes = $request->getAttributes();
+        $attributes = empty($attributes) ? $request->getAttributes() : $attributes;
 
 
         //print_r($attributes);
@@ -206,7 +302,6 @@ class Dispatcher implements Listener
                     return $this->getController($controller);
                 }
             }
-
 
             //If its not callable and is string;
             if (is_string($attributes['action'])) {

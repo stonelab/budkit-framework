@@ -912,13 +912,15 @@ class Entity extends DataModel
                 continue; //There is no point in storing empty values;
 
 
-//@TODO also check that value data has data for fields demarkated as allowempty=false;
+        //@TODO also check that value data has data for fields demarkated as allowempty=false;
             $iqueryV[] = "\nSELECT p.property_id, o.object_id, {$this->database->quote($valueData)}  FROM `?properties` AS p JOIN `?objects` AS o WHERE o.object_uri={$this->database->quote($objectURI)} AND p.property_name={$this->database->quote($propertyName)}";
         endforeach;
         $iquery .= implode("\nUNION ALL", $iqueryV);
 
 
         $this->database->query($iquery);
+
+        //print_r($this->database->replacePrefix($iquery)); die;
 
         //Update the object URI so the last update field is auto updated
         //$this->database->exec( "UPDATE ?objects SET objected_updated_on=CURRENT_TIMESTAMP" WHERE object_uri=" );

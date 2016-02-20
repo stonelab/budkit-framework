@@ -72,6 +72,7 @@ class Select extends Element
 
         $xpath = new DOMXPath($Node->ownerDocument);
         $select = $Node->ownerDocument->createElement("select");
+
         $options = $xpath->query('.//option', $Node); //the dot at the start is important to make it relative to the context node
 
 

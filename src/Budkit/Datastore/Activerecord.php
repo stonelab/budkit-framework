@@ -1234,4 +1234,9 @@ abstract class Activerecord
      */
     abstract public function update($table = '', $set = NULL, $where = NULL, $limit = NULL);
 
+    /**
+     * Updates a dbms table
+     */
+    abstract public function replaceInto($table = '', $set = NULL);
+
 }

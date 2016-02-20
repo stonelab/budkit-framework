@@ -26,6 +26,7 @@
 namespace Budkit\Datastore\Model\Graph;
 
 use Budkit\Datastore\Model\Graph;
+use ArrayAccess;
 
 /**
  * What is the purpose of this class, in one sentence?
@@ -40,7 +41,7 @@ use Budkit\Datastore\Model\Graph;
  * @link       http://stonyhillshq/documents/index/carbon4/libraries/graph
  * @since      Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM
  */
-final class Node
+final class Node implements ArrayAccess
 {
 
     /**
@@ -48,6 +49,12 @@ final class Node
      * @var type
      */
     protected $nodeId = NULL;
+
+    /**
+     * Identifies the current node
+     * @var type
+     */
+    protected $nodeType = NULL;
 
     /**
      * Holds any data associated to this node
@@ -77,7 +84,7 @@ final class Node
      *
      * @return object graph
      */
-    public function __construct($nodeId, $nodeData = array())
+    public function __construct($nodeId, $nodeData = [])
     {
         $this->setId($nodeId);
         $this->setData($nodeData);
@@ -87,7 +94,7 @@ final class Node
      * Sets the node Id
      *
      * @param type $nodeId
-     * @return \Platform\Graph\Node
+     * @return Graph
      */
     public function setId($nodeId)
     {
@@ -99,13 +106,37 @@ final class Node
      * Sets node data
      *
      * @param type $nodeData
-     * @return \Platform\Graph\Node
+     * @return \Node
      */
     public function setData($nodeData = array())
     {
         $this->nodeData = $nodeData;
         return $this;
     }
+
+
+    /**
+     * Sets node type
+     *
+     * @param type $nodeType
+     * @return \Node
+     */
+    public function setType($nodeType)
+    {
+        $this->nodeType = $nodeType;
+        return $this;
+    }
+
+
+    /**
+     * Returns the node type
+     *
+     * @return type
+     */
+    public function getType(){
+        return $this->nodeType;
+    }
+
 
     /**
      * Returns the node Data if any exists
@@ -128,45 +159,6 @@ final class Node
     }
 
     /**
-     * The number of head endpoints adjacent to the node is called the indegree.
-     * i.e Number of directed edges (arcs) to this node. Use getDegree to get
-     * the total number of edges (directed or undirected) to this node
-     *
-     * @return interger
-     */
-    public function getInDegree()
-    {
-
-        if (!is_a($this->nodeGraph, "\Platform\Graph")):
-            throw new \Exception("Unkown node parent graph. Cannot calculate InDegree of NODE:" . $this->getId(), PLATFORM_ERROR); //Unkonwn graph type;
-        endif;
-
-        $graph = $this->getGraph();
-        $arcIds = $graph->getArcSet();
-
-        //If this graph is undirected, then we can't calculate the  indegree to this node;
-        if (empty($arcIds))
-            return $this->getDegree();
-
-        $edges = $graph->getEdgeSet();
-        $incidence = 0;
-
-        //search for all arcs with this node as tail
-        foreach ($arcIds as $arc):
-            $edge = $edges[$arc];
-            if ($edge->getTail()->getId() == $this->getId()) {
-                $incidence++;
-                //if head is the same as self, as is the case in cycled edges then we have one more indegree,
-                //looped vertices have an indegree of two;
-                if ($edge->getHead()->getId() == $this->getId())
-                    $incidence++;
-            }
-        endforeach;
-
-        return $incidence;
-    }
-
-    /**
      * Returns the node's Id
      *
      * @return type
@@ -176,91 +168,6 @@ final class Node
         return $this->nodeId;
     }
 
-    /**
-     * Returns the parent graph
-     *
-     * @return type
-     */
-    public function &getGraph()
-    {
-        return $this->nodeGraph;
-    }
-
-    /**
-     * Degree or valency is the number of edges incident to the vertex
-     * deg(v) where v = vertex or node
-     */
-    public function getDegree()
-    {
-
-        if (!is_a($this->nodeGraph, Graph::class)):
-            throw new \Exception("Unkown node parent graph. Cannot calculate InDegree of NODE:" . $this->getId(), PLATFORM_ERROR); //Unkonwn graph type;
-        endif;
-
-        $incidence = 0;
-        $graph = $this->getGraph();
-        $edges = $graph->getEdgeSet();
-
-        //If this graph is undirected, then we can't calculate the  indegree to this node;
-        if (empty($edges))
-            return $incidence;
-
-        //search for all arcs with this node as tail
-        foreach ($edges as $edge):
-            if ($edge->getTail()->getId() == $this->getId()) {
-                $incidence++;
-                //if head is the same as self, as is the case in cycled edges then we have one more indegree,
-                //looped vertices have an indegree of two;
-                if ($edge->getHead()->getId() == $this->getId())
-                    $incidence++;
-            } elseif ($edge->getHead()->getId() == $this->getId()) {
-                //Cover for cycles
-                if ($edge->getHead()->getId() == $this->getId())
-                    $incidence++;
-            }
-        endforeach;
-
-        return $incidence;
-    }
-
-    /**
-     * The number of tail endpoints adjacent to the node is called the outdegree
-     * i.e Number of directed edges (arcs) from this node. Use getDegree to get
-     * the total number of edges (directed or undirected) to this node
-     *
-     * @return interger
-     */
-    public function getOutDegree()
-    {
-
-        if (!is_a($this->nodeGraph, Graph::class)):
-            throw new \Exception("Unkown node parent graph. Cannot calculate InDegree of NODE:" . $this->getId(), PLATFORM_ERROR); //Unkonwn graph type;
-        endif;
-
-        $graph = $this->getGraph();
-        $arcIds = $graph->getArcSet();
-
-        //If this graph is undirected, then we can't calculate the  indegree to this node;
-        if (empty($arcIds))
-            return $this->getDegree();
-
-        $edges = $graph->getEdgeSet();
-        $incidence = 0;
-
-        //search for all arcs with this node as tail
-        foreach ($arcIds as $arc):
-            $edge = $edges[$arc];
-            if ($edge->getHead()->getId() == $this->getId()) {
-                $incidence++;
-                //if head is the same as self, as is the case in cycled edges then we have one more indegree,
-                //looped vertices have an indegree of two;
-                if ($edge->getTail()->getId() == $this->getId())
-                    $incidence++;
-            }
-        endforeach;
-
-        return $incidence;
-    }
 
     /**
      * Determines if this node is related to another node
@@ -284,6 +191,7 @@ final class Node
 
     /**
      * Determines if the current node, can reach nodeB
+     *
      * @return boolean
      */
     public function isReacheable(&$nodeB)
@@ -300,14 +208,32 @@ final class Node
 
     }
 
-    /**
-     * Sets the Parent Graph
-     *
-     * @param type $graph
-     */
-    public function setGraph(&$graph)
+
+    //Array Access Methods
+    public function offsetSet($name, $value)
     {
-        $this->nodeGraph = &$graph;
+        //add the route to the collection container;
+        if (is_null($name)) {
+            $this->nodeData[] = $value;
+        } else {
+            $this->nodeData[$name] = $value;
+        }
+    }
+
+    public function offsetExists($name)
+    {
+        return (isset($this->nodeData[$name]) || isset($this->{$name}) ) ? true : false;
+    }
+
+    public function offsetGet($name)
+    {
+        return isset($this->nodeData[$name]) ? $this->nodeData[$name] :
+            ( isset($this->{$name}) ? $this->{$name} : null );
+    }
+
+    public function offsetUnset($name)
+    {
+        unset($this->nodeData[$name]);
     }
 
 }

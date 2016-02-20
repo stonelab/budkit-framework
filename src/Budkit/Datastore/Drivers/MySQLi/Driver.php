@@ -311,7 +311,7 @@ final class Driver extends Engine implements DatastoreDriver
         $this->cursor = mysqli_query($this->resourceId, $sql);
 
         if (!$this->cursor) {
-            throw new QueryException(mysqli_errno($this->resourceId), mysqli_error($this->resourceId) . " SQL=$sql");
+            throw new QueryException( mysqli_error($this->resourceId) . " SQL=$sql");
 
             return false;
         }
@@ -370,6 +370,7 @@ final class Driver extends Engine implements DatastoreDriver
 
         //@TODO;
         if ($execute) {
+            $this->resetRun();
             $this->exec($query);
         }
 

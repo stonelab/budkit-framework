@@ -57,10 +57,10 @@ class Compiler implements Parser, Listener
 
             [new Tpl\Menu($this->loader, $this->observer), 'execute'],
             [new Tpl\Condition($this->loader, $this->observer), 'evaluate'],
-            [new Tpl\Loop($this->loader, $this->observer), 'execute'],
 
 
             [new Tpl\Datetime($this->loader, $this->observer), 'content'],
+            [new Tpl\Datepicker($this->loader, $this->observer), 'display'],
             //translate ,
             //sprintf
             //content only on Text Nodes;
@@ -72,6 +72,8 @@ class Compiler implements Parser, Listener
             //attributes Maybe run this last?
             [new Tpl\Input($this->loader, $this->observer), 'execute'],
             [new Tpl\Select($this->loader, $this->observer), 'execute'],
+
+            [new Tpl\Loop($this->loader, $this->observer), 'execute'],
 
 
             //This should be LAST!

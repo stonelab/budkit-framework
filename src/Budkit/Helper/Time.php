@@ -89,14 +89,14 @@ class Time extends Date
             'month' => 2629744,
             'week' => 604800,
             'day' => 86400,
-            'hour' => 3600,
+            'hr' => 3600,
             'min' => 60,
             'sec' => 1);
 
         if ($opt['precision'] != 'sec') {
             $diff = round(($diff / $periods[$opt['precision']])) * $periods[$opt['precision']];
         }
-        (0 == $diff) && ($str = 'less than 1 ' . $opt['precision']);
+        (0 == $diff) && ($str = '< 1 ' . $opt['precision']);
         foreach ($periods as $label => $value) {
             (($x = floor($diff / $value)) && $opt['parts']--) && $str .= ($str ? $opt['separator'] :
                     '') . ($x . ' ' . $label . ($x > 1 ? 's' : ''));

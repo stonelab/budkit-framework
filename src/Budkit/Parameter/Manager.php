@@ -153,7 +153,7 @@ class Manager implements ArrayAccess, Mockable
     }
 
 
-    protected function load($namespace, $merge = [])
+    public function load($namespace, $merge = [])
     {
 
         $settings = $this->repository->load($this->environment, $namespace);

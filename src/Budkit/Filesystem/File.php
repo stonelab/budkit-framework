@@ -20,6 +20,7 @@ class File
      */
     protected static $pathinfo = [];
 
+
     /**
      * Determines if a path links to a folder or file
      *

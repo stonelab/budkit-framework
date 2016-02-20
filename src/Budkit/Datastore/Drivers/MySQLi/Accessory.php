@@ -100,7 +100,16 @@ class Accessory extends Activerecord
             return $shortgunsql;
         }
 
-        return $this->DBO->exec($shortgunsql); //this returns a cursor. will need to check for errors and other stuff
+        return $this->DBO->exec($shortgunsql, true); //this returns a cursor. will need to check for errors and other stuff
+
+    }
+
+    /**
+     * Updates a dbms table
+     */
+    final public function replaceInto($table = '', $set = NULL){
+
+        return $this->insert($table, $set, true);
 
     }
 
