@@ -90,6 +90,7 @@ class Table extends \Budkit\Datastore\Table
         if (isset($primary->Value) && !empty($primary->Value)) {
             return $this->update($primary->Value);
         } else {
+
             return $this->insert();
         }
         //if we get here then there is a problem
@@ -158,7 +159,7 @@ class Table extends \Budkit\Datastore\Table
      * @param type $data
      * @return type
      */
-    public function insert($data = null, $updateIfExists = FALSE)
+    public function insert($data = null, $updateIfExists = false)
     {
         //1. Check if we have data and deal with it!
         if (!is_null($data)) {
@@ -168,6 +169,7 @@ class Table extends \Budkit\Datastore\Table
             }
         }
 
+        $unique = null;
         $primary = $this->keys("primary");
         $set = array();
 

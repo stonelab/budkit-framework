@@ -845,6 +845,40 @@ class Entity extends DataModel
     }
 
     /**
+     * Deletes properties and all data associated with them
+     *
+     * @param array $properties
+     */
+    final public function deleteProperties(Array $properties){
+
+        if(empty($properties)) return false;
+
+        //then remove the properties from the properties data.
+        //ON DELETE CASCADE will remove any data associated with these properties
+        $database = $this->database;
+
+        $_properties = array_map(function($property) use($database){
+
+                return $database->quote( $property );
+
+        }, $properties);
+
+        print_r($_properties);
+
+        if (!$database->in("property_name", $_properties)->delete('?properties')) {
+            static::setError($database->getError());
+            return false;
+        }
+
+        return true;
+
+    }
+
+    final public function deletePropertyValue( $property, $objectURI = null, $objectId = NULL ){
+
+    }
+
+    /**
      * Saves an object to the EAV database
      *
      * @param type $objectURI

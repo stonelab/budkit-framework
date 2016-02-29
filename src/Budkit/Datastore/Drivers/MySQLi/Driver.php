@@ -8,6 +8,7 @@ use Budkit\Datastore\Exception\ConnectionError;
 use Budkit\Datastore\Exception\InternalError;
 use Budkit\Datastore\Exception\QueryException;
 use Budkit\Debug\Log;
+use Budkit\Validation\Validate;
 
 
 final class Driver extends Engine implements DatastoreDriver
@@ -43,6 +44,9 @@ final class Driver extends Engine implements DatastoreDriver
 
 
     var $queries = array();
+
+
+    protected $validator;
 
 
     public function __construct($options = [])
@@ -199,6 +203,7 @@ final class Driver extends Engine implements DatastoreDriver
      */
     final public function getTable($tablename)
     {
+        //echo $tablename; die;
 
         return new Table($tablename, $this);
 
@@ -421,6 +426,15 @@ final class Driver extends Engine implements DatastoreDriver
         return true;
     }
 
+
+    public function setValidator(Validate $validator){
+        $this->validator = $validator;
+    }
+
+    public function getValidator(){
+
+        return $this->validator;
+    }
 
     /**
      * For active record querying ONLY

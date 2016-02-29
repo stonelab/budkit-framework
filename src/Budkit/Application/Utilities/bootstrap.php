@@ -150,6 +150,8 @@ if ($app->config->get("setup.database.installed")) {
             $app->config->get("setup.database") //get all the database options and pass to the driver
         ]
     );
+    //set the validator
+    $app->database->setValidator( $app->validate );
 }
 
 /*

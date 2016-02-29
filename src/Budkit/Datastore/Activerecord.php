@@ -723,7 +723,7 @@ abstract class Activerecord
 
         foreach ($key as $k => $v) {
 
-            //The firs item adds the and prefix;
+            //The first item adds the and prefix;
             $prefix = (count($this->arrayWhere) == 0 AND count($this->arrayCacheWhere) == 0) ? '' : $type . "\t";
 
             if (is_null($v) && !$this->hasOperator($k)) {

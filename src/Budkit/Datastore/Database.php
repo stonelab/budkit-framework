@@ -33,7 +33,6 @@ use Budkit\Dependency\Container;
 class Database
 {
 
-
     //@TODO we need to find a better way to hide non static variables
     //This is set in in constructor but the intention is to hide it hidden;
     //protected $driver;
@@ -84,10 +83,12 @@ class Database
     final public function __call($method, $args)
     {
         $engine = $this->database;
+
         if (!\is_callable([$engine, $method])) {
             throw new \Exception("The requested Database::{$method} is not not callable");
             return false;
         }
+
         return @\call_user_func_array([$engine, $method], $args);
     }
 

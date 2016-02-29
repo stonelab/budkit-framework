@@ -9,6 +9,8 @@
 namespace Budkit\Datastore;
 
 
+use Budkit\Validation\Validate;
+
 interface Driver
 {
 
@@ -187,5 +189,8 @@ interface Driver
      * @return mixed
      */
     public function getTable($tablename);
+
+    public function setValidator(Validate $validator);
+    public function getValidator();
 
 }

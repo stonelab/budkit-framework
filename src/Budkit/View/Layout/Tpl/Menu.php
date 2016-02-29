@@ -61,6 +61,8 @@ class Menu extends Element
         }
 
 
+        //echo $Node->getAttribute("uid");
+
         $document = $Node->parentNode;
         //print_R($document->removeChild($Node));
 

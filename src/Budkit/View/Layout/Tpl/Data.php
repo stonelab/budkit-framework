@@ -11,6 +11,7 @@ namespace Budkit\View\Layout\Tpl;
 use Budkit\View\Layout\Element;
 use Budkit\Event\Observer;
 use Budkit\View\Layout\Loader;
+use Budkit\View\Layout\Utility\Markdown;
 use DOMNode;
 
 class Data extends Element
@@ -73,7 +74,7 @@ class Data extends Element
 
             if($Node->hasAttribute("parsedown")){
 
-                $replace = \Parsedown::instance()
+                $replace = Markdown::instance()
                         // ->setBreaksEnabled(true) # enables automatic line breaks
                         ->text( $replace );
             }

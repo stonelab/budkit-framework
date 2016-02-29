@@ -47,6 +47,8 @@ class Compiler implements Parser, Listener
         return ['Layout.onCompile' => [
 
             //block
+            //This should be LAST!
+            [new Tpl\Attributes($this->loader, $this->observer), 'nodelist'],
 
             //foreach
             //while do
@@ -73,11 +75,8 @@ class Compiler implements Parser, Listener
             [new Tpl\Input($this->loader, $this->observer), 'execute'],
             [new Tpl\Select($this->loader, $this->observer), 'execute'],
 
-            [new Tpl\Loop($this->loader, $this->observer), 'execute'],
+            [new Tpl\Loop($this->loader, $this->observer), 'execute']
 
-
-            //This should be LAST!
-            [new Tpl\Attributes($this->loader, $this->observer), 'nodelist']
 
         ]
         ];

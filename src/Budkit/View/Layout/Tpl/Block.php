@@ -84,7 +84,7 @@ class Block extends Element{
                     $import->setAttribute("name", $matches[2]); //tell it the layout we want to import
 
                     //We need to first append child here;
-                    $document->insertBefore($import, $Node);
+                    $document->insertBefore($import, $Node->nextSibling);
 
                 } else {
 

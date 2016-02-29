@@ -25,6 +25,7 @@
 
 namespace Budkit\Datastore;
 
+use Budkit\Helper\Object;
 use Budkit\Validation\Validate;
 use Exception;
 
@@ -41,7 +42,7 @@ use Exception;
  * @link       http://stonyhillshq/documents/index/carbon4/libraries/database/table
  * @since      Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM
  */
-abstract class Table
+abstract class Table extends Object
 {
 
 
@@ -64,11 +65,12 @@ abstract class Table
     public function __construct($table = "", Driver $driver)
     {
 
+
         $this->dbo = $driver;
-        $this->validator = $driver->container->createInstance(Validate::class, "validator");
+
+        $this->validator = $driver->getValidator();
 
         //check if table exist and describe schema if blank
-
         if (!is_null($table)) {
             $this->setTableName($driver->replacePrefix($table));
             $this->describe();
