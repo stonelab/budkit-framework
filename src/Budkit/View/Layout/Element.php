@@ -55,6 +55,10 @@ abstract class Element{
 
             $attributes = $Element->attributes;
 
+//            if($path == "$.uri"){
+//                print_R($attributes);
+//            }
+
            // print_r($keys); die;
             if(!is_array($attributes) || !array_key_exists("parentdata", $attributes)){
                 return null;

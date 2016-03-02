@@ -75,6 +75,10 @@ class Display implements Mockable
     }
 
 
+    public function getLayoutSearchPaths(){
+        return $this->searchPaths;
+    }
+
     public function render($layout = null, $partial = false)
     {
 
