@@ -64,13 +64,6 @@ abstract class Element{
                 return null;
             }
 
-//            if($keys == "$$"){
-//
-//                print_R($attributes);
-//
-//               // die;
-//            }
-
             //print_R($Element->attributes);
             //replace the current with parent data;
             $array = $attributes["parentdata"];
@@ -81,6 +74,12 @@ abstract class Element{
         }
 
 
+//        if($path == "$.authorities"){
+//
+//            print_R("----\n");
+//
+//            //die;
+//        }
         //From this point we can only work with data arrays;
 
         if( is_array($array) || $array instanceof \ArrayAcces ) {

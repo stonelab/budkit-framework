@@ -167,12 +167,13 @@ class Loop extends Element
             }
 
             //parent data;
-            $this->parentdata   = $Data;
+
             //$Element->set("parentdata", $this->parentdata);
 
             foreach ($array as $key => $_array) {
 
                 $this->loopdatakey  = $key;
+                $this->parentdata   = $Data;
 
                 if ($Node->hasChildNodes()) {
 

@@ -58,11 +58,26 @@ class Import extends Element
             return;
         }
 
+
         //<tpl:import name="layoutname[.tpl|.php|.html|.xml]" [frompath="/path/to/layout"] />
 
-        $viewpath = $Node->getAttribute("frompath").(($Node->hasAttributeNS($this->nsURI, "name") )
-                ? $this->getName( $Node->getAttributeNS($this->nsURI, "name") , $Data)
-                : $Node->getAttribute("name"));
+        $name = (($Node->hasAttributeNS($this->nsURI, "name") )
+            ?  $this->getName( $Node->getAttributeNS($this->nsURI, "name"), $Data )
+            : $Node->getAttribute("name") );
+
+        //$name  = $this->getName( $_name, $Data);
+
+        //echo $_name;
+
+        //$name   = !empty($_name ) ? $_name : null;
+
+
+        if(empty($name)){
+            return;
+        }
+
+
+        $viewpath = $Node->getAttribute("frompath").$name;
         $imported = new DOMDocument();
 
 //        if(($Node->hasAttributeNS($this->nsURI, "name") )) {
@@ -73,6 +88,8 @@ class Import extends Element
 //
 //            die;
 //        }
+
+
 
         //Get the imported document;
         $imported->loadXML($this->loader->find($viewpath),  LIBXML_COMPACT | LIBXML_NOBLANKS | LIBXML_DTDATTR | LIBXML_HTML_NOIMPLIED);
@@ -94,8 +111,10 @@ class Import extends Element
 
     protected function getName($name, $Data){
 
+
         //Search for (?<=\$\{)([a-zA-Z]+)(?=\}) and replace with data
         if (preg_match_all('/(?:(?<=\$\{)).*?(?=\})/i', $name, $matches)) {
+
 
             $placemarkers = (is_array($matches) && isset($matches[0])) ? $matches[0] : array();
             $searches = [];
@@ -122,7 +141,7 @@ class Import extends Element
 
         }else{
 
-            return $this->getData($name, $Data);;
+            return $this->getData($name, $Data);
         }
     }
 }
