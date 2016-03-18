@@ -189,6 +189,14 @@ class Menu extends Element
             $anchor->setAttribute("href", $item["menu_url"]);
             $anchor->setAttribute("title", $item["menu_title"]);
 
+            //Additional attributes;
+            $anchorAttributes = isset($item['menu_attributes'])? $item['menu_attributes']  : [] ;
+
+            if(!empty($anchorAttributes) && is_array($anchorAttributes)){
+                foreach($anchorAttributes as $attribute => $value ){
+                    $anchor->setAttribute( $attribute, $value );
+                }
+            }
             //Show menu Icons?
             if ($menuIcons) {
                 //If we have a menu count

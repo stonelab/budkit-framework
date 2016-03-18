@@ -35,11 +35,16 @@ class Markdown extends Parsedown {
 
 
         //user mentions
-        $this->InlineTypes['@'][]= 'UserMention';
-        $this->inlineMarkerList .= '@';
+        $this->InlineTypes['@'][]  = 'UserMention';
+        $this->inlineMarkerList   .= '@';
+
+        $this->InlineTypes[':'][]  = 'EmojiOne';
+        $this->inlineMarkerList   .= ':';
+        $this->emojione            = new EmojiOne(); //the emoji one ruleset
 
 
-        $this->BlockTypes[':'] []= 'DefinitionList';
+
+        //$this->BlockTypes[':'] []= 'DefinitionList';
         $this->BlockTypes['*'] []= 'Abbreviation';
         $this->InlineTypes['{'] []= 'ColoredText';
         $this->inlineMarkerList .= '{';
@@ -321,6 +326,46 @@ class Markdown extends Parsedown {
                 ),
             );
         }
+    }
+
+
+    protected function inlineEmojiOne($Excerpt){
+
+        //print_r($Excerpt);
+
+        if( preg_match('/:(.*?):/ui', $Excerpt['text'], $matches ) ){
+
+            //print_r($matches);
+
+            if(!empty($matches[1]) ) {
+
+                //get the unicode replace code
+                $unicode = $this->emojione->getShortcodeReplace( $matches[0] );
+
+                if(!empty($unicode) && !is_array($unicode)) {
+                    return array(
+                        'extent' => strlen($matches[0]),
+                        'element' => array(
+                            'name' => 'svg',
+                            'handler' => 'elements',
+                            'text' => [
+                                [
+                                    'name' => 'use',
+                                    'handler' => 'elements',
+                                    'attributes' => [
+                                        "xlink:href" => "/theme/assets/img/icons/svg/emojione.sprites.svg#emoji-".$unicode
+                                    ],
+                                ]
+                            ],
+                            'attributes' => array(
+                                'class' => 'emojione',
+                            ),
+                        ),
+                    );
+                }
+            }
+        }
+
     }
 
     protected function inlineUserMention($Excerpt)

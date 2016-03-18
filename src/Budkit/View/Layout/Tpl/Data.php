@@ -74,6 +74,8 @@ class Data extends Element
 
             if($Node->hasAttribute("parsedown")){
 
+                //echo $replace;
+
                 $replace = Markdown::instance()
                         // ->setBreaksEnabled(true) # enables automatic line breaks
                         ->text( $replace );
@@ -85,7 +87,10 @@ class Data extends Element
 
                 $tmpImport = $Node->ownerDocument->createElement("div");
                 $tmpDoc = new \DOMDocument();
+
+                libxml_use_internal_errors(TRUE);
                 $tmpDoc->loadHTML($replace, LIBXML_COMPACT | LIBXML_HTML_NOIMPLIED);
+                libxml_clear_errors();
 
                 if ($tmpDoc->documentElement->hasChildNodes()) {
 
