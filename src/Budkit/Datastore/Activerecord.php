@@ -879,9 +879,34 @@ abstract class Activerecord
      * @param string $type , e.g AND, OR
      * @return object TuiyoDatabaseResult
      */
-    final public function getWhere($key, $values = NULL, $type = 'AND')
+    final public function getConditionals( $operator = 'AND')
     {
-        return $this->where($key, $values, $type);
+        $query = null;
+
+        //$this->where($key, $values, $type);
+
+        if (!empty($this->arrayWhere) || !empty($this->arrayLike) ) {
+            $query .= "\n";
+            $query .= "WHERE\t";
+        }
+
+        $query .= implode("\n", $this->arrayWhere);
+
+        // LIKE
+        if (!empty($this->arrayLike)) {
+            if (!empty($this->arrayWhere)) {
+                $query .= "\n{$operator}\t";
+            }
+            $query .= implode("\n\t", $this->arrayLike);
+        }
+
+        //[having search_condition]
+        if (!empty($this->arrayHaving)) {
+            $query .= "\nHAVING\t";
+            $query .= implode("\n", $this->arrayHaving);
+        }
+
+        return $query;
     }
 
     /**
@@ -967,6 +992,7 @@ abstract class Activerecord
      */
     final public function like($field, $match = '', $type = 'AND ', $side = 'both', $not = '')
     {
+
         if (!is_array($field)) {
             $field = array($field => $match);
         }
@@ -977,11 +1003,11 @@ abstract class Activerecord
             $v = $this->escape($v);
             $likeStatement = '';
             if ($side == 'before') {
-                $likeStatement = $prefix . " $k $not LIKE '%{$v}'";
+                $likeStatement = $prefix . " $k $not LIKE \'%{$v}\'";
             } elseif ($side == 'after') {
-                $likeStatement = $prefix . " $k $not LIKE '{$v}%'";
+                $likeStatement = $prefix . " $k $not LIKE \'{$v}%\'";
             } else {
-                $likeStatement = $prefix . " $k $not LIKE '%{$v}%'";
+                $likeStatement = $prefix . " $k $not LIKE \'%{$v}%\'";
             }
 
             $this->arrayLike[] = $likeStatement;
@@ -990,6 +1016,8 @@ abstract class Activerecord
                 $this->arrayCacheExists[] = 'like';
             }
         }
+
+
         return $this;
     }
 
