@@ -45,7 +45,7 @@ foreach ($paths as $key => $path) {
 | Alternatively you may use Budkit/Utitlity/Loader.
 */
 $loader = require $paths['vendor'] . '/autoload.php';
-$loader->add('', PATH_APP ); //this is important
+$loader->addPsr4('', PATH_APP ); //this is important
 
 
 /*
