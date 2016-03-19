@@ -14,6 +14,6 @@
         "erusev/parsedown": "*"
     },
     "autoload": {
-        "psr-4": {"": "src/"}
+        "psr-4": {"Budkit\\": "src/"}
     }
 }
