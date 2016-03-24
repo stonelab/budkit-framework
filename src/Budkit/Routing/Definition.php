@@ -100,12 +100,13 @@ abstract class Definition
     protected $accept = [];
     protected $values = [];
     protected $permissions = [];
-    protected $requiredPermission = 'view'; //the minum permission required for this route;
-    protected $secure = false;
+    protected $requiredPermission = 'view'; //the minimum permission required for this route;
+    protected $secure = null; //false = must not be secure, true = must be secure, null = does not matter
     protected $wildcard = null;
     protected $routable = true;
     protected $action = null;
     protected $generate = null;
+    protected $stateless = false;
 
     /**
      *
@@ -302,6 +303,12 @@ abstract class Definition
     }
 
 
+    /**
+     * Set the route action controller
+     *
+     * @param $actionController
+     * @return $this
+     */
     public function setAction($actionController)
     {
         $this->action = $actionController;
@@ -315,6 +322,7 @@ abstract class Definition
      *
      * @param string $for the permission e.g view, modify, execute, special
      * @param string $withCallback the custom callable to use
+     * @return $this
      *
      */
     public function setPermissionHandler($for, $withCallback){
@@ -329,6 +337,11 @@ abstract class Definition
     }
 
 
+    /**
+     *
+     * @param $permission
+     * @return $this|bool
+     */
     public function setRequiredPermission($permission){
 
         $permissions = ["view","modify","execute","special"];
@@ -340,6 +353,20 @@ abstract class Definition
 
 
         return $this;
+    }
+
+
+    public function setIsStateless(){
+
+        $this->stateless = true;
+
+        return $this;
+
+    }
+
+
+    public function isStateless(){
+        return $this->stateless;
     }
 
     /**
@@ -449,7 +476,6 @@ abstract class Definition
         $this->params = [];
         $this->score = 0;
         $this->failed = null;
-
 
         if ($this->isMatch($request->getPathInfo(), $request->getServer())) {
             $this->setParams();

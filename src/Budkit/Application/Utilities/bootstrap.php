@@ -48,6 +48,7 @@ $loader = require $paths['vendor'] . '/autoload.php';
 $loader->addPsr4('', PATH_APP ); //this is important
 
 
+
 /*
 |--------------------------------------------------------------------------
 | Sets the default timezone
@@ -172,7 +173,7 @@ $app->shareInstance(
     ),
     "session"
 );
-$app->session->start();
+//$app->session->start();
 
 
 /*
@@ -185,24 +186,6 @@ $app->session->start();
 */
 $app->shareInstance($loader, 'loader');
 
-
-/*
-|--------------------------------------------------------------------------
-| Load The Application Routes
-|--------------------------------------------------------------------------
-|
-| The Application routes are kept separate from the application starting
-| just to keep the file a little cleaner. We'll go ahead and load in
-| all of the routes now and return the application to the callers.
-|
-*/
-
-$routes = $paths['app'] . '/routes.php';
-
-if (file_exists($routes)) require $routes;
-
-//Load vendor package routes;
-//var_dump($app->loader->getPrefixes());
 
 /*
 |--------------------------------------------------------------------------

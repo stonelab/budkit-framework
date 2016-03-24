@@ -81,6 +81,11 @@ class Store
 
         $this->handler = $container->createInstance(static::$repositories[$options["store"]]);
 
+        //auth registry
+        //update the cookie with the expiry time
+        //Create the authenticated namespace and lock it!
+        $this->set("handler", $this->authenticator, "auth");
+
         ini_set('session.use_trans_sid', '0');
         //Libraries
     }
@@ -203,10 +208,6 @@ class Store
         //
         $defaultReg = new Registry("default");
         $self->registry['default'] = $defaultReg;
-
-        //update the cookie with the expiry time
-        //Create the authenticated namespace and lock it!
-        $self->set("handler", $this->authenticator, "auth");
 
         $this->write($sessId, $splash);
     }

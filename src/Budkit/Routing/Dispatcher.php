@@ -120,23 +120,18 @@ class Dispatcher implements Listener
 
         $this->params = &$params;
 
-
-        //print_R($request);
-
-        //create an event;
+        //Find the route
         $beforeDispatch = new Event\Event('Dispatcher.beforeDispatch', $this );
-
-
         $this->observer->trigger($beforeDispatch);
 
+        //print_r($request);
 
+        $attributes = $request->getAttributes();
 
-        //For microframework routes that use lambdas, just return a response object;
-        if ($beforeDispatch->getResult() instanceof Response) {
+        //print_R($this->router->getFailedRoute()); die;
 
-            $beforeDispatch->getResult()->send();
-
-            return;
+        if(!$this->router->getMatchedRoute()->isStateless()) {
+            $this->application->session->start();
         }
 
 
@@ -145,17 +140,27 @@ class Dispatcher implements Listener
         $this->observer->trigger($afterRouteMatch);
 
 
+        //For microframework routes that use lambdas, just return a response object;
+        if ($beforeDispatch->getResult() instanceof Response) {
+
+
+            $result = $beforeDispatch->getResult();
+
+            if($this->router->getMatchedRoute()->isStateless()) {
+                $this->application->session->destroy();
+            }
+
+            $result->send();
+
+            return;
+        }
+
         $controller = $this->resolveController($request);
-
-
         if (!$controller || !is_callable($controller)) {
             throw new Exception("Controller is not callable");
         }
 
 
-        //print_r($request);
-
-        $attributes = $request->getAttributes();
         $params = $attributes->getAllParameters(); //from parameter factory;
 
         unset($params['action']); //remove the action;
@@ -188,6 +193,11 @@ class Dispatcher implements Listener
 //        if (isset($afterDispatch->)) {
 //            $afterDispatch->data['response']->send();
 //        }
+
+        //if stateless, destroy the session;
+        if( $this->router->getMatchedRoute()->isStateless()) {
+            $this->application->session->destroy();
+        }
 
         $response->send();
 
