@@ -88,12 +88,12 @@ class Display implements Mockable
         //print_r($this->searchPaths); die;
 
         $handler->addLayoutSearchPaths($this->searchPaths);
-        $handler->addLayoutData($this->getDataArray());
+        $handler->addLayoutData( $this->getDataArray( $handler->needsPrivateData() ? false : true ) );
 
         //We can only render layouts
         if ($this->rendered || empty($layout)) return null;
 
-        $contents = $handler->compile($layout, $this->getDataArray());
+        $contents = $handler->compile($layout, $this->getDataArray( $handler->needsPrivateData() ? false : true ));
 
         if (!$partial) $this->rendered = true;
 
@@ -124,9 +124,9 @@ class Display implements Mockable
         $this->layout = $path;
     }
 
-    public function getDataArray()
+    public function getDataArray( $excludePrivate = true )
     {
-        return $this->response->getAllParameters();
+        return $this->response->getAllParameters( $excludePrivate );
     }
 
     public function setDataArray(array $data)
@@ -134,10 +134,13 @@ class Display implements Mockable
         return $this->response->addParameters($data);
     }
 
-    public function setData($key, $value)
+    public function setData($key, $value, $isPrivate = false)
     {
-        return $this->response->setParameter($key, $value);
+        
+        return $this->response->setParameter($key, $value, $isPrivate);
     }
+
+
 
     public function addData($key, $value)
     {
@@ -178,7 +181,7 @@ class Display implements Mockable
 
         $blocks[$position][] = $content;
 
-        return $this->setData("block", $blocks);
+        return $this->setData("block", $blocks, true);
 
     }
 

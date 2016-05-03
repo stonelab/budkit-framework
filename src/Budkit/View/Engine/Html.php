@@ -20,6 +20,17 @@ class Html implements Format
 
     }
 
+
+    /**
+     * Tells the display class that we need private data;
+     * @return bool
+     */
+    public function needsPrivateData(){
+
+        return true;
+
+    }
+
     public function compile($viewpath, array $data = [])
     {
 

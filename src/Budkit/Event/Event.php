@@ -83,7 +83,16 @@ class Event
         return $this->stopped;
     }
 
-    public function stop()
+    /**
+     * Terminates the propagation of an event
+     * @return void;
+     */
+    public function stopPropagation(){
+        return $this->stop();
+    }
+
+
+    protected function stop()
     {
         $this->stopped = true;
     }

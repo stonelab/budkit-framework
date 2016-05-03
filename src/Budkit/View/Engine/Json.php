@@ -20,6 +20,16 @@ class Json implements Format
     }
 
 
+    /**
+     * Tells the display class that we need private data;
+     * @return bool
+     */
+    public function needsPrivateData(){
+
+        return false;
+
+    }
+
     public function  addLayoutSearchPaths(array $searchPaths = [])
     {
 

@@ -15,6 +15,7 @@ trait Utility
 
     protected static $raw = [];
     protected $parameters = [];
+    protected $privateParameterKeys = [];
 
     public function getParameterKeys()
     {
@@ -31,8 +32,10 @@ trait Utility
         return isset($this->parameters[$name]);
     }
 
-    public function setParameter($name, $value)
+    public function setParameter($name, $value, $isPrivate = false)
     {
+        if($isPrivate) $this->privateParameterKeys[] = $name;
+
         $this->offsetSet($name, $value);
     }
 
@@ -105,6 +108,9 @@ trait Utility
 
     public function removeParameter($name)
     {
+        if(($key = array_search($name, $this->privateParameterKeys)) !== false) {
+            unset($this->privateParameterKeys[$key]);
+        }
         unset($this->parameters[$name]);
     }
 
@@ -163,8 +169,16 @@ trait Utility
         return isset($this->parameters[$name]) ? $this->parameters[$name] : null;
     }
 
-    public function getAllParameters()
+    public function getAllParameters( $excludePrivate = true )
     {
+        //If a value is marked as private, then skip it
+        if($excludePrivate){
+            $excludes = $this->privateParameterKeys;
+            return array_filter($this->parameters, function($key) use($excludes){
+                if(!in_array($key, $excludes)) return true;
+            }, ARRAY_FILTER_USE_KEY);
+        }
+
         return $this->parameters;
     }
 

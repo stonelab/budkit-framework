@@ -114,6 +114,8 @@ class Data extends Element
         }
     }
 
+    public function model($Element){}
+
     public function attribute($Element)
     {
 

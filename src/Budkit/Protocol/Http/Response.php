@@ -461,9 +461,9 @@ class Response implements Protocol\Response
         return;
     }
 
-    public function getDataArray()
+    public function getDataArray($excludePrivate = false)
     {
-        return $this->getAllParameters();
+        return $this->getAllParameters( $excludePrivate );
     }
 
     public function setDataArray(array $data)
@@ -475,9 +475,9 @@ class Response implements Protocol\Response
         return $this;
     }
 
-    public function setData($key, $value = '')
+    public function setData($key, $value = '', $isPrivate = false)
     {
-        return $this->setParameter($key, $value);
+        return $this->setParameter($key, $value , $isPrivate);
     }
 
     public function getData($key)

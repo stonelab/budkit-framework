@@ -184,11 +184,7 @@ class Dispatcher implements Listener
         // 	return $response->body();
         // }
 
-        //create an event;
-        $afterDispatch = new Event\Event('Dispatcher.afterDispatch', $this);
-        $this->observer->trigger($afterDispatch);
 
-        $afterDispatch->setResult( $response );
 
 //        if (isset($afterDispatch->)) {
 //            $afterDispatch->data['response']->send();
@@ -198,6 +194,14 @@ class Dispatcher implements Listener
         if( $this->router->getMatchedRoute()->isStateless()) {
             $this->application->session->destroy();
         }
+
+        //Plug in here to get the response before it is sent to the browser in a layout;
+        //for example for stateless app, you may want to use a single layout.
+        //the API should also plugin here to remove any layout information;
+        $afterDispatch = new Event\Event('Dispatcher.afterDispatch', $this);
+
+        $this->observer->trigger($afterDispatch);
+        $afterDispatch->setResult( $response );
 
         $response->send();
 
