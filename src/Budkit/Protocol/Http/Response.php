@@ -302,6 +302,35 @@ class Response implements Protocol\Response
         return $this;
     }
 
+
+    /**
+     * Appends the content of a file to the output buffer
+     *
+     * @param $file
+     * @param array $vars
+     * @return $this
+     */
+    public function addFileContent( $file , $vars = []){
+
+        if (!empty($file)) {
+
+            $content = file_get_contents( $file );
+
+            //Simple var replacements in tmpl file;
+            if(!empty($vars)){
+                foreach ($vars as $key => $value) {
+                    $tmpl = "[@$key]";
+                    $content = str_replace($tmpl, $value, $content);
+                }
+            }
+            
+            $this->content[] = $content;
+        }
+
+        return $this;
+
+    }
+
     /**
      * Gets content with specified Id, or all the content for buffering;
      *
@@ -314,7 +343,7 @@ class Response implements Protocol\Response
     {
 
         if (!isset($this->packetId)) {
-            return $content = implode("/n", $this->content);
+            return $content = implode("\n", $this->content);
         }
 
         //Return the content with PacketId;
@@ -430,7 +459,7 @@ class Response implements Protocol\Response
         //send content;
 
         //Print content to screen;
-        print($content );
+        print( $content );
     }
 
     /**

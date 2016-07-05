@@ -144,7 +144,7 @@ final class Node implements ArrayAccess
      */
     public function getData()
     {
-        return $this->nodeData;
+        return $this->nodeData ;
     }
 
     /**
