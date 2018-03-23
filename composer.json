@@ -1,7 +1,7 @@
 {
     "name": "budkit/framework",
     "description": "The budkit framework",
-    "license": "GPLv3",
+    "license": "MIT",
     "authors": [
         {
             "name": "Livingstone Fultang",
