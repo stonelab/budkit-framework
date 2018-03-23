@@ -74,6 +74,7 @@ class Datetime extends Element
         if (!empty($dataType)) {
             $custom = ["diff"];
             if (in_array($dataType, $custom)) {
+
                 $replace = Time::difference(strtotime($replace));
             } else {
                 $replace = date($dataType, strtotime($replace));

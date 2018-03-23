@@ -37,7 +37,7 @@ interface Statement
      * @param type $style , numeric=numeric keys, object=object, array=array
      * @param type $arguments
      */
-    public function fetchAll($as = 'array', $arguments = '');
+    public function fetchAll(string $as = 'array', $arguments = '');
 
     /**
      * Returns the number of rows affected by the last MySQL query
