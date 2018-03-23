@@ -162,7 +162,7 @@ abstract class Results implements Statement
      * @param type $style , numeric=numeric keys, object=object, array=array
      * @param type $arguments
      */
-    public function fetchAll($as = 'array', $arguments = '')
+    public function fetchAll(string $as = 'array', $arguments = '')
     {
 
         $rows = array();
@@ -172,10 +172,10 @@ abstract class Results implements Statement
             "object" => "fetchObject"
         );
 
-        $as = !array_key_exists((string)$as, $style) ? "array" : (string)$as;
+        $as = !array_key_exists($as, $style) ? "array" : $as;
 
         //Getting all as an array
-        while ($row = $this->$style[$as]($arguments)) {
+        while ($row = call_user_func_array([$this, $style[$as]], [$arguments]) ) {  
             $rows[] = $row;
         }
 

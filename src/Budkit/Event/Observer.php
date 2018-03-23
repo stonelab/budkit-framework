@@ -170,11 +170,11 @@ class Observer
      * @return void
      * @author Livingstone Fultang
      */
-    protected function propergate(&$event, $callback)
+    protected function propergate($event, $callback)
     {
 
         //Pass the event, the data can be obtained from $event->data;
-        $result = call_user_func($callback['callable'], $event, $callback['params']);
+        $result = call_user_func_array($callback['callable'], array(&$event, &$callback['params']) );
 
         //Result false can be indication of an error?
         if ($result === false) {
