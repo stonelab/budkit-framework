@@ -25,7 +25,7 @@
 
 namespace Budkit\Datastore;
 
-use Budkit\Helper\Object;
+use Budkit\Helper\Entity;
 use Budkit\Validation\Validate;
 use Exception;
 
@@ -42,7 +42,7 @@ use Exception;
  * @link       http://stonyhillshq/documents/index/carbon4/libraries/database/table
  * @since      Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM
  */
-abstract class Table extends Object
+abstract class Table extends Entity
 {
 
 

@@ -10,7 +10,7 @@
     ],
     "require": {
         "php": ">=7.1.0",
-        "filp/whoops": "1.*",
+        "filp/whoops": "2.*",
         "erusev/parsedown": "*"
     },
     "autoload": {

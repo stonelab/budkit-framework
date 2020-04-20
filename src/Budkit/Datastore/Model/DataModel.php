@@ -3,9 +3,9 @@
 namespace Budkit\Datastore\Model;
 
 use Budkit\Dependency\Container;
-use Budkit\Helper\Object;
+use Budkit\Helper\Entity;
 
-class DataModel extends Object
+class DataModel extends Entity
 {
 
     /**

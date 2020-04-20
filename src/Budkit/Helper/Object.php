@@ -16,7 +16,7 @@ namespace Budkit\Helper;
  * @link       http://stonyhillshq/documents/index/carbon4/libraries/object
  * @since      Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM
  */
-abstract class Object
+abstract class Entity
 {
 
     /**
