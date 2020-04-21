@@ -200,7 +200,7 @@ class Store
         session_cache_limiter('none');
 
         session_name(md5($self->cookie . $splash['agent'] . $splash['ip'] . $splash['domain']));
-        session_start();
+        
 
         //Create the default namespace; affix to splash;
         //The default namespace will contain vars such as -request count, - last session start time, -last session response time, etc
@@ -210,6 +210,8 @@ class Store
         $self->registry['default'] = $defaultReg;
 
         $this->write($sessId, $splash);
+        
+        session_start();
     }
 
     /**

@@ -43,7 +43,6 @@ class Display implements Mockable
         $provider = $application->config->get("design.theme.provider", "budkit/frontend");
         $theme  = $application->config->get("design.theme.name", "theme");
 
-
         //@TODO what about extended child themes?
         foreach($themes as $provided){
 

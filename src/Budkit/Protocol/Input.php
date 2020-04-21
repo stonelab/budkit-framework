@@ -250,7 +250,7 @@ final class Input
         $variable = $input[$name];
 
         //Pre treat;
-        if (get_magic_quotes_gpc() && ($input[$name] != $default) && ($verb != 'files')) {
+        if (($input[$name] != $default) && ($verb != 'files')) {
             $variable = stripslashes($input[$name]); //??
         }
 
