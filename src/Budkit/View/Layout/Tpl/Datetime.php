@@ -71,6 +71,11 @@ class Datetime extends Element
 
         $replace = $this->getData($dataPath, $Data);
 
+        if (is_a($replace, "DateTime")){
+            $replace = $replace->getTimeStamp();
+        }
+        //print_R($replace->getTimeStamp()); die;
+
         if (!empty($dataType)) {
             $custom = ["diff"];
             if (in_array($dataType, $custom)) {

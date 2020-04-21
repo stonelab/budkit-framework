@@ -192,7 +192,7 @@ $app->shareInstance($loader, 'loader');
 | Register App Services
 |--------------------------------------------------------------------------
 |
-| All services in the storage/services.json will be registered.
+| All services in the vendor/services.json will be registered.
 |
 */
 $app->registerServices();

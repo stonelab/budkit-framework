@@ -114,7 +114,7 @@ function getRandomColor()
     $str = "";
     while (strlen($str) < 6) {
         $pos = rand(1, 16);
-        $str .= $letters{$pos};
+        $str .= $letters[$pos];
     }
     return $str;
 }

@@ -200,7 +200,7 @@ class Store
         session_cache_limiter('none');
 
         session_name(md5($self->cookie . $splash['agent'] . $splash['ip'] . $splash['domain']));
-        
+        session_start();
 
         //Create the default namespace; affix to splash;
         //The default namespace will contain vars such as -request count, - last session start time, -last session response time, etc
@@ -210,8 +210,6 @@ class Store
         $self->registry['default'] = $defaultReg;
 
         $this->write($sessId, $splash);
-        
-        session_start();
     }
 
     /**
@@ -470,7 +468,7 @@ class Store
         //Read the session
         $handler = $this->handler;
         //Must be called before the sesion start to generate the Id
-        session_id($sessId);
+        //session_id($sessId);
         //session_start();
 
         if (!$handler->update($update, $self, $self->id)) {
@@ -543,10 +541,12 @@ class Store
         //Sets the cookie
         //$output->setCookie($self->cookie, $sessId."0".$data['token'], $expires);
         //$output->setCookie($sessId, $data['token'], $expires);
-        $cookie = session_get_cookie_params();
+        //$cookie = session_get_cookie_params();
 
         //Cookie parameters
-        session_set_cookie_params($expires, $cookie['path'], $cookie['domain'], true);
+        //if session exists use setcookie method, if not use session_set_cookie_params
+        //session_set_cookie_params($expires, $cookie['path'], $cookie['domain'], true);
+        setcookie(session_name(), session_id(), $expires );
 
         $self->id = session_id();
         $userdata = $this->input->serialize($self->registry);

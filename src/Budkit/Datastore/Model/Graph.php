@@ -245,8 +245,8 @@ final class Graph
     /**
      * Adds an edge between two node endpoints.
      *
-     * @param type $nodeA
-     * @param type $nodeB
+     * @param type $nodeA head (Subject)
+     * @param type $nodeB tail (Object)
      * @param type $name
      * @param type $data
      * @param type $directed

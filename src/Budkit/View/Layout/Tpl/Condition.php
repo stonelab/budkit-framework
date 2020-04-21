@@ -187,7 +187,6 @@ class Condition extends Element
         $method = $this->methods[$test];
         $subject = $this->getData($Node->getAttribute("on"), $Data);
 
-
         //echo $is; die;
 
         //If there is no subject, return;

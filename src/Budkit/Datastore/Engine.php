@@ -120,7 +120,7 @@ abstract class Engine
      */
     public function quote($text, $escaped = true)
     {
-        return '\'' . ($escaped ? $this->getEscaped($text) : $text) . '\'';
+        return '"' . ($escaped ? $this->getEscaped($text) : $text) . '"';
     }
 
     /**
@@ -182,7 +182,7 @@ abstract class Engine
                     break;
                 }
                 $l = $k - 1;
-                while ($l >= 0 && $sql{$l} == '\\') {
+                while ($l >= 0 && $sql[$l] == '\\') {
                     $l--;
                     $escaped = !$escaped;
                 }

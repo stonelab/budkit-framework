@@ -25,7 +25,7 @@
 
 namespace Budkit\Authentication;
 
-use Budkit\Helper\Entity;
+use Budkit\Helper\Helper;
 use Budkit\Session\Store as Session;
 
 
@@ -42,7 +42,7 @@ use Budkit\Session\Store as Session;
  * @link       http://stonyhillshq/documents/index/carbon4/libraries/authenticate
  * @since      Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM
  */
-class Authenticate extends Entity
+class Authenticate extends Helper
 {
 
     /**
