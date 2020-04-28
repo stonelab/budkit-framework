@@ -4244,8 +4244,8 @@ class EmojiOne {
     public function getShortcodeReplace( $for_short_name = null )
     {
         return empty($for_short_name) ? $this->shortcode_replace :
-            (isset($this->shortcode_replace[$for_short_name]))
-                ? $this->shortcode_replace[$for_short_name] : null ;
+            (isset($this->shortcode_replace[$for_short_name])
+                ? $this->shortcode_replace[$for_short_name] : null );
     }
 
     /**
@@ -4257,8 +4257,8 @@ class EmojiOne {
     {
         //return $this->ascii_replace;
         return empty($for_short_name) ? $this->ascii_replace :
-            (isset($this->ascii_replace[$for_short_name]))
-                ? $this->ascii_replace[$for_short_name] : null ;
+            (isset($this->ascii_replace[$for_short_name])
+                ? $this->ascii_replace[$for_short_name] : null );
     }
 
     /**
@@ -4270,8 +4270,8 @@ class EmojiOne {
     {
         //return $this->unicode_replace;
         return empty($for_short_name) ? $this->unicode_replace :
-            (isset($this->unicode_replace[$for_short_name]))
-                ? $this->unicode_replace[$for_short_name] : null ;
+            (isset($this->unicode_replace[$for_short_name])
+                ? $this->unicode_replace[$for_short_name] : null );
     }
 
     /**
@@ -4283,7 +4283,7 @@ class EmojiOne {
     {
         //return $this->asciiRegexp;
         return empty($for_short_name) ? $this->asciiRegexp :
-            (isset($this->asciiRegexp[$for_short_name]))
-                ? $this->asciiRegexp[$for_short_name] : null ;
+            (isset($this->asciiRegexp[$for_short_name])
+                ? $this->asciiRegexp[$for_short_name] : null );
     }
 }

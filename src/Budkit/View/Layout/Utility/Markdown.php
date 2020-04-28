@@ -342,24 +342,27 @@ class Markdown extends Parsedown {
                 //get the unicode replace code
                 $unicode = $this->emojione->getShortcodeReplace( $matches[0] );
 
+                //print_r($matches);
+
                 if(!empty($unicode) && !is_array($unicode)) {
                     return array(
                         'extent' => strlen($matches[0]),
                         'element' => array(
                             'name' => 'svg',
-                            'handler' => 'elements',
-                            'text' => [
+                            'attributes' => [
+                                'class' => 'emojione',
+                            ],
+                            //'handler' => 'elements',
+                            'elements' => [
                                 [
                                     'name' => 'use',
-                                    'handler' => 'elements',
+                                    //'handler' => 'elements',
                                     'attributes' => [
-                                        "xlink:href" => "/theme/assets/img/icons/svg/emojione.sprites.svg#emoji-".$unicode
+                                        "href" => "/theme/assets/img/icons/svg/emojione.sprites.svg#emoji-".$unicode
                                     ],
                                 ]
                             ],
-                            'attributes' => array(
-                                'class' => 'emojione',
-                            ),
+                            
                         ),
                     );
                 }
