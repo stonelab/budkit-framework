@@ -229,7 +229,17 @@ class Controller implements Mockable, Listener
             throw new Exception('Attempting to call a private method');
         }
 
-        return $method->invokeArgs($this, $params);
+        $withParams = []; 
+        $definedParams = $method->getParameters();
+        foreach($definedParams as $param) { 
+            if(isset($params[$param->getName()])) { 
+                $withParams[] = $params[$param->getName()]; 
+            } else { 
+                $withParams[] = $param->getDefaultValue(); 
+            } 
+        } 
+        
+        return $method->invokeArgs($this, $withParams);
 
     }
 

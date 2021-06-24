@@ -22,4 +22,6 @@ interface Request
 
     public function getBasePath();
 
+    public function getPathInfo();
+
 } 

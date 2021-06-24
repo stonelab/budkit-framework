@@ -34,7 +34,7 @@ class Time extends Date
      * @param type $time
      * @return string
      */
-    public static function stamp($time = null)
+    public static function stamp()
     {
         //converts a time to timestamp
         return date("Y-m-d H:i:s");

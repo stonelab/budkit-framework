@@ -128,7 +128,7 @@ class Datepicker extends Element
     }
 
 
-    final private function getMinSelect(&$tag, &$datepicker, $data = []){
+    final public function getMinSelect(&$tag, &$datepicker, $data = []){
 
         $minute       = $this->getData( $tag->getAttribute("value") , $data);
         $value      = empty($minute)? $tag->getAttribute("value") : $minute ;
@@ -159,7 +159,7 @@ class Datepicker extends Element
         return $select;
     }
 
-    final private function getHourSelect(&$tag, &$datepicker, $data = []){
+    final public function getHourSelect(&$tag, &$datepicker, $data = []){
 
         $hour       = $this->getData( $tag->getAttribute("value") , $data);
         $value      = empty($hour)? $tag->getAttribute("value") : $hour ;
@@ -192,7 +192,7 @@ class Datepicker extends Element
     }
 
 
-    final private  function getDaySelect(&$tag, &$datepicker, $data = []){
+    final public  function getDaySelect(&$tag, &$datepicker, $data = []){
 
         $day       = $this->getData( $tag->getAttribute("value") , $data);
         $value      = empty($day)? $tag->getAttribute("value") : $day ;
@@ -224,7 +224,7 @@ class Datepicker extends Element
 
     }
 
-    final private function getMonthSelect(&$tag, &$datepicker, $data = []){
+    final public function getMonthSelect(&$tag, &$datepicker, $data = []){
 
         $month       = $this->getData( $tag->getAttribute("value") , $data);
         $value      = empty($month)? $tag->getAttribute("value") : $month ;
@@ -257,7 +257,7 @@ class Datepicker extends Element
         return $select;
     }
 
-    final private function getYearSelect(&$tag, &$datepicker, $data = []){
+    final public function getYearSelect(&$tag, &$datepicker, $data = []){
 
 
         $year       = $this->getData( $tag->getAttribute("value") , $data);

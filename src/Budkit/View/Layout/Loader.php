@@ -17,7 +17,7 @@ class Loader
 
     protected $defaultExt;
 
-    public function __construct($defaultExt = '.tpl', Application $application)
+    public function __construct($defaultExt = '.tpl') //, Application $application
     {
 
         $this->defaultExt = $defaultExt;

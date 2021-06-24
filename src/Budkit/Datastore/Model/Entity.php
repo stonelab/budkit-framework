@@ -669,7 +669,7 @@ class Entity extends DataModel
      * @param type $objectURI
      * @return string
      */
-    final private static function getObjectQuery($properties, $vtable = '?property_values', $objectId = NULL, $objectType = NULL, $objectURI = NULL)
+    final public static function getObjectQuery($properties, $vtable = '?property_values', $objectId = NULL, $objectType = NULL, $objectURI = NULL)
     {
         //Join Query
         $query = "SELECT o.object_id, o.object_uri, o.object_type, o.object_created_on, o.object_updated_on, o.object_status";
@@ -729,7 +729,7 @@ class Entity extends DataModel
      * @param type $objectURI
      * @return type
      */
-    final private function getObjectCountQuery($properties, $vtable = '?property_values', $objectId = NULL, $objectType = NULL, $objectURI = NULL)
+    final public function getObjectCountQuery($properties, $vtable = '?property_values', $objectId = NULL, $objectType = NULL, $objectURI = NULL)
     {
 
         //Join Query
@@ -914,7 +914,6 @@ class Entity extends DataModel
         }
         $pquery .= implode(', ', $pqueryV);
 
-
         //update the properties
         $this->database->query($pquery);
 
@@ -922,7 +921,6 @@ class Entity extends DataModel
         if ($isNew):
 
             //Log::message("Object ID is {$objectId}");
-
             $timestamp = Time::stamp();
 
             $oquery = $this->database->insert("?objects", array("object_uri" => $this->database->quote($objectURI), "object_type" => $this->database->quote($objectType), "object_created_on" => $this->database->quote($timestamp)), FALSE, NULL, FALSE);
@@ -930,6 +928,7 @@ class Entity extends DataModel
 
             $this->setLastSavedObjectURI($objectURI);
         endif;
+
 
 
 
@@ -953,6 +952,8 @@ class Entity extends DataModel
 
 
         $this->database->query($iquery);
+
+
 
         //print_r($this->database->replacePrefix($iquery)); die;
 

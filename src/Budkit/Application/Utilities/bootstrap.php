@@ -61,18 +61,6 @@ $loader->addPsr4('', PATH_APP ); //this is important
 | Alternatively you may use Budkit/Utitlity/Loader.
 */
 Budkit\Helper\Date::setDefaultTimeZone();
-/*
-|--------------------------------------------------------------------------
-| Register the exception Handler;
-|--------------------------------------------------------------------------
-|
-| Whoops is beautiful!
-|
-*/
-$whoops = new Whoops\Run;
-
-$whoops->pushHandler(new Whoops\Handler\PrettyPageHandler);
-$whoops->register();
 
 
 /*
@@ -93,7 +81,24 @@ $app = new Budkit\Application\Instance;
  * |
  **/
 $app->setPaths($paths);
+
+/*
+|--------------------------------------------------------------------------
+| Register the exception Handler;
+|--------------------------------------------------------------------------
+|
+| Whoops is beautiful!
+|
+*/
+$whoops = new Whoops\Run;
+
+$whoops->silenceErrorsInPaths("@", $levels = E_WARNING | E_DEPRECATED);
+$whoops->pushHandler(new Whoops\Handler\PrettyPageHandler);
+$whoops->register();
+
+
 $app->shareInstance($whoops, "error");
+
 
 
 /*

@@ -179,9 +179,10 @@ class Container implements ArrayAccess
         return function ($container) use ($class, $parameters) {
 
             //if reflection class has a constructor
-            if (($constructor = $class->getConstructor()) !== null) { //will return null if no constructor;
+            if (($constructor = $class->getConstructor()) !== null) { //will return null if no constructor
+
                 //The container will always be passed as the last argument to the constructor;
-                if (($required = $constructor->getNUmberOfParameters()) > 0) { //int
+                if (($required = $constructor->getNumberOfParameters()) > 0) { //int
 
                     $dependencies = $constructor->getParameters();
                     $passed = count($parameters);
@@ -192,9 +193,13 @@ class Container implements ArrayAccess
                         //If this parameter has not been passed, and the default value is not defined
                         if (!$parameter->isOptional() && !$parameter->isDefaultValueAvailable()) {
 
-                            $hintedType = $parameter->getClass();
-                            $hintedTypeName = $hintedType->getName();
-                            //$hintedInstance = null;
+                            //PHP8 fix to ReflectionClass::getClass() which is deprecated 
+                            //$hintedType = $parameter->getClass();
+                           
+                            $hintedType = $parameter->getType() && !$parameter->getType()->isBuiltin() ? new ReflectionClass($parameter->getType()->getName())  : null;
+                            //$hintedTypeName = $hintedType->getName();
+                            
+                            
 
                             //$hintedType = $reflectionException = null;
                             try {
@@ -202,10 +207,11 @@ class Container implements ArrayAccess
 
 
                                 //If its not in the container, we will try to load it;
-                                if ($hintedType->isInstantiable()) {
+                                if (!is_null($hintedType) && $hintedType->isInstantiable()) {
                                     $hintedInstance =
                                         ($hintedType->getName() == "Budkit\\Dependency\\Container") ? $container
                                             : $container->createInstance($hintedType->getName());
+                                            
                                     array_push($parameters, $hintedInstance);
 
                                 }
@@ -226,7 +232,8 @@ class Container implements ArrayAccess
                     }
                 }
 
-                //var_dump($class, $parameters, "<br />");
+                //print_r($parameters);
+
                 return $class->newInstanceArgs($parameters);
             }
 

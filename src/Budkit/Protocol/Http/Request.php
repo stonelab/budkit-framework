@@ -337,10 +337,10 @@ class Request implements Protocol\Request
     public function getScheme()
     {
 
-        $schemeOn =
-            'on' == strtolower($this->server->getParameter('HTTPS')) || 1 == $this->server->getParameter('HTTPS');
+        
+        //$schemeOn = 'on' == strtolower($this->server->getParameter('HTTPS')) || 1 == $this->server->getParameter('HTTPS');
 
-        return $schemeOn ? "https" : "http";
+        return "http"; //$schemeOn ? "https" : "http";
     }
 
     public function getHttpHost()

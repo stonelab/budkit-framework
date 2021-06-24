@@ -137,16 +137,14 @@ abstract class Application extends Dependency\Container
      */
     public function initialize()
     {
-        //The global dispatcher
-
         //state the application is initialized;
         //register aliases as class mocks such that static calls on mock map to instance calls;
         $this->createAliasMock(
             array_merge(
                 $this->aliases, [
-                    "route" => 'Budkit\Routing\Router', //this such that we can call Route::add to add router;
-                    'controller' => 'Budkit\Routing\Controller',
-                    'view' => 'Budkit\View\Display'
+                    "route" => 'Budkit\Routing\Router', //Route:: , this such that we can call Route::add to add router;
+                    'controller' => 'Budkit\Routing\Controller', //Controller::
+                    'view' => 'Budkit\View\Display' //View::
                 ]
             )
         );

@@ -320,10 +320,10 @@ class Response implements Protocol\Response
             if(!empty($vars)){
                 foreach ($vars as $key => $value) {
                     $tmpl = "[@$key]";
+                    $value = $value;
                     $content = str_replace($tmpl, $value, $content);
                 }
             }
-            
             $this->content[] = $content;
         }
 
@@ -471,11 +471,13 @@ class Response implements Protocol\Response
     public function send($content = null)
     {
 
-
         //if not buffer sent
         if (!$this->buffered) {
             return $this->sendBuffer($content);
         }
+
+
+       
 
         $this->sendContent($content);
 

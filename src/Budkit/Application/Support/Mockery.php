@@ -81,7 +81,7 @@ trait Mockery
 
                 if (!array_key_exists(static::$mockableTrait, $traits)) {
                     //@TODO throw an exception saying there is no mock;
-                    throw new Exception("Mocked class for alias '{$alias}'=>'{$original}' must use the trait 'Budkit\\Application\\Mock'");
+                    throw new \Exception("Mocked class for alias '{$alias}'=>'{$original}' must use the trait 'Budkit\\Application\\Mock'");
 
                     return;
                 }

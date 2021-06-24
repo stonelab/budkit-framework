@@ -389,11 +389,11 @@ final class Input
         //if (is_array($html)) $str = strip_tags($str, implode('', $html));
         //elseif (preg_match('|<([a-z]+)>|i', $html)) $str = strip_tags($str, $html);
         //elseif ($html !== true) $str = strip_tags($str);
-        $string = $this->getVar($name, $filter, $default, $verb, $options);
+        $value = $this->getVar($name, $filter, $default, $verb, $options);
 
         //Sub processing for HTML and all that?
 
-        return (string)trim($string);
+        return is_string($value) ? trim($value) : $value;
     }
 
     /**

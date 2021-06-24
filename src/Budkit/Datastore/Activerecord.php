@@ -256,7 +256,7 @@ abstract class Activerecord
     final public function from($table)
     {
 
-        $table = (is_array($table)) ? (array)$table : (strpos($table, ',') !== FALSE) ? explode(',', $table) : array($table);
+        $table = is_array($table) ? (array)$table : ((strpos($table, ',') !== FALSE) ? explode(',', $table) : array($table));
 
         foreach ($table as $source) {
 
@@ -472,8 +472,8 @@ abstract class Activerecord
             $query .= $sql; //escape, replace prefixxes and all that!
         } else {
             //select [all|distinct]
-            $select = (is_numeric($this->arrayLimit)) ? 'SELECT SQL_CALC_FOUND_ROWS ' : 'SELECT';
-            $query .= ($this->arrayDistinct) ? $select . ' DISTINCT ' : ($this->arrayAll || count($this->arraySelect) < 1) ? $select . ' ALL ' : $select . ' ';
+            $select = is_numeric($this->arrayLimit) ? 'SELECT SQL_CALC_FOUND_ROWS ' : 'SELECT';
+            $query .= ($this->arrayDistinct) ? $select . ' DISTINCT ' : (($this->arrayAll || count($this->arraySelect) < 1) ? $select . ' ALL ' : $select . ' ');
 
             //Count
             //expression {, expression}

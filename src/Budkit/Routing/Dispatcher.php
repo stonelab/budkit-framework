@@ -79,7 +79,9 @@ class Dispatcher implements Listener
     public function parseRoute($beforeDispatch)
     {
 
-        //echo '1. Check the request; <br/>2. $response =  $this->sync(); //to get a synchronous response; <br/>3. $response->send();<br />';
+        //1. Check the request; 
+        //2. $response =  $this->sync(); //to get a synchronous response; 
+        //3. $response->send();
 
         //print_R($this->observer->getListeners('Dispatcher.beforeDispatch'));
 
@@ -142,16 +144,11 @@ class Dispatcher implements Listener
 
         //For microframework routes that use lambdas, just return a response object;
         if ($beforeDispatch->getResult() instanceof Response) {
-
-
             $result = $beforeDispatch->getResult();
-
             if($this->router->getMatchedRoute()->isStateless()) {
                 $this->application->session->destroy();
             }
-
             $result->send();
-
             return;
         }
 
@@ -162,7 +159,6 @@ class Dispatcher implements Listener
 
 
         $params = $attributes->getAllParameters(); //from parameter factory;
-
         unset($params['action']); //remove the action;
 
         //Can we get the route?

@@ -18,10 +18,10 @@ use Budkit\Datastore\Activerecord;
  * @version    Release: 1.0.0
  * @link       http://stonyhillshq/documents/index/carbon4/libraries/database/drivers/mysql/accessory
  * @since      Class available since Release 1.0.0 Jan 14, 2012 4:54:37 PM
+ * 
  */
 class Accessory extends Activerecord
 {
-
     /**
      * Construst the Accessory Class
      *

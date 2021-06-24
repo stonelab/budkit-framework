@@ -52,6 +52,8 @@ class Store
     public function __construct($options = [], Container $container)
     {
 
+        //ob_start();
+
         //Need to destroy any existing sessions started with session.auto_start
         if (session_id()) {
             @session_unset();
@@ -614,7 +616,7 @@ class Store
      * @param type $forceDelete
      * @return void
      */
-    final private function gc($forceDelete = '')
+    private function gc($forceDelete = '')
     {
 
         $self = $this;

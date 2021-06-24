@@ -186,7 +186,7 @@ abstract class Helper
      *
      * @return void;
      */
-    final private function __clone()
+    final public function __clone()
     {
 
     }
@@ -198,7 +198,7 @@ abstract class Helper
      * @param type $arr
      * @return type
      */
-    final private function referencedArgs(&$arr)
+    final public function referencedArgs(&$arr)
     {
         if (strnatcmp(phpversion(), '5.3') >= 0) { //Reference is required for PHP 5.3+
             $refs = array();

@@ -2,7 +2,6 @@
 
 namespace Budkit\Application;
 
-
 use Budkit\Protocol\Request;
 use Budkit\Protocol\Http;
 
@@ -113,6 +112,12 @@ class Instance extends Support\Application
     public function execute(Request $request = null)
     {
         $request = $request ?: $this->request;
+
+        //Creates a new vanilla response this will be shared by the dispatcher
+        $response = $this->shareInstance(new Http\Response('',  200, [], $request), "response");
+        
+
+
 
         $this->dispatcher->dispatch($request, $this->response);
 

@@ -54,7 +54,7 @@ class Display implements Mockable
                 $source =  $provided["source"].DS."layouts/";
 
                 //create symbolic links for assets?
-                $symlink = PATH_PUBLIC.DS."theme";
+                $symlink = PATH_PUBLIC.DS.$theme ;//"theme";
 
                 if(!is_link($symlink)){
                     symlink($provided["source"], $symlink);

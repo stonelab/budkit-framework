@@ -13,6 +13,7 @@ use Budkit\Application\Support\Mockable;
 use Budkit\Dependency\Container;
 use Budkit\Protocol\Request;
 use Budkit\Protocol\Response;
+use Budkit\Event;
 
 class Router implements Mockable
 {
@@ -89,6 +90,18 @@ class Router implements Mockable
             }
 
         }
+
+        //If no route found in the the collection of routes, try one last time 
+        //for an extension that may have declared a fallback route.
+        $onRouteNotFound = new Event\Event('Router.onRouteNotFound', $this );
+        $this->container->observer->trigger($onRouteNotFound);
+
+        if ($onRouteNotFound->getResult() instanceof Route) {
+
+            
+            $this->matchedRoute = $onRouteNotFound->getResult();
+            return $this->matchedRoute;
+        }
         //@TODO trigger route.not.matched if a route not found;
         $this->matchedRoute = false;
 
@@ -108,12 +121,14 @@ class Router implements Mockable
         return $this->testedRoutes;
     }
 
+    /**
+     * Passes calls from the Router class to the Routing/Collection class
+     * e.g Route::attach. Note that this class is mocked as Route:: in Application
+     * 
+     */
     public function __call($method, $parameters)
     {
-
         return call_user_func_array([&$this->collection, $method], $parameters);
-
-        //print_r($this->collection);
     }
 
     //Makes the Router object a proxy for the Collection.

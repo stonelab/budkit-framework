@@ -339,11 +339,11 @@ class User extends Entity implements Authenticatable
             $this->setPropertyValue("user_verification", getRandomString(30, false, true));
         }
 
-
         if (!$this->saveObject($this->getPropertyValue("user_name_id"), "user", null, $isNew)) {
             //There is a problem!
             return false;
         }
+   
         //Default Permission Group?
         if (!empty($authority)) {
             $query = "INSERT INTO ?objects_authority( authority_id, object_id ) SELECT {$this->database->quote((int) $authority)}, object_id FROM ?objects WHERE object_uri={$this->database->quote($this->getPropertyValue("user_name_id"))}";

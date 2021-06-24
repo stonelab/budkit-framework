@@ -287,8 +287,9 @@ final class Driver extends Engine implements DatastoreDriver
     }
 
 
-    final public function exec($query = '')
+    final public function exec($query = '', $transaction = false)
     {
+
 
         //@TODO how to verify the resource Id
         if (!is_a($this->resourceId, "mysqli")) {
@@ -320,10 +321,10 @@ final class Driver extends Engine implements DatastoreDriver
 
             return false;
         }
-
-        $this->resetRun();
-
-        //echo $this->cursor;
+        
+        if ($transaction == false){
+            $this->resetRun();
+        }
 
         return $this->cursor;
     }
@@ -398,16 +399,15 @@ final class Driver extends Engine implements DatastoreDriver
             $this->resourceId->autocommit(TRUE); //Turns autocommit back on
             return false;
         }
+
         //Query transactions
         foreach ($this->transactions as $query) {
 
-
-            if (!$this->exec($query)) {
+            if (!$this->exec($query, true)) {
 
                 $this->resourceId->rollback(); //Rolls back the transaction;
                 $this->transactions = array();
                 $this->resourceId->autocommit(TRUE); //Turns autocommit back on
-
 
                 return false;
             }
