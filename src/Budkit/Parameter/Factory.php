@@ -32,7 +32,7 @@ class Factory implements ArrayAccess, Countable, IteratorAggregate
         if ($sanitize) {
 
             static::$validator = $validator ?: new Validate();
-            static::$sanitizer = $sanitizer ?: new Sanitize($parameters, FILTER_DEFAULT, [], static::$validator);
+            static::$sanitizer = $sanitizer ?: new Sanitize(static::$validator, $parameters, FILTER_DEFAULT, []);
 
             //we will sanitize everything! or at least try!
             //resanitize with specific methods for specific data types

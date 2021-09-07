@@ -54,7 +54,7 @@ class Sanitize
      *
      * @return void
      */
-    public function __construct($data = [], $filter = FILTER_DEFAULT, array $options = [], Validate $validate)
+    public function __construct(Validate $validate, $data = [], $filter = FILTER_DEFAULT, array $options = [])
     {
 
         $this->validate = $validate; //the validator class;

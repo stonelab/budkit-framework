@@ -69,7 +69,7 @@ class Response implements Protocol\Response
     protected $buffered = false;
 
 
-    public function __construct($content = '', $status = 200, $options = [], Request $request)
+    public function __construct(Request $request, $content = '', $status = 200, $options = [])
     {
 
         $this->request = $request;

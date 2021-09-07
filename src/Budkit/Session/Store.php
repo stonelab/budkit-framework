@@ -49,7 +49,7 @@ class Store
      *
      * @param type $namespace
      */
-    public function __construct($options = [], Container $container)
+    public function __construct(Container $container, $options = [])
     {
 
         //ob_start();

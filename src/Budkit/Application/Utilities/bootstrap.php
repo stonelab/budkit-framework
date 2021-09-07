@@ -172,8 +172,8 @@ if ($app->config->get("setup.database.installed")) {
 $app->shareInstance(
     $app->createInstance("session",
         [
-            $app->config->get("setup.session"), //get the session vars
-            $app
+            $app,
+            $app->config->get("setup.session") //get the session vars
         ]
     ),
     "session"

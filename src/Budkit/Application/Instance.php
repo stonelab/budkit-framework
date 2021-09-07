@@ -114,10 +114,8 @@ class Instance extends Support\Application
         $request = $request ?: $this->request;
 
         //Creates a new vanilla response this will be shared by the dispatcher
-        $response = $this->shareInstance(new Http\Response('',  200, [], $request), "response");
+        $response = $this->shareInstance(new Http\Response($request, '',  200, []), "response");
         
-
-
 
         $this->dispatcher->dispatch($request, $this->response);
 
